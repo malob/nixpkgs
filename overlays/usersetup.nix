@@ -7,6 +7,7 @@ self: super:
     name = "UserSetup";
     paths = with self.pkgs; [
       bat
+      thefuck
       hie.hies
       kitty
       neovim
