@@ -1,3 +1,0 @@
-[submodule "hie-nix"]
-	path = pkgs/hie-nix
-	url = https://github.com/domenkozar/hie-nix.git
