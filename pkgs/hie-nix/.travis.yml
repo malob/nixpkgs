@@ -1,0 +1,12 @@
+language: nix
+sudo: required
+before_script:
+- sudo mount -o remount,exec,size=4G,mode=755 /run/user || true
+env:
+  global:
+    secure: g87Rb7REKWPTzaA5du8rEAQQA8xvtsNl0yy/xGKCxGd4WjMIlKTSKAdZru36/CRAzl/BSn4JS7PL6sYghFkNhmjThe50dga3K/73Tx8dlw9GjQXHfBN5SwvSea25hm8q8nfdV6GzVoRuAmUsoVGppuTwmmw1+LXMzL/Eozv+wiZfNHOpRgNTpvgdgye6Nq3wPxLFFmQdUKZA/VwX7KCCapzrMH6jJ+c/x8/yPAOrdyFNDgDGm6JBGy5IcsuX/JmaSvYzS4rFE/u00JLZ1EZBF3+MoJO9ysQfQa3I4TQ8FivK603RF2IgLP0sjSC6EqSAjUr/AxGkTpFD7dODibjeNGMtFK2+9GTHCXNwlS04HAmturUEMqigQTyLoYtTTUHtHOXpTjfpNh7+VKbhl2evRakzDPRI9sKfxsC8jv5N2jZlbGdF1oUjHtT8NPddCiaQhcEeuXLhwvEUn8hYhAJgTdQPIzY0rtES4ECDeAASCH0rMQeoRzup0ElJ+iIJjAcjxve3kIY0y6+51LcEpK47swBfppF3qmTtWn+dJSsoV0W9gDOoKmfZkcBGmdY6gDu37jxxoO/rj2eKAHoyPD6T+q5Aq9aUrXJATl2vhRvkB5J4R/EQc58cEGhvJigTQUVoPCN4K+ZF+mifEPJUQiSWUbgVoIDGse8Ag9fgV7KUVwQ=
+script:
+- nix-env -if https://github.com/cachix/cachix/tarball/master --extra-substituters https://cachix.cachix.org --trusted-public-keys 'cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM='
+- cachix use hie-nix
+- cachix push hie-nix --watch-store&
+- nix-build -j2 | cachix push hie-nix
