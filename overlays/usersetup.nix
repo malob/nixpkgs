@@ -1,5 +1,7 @@
 self: super:
 {
+  hie = super.pkgs.callPackage ../pkgs/hie-nix {};
+  myNodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
   usersetup = self.buildEnv {
     name = "UserSetup";
     paths = with self.pkgs; [
@@ -9,9 +11,9 @@ self: super:
       neovim-remote
       tldr
       hie.hies
-      node-packages.bash-language-server
-      node-packages.typescript
-      node-packages.typescript-language-server
+      myNodePackages.bash-language-server
+      myNodePackages.typescript
+      myNodePackages.typescript-language-server
     ];
   };
 }
