@@ -6,19 +6,21 @@ self: super:
   usersetup = self.buildEnv {
     name = "UserSetup";
     paths = with self.pkgs; [
+      # Some basics
       bat
-      thefuck
       hie.hies
       kitty
       neovim
       neovim-remote
+      thefuck
       tldr
-
-      luaPackages.luacheck
-
-      myNodePackages.bash-language-server
       myNodePackages.typescript
+
+      # Neovim dependencies for linters and languages servers
+      luaPackages.luacheck
+      myNodePackages.bash-language-server
       myNodePackages.typescript-language-server
+      vim-vint
     ];
   };
 }

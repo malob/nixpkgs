@@ -1,5 +1,7 @@
 [
   "bash-language-server",
+  "prettier",
+  "prettier-eslint",
   "typescript",
   "typescript-language-server"
 ]

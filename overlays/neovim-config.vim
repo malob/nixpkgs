@@ -26,7 +26,7 @@ set shiftwidth=2
 " Setup color scheme
 " https://github.com/icymind/NeoSolarized
 set termguicolors        " truecolor support
-colorscheme NeoSolarized    " Solazized theme 
+colorscheme NeoSolarized    " Solazized theme
 set background=dark      " use dark version of colorscheme
 
 " Other misc basic vim ui config
@@ -46,11 +46,11 @@ let g:gitgutter_sign_removed = g:gitgutter_sign_added
 " https://github.com/Shougo/denite.nvim
 noremap <silent> <leader><space> :Denite source<CR>
 noremap <silent> <leader>db  :Denite buffer<CR>
-noremap <silent> <leader>dd  :exec 'Denite -input='.&filetype' devdocs'<CR><CR>
 noremap <silent> <leader>dc  :Denite command<CR>
 noremap <silent> <leader>dh  :Denite help<CR>
 noremap <silent> <leader>dff :Denite file<CR>
 noremap <silent> <leader>dfr :Denite file/rec<CR>
+
 
 " ==============
 " AIRLINE CONFIG
@@ -93,12 +93,13 @@ let g:airline_mode_map = {
   \ 'c'  : '',
   \ 'v'  : '',
   \ 'V'  : '',
-  \ '' : '',
+  \ ''   : '',
   \ 's'  : 'S',
   \ 'S'  : 'S',
   \ '' : 'S',
   \ 't'  : '',
   \ }
+
 
 " ====================
 " TAB AND PANES CONFIG
@@ -127,13 +128,13 @@ let g:startify_lists = [
 \ ]
 
 let g:startify_bookmarks = [
-\ {'n': '~/.config/nixpkgs/config.nix'   },
-\ {'f': '~/.config/fish/config.fish'     },
-\ {'k': '~/.config/kitty/kitty.conf'     }
+\ {'n': '~/.config/nixpkgs/overlays/neovim-config.vim'},
+\ {'f': '~/.config/fish/config.fish'  },
+\ {'k': '~/.config/kitty/kitty.conf'  }
 \ ]
 
 let g:startify_commands = [
-\ {'t': ['Open Terminal',  'term']                       },
+\ {'t': ['Open Terminal',  'term']},
 \ ]
 
 " vim-choosewin
@@ -214,12 +215,6 @@ noremap <silent> <leader>cp :pclose<CR>
 " Provides completions, linting, fixers, etc.
 " https://github.com/autozimu/LanguageClient-neovim
 
-" Language server install commands
-" sh: npm i -g bash-language-server
-" haskell: see https://github.com/haskell/haskell-ide-engine
-" java/typescript: npm i -g typescript-language-server
-" lua: luarocks install --server=http://luarocks.org/dev lua-lsp && luarocks install luacheck lcf
-" let g:LanguageClient_loggingFile = expand('~/.config/nvim/LanguageClient.log')
 let g:LanguageClient_serverCommands = {
 \ 'sh': ['/usr/local/bin/bash-language-server', 'start'],
 \ 'haskell': ['hie-wrapper'],
@@ -275,11 +270,12 @@ function! LspMaybeHighlight(is_running) abort
   endif
 endfunction
 
-" augroup lsp_aucommands
-"   au!
-"   au CursorHold * call LanguageClient#isAlive(function('LspMaybeHover'))
-"   au CursorMoved * call LanguageClient#isAlive(function('LspMaybeHighlight'))
-" augroup END
+augroup lsp_aucommands
+  au!
+  au CursorHold * call LanguageClient#isAlive(function('LspMaybeHover'))
+  au CursorMoved * call LanguageClient#isAlive(function('LspMaybeHighlight'))
+augroup END
+
 
 "===========
 " ALE CONFIG
@@ -327,11 +323,13 @@ let g:ale_sign_style_warning = g:ale_sign_style_error
 " Used to display/manage all completions
 " https://github.com/Shougo/deoplete.nvim
 let g:deoplete#enable_at_startup = 1
-" call deoplete#custom#var('around', {
-" \ 'mark_above': '[↑]',
-" \ 'mark_below': '[↓]',
-" \ 'mark_changes': '[*]',
-" \ })
+augroup deoplete
+au VimEnter * call deoplete#custom#var('around', {
+\ 'mark_above': '[↑]',
+\ 'mark_below': '[↓]',
+\ 'mark_changes': '[*]',
+\ })
+augroup END
 
 " Use tab to navigate completion menu
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
