@@ -7,7 +7,8 @@ self: super:
     name = "UserSetup";
     paths = with self.pkgs; [
       # Some basics
-      bat
+      unstable.bat
+      haskellPackages.hoogle
       hie.hies
       kitty
       neovim

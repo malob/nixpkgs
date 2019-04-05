@@ -43,7 +43,7 @@ in {
   neovim = super.neovim.override {
     configure = {
       customRC = builtins.readFile ./neovim-config.vim;
-      packages.myVimPackages = with (import <nixos-unstable> {}).pkgs.vimPlugins // customVimPlugins; {
+      packages.myVimPackages = with self.pkgs.unstable.vimPlugins // customVimPlugins; {
         start = [
           airline
           ale
