@@ -10,7 +10,6 @@ self: super:
       # Some basics
       haskellPackages.hoogle
       hie.hies
-      kitty
       kiwix-tools
       neovim
       neovim-remote
@@ -18,9 +17,10 @@ self: super:
       tldr
       myNodePackages.typescript
 
-      # My wrapped packages
+      # My wrapped and config derivations
       myBat
       myGit
+      myKitty
 
       # Neovim dependencies for linters and languages servers
       luaPackages.luacheck
