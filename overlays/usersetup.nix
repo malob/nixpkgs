@@ -8,10 +8,8 @@ self: super:
     name = "UserSetup";
     paths = with super.pkgs; [
       # Some basics
-      haskellPackages.hoogle
-      hie.hies
+      (aspellWithDicts (dicts: [dicts.en]))
       kiwix-tools
-      neovim
       neovim-remote
       thefuck
       tldr
@@ -21,6 +19,13 @@ self: super:
       myBat
       myGit
       myKitty
+      myNeovim
+
+      # Haskell development tools
+      haskellPackages.brittany
+      haskellPackages.hoogle
+      haskellPackages.weeder
+      hie.hies
 
       # Neovim dependencies for linters and languages servers
       luaPackages.luacheck

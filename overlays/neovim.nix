@@ -40,7 +40,7 @@ let
     };
   };
 in {
-  neovim = super.neovim.override {
+  myNeovim = self.pkgs.unstable.neovim.override {
     configure = {
       customRC = builtins.readFile ./neovim-config.vim;
       packages.myVimPackages = with self.pkgs.unstable.vimPlugins // customVimPlugins; {
