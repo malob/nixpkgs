@@ -9,6 +9,7 @@ self: super:
     paths = with super.pkgs; [
       # Some basics
       (aspellWithDicts (dicts: [dicts.en]))
+      ack
       kiwix-tools
       neovim-remote
       thefuck
@@ -22,15 +23,18 @@ self: super:
       myNeovim
 
       # Haskell development tools
-      haskellPackages.brittany
+      # haskellPackages.brittany
       haskellPackages.hoogle
       haskellPackages.weeder
-      hie.hies
+      hie.hie86
+      hyperfine
+      stack
 
       # Neovim dependencies for linters and languages servers
       luaPackages.luacheck
       myNodePackages.bash-language-server
       myNodePackages.typescript-language-server
+      myNodePackages.yaml-language-server
       vim-vint
     ];
   };

@@ -1,8 +1,8 @@
 " vim: foldmethod=marker
 scriptencoding=utf-8
 
-" {{{ BASIC VIM CONFIG
-" ====================
+" BASIC VIM CONFIG {{{
+" ================
 
 let mapleader = '`'
 let timeouttlen = 2000 " extend timout on leader key
@@ -37,8 +37,8 @@ augroup signNumColumn
 augroup END
 " }}}
 
-" {{{ STATUS LINE CONFIG
-" ======================
+" STATUS LINE CONFIG {{{
+" ==================
 " https://github.com/vim-airline/vim-airline
 
 " General configuration
@@ -95,8 +95,8 @@ let g:airline#extensions#quickfix#quickfix_text = ''
 let g:airline#extensions#quickfix#location_text = ''
 " }}}
 
-" {{{ WELCOME SCREEN CONFIG
-" =========================
+" WELCOME SCREEN CONFIG {{{
+" =====================
 
 " Startify
 " Start screen configuration
@@ -136,8 +136,8 @@ let g:startify_commands = [
 " See keyboard shortcuts in next section
 " }}}
 
-" {{{ WINDOW/SPLITS/TABS/TERMINAL CONFIG
-" ===============================
+" WINDOW/SPLITS/TABS/TERMINAL CONFIG {{{
+" ==================================
 
 " Use ESC to enter normal mode in terminal
 tnoremap <ESC> <C-\><C-n>
@@ -166,71 +166,88 @@ set splitright " open vertical splits to the right instead of the left with is t
 
 " Tab creation/destruction
 " new tab w/ Startify
-noremap  <silent> <leader>tt <ESC>     :tabnew +Startify<CR>
+noremap  <silent> <leader>tt <ESC>:tabnew +Startify<CR>
+inoremap <silent> <leader>tt <ESC>:tabnew +Startify<CR>
 tnoremap <silent> <leader>tt <C-\><C-n>:tabnew +Startify<CR>
 " close tab
-noremap  <silent> <leader>tq <ESC>     :tabclose<CR>
+noremap  <silent> <leader>tq <ESC>:tabclose<CR>
 tnoremap <silent> <leader>tq <C-\><C-n>:tabclose<CR>
 
 " Tab navigation
 " next tab
-noremap  <silent> <leader>tn <ESC>     :tabnext<CR>
+noremap  <silent> <leader>tn <ESC>:tabnext<CR>
+inoremap <silent> <leader>tn <ESC>:tabnext<CR>
 tnoremap <silent> <leader>tn <C-\><C-n>:tabnext<CR>
 " previous tab
-noremap  <silent> <leader>tp <ESC>     :tabprevious<CR>
+noremap  <silent> <leader>tp <ESC>:tabprevious<CR>
+inoremap <silent> <leader>tp <ESC>:tabprevious<CR>
 tnoremap <silent> <leader>tp <C-\><C-n>:tabprevious<CR>
 
 " Split creation/destruction
 " new horizontal split w/ terminal
-noremap  <silent> <leader>-  <ESC>     :new +term<CR>
+noremap  <silent> <leader>-  <ESC>:new +term<CR>
+inoremap <silent> <leader>-  <ESC>:new +term<CR>
 tnoremap <silent> <leader>-  <C-\><C-n>:new +term<CR>
 " new vertical split w/ terminal
-noremap  <silent> <leader>\ <ESC>     :vnew +term<CR>
+noremap  <silent> <leader>\ <ESC>:vnew +term<CR>
+inoremap <silent> <leader>\ <ESC>:vnew +term<CR>
 tnoremap <silent> <leader>\ <C-\><C-n>:vnew +term<CR>
 " new full width horizontal split w/ terminal
-noremap  <silent> <leader>_  <ESC>     :botright new +term<CR>
+noremap  <silent> <leader>_  <ESC>:botright new +term<CR>
+inoremap <silent> <leader>_  <ESC>:botright new +term<CR>
 tnoremap <silent> <leader>_  <C-\><C-n>:botright new +term<CR>
 " new full height vertical split w/ terminal
-noremap  <silent> <leader>\| <ESC>     :botright vnew +term<CR>
+noremap  <silent> <leader>\| <ESC>:botright vnew +term<CR>
+inoremap <silent> <leader>\| <ESC>:botright vnew +term<CR>
 tnoremap <silent> <leader>\| <C-\><C-n>:botright vnew +term<CR>
 " close split/window
-noremap  <silent> <leader>qq <ESC>     :q<CR>
+noremap  <silent> <leader>qq <ESC>:q<CR>
+inoremap <silent> <leader>qq <ESC>:q<CR>
 tnoremap <silent> <leader>qq <C-\><C-n>:q<CR>
 " close vim
-noremap  <silent> <leader>qa <ESC>     :qa<CR>
+noremap  <silent> <leader>qa <ESC>:qa<CR>
+inoremap <silent> <leader>qa <ESC>:qa<CR>
 tnoremap <silent> <leader>qa <C-\><C-n>:qa<CR>
 
 " Split navigation
 " move left
-noremap  <silent> <leader>h <ESC>          :wincmd h<CR>
+noremap  <silent> <leader>h <ESC>:wincmd h<CR>
+inoremap <silent> <leader>h <ESC>:wincmd h<CR>
 tnoremap <silent> <leader>h <C-\><C-n><C-w>h
 " move right
-noremap  <silent> <leader>l <ESC>          :wincmd l<CR>
+noremap  <leader>l <ESC>:wincmd l<CR>
+inoremap <silent> <leader>l <ESC>:wincmd l<CR>
 tnoremap <silent> <leader>l <C-\><C-n><C-w>l
 " move up
-noremap  <silent> <leader>k <ESC>          :wincmd k<CR>
+noremap  <silent> <leader>k <ESC>:wincmd k<CR>
+inoremap <silent> <leader>k <ESC>:wincmd k<CR>
 tnoremap <silent> <leader>k <C-\><C-n><C-w>k
 " move down
-noremap  <silent> <leader>j <ESC>          :wincmd j<CR>
+noremap  <silent> <leader>j <ESC>:wincmd j<CR>
+inoremap <silent> <leader>j <ESC>:wincmd j<CR>
 tnoremap <silent> <leader>j <C-\><C-n><C-w>j
 
 " Close/open various special splits
 " close help
-noremap  <silent> <leader>qh <ESC>     :helpclose<CR>
+noremap  <silent> <leader>qh <ESC>:helpclose<CR>
+inoremap <silent> <leader>qh <ESC>:helpclose<CR>
 tnoremap <silent> <leader>qh <C-\><C-n>:helpclose<CR>
 " close preview
-noremap  <silent> <leader>qp <ESC>     :pclose<CR>
+noremap  <silent> <leader>qp <ESC>:pclose<CR>
+inoremap <silent> <leader>qp <ESC>:pclose<CR>
 tnoremap <silent> <leader>qp <C-\><C-n>:pclose<CR>
 " open quickfix list
-noremap  <silent> <leader>oc <ESC>     :copen<CR>
+noremap  <silent> <leader>oc <ESC>:copen<CR>
+inoremap <silent> <leader>oc <ESC>:copen<CR>
 tnoremap <silent> <leader>oc <C-\><C-n>:copen<CR>
 " close quickfix list
-noremap  <silent> <leader>qc <ESC>     :cclose<CR>
+noremap  <silent> <leader>qc <ESC>:cclose<CR>
+inoremap <silent> <leader>qc <ESC>:cclose<CR>
 tnoremap <silent> <leader>qc <C-\><C-n>:cclose<CR>
 " }}}
 
-" {{{ LANGUAGE SERVER CONFIG
-" ====================
+" LANGUAGE SERVER CONFIG {{{
+" ======================
 " LanguageClient-neovim
 " Provides completions, linting, fixers, etc.
 " https://github.com/autozimu/LanguageClient-neovim
@@ -240,7 +257,7 @@ let g:LanguageClient_settingsPath = '.vim/settings.json'
 " Point language client as some language servers
 let g:LanguageClient_serverCommands = {
 \ 'sh':         ['bin/bash-language-server', 'start'],
-\ 'haskell':    ['hie-wrapper'],
+\ 'haskell':    ['hie'],
 \ 'javascript': ['typescript-language-server', '--stdio'],
 \ 'lua':        ['lua-lsp'],
 \ 'typescript': ['typescript-language-server', '--stdio'],
@@ -319,7 +336,7 @@ nnoremap <leader>en :cnext<CR>
 nnoremap <leader>ep :cprev<CR>
 " }}}
 
-" {{{ LINTER/FIXER CONFIG
+" LINTER/FIXER CONFIG {{{
 " =======================
 " Asyncronous Linting Engine (ALE)
 " Used for linting when no good language server is available
@@ -351,7 +368,7 @@ let g:ale_sign_style_error = ''
 let g:ale_sign_style_warning = g:ale_sign_style_error
 " }}}
 
-" {{{ COMPLETION CONFIG
+" COMPLETION CONFIG {{{
 " =====================
 " Deoplete autocompletion engine
 " Used to display/manage all completions including those from language servers
@@ -378,7 +395,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " https://github.com/ponko2/deoplete-fish
 " }}}
 
-" {{{ WRITING AND MARKDOWN CONFIG
+" WRITING AND MARKDOWN CONFIG {{{
 " ===============================
 
 " vim-markdown
@@ -408,13 +425,13 @@ augroup END
 " https://github.com/junegunn/goyo.vim
 " }}}
 
-" {{{ MISC PLUGIN CONFIG
+" MISC PLUGIN CONFIG {{{
 " ======================
 
 " denite.vim
 " Powerful list searcher
 " https://github.com/Shougo/denite.nvim
-noremap <silent> <leader><space> :Denite source<CR>
+noremap <silent> <leader><space>:Denite source<CR>
 noremap <silent> <leader>db      :Denite buffer<CR>
 noremap <silent> <leader>dc      :Denite command<CR>
 noremap <silent> <leader>dh      :Denite help<CR>

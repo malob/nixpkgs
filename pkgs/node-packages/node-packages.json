@@ -3,5 +3,6 @@
   "prettier",
   "prettier-eslint",
   "typescript",
-  "typescript-language-server"
+  "typescript-language-server",
+  "yaml-language-server"
 ]
