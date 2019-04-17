@@ -1,6 +1,6 @@
 self: super:
 let
-  # Get sha256 by running nix-prefect-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
+  # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
   customVimPlugins = with super.vimUtils; {
     deoplete-fish = buildVimPluginFrom2Nix {
       name = "deoplete-fish";
