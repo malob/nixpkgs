@@ -1,4 +1,4 @@
 self: super:
 {
-  pkgs = super.pkgs // { unstable = (import <nixos-unstable> {}); };
+  pkgs = super.pkgs // { unstable = (import ~/.nix-defexpr/channels/unstable {}); };
 }

@@ -1,20 +1,32 @@
 self: super:
 {
   hie = super.pkgs.callPackage ../pkgs/hie-nix {};
-  kiwix-tools = super.pkgs.callPackage ../pkgs/kiwix-tools {};
+  myGems = super.pkgs.callPackage ../pkgs/ruby-gems {};
   myNodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
 
-  usersetup = self.buildEnv {
-    name = "UserSetup";
-    paths = with super.pkgs; [
+  myCommonEnv = self.buildEnv {
+    name = "CommonEnv";
+    paths = with self.pkgs; [
       # Some basics
-      (aspellWithDicts (dicts: [dicts.en]))
-      ack
-      kiwix-tools
+      bundix
+      curl
+      gitAndTools.hub
+      google-cloud-sdk
+      htop
+      lua
+      mosh
+      myGems.vimgolf
+      myNodePackages.typescript
       neovim-remote
+      nodejs
+      npm2nix
+      ripgrep
+      s3cmd
       thefuck
       tldr
-      myNodePackages.typescript
+      unrar
+      wget
+      xz
 
       # My wrapped and config derivations
       myBat
