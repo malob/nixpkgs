@@ -19,7 +19,8 @@ self: super:
       myNodePackages.typescript
       neovim-remote
       nodejs
-      npm2nix
+      nodePackages.node2nix
+      parallel
       ripgrep
       s3cmd
       thefuck
