@@ -65,7 +65,7 @@ endif
 
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.notexists = ' '
+let g:airline_symbols.notexists = ''
 let g:airline_mode_map = {
 \ '__' : '-',
 \ 'c'  : '',
@@ -431,7 +431,7 @@ augroup END
 " denite.vim
 " Powerful list searcher
 " https://github.com/Shougo/denite.nvim
-noremap <silent> <leader><space>:Denite source<CR>
+noremap <silent> <leader><space> :Denite source<CR>
 noremap <silent> <leader>db      :Denite buffer<CR>
 noremap <silent> <leader>dc      :Denite command<CR>
 noremap <silent> <leader>dh      :Denite help<CR>
