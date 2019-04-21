@@ -9,6 +9,7 @@ self: super:
     paths = with self.pkgs; [
       # Some basics
       bundix
+      coreutils
       curl
       gitAndTools.hub
       google-cloud-sdk
