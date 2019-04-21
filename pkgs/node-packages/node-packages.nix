@@ -40,13 +40,13 @@ let
         sha512 = "jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==";
       };
     };
-    "acorn-globals-4.3.0" = {
+    "acorn-globals-4.3.1" = {
       name = "acorn-globals";
       packageName = "acorn-globals";
-      version = "4.3.0";
+      version = "4.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn-globals/-/acorn-globals-4.3.0.tgz";
-        sha512 = "hMtHj3s5RnuhvHPowpBYvJVj3rAar82JiDQHvGs1zO0l10ocX/xEdBShNHTJaboucJUsScghp74pH3s7EnHHQw==";
+        url = "https://registry.npmjs.org/acorn-globals/-/acorn-globals-4.3.1.tgz";
+        sha512 = "gJSiKY8dBIjV/0jagZIFBdVMtfQyA5QHCvAT48H2q8REQoW8Fs5AOjqBql1LgSXgrMWdevcE+8cdZ33NtVbIBA==";
       };
     };
     "acorn-jsx-3.0.1" = {
@@ -1471,22 +1471,22 @@ let
         sha512 = "sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==";
       };
     };
-    "mime-db-1.38.0" = {
+    "mime-db-1.40.0" = {
       name = "mime-db";
       packageName = "mime-db";
-      version = "1.38.0";
+      version = "1.40.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mime-db/-/mime-db-1.38.0.tgz";
-        sha512 = "bqVioMFFzc2awcdJZIzR3HjZFX20QhilVS7hytkKrv7xFAn8bM1gzc/FOX2awLISvWe0PV8ptFKcon+wZ5qYkg==";
+        url = "https://registry.npmjs.org/mime-db/-/mime-db-1.40.0.tgz";
+        sha512 = "jYdeOMPy9vnxEqFRRo6ZvTZ8d9oPb+k18PKoYNYUe2stVEBPPwsln/qWzdbmaIvnhZ9v2P+CuecK+fpUfsV2mA==";
       };
     };
-    "mime-types-2.1.22" = {
+    "mime-types-2.1.24" = {
       name = "mime-types";
       packageName = "mime-types";
-      version = "2.1.22";
+      version = "2.1.24";
       src = fetchurl {
-        url = "https://registry.npmjs.org/mime-types/-/mime-types-2.1.22.tgz";
-        sha512 = "aGl6TZGnhm/li6F7yx82bJiBZwgiEa4Hf6CNr8YO+r5UHr53tSTYZb102zyU50DOWWKeOv0uQLRL0/9EiKWCog==";
+        url = "https://registry.npmjs.org/mime-types/-/mime-types-2.1.24.tgz";
+        sha512 = "WaFHS3MCl5fapm3oLxU4eYDw77IQM2ACcxQ9RIxfaC3ooc6PFuBMGZZsYpvoXS5D5QTWPieo1jjLdAm3TBP3cQ==";
       };
     };
     "mimic-fn-1.2.0" = {
@@ -1786,13 +1786,13 @@ let
         sha1 = "21932a549f5e52ffd9a827f570e04be62a97da54";
       };
     };
-    "prettier-1.16.4" = {
+    "prettier-1.17.0" = {
       name = "prettier";
       packageName = "prettier";
-      version = "1.16.4";
+      version = "1.17.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/prettier/-/prettier-1.16.4.tgz";
-        sha512 = "ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==";
+        url = "https://registry.npmjs.org/prettier/-/prettier-1.17.0.tgz";
+        sha512 = "sXe5lSt2WQlCbydGETgfm1YBShgOX4HxQkFPvbxkcwgDvGDeqVau8h+12+lmSVlP3rHPz0oavfddSZg/q+Szjw==";
       };
     };
     "pretty-format-23.6.0" = {
@@ -2362,13 +2362,13 @@ let
         sha512 = "75AiPbMEstv+YK8h4FkAHnmAJ6nNIUj/NFzRvKCHovmwSEKMi8Wc/E/crB4lJnHBOfV/f/DMQjN+e1Y36kagug==";
       };
     };
-    "tree-sitter-bash-0.13.7" = {
+    "tree-sitter-bash-0.13.8" = {
       name = "tree-sitter-bash";
       packageName = "tree-sitter-bash";
-      version = "0.13.7";
+      version = "0.13.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/tree-sitter-bash/-/tree-sitter-bash-0.13.7.tgz";
-        sha512 = "lk9PAhiVGtmQaImz7qV8bgmXDqMLaPZcYuDCoosNS7VrNO2b3hg89tdgBr/XwOdseIKSMxDNWZ3fo/fToAAXIA==";
+        url = "https://registry.npmjs.org/tree-sitter-bash/-/tree-sitter-bash-0.13.8.tgz";
+        sha512 = "c/rkTeneHwf5MK/ZGlf0FYDdyRnuiJtPcPsdbHmyLBR8igBspGmV42YCBhrEPoJYSj7BZVPf6bSC4TP6GbPIhw==";
       };
     };
     "tunnel-agent-0.6.0" = {
@@ -2745,7 +2745,7 @@ in
     dependencies = [
       sources."abab-2.0.0"
       sources."acorn-5.7.3"
-      (sources."acorn-globals-4.3.0" // {
+      (sources."acorn-globals-4.3.1" // {
         dependencies = [
           sources."acorn-6.1.1"
         ];
@@ -2835,8 +2835,8 @@ in
       sources."levn-0.3.0"
       sources."lodash-4.17.11"
       sources."lodash.sortby-4.7.0"
-      sources."mime-db-1.38.0"
-      sources."mime-types-2.1.22"
+      sources."mime-db-1.40.0"
+      sources."mime-types-2.1.24"
       sources."mimic-response-1.0.1"
       sources."minimatch-3.0.4"
       sources."minimist-1.2.0"
@@ -2903,7 +2903,7 @@ in
       })
       sources."tr46-1.0.1"
       sources."tree-sitter-0.13.23"
-      sources."tree-sitter-bash-0.13.7"
+      sources."tree-sitter-bash-0.13.8"
       sources."tunnel-agent-0.6.0"
       sources."turndown-4.0.2"
       sources."tweetnacl-0.14.5"
@@ -2943,10 +2943,10 @@ in
   prettier = nodeEnv.buildNodePackage {
     name = "prettier";
     packageName = "prettier";
-    version = "1.16.4";
+    version = "1.17.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/prettier/-/prettier-1.16.4.tgz";
-      sha512 = "ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==";
+      url = "https://registry.npmjs.org/prettier/-/prettier-1.17.0.tgz";
+      sha512 = "sXe5lSt2WQlCbydGETgfm1YBShgOX4HxQkFPvbxkcwgDvGDeqVau8h+12+lmSVlP3rHPz0oavfddSZg/q+Szjw==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -3081,7 +3081,7 @@ in
       sources."path-is-inside-1.0.2"
       sources."pluralize-7.0.0"
       sources."prelude-ls-1.1.2"
-      sources."prettier-1.16.4"
+      sources."prettier-1.17.0"
       (sources."pretty-format-23.6.0" // {
         dependencies = [
           sources."ansi-regex-3.0.0"
@@ -3151,10 +3151,10 @@ in
   typescript = nodeEnv.buildNodePackage {
     name = "typescript";
     packageName = "typescript";
-    version = "3.4.3";
+    version = "3.4.4";
     src = fetchurl {
-      url = "https://registry.npmjs.org/typescript/-/typescript-3.4.3.tgz";
-      sha512 = "FFgHdPt4T/duxx6Ndf7hwgMZZjZpB+U0nMNGVCYPq0rEzWKjEDobm4J6yb3CS7naZ0yURFqdw9Gwc7UOh/P9oQ==";
+      url = "https://registry.npmjs.org/typescript/-/typescript-3.4.4.tgz";
+      sha512 = "xt5RsIRCEaf6+j9AyOBgvVuAec0i92rgCaS3S+UVf5Z/vF2Hvtsw08wtUTJqp4djwznoAgjSxeCcU4r+CcDBJA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -3219,7 +3219,7 @@ in
       sources."js-yaml-3.13.1"
       sources."jsonc-parser-1.0.3"
       sources."ms-2.0.0"
-      sources."prettier-1.16.4"
+      sources."prettier-1.17.0"
       (sources."request-light-0.2.4" // {
         dependencies = [
           sources."vscode-nls-4.1.0"
