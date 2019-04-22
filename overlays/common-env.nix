@@ -17,6 +17,7 @@ self: super:
       lua
       mosh
       myGems.vimgolf
+      myNodePackages.speed-test
       myNodePackages.typescript
       neovim-remote
       nodejs

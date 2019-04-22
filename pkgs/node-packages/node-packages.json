@@ -2,6 +2,7 @@
   "bash-language-server",
   "prettier",
   "prettier-eslint",
+  "speed-test",
   "typescript",
   "typescript-language-server",
   "yaml-language-server"

@@ -2,7 +2,7 @@ self: super:
 {
   myKitty = super.pkgs.symlinkJoin {
     name = "myKitty";
-    paths = [ super.pkgs.kitty ];
+    paths = [ self.pkgs.unstable.kitty ];
     buildInputs = [ super.pkgs.makeWrapper ];
     postBuild = ''
       ${if super.stdenv.isDarwin then ''

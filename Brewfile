@@ -55,7 +55,6 @@ mas "Patterns",             id: 429449079
 mas "Pixelmator",           id: 407963104
 mas "Pixelmator Pro",       id: 1289583905
 mas "Slack",                id: 803453959
-mas "Speedtest",            id: 1153157709
 mas "Ulysses",              id: 1225570693
 mas "WiFi Explorer",        id: 494803304
 mas "Xcode",                id: 497799835
