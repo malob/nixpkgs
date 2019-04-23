@@ -23,18 +23,21 @@ set shiftwidth=2 " Width of autoindets
 " https://github.com/icymind/NeoSolarized
 set termguicolors        " truecolor support
 colorscheme NeoSolarized " version of solarized that works better with truecolors
+let g:neosolarized_italic = 1
 
 " Misc basic vim ui config
-set cursorline      " highlight current line
-set linebreak       " soft wraps on words not individual chars
-set noshowmode      " don't show --INSERT-- etc.
-set colorcolumn=100 " show column boarder
+set cursorline            " highlight current line
+set linebreak             " soft wraps on words not individual chars
+set noshowmode            " don't show --INSERT-- etc.
+set colorcolumn=100       " show column boarder
+set number relativenumber " relative line numbers
+set signcolumn=yes
 
 " Enable signcolumn and line numbers in all buffers except terminal
-augroup signNumColumn
-  au TermOpen * if &buftype == 'terminal' | :set nonumber | :set signcolumn=no  | endif
-  au BufEnter * if &buftype != 'terminal' | :set number   | :set signcolumn=yes | endif
-augroup END
+" augroup signNumColumn
+"   au TermOpen * if &buftype == 'terminal' | :set nonumber | :set signcolumn=no  | endif
+"   au BufEnter * if &buftype != 'terminal' | :set number   | :set signcolumn=yes | endif
+" augroup END
 " }}}
 
 " STATUS LINE CONFIG {{{
@@ -124,7 +127,7 @@ let g:startify_bookmarks = [
 let g:startify_commands = [
 \ {'t': ['Open Terminal',  'term']},
 \ {'r': ['Rebuild Nix User',
-  \ 'let nixRubuildOutput=system("nix-rebuild-user") |
+  \ 'let nixRubuildOutput=system("nixuser-rebuild") |
   \ let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc") |
   \ execute "source" newVimConfig |
   \ redraw |

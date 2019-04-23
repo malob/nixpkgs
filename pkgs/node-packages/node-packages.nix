@@ -4222,10 +4222,10 @@ in
   typescript = nodeEnv.buildNodePackage {
     name = "typescript";
     packageName = "typescript";
-    version = "3.4.4";
+    version = "3.4.5";
     src = fetchurl {
-      url = "https://registry.npmjs.org/typescript/-/typescript-3.4.4.tgz";
-      sha512 = "xt5RsIRCEaf6+j9AyOBgvVuAec0i92rgCaS3S+UVf5Z/vF2Hvtsw08wtUTJqp4djwznoAgjSxeCcU4r+CcDBJA==";
+      url = "https://registry.npmjs.org/typescript/-/typescript-3.4.5.tgz";
+      sha512 = "YycBxUb49UUhdNMU5aJ7z5Ej2XGmaIBL0x34vZ82fn3hGvD+bgrMrVDpatgz2f7YxUMJxMkbWxJZeAvDxVe7Vw==";
     };
     buildInputs = globalBuildInputs;
     meta = {
