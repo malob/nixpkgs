@@ -3,6 +3,7 @@ self: super:
   hie = super.pkgs.callPackage ../pkgs/hie-nix {};
   myGems = super.pkgs.callPackage ../pkgs/ruby-gems {};
   myNodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
+  myPythonPackages = import ../pkgs/python-packages/requirements.nix {};
 
   myCommonEnv = self.buildEnv {
     name = "CommonEnv";
@@ -10,6 +11,7 @@ self: super:
       # Some basics
       bundix
       coreutils
+      unstable.ccls
       curl
       gitAndTools.hub
       google-cloud-sdk
@@ -23,6 +25,7 @@ self: super:
       nodejs
       nodePackages.node2nix
       parallel
+      pypi2nix
       ripgrep
       s3cmd
       thefuck

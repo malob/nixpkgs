@@ -259,6 +259,8 @@ let g:LanguageClient_settingsPath = '.vim/settings.json'
 
 " Point language client as some language servers
 let g:LanguageClient_serverCommands = {
+\ 'c':          ['ccls'],
+\ 'cpp':        ['ccls'],
 \ 'sh':         ['bin/bash-language-server', 'start'],
 \ 'haskell':    ['hie'],
 \ 'javascript': ['typescript-language-server', '--stdio'],
@@ -347,6 +349,7 @@ nnoremap <leader>ep :cprev<CR>
 
 " Disable linters for languges that have defined language servers above
 let g:ale_linters = {
+\ 'c': [],
 \ 'sh': [],
 \ 'haskell': [],
 \ 'javascript': [],
