@@ -1714,24 +1714,6 @@ let
         sha1 = "1296a2d58fd45f19a0f6ce01d65701e2c735b6eb";
       };
     };
-    "jsonc-parser-1.0.3" = {
-      name = "jsonc-parser";
-      packageName = "jsonc-parser";
-      version = "1.0.3";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-1.0.3.tgz";
-        sha512 = "hk/69oAeaIzchq/v3lS50PXuzn5O2ynldopMC+SWBql7J2WtdptfB9dy8Y7+Og5rPkTCpn83zTiO8FMcqlXJ/g==";
-      };
-    };
-    "jsonc-parser-2.1.0" = {
-      name = "jsonc-parser";
-      packageName = "jsonc-parser";
-      version = "2.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-2.1.0.tgz";
-        sha512 = "n9GrT8rrr2fhvBbANa1g+xFmgGK5X91KFeDwlKQ3+SJfmH5+tKv/M/kahx/TXOMflfWHKGKqKyfHQaLKTNzJ6w==";
-      };
-    };
     "jsonfile-4.0.0" = {
       name = "jsonfile";
       packageName = "jsonfile";
@@ -2587,15 +2569,6 @@ let
         sha512 = "NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==";
       };
     };
-    "request-light-0.2.4" = {
-      name = "request-light";
-      packageName = "request-light";
-      version = "0.2.4";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/request-light/-/request-light-0.2.4.tgz";
-        sha512 = "pM9Fq5jRnSb+82V7M97rp8FE9/YNeP2L9eckB4Szd7lyeclSIx02aIpPO/6e4m6Dy31+FBN/zkFMTd2HkNO3ow==";
-      };
-    };
     "request-promise-core-1.1.2" = {
       name = "request-promise-core";
       packageName = "request-promise-core";
@@ -3325,15 +3298,6 @@ let
         sha1 = "3a105ca17053af55d6e270c1f8288682e18da400";
       };
     };
-    "vscode-json-languageservice-3.0.12" = {
-      name = "vscode-json-languageservice";
-      packageName = "vscode-json-languageservice";
-      version = "3.0.12";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-json-languageservice/-/vscode-json-languageservice-3.0.12.tgz";
-        sha512 = "XSgRVY/vsPqOa//ZwLD5DWx1wzTQGgeZfsOlVqFlLya10dpimSnd27kbuL45hzxh4B+MvmHZtZeWQKjSYnNF0A==";
-      };
-    };
     "vscode-jsonrpc-4.0.0" = {
       name = "vscode-jsonrpc";
       packageName = "vscode-jsonrpc";
@@ -3368,24 +3332,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/vscode-languageserver-types/-/vscode-languageserver-types-3.14.0.tgz";
         sha512 = "lTmS6AlAlMHOvPQemVwo3CezxBp0sNB95KNPkqp3Nxd5VFEnuG1ByM0zlRWos0zjO3ZWtkvhal0COgiV1xIA4A==";
-      };
-    };
-    "vscode-nls-3.2.5" = {
-      name = "vscode-nls";
-      packageName = "vscode-nls";
-      version = "3.2.5";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-nls/-/vscode-nls-3.2.5.tgz";
-        sha512 = "ITtoh3V4AkWXMmp3TB97vsMaHRgHhsSFPsUdzlueSL+dRZbSNTZeOmdQv60kjCV306ghPxhDeoNUEm3+EZMuyw==";
-      };
-    };
-    "vscode-nls-4.1.0" = {
-      name = "vscode-nls";
-      packageName = "vscode-nls";
-      version = "4.1.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-nls/-/vscode-nls-4.1.0.tgz";
-        sha512 = "zKsFWVzL1wlCezgaI3XiN42IT8DIPM1Qr+G+RBhiU3U0bJCdC8pPELakRCtuVT4wF3gBZjBrUDQ8mowL7hmgwA==";
       };
     };
     "vscode-uri-1.0.6" = {
@@ -3613,15 +3559,6 @@ let
         sha1 = "1c11f9218f076089a47dd512f93c6699a6a81d52";
       };
     };
-    "yaml-ast-parser-custom-tags-0.0.43" = {
-      name = "yaml-ast-parser-custom-tags";
-      packageName = "yaml-ast-parser-custom-tags";
-      version = "0.0.43";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/yaml-ast-parser-custom-tags/-/yaml-ast-parser-custom-tags-0.0.43.tgz";
-        sha512 = "R5063FF/JSAN6qXCmylwjt9PcDH6M0ExEme/nJBzLspc6FJDmHHIqM7xh2WfEmsTJqClF79A9VkXjkAqmZw9SQ==";
-      };
-    };
     "yargs-parser-10.1.0" = {
       name = "yargs-parser";
       packageName = "yargs-parser";
@@ -3835,23 +3772,6 @@ in
     meta = {
       description = "A language server for Bash";
       homepage = "https://github.com/mads-hartmann/bash-language-server#readme";
-      license = "MIT";
-    };
-    production = true;
-    bypassCache = true;
-  };
-  prettier = nodeEnv.buildNodePackage {
-    name = "prettier";
-    packageName = "prettier";
-    version = "1.17.0";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/prettier/-/prettier-1.17.0.tgz";
-      sha512 = "sXe5lSt2WQlCbydGETgfm1YBShgOX4HxQkFPvbxkcwgDvGDeqVau8h+12+lmSVlP3rHPz0oavfddSZg/q+Szjw==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "Prettier is an opinionated code formatter";
-      homepage = https://prettier.io/;
       license = "MIT";
     };
     production = true;
@@ -4219,23 +4139,6 @@ in
     production = true;
     bypassCache = true;
   };
-  typescript = nodeEnv.buildNodePackage {
-    name = "typescript";
-    packageName = "typescript";
-    version = "3.4.5";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/typescript/-/typescript-3.4.5.tgz";
-      sha512 = "YycBxUb49UUhdNMU5aJ7z5Ej2XGmaIBL0x34vZ82fn3hGvD+bgrMrVDpatgz2f7YxUMJxMkbWxJZeAvDxVe7Vw==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "TypeScript is a language for application scale JavaScript development";
-      homepage = https://www.typescriptlang.org/;
-      license = "Apache-2.0";
-    };
-    production = true;
-    bypassCache = true;
-  };
   typescript-language-server = nodeEnv.buildNodePackage {
     name = "typescript-language-server";
     packageName = "typescript-language-server";
@@ -4266,55 +4169,6 @@ in
     meta = {
       description = "Language Server Protocol (LSP) implementation for TypeScript using tsserver";
       license = "Apache-2.0";
-    };
-    production = true;
-    bypassCache = true;
-  };
-  yaml-language-server = nodeEnv.buildNodePackage {
-    name = "yaml-language-server";
-    packageName = "yaml-language-server";
-    version = "0.4.0";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-0.4.0.tgz";
-      sha512 = "56lPsjm/O0a2i2Jeo6P7xLB0WswU/gVFVapt285MBi8ojs3qKb5evFpC4WzteCUnCyvwUydfmGKld3GVRQX1uA==";
-    };
-    dependencies = [
-      sources."agent-base-4.2.1"
-      sources."argparse-1.0.10"
-      sources."debug-3.1.0"
-      sources."es6-promise-4.2.6"
-      sources."es6-promisify-5.0.0"
-      sources."esprima-4.0.1"
-      sources."http-proxy-agent-2.1.0"
-      sources."https-proxy-agent-2.2.1"
-      sources."js-yaml-3.13.1"
-      sources."jsonc-parser-1.0.3"
-      sources."ms-2.0.0"
-      sources."prettier-1.17.0"
-      (sources."request-light-0.2.4" // {
-        dependencies = [
-          sources."vscode-nls-4.1.0"
-        ];
-      })
-      sources."sprintf-js-1.0.3"
-      (sources."vscode-json-languageservice-3.0.12" // {
-        dependencies = [
-          sources."jsonc-parser-2.1.0"
-        ];
-      })
-      sources."vscode-jsonrpc-4.0.0"
-      sources."vscode-languageserver-4.4.2"
-      sources."vscode-languageserver-protocol-3.14.1"
-      sources."vscode-languageserver-types-3.14.0"
-      sources."vscode-nls-3.2.5"
-      sources."vscode-uri-1.0.6"
-      sources."yaml-ast-parser-custom-tags-0.0.43"
-    ];
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "YAML language server";
-      homepage = "https://github.com/redhat-developer/yaml-language-server#readme";
-      license = "MIT";
     };
     production = true;
     bypassCache = true;
