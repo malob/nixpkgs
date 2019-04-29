@@ -1,12 +1,12 @@
 # Overview
 
-This is my `nix` configuration that I use on all my systems. My overall goal/motivation is to make as much of my system configuration as possible declaratively.
+This is my `nix` configuration that I use on all my systems. My overall goal/motivation is to make as much of my system configuration as possible declarative.
 
 Notable features include:
 
   * Overlays to allow for a common environment setup on all machines ([common-env.nix](overlays/common-env.nix)), and OS specific environments [macos-env.nix](overlays/macos-env.nix) and [linux-env.nix](overlays/linux-env.nix) which inherit from the common environment.
   * Overlays that provide pure (located in the `nix` store) configuration for `git`, `kitty`, and `neovim`, so you don't need to manage dotfiles for all of them separately or use something like [`home-manager`](https://github.com/rycee/home-manager).
-  * An overlay that adds the contents of the unstable channel into the `pgks` set, making it easy to declaratively install packages from unstable by pretending the package name with `unstable`, e.g., `unstable.nodePackages.typescript`. (This is really nice for installing `vim` plugins since they are updated much less frequently in the stable channels.)
+  * An overlay that adds the contents of the unstable channel into the `pgks` set, making it easy to declaratively install packages from unstable by prepending the package name with `unstable`, e.g., `unstable.nodePackages.typescript`. (This is really nice for installing `vim` plugins since they are updated much less frequently in the stable channels.)
   * An easy way to install Node, Ruby, and Python packages that aren't available in `nixpgks`. (See instructions below.)
   * A really easy way to declaratively manage GUI apps installed on macOS that aren't available in `nixpkgs` (most aren't) using `brew bundle`, which allows you to also install applications from the Mac App Store. (See macOS setup instructions below for details.)
 
@@ -54,7 +54,7 @@ Finally install [`fish` configuration](https://github.com/malob/config.fish) and
 TODO
 
 ## Updating
-Run `nix-env -riA nixpkgs.[environment]` after editing the `nix` configuration, where `[environment]` should either be `myMacosEnv` or `myLinuxEnv`. (Note that `-r` wipes the whole user profile, so not installed declaratively through this configuration will be removed.)
+Run `nix-env -riA nixpkgs.[environment]` after editing the `nix` configuration, where `[environment]` should either be `myMacosEnv` or `myLinuxEnv`. (Note that `-r` wipes the whole user profile, so anything not installed declaratively through this configuration will be removed.)
 
 As a bonus the `fish` config includes some handy functions for making things easier:
 
