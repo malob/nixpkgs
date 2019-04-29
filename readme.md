@@ -60,7 +60,7 @@ As a bonus the `fish` config includes some handy functions for making things eas
 
   * [nixuser-update-sources.fish](https://github.com/malob/config.fish/blob/master/functions/nixuser-update-sources.fish), updates `nix` channels, as well as regenerates the `nix` expressions for any Node, Ruby, and Python packages setup using the instructions below.
   * [nixuser-simlink-apps.fish](https://github.com/malob/config.fish/blob/master/functions/nixuser-simlink-apps.fish), looks for simlinks in `~/Applications` and deletes any that point to the `nix` store, then it creates new simlinks for everything in `~/.nix-profile/Applications`.
-  * [nixuser-rebuild.fish](https://github.com/malob/config.fish/blob/master/functions/nixuser-rebuild.fish), runs check what OS is running on the host machine and runs the appropriate `nix-env` command to reinstall the environment (if it's run on macOS, it automatically runs `nixuser-simlink-apps` as well). If run will `--all`, it will also run `nixuser-update-sources` prior to updating the environment.
+  * [nixuser-rebuild.fish](https://github.com/malob/config.fish/blob/master/functions/nixuser-rebuild.fish), checks what OS is running on the host machine and runs the appropriate `nix-env` command to reinstall the environment (if it's run on macOS, it automatically runs `nixuser-simlink-apps` as well). If run will `--all`, it will also run `nixuser-update-sources` prior to updating the environment.
 
 ## Installing Node packages
 Node packages are managed with [`node2nix`](https://github.com/svanderburg/node2nix).
