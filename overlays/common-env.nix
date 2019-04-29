@@ -8,21 +8,16 @@ self: super:
     name = "CommonEnv";
     paths = with self.pkgs; [
       # Some basics
-      bundix
       coreutils
-      unstable.ccls
       curl
       gitAndTools.hub
       google-cloud-sdk
       htop
       lua
       mosh
-      myGems.vimgolf
       neovim-remote
       nodejs
-      nodePackages.node2nix
       parallel
-      pypi2nix
       ripgrep
       s3cmd
       myNodePackages.speed-test
@@ -30,8 +25,14 @@ self: super:
       thefuck
       tldr
       unrar
+      myGems.vimgolf
       wget
       xz
+
+      # Useful nix related tools
+      bundix
+      nodePackages.node2nix
+      pypi2nix
 
       # My wrapped and config derivations
       myBat
@@ -40,7 +41,6 @@ self: super:
       myNeovim
 
       # Haskell development tools
-      # haskellPackages.brittany
       haskellPackages.hoogle
       haskellPackages.weeder
       hie.hie86
@@ -48,6 +48,7 @@ self: super:
       stack
 
       # Neovim dependencies for linters and languages servers
+      unstable.ccls
       luaPackages.luacheck
       myNodePackages.bash-language-server
       myNodePackages.typescript-language-server
