@@ -14,7 +14,12 @@ Notable features include:
 
 ## Setup
 
-### masOS
+### macOS
+
+Clone this repository into `~/.config/`:
+```bash
+git clone git@github.com:malob/nixpkgs.git ~/.config/nixpkgs
+```
 
 Install the `nix` package manager in multi-user mode:
 ```bash
