@@ -2,22 +2,44 @@ self: super:
 let
   gitConfig = super.lib.generators.toINI {} {
     user = {
-      name = "Malo Bourgon";
+      name  = "Malo Bourgon";
       email = "mbourgon@gmail.com";
     };
     pull.rebase = "true";
     alias = {
-      s = "status";
-      aa = "add --all";
-      co = "checkout";
+      # basic commands
+      s   = "status";
+      pu  = "push";
+      puf = "push --force";
+      pl  = "pull";
+      d   = "diff";
+      a   = "add";
+      aa  = "add --all";
+      # checkout commands
+      co  = "checkout";
       cob = "checkout -b";
-      c = "commit -m";
-      ca = "commit -a";
-      cam = "commit -a -m";
+      com = "checkout master";
+      # commit commands
+      c     = "commit -m";
+      ca    = "commit -a";
+      cam   = "commit -a -m";
       amend = "commit --amend -m";
-      pu = "push";
-      pl = "pull";
-      d = "diff";
+      # rebase commands
+      rb   = "rebase";
+      rbc  = "rebase --continue";
+      rba  = "rebase --abort";
+      # reset commands
+      r      = "reset HEAD";
+      r1     = "reset HEAD^";
+      r2     = "reset HEAD^^";
+      rhard  = "reset --hard";
+      rhard1 = "reset HEAD^ --hard";
+      rhard2 = "reset HEAD^^ --hard";
+      # stash commands
+      spu  = "stash push";
+      spua = "stash push --all";
+      spo  = "stack pop";
+      # other commands
       lg = "log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %s %C(dim)- %an%C(reset)%C(yellow)%d%C(reset)' --all";
     };
   };
