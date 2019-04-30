@@ -1,3 +1,7 @@
-pkgs/node-packages/hash
+pkgs/node-packages/*.nix
 pkgs/ruby-gems/vendor
 pkgs/ruby-gems/.bundle
+pkgs/ruby-gems/Gemfile.lock
+pkgs/ruby-gems/gemset.nix
+pkgs/python-packages/*.nix
+pkgs/python-packages/requirements_frozen.txt
