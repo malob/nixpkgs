@@ -26,11 +26,11 @@ colorscheme NeoSolarized " version of solarized that works better with truecolor
 let g:neosolarized_italic = 1
 
 " Misc basic vim ui config
-set cursorline            " highlight current line
-set linebreak             " soft wraps on words not individual chars
-set noshowmode            " don't show --INSERT-- etc.
-set colorcolumn=100       " show column boarder
-set number relativenumber " relative line numbers
+set cursorline      " highlight current line
+set linebreak       " soft wraps on words not individual chars
+set noshowmode      " don't show --INSERT-- etc.
+set colorcolumn=100 " show column boarder
+set relativenumber  " relative line numbers
 set signcolumn=yes
 
 " Enable signcolumn and line numbers in all buffers except terminal
