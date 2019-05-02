@@ -12,7 +12,9 @@ self: super:
       curl
       gitAndTools.hub
       google-cloud-sdk
+      gotop
       htop
+      loc
       lua
       mosh
       neovim-remote
