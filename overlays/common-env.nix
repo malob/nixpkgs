@@ -25,12 +25,12 @@ self: super:
       thefuck
       tldr
       unrar
-      myGems.vimgolf
       wget
       xz
 
       # Useful nix related tools
       bundix
+      nixops
       nodePackages.node2nix
       pypi2nix
 

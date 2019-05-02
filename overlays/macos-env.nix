@@ -7,6 +7,7 @@ self: super:
 
       m-cli
       terminal-notifier
+      myGems.vimgolf
     ];
   };
 }
