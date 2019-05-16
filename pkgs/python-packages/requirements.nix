@@ -76,8 +76,8 @@ let
   generated = self: {
 
     "scan-build" = python.mkDerivation {
-      name = "scan-build-2.0.15";
-      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/f2/e6/954478d7b50628b6c07317db75a189e3147b7f72984c0dc4498a7c8f02ab/scan-build-2.0.15.tar.gz"; sha256 = "d4755284acfe8c9d6c885aed5a24ff7547392bbcaa525a707371636cb456437c"; };
+      name = "scan-build-2.0.16";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/7d/54/fc56937c51c1db0e09465d2068b1fa01e63bf9513a828d7ccab02686718f/scan-build-2.0.16.tar.gz"; sha256 = "f3dd20031493dd2421219f093daa16c4e4130aee4477254409fb7b73467e8105"; };
       doCheck = commonDoCheck;
       buildInputs = commonBuildInputs;
       propagatedBuildInputs = [

@@ -32,6 +32,7 @@ self: super:
 
       # Useful nix related tools
       bundix
+      cachix
       nixops
       nodePackages.node2nix
       pypi2nix
@@ -45,7 +46,7 @@ self: super:
       # Haskell development tools
       haskellPackages.hoogle
       haskellPackages.weeder
-      hie.hie86
+      all-hies.latest
       hyperfine
       stack
 
