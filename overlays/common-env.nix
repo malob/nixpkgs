@@ -44,6 +44,8 @@ self: super:
       myNeovim
 
       # Haskell development tools
+      cabal-install
+      haskellPackages.ghcid
       haskellPackages.hoogle
       haskellPackages.weeder
       all-hies.latest
