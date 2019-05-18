@@ -5,9 +5,21 @@ let
   kittyConfig = with super.lib.generators; with colors;
     toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; } {
       # Fonts
-      font_family = "FuraCode Nerd Font Mono Retina";
-      bold_font   = "FuraCode Nerd Font Mono Bold";
-      italic_font = "FuraCode Nerd Font Mono Light";
+      font_family = if super.stdenv.isDarwin then
+                      "FuraCode Nerd Font Mono Retina"
+                    else
+                      "Fura Code Retina Nerd Font Complete Mono";
+
+      bold_font   = if super.stdenv.isDarwin then
+                      "FuraCode Nerd Font Mono Bold"
+                    else
+                      "Fura Code Bold Nerd Font Complete Mono";
+
+      italic_font = if super.stdenv.isDarwin then
+                      "FuraCode Nerd Font Mono Light"
+                    else
+                      "Fura Code Light Nerd Font Complete Mono";
+
       font_size   = "13.0";
 
       # Cursor customization
