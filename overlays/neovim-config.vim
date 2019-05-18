@@ -153,7 +153,7 @@ augroup END
 " vim-choosewin
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
-nmap - <Plug>(choosewin)
+nmap <leader><leader> <Plug>(choosewin)
 let g:choosewin_label = 'TNERIAODH'   " alternating on homerow for colemak (choosewin uses 'S')
 let g:choosewin_tabline_replace = 0   " don't use choosewin tabline since Airline provides numbers
 
@@ -218,7 +218,7 @@ noremap  <silent> <leader>h <ESC>:wincmd h<CR>
 inoremap <silent> <leader>h <ESC>:wincmd h<CR>
 tnoremap <silent> <leader>h <C-\><C-n><C-w>h
 " move right
-noremap  <leader>l <ESC>:wincmd l<CR>
+noremap  <silent> <leader>l <ESC>:wincmd l<CR>
 inoremap <silent> <leader>l <ESC>:wincmd l<CR>
 tnoremap <silent> <leader>l <C-\><C-n><C-w>l
 " move up
@@ -262,7 +262,7 @@ let g:LanguageClient_serverCommands = {
 \ 'c':          ['ccls'],
 \ 'cpp':        ['ccls'],
 \ 'sh':         ['bin/bash-language-server', 'start'],
-\ 'haskell':    ['hie'],
+\ 'haskell':    ['hie-8.6.4'],
 \ 'javascript': ['typescript-language-server', '--stdio'],
 \ 'lua':        ['lua-lsp'],
 \ 'typescript': ['typescript-language-server', '--stdio'],
@@ -270,7 +270,7 @@ let g:LanguageClient_serverCommands = {
 
 " Help some language servers find project roots
 let g:LanguageClient_rootMarkers = {
-\ 'haskell': ['stack.yaml', '*.cabal'],
+\ 'haskell': ['stack.yaml'],
 \ }
 
 " Customize symbols
@@ -319,8 +319,9 @@ endfunction
 
 augroup lsp_aucommands
   au!
-  au CursorHold  * call LanguageClient#isAlive(function('LspMaybeHover'))
-  au CursorMoved * call LanguageClient#isAlive(function('LspMaybeHighlight'))
+  au CursorHold  *
+  "\ call LanguageClient#isAlive(function('LspMaybeHover')) |
+  \ call LanguageClient#isAlive(function('LspMaybeHighlight'))
 augroup END
 
 " Language server related shortcuts
@@ -335,10 +336,10 @@ nnoremap <leader>ll :call LanguageClient#textDocument_documentHighlight()<CR>
 nnoremap <leader>lc :Denite codeAction<CR>
 nnoremap <leader>lm :Denite contextMenu<CR>
 nnoremap <leader>ls :Denite documentSymbol<CR>
-nnoremap <leader>lw :Denite workspaceSymbol<CR>
+nnoremap <leader>lS :Denite workspaceSymbol<CR>
 nnoremap <leader>lx :Denite references<CR>
-nnoremap <leader>en :cnext<CR>
-nnoremap <leader>ep :cprev<CR>
+nnoremap <leader>le :cnext<CR>
+nnoremap <leader>lE :cprev<CR>
 " }}}
 
 " LINTER/FIXER CONFIG {{{
@@ -379,13 +380,16 @@ let g:ale_sign_style_warning = g:ale_sign_style_error
 " Deoplete autocompletion engine
 " Used to display/manage all completions including those from language servers
 " https://github.com/Shougo/deoplete.nvim
-let g:deoplete#enable_at_startup = 1
 augroup deoplete
-  au BufEnter * call deoplete#custom#var('around', {
-  \ 'mark_above': '[↑]',
-  \ 'mark_below': '[↓]',
-  \ 'mark_changes': '[*]',
-  \ })
+  au VimEnter *
+  \ call deoplete#enable() |
+  \ call deoplete#custom#var('around', {
+    \ 'range_above' : 20,
+    \ 'range_below' : 20,
+    \ 'mark_above'  : '[↑]',
+    \ 'mark_below'  : '[↓]',
+    \ 'mark_changes': '[*]',
+    \ })
 augroup END
 
 " Use tab to navigate completion menu
@@ -437,12 +441,48 @@ augroup END
 " denite.vim
 " Powerful list searcher
 " https://github.com/Shougo/denite.nvim
+augroup deinte
+  au VimEnter *
+  \ call denite#custom#option('default', {
+    \ 'prompt' : '->>',
+    \ 'ignore' : '.stack-work',
+    \ 'sorters': 'sorter/sublime',
+    \ }) |
+  \ call denite#custom#var('grep', 'command'       , ['rg']) |
+  \ call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading']) |
+  \ call denite#custom#var('grep', 'recursive_opts', []) |
+  \ call denite#custom#var('grep', 'pattern_opt'   , ['--regexp']) |
+  \ call denite#custom#var('grep', 'separator'     , ['--']) |
+  \ call denite#custom#var('grep', 'final_opts'    , []) |
+  \ call denite#custom#alias ('source'          , 'grep/interactive', 'grep') |
+  \ call denite#custom#source('grep/interactive', 'args'            , ['', '', '!']) |
+  \ call denite#custom#map('insert', '<ESC>', '<denite:enter_mode:normal>') |
+  \ call denite#custom#map('normal', '<ESC>', '<denite:quit>') |
+  \ call denite#custom#map('normal', 's'    , '<denite:do_action:split>') |
+  \ call denite#custom#map('normal', 'v'    , '<denite:do_action:vsplit>') |
+augroup END
+
+function! DeniteGrepCurrentWord() abort
+  let cw = expand('<cword>')
+  call denite#start([{'name': 'grep', 'args': ['', '', cw]}])
+endfunction
+" Ripgrep command on grep source
+
 noremap <silent> <leader><space> :Denite source<CR>
-noremap <silent> <leader>db      :Denite buffer<CR>
-noremap <silent> <leader>dc      :Denite command<CR>
-noremap <silent> <leader>dh      :Denite help<CR>
-noremap <silent> <leader>dff     :Denite file<CR>
-noremap <silent> <leader>dfr     :Denite file/rec<CR>
+noremap <silent> <leader>sb      :Denite buffer<CR>
+noremap <silent> <leader>scc     :Denite command<CR>
+noremap <silent> <leader>dch     :Denite command_history<CR>
+noremap <silent> <leader>sh      :Denite help<CR>
+noremap <silent> <leader>sf      :Denite file<CR>
+noremap <silent> <leader>sr      :Denite file/rec<CR>
+noremap <silent> <leader>sp      :DeniteProjectDir file/rec<CR>
+noremap <silent> <leader>sg      :DeniteProjectDir grep/interactive<CR>
+noremap <silent> <leader>sw      :call DeniteGrepCurrentWord()<CR>
+noremap <silent> <leader>sll     :Denite line<CR>
+noremap <silent> <leader>slw     :DeniteCursorWord line<CR>
+noremap <silent> <leader>ds      :Denite spell<CR>
+
+
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter
