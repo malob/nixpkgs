@@ -1,13 +1,13 @@
 self: super:
 let
   batConfig = ''
-    --theme="Monokai Extended"
+    --theme="ansi-dark"
     --style="plain"
   '';
 in {
   myBat = super.pkgs.symlinkJoin {
     name = "myBat";
-    paths = [ self.pkgs.bat ];
+    paths = [ self.pkgs.unstable.bat ];
     buildInputs = [ super.pkgs.makeWrapper ];
     postBuild = ''
       mkdir -p "$out/.config/bat"

@@ -11,24 +11,27 @@ self: super:
       coreutils
       curl
       gitAndTools.hub
-      google-cloud-sdk
       gotop
       htop
+      hyperfine
       loc
-      lua
       mosh
       neovim-remote
-      nodejs
       parallel
       ripgrep
       s3cmd
-      myNodePackages.speed-test
-      unstable.nodePackages.typescript
+      unstable.nodePackages.speed-test
       thefuck
       tldr
       unrar
       wget
       xz
+
+      # My wrapped and config derivations
+      myBat
+      myGit
+      myKitty
+      myNeovim
 
       # Useful nix related tools
       bundix
@@ -37,26 +40,23 @@ self: super:
       nodePackages.node2nix
       pypi2nix
 
-      # My wrapped and config derivations
-      myBat
-      myGit
-      myKitty
-      myNeovim
-
-      # Haskell development tools
+      # Development tools
       cabal-install
+      google-cloud-sdk
       haskellPackages.ghcid
       haskellPackages.hoogle
       haskellPackages.weeder
-      all-hies.latest
-      hyperfine
+      lua
+      nodejs
       stack
+      unstable.nodePackages.typescript
 
       # Neovim dependencies for linters and languages servers
+      all-hies.latest
       unstable.ccls
       luaPackages.luacheck
-      myNodePackages.bash-language-server
-      myNodePackages.typescript-language-server
+      unstable.nodePackages.bash-language-server
+      unstable.nodePackages.typescript-language-server
       vim-vint
     ];
   };
