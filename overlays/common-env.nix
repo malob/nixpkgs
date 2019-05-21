@@ -10,7 +10,6 @@ self: super:
       # Some basics
       coreutils
       curl
-      gitAndTools.hub
       gotop
       htop
       hyperfine
@@ -42,6 +41,8 @@ self: super:
 
       # Development tools
       cabal-install
+      gitAndTools.diff-so-fancy
+      gitAndTools.hub
       google-cloud-sdk
       haskellPackages.ghcid
       haskellPackages.hoogle

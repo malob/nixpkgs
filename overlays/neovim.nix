@@ -33,6 +33,7 @@ in {
           vim-airline-themes
           vim-choosewin
           vim-fish
+          vim-fugitive
           vim-javascript
           vim-markdown
           vim-nix
