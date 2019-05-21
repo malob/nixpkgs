@@ -10,6 +10,7 @@ self: super:
       # Some basics
       coreutils
       curl
+      fish-foreign-env
       gotop
       htop
       hyperfine

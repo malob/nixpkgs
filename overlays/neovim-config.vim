@@ -439,11 +439,11 @@ augroup deinte
 \ call denite#custom#option
 \   ( 'default'
 \   , { 'prompt'                : '->>'
+\     , 'highlight-mode-insert' : 'CursorLine'
+\     , 'highlight-mode-normal' : 'CursorLine'
 \     , 'ignore'                : '*/.stack-work'
 \     , 'reversed'              : 'true'
 \     , 'sorters'               : 'sorter/sublime'
-\     , 'highlight-mode-insert' : 'CursorLine'
-\     , 'highlight-mode-normal' : 'CursorLine'
 \     , 'vertical-preview'      : 'true'
 \     }
 \   )
@@ -469,21 +469,21 @@ function! DeniteGrepCurrentWord() abort
   call denite#start([{'name': 'grep', 'args': ['', '', cw]}])
 endfunction
 
-noremap <silent> <leader><space> :Denite source<CR>
-noremap <silent> <leader>sb      :Denite buffer<CR>
-noremap <silent> <leader>scc     :Denite command<CR>
-noremap <silent> <leader>sch     :Denite command_history<CR>
-noremap <silent> <leader>sh      :Denite help<CR>
-noremap <silent> <leader>sf      :Denite file<CR>
-noremap <silent> <leader>sr      :Denite file/rec<CR>
-noremap <silent> <leader>sp      :DeniteProjectDir file/rec<CR>
-noremap <silent> <leader>sg      :DeniteProjectDir grep<CR>
-noremap <silent> <leader>si      :DeniteProjectDir grep/interactive<CR>
+noremap <silent> <leader><space> :Denite -auto-resize=true source<CR>
+noremap <silent> <leader>sb      :Denite -auto-resize=true buffer<CR>
+noremap <silent> <leader>scc     :Denite -auto-resize=true command<CR>
+noremap <silent> <leader>sch     :Denite -auto-resize=true command_history<CR>
+noremap <silent> <leader>sh      :Denite -auto-resize=true help<CR>
+noremap <silent> <leader>sf      :Denite -auto-resize=true file<CR>
+noremap <silent> <leader>sr      :Denite -auto-resize=true file/rec<CR>
+noremap <silent> <leader>sp      :DeniteProjectDir -auto-resize=true file/rec<CR>
+noremap <silent> <leader>sg      :DeniteProjectDir -auto-resize=true grep<CR>
+noremap <silent> <leader>si      :DeniteProjectDir -auto-resize=true grep/interactive<CR>
 noremap <silent> <leader>sw      :call DeniteGrepCurrentWord()<CR>
-noremap <silent> <leader>sll     :Denite line<CR>
-noremap <silent> <leader>slw     :DeniteCursorWord line<CR>
-noremap <silent> <leader>ss      :Denite spell<CR>
-noremap <silent> <leader>sr      :Denite -resume<CR>
+noremap <silent> <leader>sll     :Denite -auto-resize=true line<CR>
+noremap <silent> <leader>slw     :DeniteCursorWord -auto-resize=true line<CR>
+noremap <silent> <leader>ss      :Denite -auto-resize=true spell<CR>
+noremap <silent> <leader>sr      :Denite -resume -auto-resize=true<CR>
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter
