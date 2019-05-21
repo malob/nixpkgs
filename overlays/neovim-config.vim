@@ -33,11 +33,6 @@ set colorcolumn=100 " show column boarder
 set relativenumber  " relative line numbers
 set signcolumn=yes
 
-" Enable signcolumn and line numbers in all buffers except terminal
-" augroup signNumColumn
-"   au TermOpen * if &buftype == 'terminal' | :set nonumber | :set signcolumn=no  | endif
-"   au BufEnter * if &buftype != 'terminal' | :set number   | :set signcolumn=yes | endif
-" augroup END
 " }}}
 
 " STATUS LINE CONFIG {{{
@@ -51,13 +46,13 @@ let g:airline#extensions#hunks#non_zero_only = 1             " only git stats wh
 let g:airline_skip_empty_sections = 1                        " don't show sections if they're empty
 
 " Tabline configuration
-let g:airline#extensions#tabline#enabled = 1            " needed since it isn't on by default
-let g:airline#extensions#tabline#show_buffers = 0       " don't show buffers in tabline
-let g:airline#extensions#tabline#show_tabs = 1          " show tabs in tabline
-let g:airline#extensions#tabline#show_splits = 0        " don't number of splits
-let g:airline#extensions#tabline#tab_nr_type = 2        " tabs show [tab num].[num of splits in tab]
-let g:airline#extensions#tabline#show_tab_type = 0      " don't show tab or buffer labels in bar
-let g:airline#extensions#tabline#show_close_button = 0  " don't display close button in top right
+let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
+let g:airline#extensions#tabline#show_buffers      = 0 " don't show buffers in tabline
+let g:airline#extensions#tabline#show_tabs         = 1 " show tabs in tabline
+let g:airline#extensions#tabline#show_splits       = 0 " don't number of splits
+let g:airline#extensions#tabline#tab_nr_type       = 2 " tabs show [tab num].[num of splits in tab]
+let g:airline#extensions#tabline#show_tab_type     = 0 " don't show tab or buffer labels in bar
+let g:airline#extensions#tabline#show_close_button = 0 " don't display close button in top right
 
 " Cutomtomize symbols
 let g:airline_powerline_fonts = 1
@@ -66,36 +61,36 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
+let g:airline_symbols.branch    = ''
+let g:airline_symbols.readonly  = ''
 let g:airline_symbols.notexists = ''
-let g:airline_mode_map = {
-\ '__' : '-',
-\ 'c'  : '',
-\ 'i'  : '',
-\ 'ic' : 'I',
-\ 'ix' : 'I',
-\ 'n'  : '',
-\ 'ni' : 'N',
-\ 'no' : 'N',
-\ 'R'  : 'R',
-\ 'Rv' : 'R',
-\ 's'  : 'S',
-\ 'S'  : 'S',
-\ '' : 'S',
-\ 't'  : '',
-\ 'v'  : '',
-\ 'V'  : ' LINE',
-\ '' : ' BLOCK',
+let g:airline_mode_map =
+\ { '__': '-'
+\ , 'c' : ''
+\ , 'i' : ''
+\ , 'ic': 'I'
+\ , 'ix': 'I'
+\ , 'n' : ''
+\ , 'ni': 'N'
+\ , 'no': 'N'
+\ , 'R' : 'R'
+\ , 'Rv': 'R'
+\ , 's' : 'S'
+\ , 'S' : 'S'
+\ , '': 'S'
+\ , 't' : ''
+\ , 'v' : ''
+\ , 'V' : ' LINE'
+\ , '': ' BLOCK'
 \ }
 
 " Extensions configuration
-let airline#extensions#ale#error_symbol = ':'
-let airline#extensions#ale#warning_symbol = ':'
-let airline#extensions#languageclient#error_symbol = ':'
+let airline#extensions#ale#error_symbol              = ':'
+let airline#extensions#ale#warning_symbol            = ':'
+let airline#extensions#languageclient#error_symbol   = ':'
 let airline#extensions#languageclient#warning_symbol = ':'
-let g:airline#extensions#quickfix#quickfix_text = ''
-let g:airline#extensions#quickfix#location_text = ''
+let g:airline#extensions#quickfix#quickfix_text      = ''
+let g:airline#extensions#quickfix#location_text      = ''
 " }}}
 
 " WELCOME SCREEN CONFIG {{{
@@ -110,29 +105,32 @@ let g:startify_update_oldfiles = 1      " update old file list whenever Startify
 let g:startify_fortune_use_unicode = 1  " use unicode rather than ASCII in fortune
 
 " Define Startify lists
-let g:startify_lists = [
-\ {'type': 'files',     'header': ['    🕘  Recent']              },
-\ {'type': 'dir',       'header': ['    🕘  Recent in '. getcwd()]},
-\ {'type': 'bookmarks', 'header': ['    🔖  Bookmarks']           },
-\ {'type': 'commands',  'header': ['    🔧  Commands']            },
+let g:startify_lists =
+\ [ {'type': 'files'    , 'header': ['    🕘  Recent']}
+\ , {'type': 'dir'      , 'header': ['    🕘  Recent in '. getcwd()]}
+\ , {'type': 'bookmarks', 'header': ['    🔖  Bookmarks']}
+\ , {'type': 'commands' , 'header': ['    🔧  Commands']}
 \ ]
 
 " Define bookmarks and commands
 " Remember that Startify uses e, i, q, b, s, v, and t.
-let g:startify_bookmarks = [
-\ {'n': '~/.config/nixpkgs/overlays/neovim-config.vim'},
-\ {'k': '~/.config/nixpkgs/overlays/kitty.conf'       },
-\ {'f': '~/.config/fish/config.fish'                  },
+let g:startify_bookmarks =
+\ [ {'n': '~/.config/nixpkgs/overlays/neovim-config.vim'}
+\ , {'k': '~/.config/nixpkgs/overlays/kitty.conf'}
+\ , {'f': '~/.config/fish/config.fish'}
 \ ]
-let g:startify_commands = [
-\ {'t': ['Open Terminal',  'term']},
-\ {'r': ['Rebuild Nix User',
-  \ 'let nixRubuildOutput=system("nixuser-rebuild") |
-  \ let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc") |
-  \ execute "source" newVimConfig |
-  \ redraw |
-  \ echo nixRubuildOutput'
-\ ]},
+let g:startify_commands =
+\ [ {'t': ['Open Terminal',  'term']}
+\ , {'r':
+\     [ 'Rebuild Nix User'
+\     , ' let nixRubuildOutput=system("nixuser-rebuild")
+\       | let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc")
+\       | execute "source" newVimConfig
+\       | redraw
+\       | echo nixRubuildOutput
+\       '
+\     ]
+\   }
 \ ]
 
 " Run Startify in new tabs
@@ -153,15 +151,10 @@ augroup END
 " vim-choosewin
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
+" color setting in neovim.nix
 nmap <leader><leader> <Plug>(choosewin)
-let g:choosewin_label = 'TNERIAODH'   " alternating on homerow for colemak (choosewin uses 'S')
-let g:choosewin_tabline_replace = 0   " don't use choosewin tabline since Airline provides numbers
-
-" Style choosewin to fit in with NeoSolarized colorscheme
-let g:choosewin_color_label =         {'gui': ['#719e07', '#fdf6e3', 'bold'], 'cterm': [2 , 15, 'bold']}
-let g:choosewin_color_label_current = {'gui': ['#657b83', '#002b36'],         'cterm': [10, 8 ]        }
-let g:choosewin_color_other =         {'gui': ['#657b83', '#657b83'],         'cterm': [10, 10]        }
-let g:choosewin_color_land =          {'gui': ['#b58900', '#002b36'],         'cterm': [3 , 8 ]        }
+let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
+let g:choosewin_tabline_replace = 0 " don't use choosewin tabline since Airline provides numbers
 
 " Set where splits open
 set splitbelow " open horizontal splits below instead of above which is the default
@@ -258,14 +251,14 @@ tnoremap <silent> <leader>qc <C-\><C-n>:cclose<CR>
 let g:LanguageClient_settingsPath = '.vim/settings.json'
 
 " Point language client as some language servers
-let g:LanguageClient_serverCommands = {
-\ 'c':          ['ccls'],
-\ 'cpp':        ['ccls'],
-\ 'sh':         ['bin/bash-language-server', 'start'],
-\ 'haskell':    ['hie-8.6.4'],
-\ 'javascript': ['typescript-language-server', '--stdio'],
-\ 'lua':        ['lua-lsp'],
-\ 'typescript': ['typescript-language-server', '--stdio'],
+let g:LanguageClient_serverCommands =
+\ { 'c'         : ['ccls']
+\ , 'cpp'       : ['ccls']
+\ , 'sh'        : ['bin/bash-language-server', 'start']
+\ , 'haskell'   : ['hie-wrapper']
+\ , 'javascript': ['typescript-language-server', '--stdio']
+\ , 'lua'       : ['lua-lsp']
+\ , 'typescript': ['typescript-language-server', '--stdio']
 \ }
 
 " Help some language servers find project roots
@@ -274,31 +267,31 @@ let g:LanguageClient_rootMarkers = {
 \ }
 
 " Customize symbols
-let g:LanguageClient_diagnosticsDisplay = {
-\ 1: {
-  \ 'name':       'Error',
-  \ 'texthl':     'ALEError',
-  \ 'signText':   '',
-  \ 'signTexthl': 'ALEErrorSign',
-\ },
-\ 2: {
-  \ 'name':       'Warning',
-  \ 'texthl':     'ALEWarning',
-  \ 'signText':   '',
-  \ 'signTexthl': 'ALEWarningSign',
-\ },
-\ 3: {
-  \ 'name':       'Information',
-  \ 'texthl':     'ALEInfo',
-  \ 'signText':   '',
-  \ 'signTexthl': 'ALEInfoSign',
-\ },
-\ 4: {
-  \ 'name':       'Hint',
-  \ 'texthl':     'ALEInfo',
-  \ 'signText':   '➤',
-  \ 'signTexthl': 'ALEInfoSign',
-\ },
+let g:LanguageClient_diagnosticsDisplay =
+\ { 1:
+\   { 'name'      : 'Error'
+\   , 'texthl'    : 'ALEError'
+\   , 'signText'  : ''
+\   , 'signTexthl': 'ALEErrorSign'
+\   }
+\ , 2:
+\   { 'name'      : 'Warning'
+\   , 'texthl'    : 'ALEWarning'
+\   , 'signText'  : ''
+\   , 'signTexthl': 'ALEWarningSign'
+\   }
+\ , 3:
+\   { 'name'      : 'Information'
+\   , 'texthl'    : 'ALEInfo'
+\   , 'signText'  : ''
+\   , 'signTexthl': 'ALEInfoSign'
+\   }
+\ , 4:
+\   { 'name'     : 'Hint'
+\   , 'texthl'    : 'ALEInfo'
+\   , 'signText'  : '➤'
+\   , 'signTexthl': 'ALEInfoSign'
+\   }
 \ }
 
 " Automatically invoke hover and highlight on cursor movement
@@ -318,10 +311,9 @@ function! LspMaybeHighlight(is_running) abort
 endfunction
 
 augroup lsp_aucommands
-  au!
   au CursorHold  *
-  "\ call LanguageClient#isAlive(function('LspMaybeHover')) |
-  \ call LanguageClient#isAlive(function('LspMaybeHighlight'))
+\ " call LanguageClient#isAlive(function('LspMaybeHover'))
+\ | call LanguageClient#isAlive(function('LspMaybeHighlight'))
 augroup END
 
 " Language server related shortcuts
@@ -349,29 +341,29 @@ nnoremap <leader>lE :cprev<CR>
 " https://github.com/w0rp/ale
 
 " Disable linters for languges that have defined language servers above
-let g:ale_linters = {
-\ 'c': [],
-\ 'sh': [],
-\ 'haskell': [],
-\ 'javascript': [],
-\ 'lua': [],
-\ 'typescript': []
+let g:ale_linters =
+\ { 'c'         : []
+\ , 'sh'        : []
+\ , 'haskell'   : []
+\ , 'javascript': []
+\ , 'lua'       : []
+\ , 'typescript': []
 \ }
 
 " Configure and enable fixer
 let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\ '*':          ['remove_trailing_lines', 'trim_whitespace'],
-\ 'javascript': ['prettier-eslint'],
-\ 'json':       ['prettier'],
-\ 'puppet':     ['puppetlint']
+let g:ale_fixers =
+\ { '*'         : ['remove_trailing_lines', 'trim_whitespace']
+\ , 'javascript': ['prettier-eslint']
+\ , 'json'      : ['prettier']
+\ , 'puppet'    : ['puppetlint']
 \ }
 
 " Customize symbols
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_sign_info = ''
-let g:ale_sign_style_error = ''
+let g:ale_sign_error         = ''
+let g:ale_sign_warning       = ''
+let g:ale_sign_info          = ''
+let g:ale_sign_style_error   = ''
 let g:ale_sign_style_warning = g:ale_sign_style_error
 " }}}
 
@@ -382,14 +374,16 @@ let g:ale_sign_style_warning = g:ale_sign_style_error
 " https://github.com/Shougo/deoplete.nvim
 augroup deoplete
   au VimEnter *
-  \ call deoplete#enable() |
-  \ call deoplete#custom#var('around', {
-    \ 'range_above' : 20,
-    \ 'range_below' : 20,
-    \ 'mark_above'  : '[↑]',
-    \ 'mark_below'  : '[↓]',
-    \ 'mark_changes': '[*]',
-    \ })
+\ call deoplete#enable()
+\ | call deoplete#custom#var
+\   ( 'around'
+\   , { 'range_above' : 20
+\     , 'range_below' : 20
+\     , 'mark_above'  : '[↑]'
+\     , 'mark_below'  : '[↓]'
+\     , 'mark_changes': '[*]'
+\     }
+\   )
 augroup END
 
 " Use tab to navigate completion menu
@@ -421,7 +415,6 @@ set conceallevel=2
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 let g:airline_section_x = '%{PencilMode()}'
 augroup pencil
-  au!
   au FileType markdown,mkd call pencil#init()
   au FileType text         call pencil#init()
 augroup END
@@ -443,46 +436,54 @@ augroup END
 " https://github.com/Shougo/denite.nvim
 augroup deinte
   au VimEnter *
-  \ call denite#custom#option('default', {
-    \ 'prompt' : '->>',
-    \ 'ignore' : '.stack-work',
-    \ 'sorters': 'sorter/sublime',
-    \ }) |
-  \ call denite#custom#var('grep', 'command'       , ['rg']) |
-  \ call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading']) |
-  \ call denite#custom#var('grep', 'recursive_opts', []) |
-  \ call denite#custom#var('grep', 'pattern_opt'   , ['--regexp']) |
-  \ call denite#custom#var('grep', 'separator'     , ['--']) |
-  \ call denite#custom#var('grep', 'final_opts'    , []) |
-  \ call denite#custom#alias ('source'          , 'grep/interactive', 'grep') |
-  \ call denite#custom#source('grep/interactive', 'args'            , ['', '', '!']) |
-  \ call denite#custom#map('insert', '<ESC>', '<denite:enter_mode:normal>') |
-  \ call denite#custom#map('normal', '<ESC>', '<denite:quit>') |
-  \ call denite#custom#map('normal', 's'    , '<denite:do_action:split>') |
-  \ call denite#custom#map('normal', 'v'    , '<denite:do_action:vsplit>') |
+\ call denite#custom#option
+\   ( 'default'
+\   , { 'prompt'                : '->>'
+\     , 'ignore'                : '*/.stack-work'
+\     , 'reversed'              : 'true'
+\     , 'sorters'               : 'sorter/sublime'
+\     , 'highlight-mode-insert' : 'CursorLine'
+\     , 'highlight-mode-normal' : 'CursorLine'
+\     , 'vertical-preview'      : 'true'
+\     }
+\   )
+\ " use ripgrep instead of grep
+\ | call denite#custom#var('grep', 'command'       , ['rg'])
+\ | call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading'])
+\ | call denite#custom#var('grep', 'recursive_opts', [])
+\ | call denite#custom#var('grep', 'pattern_opt'   , ['--regexp'])
+\ | call denite#custom#var('grep', 'separator'     , ['--'])
+\ | call denite#custom#var('grep', 'final_opts'    , [])
+\ " create interactive ripgrep source
+\ | call denite#custom#alias ('source'          , 'grep/interactive', 'grep')
+\ | call denite#custom#source('grep/interactive', 'args'            , ['', '', '!'])
+\ " setup some keybindings
+\ | call denite#custom#map('insert', '<ESC>', '<denite:enter_mode:normal>')
+\ | call denite#custom#map('normal', '<ESC>', '<denite:quit>')
+\ | call denite#custom#map('normal', 's'    , '<denite:do_action:split>')
+\ | call denite#custom#map('normal', 'v'    , '<denite:do_action:vsplit>')
 augroup END
 
 function! DeniteGrepCurrentWord() abort
   let cw = expand('<cword>')
   call denite#start([{'name': 'grep', 'args': ['', '', cw]}])
 endfunction
-" Ripgrep command on grep source
 
 noremap <silent> <leader><space> :Denite source<CR>
 noremap <silent> <leader>sb      :Denite buffer<CR>
 noremap <silent> <leader>scc     :Denite command<CR>
-noremap <silent> <leader>dch     :Denite command_history<CR>
+noremap <silent> <leader>sch     :Denite command_history<CR>
 noremap <silent> <leader>sh      :Denite help<CR>
 noremap <silent> <leader>sf      :Denite file<CR>
 noremap <silent> <leader>sr      :Denite file/rec<CR>
 noremap <silent> <leader>sp      :DeniteProjectDir file/rec<CR>
-noremap <silent> <leader>sg      :DeniteProjectDir grep/interactive<CR>
+noremap <silent> <leader>sg      :DeniteProjectDir grep<CR>
+noremap <silent> <leader>si      :DeniteProjectDir grep/interactive<CR>
 noremap <silent> <leader>sw      :call DeniteGrepCurrentWord()<CR>
 noremap <silent> <leader>sll     :Denite line<CR>
 noremap <silent> <leader>slw     :DeniteCursorWord line<CR>
-noremap <silent> <leader>ds      :Denite spell<CR>
-
-
+noremap <silent> <leader>ss      :Denite spell<CR>
+noremap <silent> <leader>sr      :Denite -resume<CR>
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter
