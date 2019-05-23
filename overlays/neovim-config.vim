@@ -1,28 +1,43 @@
 " vim: foldmethod=marker
 scriptencoding=utf-8
 
+" COMMENTS AND CONTEXT {{{
+" ====================
+"
+" Keyboard shortcut philosophy:
+" * Don't change default shortcuts unless there a consistent model for the change.
+" * Leader shortcuts are for commands that don't fit nicely into Vim's shortcut grammar.
+"   * Avoid single key leader shortcuts. Have the first key be some mnemonic for what the command does.
+"   * <leader>l for language server related commands.
+"   * <leader>w for window related commands.
+"   * <leader>/ for search (Denite) related commands.
+"   * <leader>t for tab related commands.
+"   * <leader>q for quit/close related commands.
+" }}}
+
 " BASIC VIM CONFIG {{{
 " ================
 
 let mapleader = '`'
-let timeouttlen = 2000 " extend timout on leader key
-set updatetime=100     " number of ms before changes are writted to swp file
-set mouse=a            " enable mouse support for neovim
-set autochdir          " change working dir to dir of file in buffer
+let timeouttlen = 2000 " extend time-out on leader key
+set updatetime=100     " number of ms before changes are written to swap file
+set mouse=a            " enable mouse support for Neovim
+set autochdir          " change working directory to directory of file in buffer
 
 " Search
-set smartcase          " search is case sensitive only if it containts uppercase chars
+set smartcase          " search is case sensitive only if it contains uppercase chars
 set inccommand=nosplit " show preview in buffer while doing find and replace
 
 " Tab key behavior
 set expandtab 	 " Convert tabs to spaces
 set tabstop=2    " Width of tab character
-set shiftwidth=2 " Width of autoindets
+set shiftwidth=2 " Width of auto-indents
 
 " Setup color scheme
 " https://github.com/icymind/NeoSolarized
-set termguicolors        " truecolor support
-colorscheme NeoSolarized " version of solarized that works better with truecolors
+" terminal colors configured in ./neovim.nix
+set termguicolors             " truecolor support
+colorscheme NeoSolarized      " version of solarized that works better with truecolors
 let g:neosolarized_italic = 1
 
 " Misc basic vim ui config
@@ -31,19 +46,22 @@ set linebreak       " soft wraps on words not individual chars
 set noshowmode      " don't show --INSERT-- etc.
 set colorcolumn=100 " show column boarder
 set relativenumber  " relative line numbers
-set signcolumn=yes
+set signcolumn=yes  " always have signcolumn open to avoid thing shifting around all the time
 
+" Variables to reuse in config
+let error_symbol  = ''
+let warnin_symbol = ''
+let info_symbol   = ''
 " }}}
 
-" STATUS LINE CONFIG {{{
-" ==================
+" STATUS LINE {{{
+" ===========
 " https://github.com/vim-airline/vim-airline
 
 " General configuration
-let g:airline_theme = 'solarized'
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]' " only show unusual file encoding
-let g:airline#extensions#hunks#non_zero_only = 1             " only git stats when there are changes
-let g:airline_skip_empty_sections = 1                        " don't show sections if they're empty
+let g:airline#parts#ffenc#skip_expected_string ='utf-8[unix]' " only show unusual file encoding
+let g:airline#extensions#hunks#non_zero_only = 1              " only git stats when there are changes
+let g:airline_skip_empty_sections = 1                         " don't show sections if they're empty
 
 " Tabline configuration
 let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
@@ -85,24 +103,24 @@ let g:airline_mode_map =
 \ }
 
 " Extensions configuration
-let airline#extensions#ale#error_symbol              = ':'
-let airline#extensions#ale#warning_symbol            = ':'
-let airline#extensions#languageclient#error_symbol   = ':'
-let airline#extensions#languageclient#warning_symbol = ':'
+let airline#extensions#ale#error_symbol              = error_symbol  + ':'
+let airline#extensions#ale#warning_symbol            = warnin_symbol + ':'
+let airline#extensions#languageclient#error_symbol   = error_symbol  + ':'
+let airline#extensions#languageclient#warning_symbol = warnin_symbol + ':'
 let g:airline#extensions#quickfix#quickfix_text      = ''
 let g:airline#extensions#quickfix#location_text      = ''
 " }}}
 
-" WELCOME SCREEN CONFIG {{{
-" =====================
+" WELCOME SCREEN {{{
+" ==============
 
 " Startify
 " Start screen configuration
 " https://github.com/mhinz/vim-startify
-let g:startify_files_number = 7         " max number of files/dirs in lists
-let g:startify_relative_path = 1        " use relative path if file is below current directory
-let g:startify_update_oldfiles = 1      " update old file list whenever Startify launches
-let g:startify_fortune_use_unicode = 1  " use unicode rather than ASCII in fortune
+let g:startify_files_number        = 7 " max number of files/dirs in lists
+let g:startify_relative_path       = 1 " use relative path if file is below current directory
+let g:startify_update_oldfiles     = 1 " update old file list whenever Startify launches
+let g:startify_fortune_use_unicode = 1 " use unicode rather than ASCII in fortune
 
 " Define Startify lists
 let g:startify_lists =
@@ -113,10 +131,9 @@ let g:startify_lists =
 \ ]
 
 " Define bookmarks and commands
-" Remember that Startify uses e, i, q, b, s, v, and t.
+" Remember that Startify uses h, j, k, l, e, i, q, b, s, v, and t.
 let g:startify_bookmarks =
 \ [ {'n': '~/.config/nixpkgs/overlays/neovim-config.vim'}
-\ , {'k': '~/.config/nixpkgs/overlays/kitty.conf'}
 \ , {'f': '~/.config/fish/config.fish'}
 \ ]
 let g:startify_commands =
@@ -137,8 +154,8 @@ let g:startify_commands =
 " See keyboard shortcuts in next section
 " }}}
 
-" WINDOW/SPLITS/TABS/TERMINAL CONFIG {{{
-" ==================================
+" WINDOW/SPLITS/TABS/TERMINAL {{{
+" ===========================
 
 " Use ESC to enter normal mode in terminal
 tnoremap <ESC> <C-\><C-n>
@@ -166,8 +183,8 @@ noremap  <silent> <leader>tt <ESC>:tabnew +Startify<CR>
 inoremap <silent> <leader>tt <ESC>:tabnew +Startify<CR>
 tnoremap <silent> <leader>tt <C-\><C-n>:tabnew +Startify<CR>
 " close tab
-noremap  <silent> <leader>tq <ESC>:tabclose<CR>
-tnoremap <silent> <leader>tq <C-\><C-n>:tabclose<CR>
+noremap  <silent> <leader>qt <ESC>:tabclose<CR>
+tnoremap <silent> <leader>qt <C-\><C-n>:tabclose<CR>
 
 " Tab navigation
 " next tab
@@ -175,9 +192,9 @@ noremap  <silent> <leader>tn <ESC>:tabnext<CR>
 inoremap <silent> <leader>tn <ESC>:tabnext<CR>
 tnoremap <silent> <leader>tn <C-\><C-n>:tabnext<CR>
 " previous tab
-noremap  <silent> <leader>tp <ESC>:tabprevious<CR>
-inoremap <silent> <leader>tp <ESC>:tabprevious<CR>
-tnoremap <silent> <leader>tp <C-\><C-n>:tabprevious<CR>
+noremap  <silent> <leader>tN <ESC>:tabprevious<CR>
+inoremap <silent> <leader>tN <ESC>:tabprevious<CR>
+tnoremap <silent> <leader>tN <C-\><C-n>:tabprevious<CR>
 
 " Split creation/destruction
 " new horizontal split w/ terminal
@@ -185,9 +202,9 @@ noremap  <silent> <leader>-  <ESC>:new +term<CR>
 inoremap <silent> <leader>-  <ESC>:new +term<CR>
 tnoremap <silent> <leader>-  <C-\><C-n>:new +term<CR>
 " new vertical split w/ terminal
-noremap  <silent> <leader>\ <ESC>:vnew +term<CR>
-inoremap <silent> <leader>\ <ESC>:vnew +term<CR>
-tnoremap <silent> <leader>\ <C-\><C-n>:vnew +term<CR>
+noremap  <silent> <leader>\\ <ESC>:vnew +term<CR>
+inoremap <silent> <leader>\\ <ESC>:vnew +term<CR>
+tnoremap <silent> <leader>\\ <C-\><C-n>:vnew +term<CR>
 " new full width horizontal split w/ terminal
 noremap  <silent> <leader>_  <ESC>:botright new +term<CR>
 inoremap <silent> <leader>_  <ESC>:botright new +term<CR>
@@ -197,9 +214,9 @@ noremap  <silent> <leader>\| <ESC>:botright vnew +term<CR>
 inoremap <silent> <leader>\| <ESC>:botright vnew +term<CR>
 tnoremap <silent> <leader>\| <C-\><C-n>:botright vnew +term<CR>
 " close split/window
-noremap  <silent> <leader>qq <ESC>:q<CR>
-inoremap <silent> <leader>qq <ESC>:q<CR>
-tnoremap <silent> <leader>qq <C-\><C-n>:q<CR>
+noremap  <silent> <leader>qw <ESC>:q<CR>
+inoremap <silent> <leader>qw <ESC>:q<CR>
+tnoremap <silent> <leader>qw <C-\><C-n>:q<CR>
 " close vim
 noremap  <silent> <leader>qa <ESC>:qa<CR>
 inoremap <silent> <leader>qa <ESC>:qa<CR>
@@ -207,21 +224,21 @@ tnoremap <silent> <leader>qa <C-\><C-n>:qa<CR>
 
 " Split navigation
 " move left
-noremap  <silent> <leader>h <ESC>:wincmd h<CR>
-inoremap <silent> <leader>h <ESC>:wincmd h<CR>
-tnoremap <silent> <leader>h <C-\><C-n><C-w>h
+noremap  <silent> <leader>wh <ESC>:wincmd h<CR>
+inoremap <silent> <leader>wh <ESC>:wincmd h<CR>
+tnoremap <silent> <leader>wh <C-\><C-n><C-w>h
 " move right
-noremap  <silent> <leader>l <ESC>:wincmd l<CR>
-inoremap <silent> <leader>l <ESC>:wincmd l<CR>
-tnoremap <silent> <leader>l <C-\><C-n><C-w>l
+noremap  <silent> <leader>wl <ESC>:wincmd l<CR>
+inoremap <silent> <leader>wl <ESC>:wincmd l<CR>
+tnoremap <silent> <leader>wl <C-\><C-n><C-w>l
 " move up
-noremap  <silent> <leader>k <ESC>:wincmd k<CR>
-inoremap <silent> <leader>k <ESC>:wincmd k<CR>
-tnoremap <silent> <leader>k <C-\><C-n><C-w>k
+noremap  <silent> <leader>wk <ESC>:wincmd k<CR>
+inoremap <silent> <leader>wk <ESC>:wincmd k<CR>
+tnoremap <silent> <leader>wk <C-\><C-n><C-w>k
 " move down
-noremap  <silent> <leader>j <ESC>:wincmd j<CR>
-inoremap <silent> <leader>j <ESC>:wincmd j<CR>
-tnoremap <silent> <leader>j <C-\><C-n><C-w>j
+noremap  <silent> <leader>wj <ESC>:wincmd j<CR>
+inoremap <silent> <leader>wj <ESC>:wincmd j<CR>
+tnoremap <silent> <leader>wj <C-\><C-n><C-w>j
 
 " Close/open various special splits
 " close help
@@ -242,8 +259,8 @@ inoremap <silent> <leader>qc <ESC>:cclose<CR>
 tnoremap <silent> <leader>qc <C-\><C-n>:cclose<CR>
 " }}}
 
-" LANGUAGE SERVER CONFIG {{{
-" ======================
+" LANGUAGE SERVER {{{
+" ===============
 " LanguageClient-neovim
 " Provides completions, linting, fixers, etc.
 " https://github.com/autozimu/LanguageClient-neovim
@@ -271,19 +288,19 @@ let g:LanguageClient_diagnosticsDisplay =
 \ { 1:
 \   { 'name'      : 'Error'
 \   , 'texthl'    : 'ALEError'
-\   , 'signText'  : ''
+\   , 'signText'  : error_symbol
 \   , 'signTexthl': 'ALEErrorSign'
 \   }
 \ , 2:
 \   { 'name'      : 'Warning'
 \   , 'texthl'    : 'ALEWarning'
-\   , 'signText'  : ''
+\   , 'signText'  : warnin_symbol
 \   , 'signTexthl': 'ALEWarningSign'
 \   }
 \ , 3:
 \   { 'name'      : 'Information'
 \   , 'texthl'    : 'ALEInfo'
-\   , 'signText'  : ''
+\   , 'signText'  : info_symbol
 \   , 'signTexthl': 'ALEInfoSign'
 \   }
 \ , 4:
@@ -310,10 +327,10 @@ function! LspMaybeHighlight(is_running) abort
   endif
 endfunction
 
+"\ call LanguageClient#isAlive(function('LspMaybeHover'))
 augroup lsp_aucommands
-  au CursorHold  *
-\ " call LanguageClient#isAlive(function('LspMaybeHover'))
-\ | call LanguageClient#isAlive(function('LspMaybeHighlight'))
+  au!
+  au CursorHold  * call LanguageClient#isAlive(function('LspMaybeHighlight'))
 augroup END
 
 " Language server related shortcuts
@@ -334,8 +351,8 @@ nnoremap <leader>le :cnext<CR>
 nnoremap <leader>lE :cprev<CR>
 " }}}
 
-" LINTER/FIXER CONFIG {{{
-" =======================
+" LINTER/FIXER {{{
+" ============
 " Asyncronous Linting Engine (ALE)
 " Used for linting when no good language server is available
 " https://github.com/w0rp/ale
@@ -360,19 +377,20 @@ let g:ale_fixers =
 \ }
 
 " Customize symbols
-let g:ale_sign_error         = ''
-let g:ale_sign_warning       = ''
-let g:ale_sign_info          = ''
+let g:ale_sign_error         = error_symbol
+let g:ale_sign_warning       = warnin_symbol
+let g:ale_sign_info          = info_symbol
 let g:ale_sign_style_error   = ''
 let g:ale_sign_style_warning = g:ale_sign_style_error
 " }}}
 
-" COMPLETION CONFIG {{{
-" =====================
+" COMPLETION {{{
+" ==========
 " Deoplete autocompletion engine
 " Used to display/manage all completions including those from language servers
 " https://github.com/Shougo/deoplete.nvim
 augroup deoplete
+  au!
   au VimEnter *
 \ call deoplete#enable()
 \ | call deoplete#custom#var
@@ -399,13 +417,13 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " https://github.com/ponko2/deoplete-fish
 " }}}
 
-" WRITING AND MARKDOWN CONFIG {{{
-" ===============================
+" WRITING AND MARKDOWN {{{
+" ====================
 
 " vim-markdown
 " Adds a ton of functionality for Markdown
 " https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_disabled     = 1
 let g:vim_markdown_new_list_item_indent = 2
 set conceallevel=2
 
@@ -415,6 +433,7 @@ set conceallevel=2
 let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 let g:airline_section_x = '%{PencilMode()}'
 augroup pencil
+  au!
   au FileType markdown,mkd call pencil#init()
   au FileType text         call pencil#init()
 augroup END
@@ -428,36 +447,37 @@ augroup END
 " https://github.com/junegunn/goyo.vim
 " }}}
 
-" MISC PLUGIN CONFIG {{{
-" ======================
+" MISC PLUGIN {{{
+" ===========
 
 " denite.vim
 " Powerful list searcher
 " https://github.com/Shougo/denite.nvim
 augroup deinte
+  au!
   au VimEnter *
 \ call denite#custom#option
-\   ( 'default'
-\   , { 'prompt'                : '->>'
-\     , 'highlight-mode-insert' : 'CursorLine'
-\     , 'highlight-mode-normal' : 'CursorLine'
-\     , 'ignore'                : '*/.stack-work'
-\     , 'reversed'              : 'true'
-\     , 'sorters'               : 'sorter/sublime'
-\     , 'vertical-preview'      : 'true'
+\   ( '_'
+\   , { 'auto_resize'            : 'true'
+\     , 'highlight_matched_char' : 'SpellRare'
+\     , 'highlight_matched_range': 'SpellCap'
+\     , 'highlight_mode_insert'  : 'CursorLine'
+\     , 'highlight_mode_normal'  : 'CursorLine'
+\     , 'ignore'                 : '*/.stack-work'
+\     , 'prompt'                 : '->>'
+\     , 'reversed'               : 'true'
+\     , 'sorters'                : 'sorter/sublime'
+\     , 'vertical_preview'       : ''
 \     }
 \   )
-\ " use ripgrep instead of grep
 \ | call denite#custom#var('grep', 'command'       , ['rg'])
 \ | call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading'])
 \ | call denite#custom#var('grep', 'recursive_opts', [])
 \ | call denite#custom#var('grep', 'pattern_opt'   , ['--regexp'])
 \ | call denite#custom#var('grep', 'separator'     , ['--'])
 \ | call denite#custom#var('grep', 'final_opts'    , [])
-\ " create interactive ripgrep source
 \ | call denite#custom#alias ('source'          , 'grep/interactive', 'grep')
 \ | call denite#custom#source('grep/interactive', 'args'            , ['', '', '!'])
-\ " setup some keybindings
 \ | call denite#custom#map('insert', '<ESC>', '<denite:enter_mode:normal>')
 \ | call denite#custom#map('normal', '<ESC>', '<denite:quit>')
 \ | call denite#custom#map('normal', 's'    , '<denite:do_action:split>')
@@ -469,28 +489,28 @@ function! DeniteGrepCurrentWord() abort
   call denite#start([{'name': 'grep', 'args': ['', '', cw]}])
 endfunction
 
-noremap <silent> <leader><space> :Denite -auto-resize=true source<CR>
-noremap <silent> <leader>sb      :Denite -auto-resize=true buffer<CR>
-noremap <silent> <leader>scc     :Denite -auto-resize=true command<CR>
-noremap <silent> <leader>sch     :Denite -auto-resize=true command_history<CR>
-noremap <silent> <leader>sh      :Denite -auto-resize=true help<CR>
-noremap <silent> <leader>sf      :Denite -auto-resize=true file<CR>
-noremap <silent> <leader>sr      :Denite -auto-resize=true file/rec<CR>
-noremap <silent> <leader>sp      :DeniteProjectDir -auto-resize=true file/rec<CR>
-noremap <silent> <leader>sg      :DeniteProjectDir -auto-resize=true grep<CR>
-noremap <silent> <leader>si      :DeniteProjectDir -auto-resize=true grep/interactive<CR>
+noremap <silent> <leader><space> :Denite source<CR>
+noremap <silent> <leader>sb      :Denite buffer<CR>
+noremap <silent> <leader>scc     :Denite command<CR>
+noremap <silent> <leader>sch     :Denite command_history<CR>
+noremap <silent> <leader>sh      :Denite help<CR>
+noremap <silent> <leader>sf      :Denite file<CR>
+noremap <silent> <leader>sr      :Denite file/rec<CR>
+noremap <silent> <leader>sp      :DeniteProjectDir file/rec<CR>
+noremap <silent> <leader>sg      :DeniteProjectDir grep<CR>
+noremap <silent> <leader>si      :DeniteProjectDir grep/interactive<CR>
 noremap <silent> <leader>sw      :call DeniteGrepCurrentWord()<CR>
-noremap <silent> <leader>sll     :Denite -auto-resize=true line<CR>
-noremap <silent> <leader>slw     :DeniteCursorWord -auto-resize=true line<CR>
-noremap <silent> <leader>ss      :Denite -auto-resize=true spell<CR>
-noremap <silent> <leader>sr      :Denite -resume -auto-resize=true<CR>
+noremap <silent> <leader>sll     :Denite line<CR>
+noremap <silent> <leader>slw     :DeniteCursorWord line<CR>
+noremap <silent> <leader>ss      :Denite spell<CR>
+noremap <silent> <leader>sr      :Denite -resume<CR>
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter
 let g:gitgutter_override_sign_column_highlight = 0     " make sign column look consistent
-let g:gitgutter_sign_added = '┃'                       " replace default symbols with something nicer
+let g:gitgutter_sign_added    = '┃'                    " replace default symbols with something nicer
 let g:gitgutter_sign_modified = g:gitgutter_sign_added
-let g:gitgutter_sign_removed = g:gitgutter_sign_added
+let g:gitgutter_sign_removed  = g:gitgutter_sign_added
 
 " vim-javascript
 " Syntax highlighting for js

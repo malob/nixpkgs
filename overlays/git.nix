@@ -42,7 +42,7 @@ let
       spua = "stash push --all";
       spo  = "stack pop";
       # other commands
-      lg = ''log --graph --abbrev-commit --decorate --format=format:'%C(\"#${blue}\")%h%C(reset) - %C(\"#${green}\")(%ar)%C(reset) %s %C(dim)- %an%C(reset)%C(\"#${yellow}\")%d%C(reset)' --all'';
+      lg = ''log --graph --abbrev-commit --decorate --format=format:'%C(\"#${blue}\")%h%C(reset) - %C(\"#${green}\")(%ar)%C(reset) %s %C(italic)- %an%C(reset)%C(\"#${violet} bold\")%d%C(reset)' --all'';
     };
     core.pager = "diff-so-fancy | less --tabs=2 -RFX --pattern '^(Date|added|deleted|modified): '";
     "color.diff-highlight" = {
