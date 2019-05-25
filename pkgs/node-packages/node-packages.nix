@@ -274,13 +274,13 @@ let
         sha512 = "27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==";
       };
     };
-    "core-js-2.6.6" = {
+    "core-js-2.6.8" = {
       name = "core-js";
       packageName = "core-js";
-      version = "2.6.6";
+      version = "2.6.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js/-/core-js-2.6.6.tgz";
-        sha512 = "Mt/LaAym54NXnrjEMdo918cT2h70tqb/Yl7T3uPHQHRm5SxVoqlKmerUy4mL11k8saSBDWQ7ULIHxmeFyT3pfg==";
+        url = "https://registry.npmjs.org/core-js/-/core-js-2.6.8.tgz";
+        sha512 = "RWlREFU74TEkdXzyl1bka66O3kYp8jeTXrvJZDzVVMH8AiHUSOFpL1yfhQJ+wHocAm1m+4971W1PPzfLuCv1vg==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -319,13 +319,13 @@ let
         sha1 = "b369d6fb5dbc13eecf524f91b070feedc357cf34";
       };
     };
-    "dlv-1.1.2" = {
+    "dlv-1.1.3" = {
       name = "dlv";
       packageName = "dlv";
-      version = "1.1.2";
+      version = "1.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dlv/-/dlv-1.1.2.tgz";
-        sha512 = "xxD4VSH67GbRvSGUrckvha94RD7hjgOH7rqGxiytLpkaeMvixOHFZTGFK6EkIm3T761OVHT8ABHmGkq9gXgu6Q==";
+        url = "https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz";
+        sha512 = "+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==";
       };
     };
     "doctrine-2.1.0" = {
@@ -1379,12 +1379,12 @@ in
       sources."common-tags-1.8.0"
       sources."concat-map-0.0.1"
       sources."concat-stream-1.6.2"
-      sources."core-js-2.6.6"
+      sources."core-js-2.6.8"
       sources."core-util-is-1.0.2"
       sources."cross-spawn-5.1.0"
       sources."debug-3.2.6"
       sources."deep-is-0.1.3"
-      sources."dlv-1.1.2"
+      sources."dlv-1.1.3"
       sources."doctrine-2.1.0"
       sources."escape-string-regexp-1.0.5"
       sources."eslint-4.19.1"
