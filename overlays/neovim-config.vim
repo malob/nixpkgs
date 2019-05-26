@@ -22,7 +22,7 @@ let mapleader = '`'
 let timeouttlen = 2000 " extend time-out on leader key
 set updatetime=100     " number of ms before changes are written to swap file
 set mouse=a            " enable mouse support for Neovim
-set autochdir          " change working directory to directory of file in buffer
+set autochdir
 
 " Search
 set smartcase          " search is case sensitive only if it contains uppercase chars
@@ -47,11 +47,25 @@ set noshowmode      " don't show --INSERT-- etc.
 set colorcolumn=100 " show column boarder
 set relativenumber  " relative line numbers
 set signcolumn=yes  " always have signcolumn open to avoid thing shifting around all the time
+set scrolloff=5     " start scrolling when cursor is within 5 lines of the edge
 
 " Variables to reuse in config
 let error_symbol  = ''
 let warnin_symbol = ''
 let info_symbol   = ''
+
+" Check if file has changed on disk, if it has and buffer has no changes, relaod it
+augroup checktime
+  au!
+  au BufEnter,FocusGained,CursorHold,CursorHoldI * checktime
+augroup END
+
+" Function to create mappings in all modes
+function! Anoremap(arg, lhs, rhs)
+  for map_command in ['noremap', 'noremap!', 'tnoremap']
+    execute map_command a:arg a:lhs a:rhs
+  endfor
+endfunction
 " }}}
 
 " STATUS LINE {{{
@@ -65,8 +79,8 @@ let g:airline_skip_empty_sections = 1                         " don't show secti
 
 " Tabline configuration
 let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
+let g:airline#extensions#tabline#show_tabs         = 1 " always show tabs in tabline
 let g:airline#extensions#tabline#show_buffers      = 0 " don't show buffers in tabline
-let g:airline#extensions#tabline#show_tabs         = 1 " show tabs in tabline
 let g:airline#extensions#tabline#show_splits       = 0 " don't number of splits
 let g:airline#extensions#tabline#tab_nr_type       = 2 " tabs show [tab num].[num of splits in tab]
 let g:airline#extensions#tabline#show_tab_type     = 0 " don't show tab or buffer labels in bar
@@ -82,6 +96,7 @@ endif
 let g:airline_symbols.branch    = ''
 let g:airline_symbols.readonly  = ''
 let g:airline_symbols.notexists = ''
+let g:airline_symbols.dirty     = ''
 let g:airline_mode_map =
 \ { '__': '-'
 \ , 'c' : ''
@@ -157,8 +172,9 @@ let g:startify_commands =
 " WINDOW/SPLITS/TABS/TERMINAL {{{
 " ===========================
 
-" Use ESC to enter normal mode in terminal
-tnoremap <ESC> <C-\><C-n>
+" Make escape more sensible in terminal mode
+tnoremap <ESC> <C-\><C-n>    " enter normal mode
+tnoremap <leader><ESC> <ESC> " send escape to terminal
 
 " Start new terminals in insert mode
 augroup nvimTerm
@@ -169,7 +185,7 @@ augroup END
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
 " color setting in neovim.nix
-nmap <leader><leader> <Plug>(choosewin)
+call Anoremap('<silent>', '<leader><leader>', '<Cmd>ChooseWin<CR>')
 let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
 let g:choosewin_tabline_replace = 0 " don't use choosewin tabline since Airline provides numbers
 
@@ -178,85 +194,32 @@ set splitbelow " open horizontal splits below instead of above which is the defa
 set splitright " open vertical splits to the right instead of the left with is the default
 
 " Tab creation/destruction
-" new tab w/ Startify
-noremap  <silent> <leader>tt <ESC>:tabnew +Startify<CR>
-inoremap <silent> <leader>tt <ESC>:tabnew +Startify<CR>
-tnoremap <silent> <leader>tt <C-\><C-n>:tabnew +Startify<CR>
-" close tab
-noremap  <silent> <leader>qt <ESC>:tabclose<CR>
-tnoremap <silent> <leader>qt <C-\><C-n>:tabclose<CR>
+call Anoremap('<silent>', '<leader>tt', '<Cmd>tabnew +Startify<CR>') " new tab w/ Startify
+call Anoremap('<silent>', '<leader>qt', '<Cmd>tabclose<CR>')         " close tab
 
 " Tab navigation
-" next tab
-noremap  <silent> <leader>tn <ESC>:tabnext<CR>
-inoremap <silent> <leader>tn <ESC>:tabnext<CR>
-tnoremap <silent> <leader>tn <C-\><C-n>:tabnext<CR>
-" previous tab
-noremap  <silent> <leader>tN <ESC>:tabprevious<CR>
-inoremap <silent> <leader>tN <ESC>:tabprevious<CR>
-tnoremap <silent> <leader>tN <C-\><C-n>:tabprevious<CR>
+call Anoremap('<silent>', '<leader>tn', '<Cmd>tabnext<CR>')     " next tab
+call Anoremap('<silent>', '<leader>tN', '<Cmd>tabprevious<CR>') " previous tab
 
 " Split creation/destruction
-" new horizontal split w/ terminal
-noremap  <silent> <leader>-  <ESC>:new +term<CR>
-inoremap <silent> <leader>-  <ESC>:new +term<CR>
-tnoremap <silent> <leader>-  <C-\><C-n>:new +term<CR>
-" new vertical split w/ terminal
-noremap  <silent> <leader>\\ <ESC>:vnew +term<CR>
-inoremap <silent> <leader>\\ <ESC>:vnew +term<CR>
-tnoremap <silent> <leader>\\ <C-\><C-n>:vnew +term<CR>
-" new full width horizontal split w/ terminal
-noremap  <silent> <leader>_  <ESC>:botright new +term<CR>
-inoremap <silent> <leader>_  <ESC>:botright new +term<CR>
-tnoremap <silent> <leader>_  <C-\><C-n>:botright new +term<CR>
-" new full height vertical split w/ terminal
-noremap  <silent> <leader>\| <ESC>:botright vnew +term<CR>
-inoremap <silent> <leader>\| <ESC>:botright vnew +term<CR>
-tnoremap <silent> <leader>\| <C-\><C-n>:botright vnew +term<CR>
-" close split/window
-noremap  <silent> <leader>qw <ESC>:q<CR>
-inoremap <silent> <leader>qw <ESC>:q<CR>
-tnoremap <silent> <leader>qw <C-\><C-n>:q<CR>
-" close vim
-noremap  <silent> <leader>qa <ESC>:qa<CR>
-inoremap <silent> <leader>qa <ESC>:qa<CR>
-tnoremap <silent> <leader>qa <C-\><C-n>:qa<CR>
+call Anoremap('<silent>', '<leader>-' , '<Cmd>new +term<CR>')           " new horizontal split w/ terminal
+call Anoremap('<silent>', '<leader>_' , '<Cmd>botright new +term<CR>')  " new full width horizontal split w/ terminal
+call Anoremap('<silent>', '<leader>\' , '<Cmd>vnew +term<CR>')          " new vertical split w/ terminal
+call Anoremap('<silent>', '<leader>\|', '<Cmd>botright vnew +term<CR>') " new full height vertical split w/ terminal
+call Anoremap('<silent>', '<leader>qw', '<Cmd>q<CR>')                   " close split/window
+call Anoremap('<silent>', '<leader>qa', '<Cmd>qa<CR>')                  " close vim
 
 " Split navigation
-" move left
-noremap  <silent> <leader>wh <ESC>:wincmd h<CR>
-inoremap <silent> <leader>wh <ESC>:wincmd h<CR>
-tnoremap <silent> <leader>wh <C-\><C-n><C-w>h
-" move right
-noremap  <silent> <leader>wl <ESC>:wincmd l<CR>
-inoremap <silent> <leader>wl <ESC>:wincmd l<CR>
-tnoremap <silent> <leader>wl <C-\><C-n><C-w>l
-" move up
-noremap  <silent> <leader>wk <ESC>:wincmd k<CR>
-inoremap <silent> <leader>wk <ESC>:wincmd k<CR>
-tnoremap <silent> <leader>wk <C-\><C-n><C-w>k
-" move down
-noremap  <silent> <leader>wj <ESC>:wincmd j<CR>
-inoremap <silent> <leader>wj <ESC>:wincmd j<CR>
-tnoremap <silent> <leader>wj <C-\><C-n><C-w>j
+call Anoremap('<silent>', '<leader>wh', '<Cmd>wincmd h<CR>') " move left
+call Anoremap('<silent>', '<leader>wl', '<Cmd>wincmd l<CR>') " move right
+call Anoremap('<silent>', '<leader>wk', '<Cmd>wincmd k<CR>') " move up
+call Anoremap('<silent>', '<leader>wj', '<Cmd>wincmd j<CR>') " move down
 
 " Close/open various special splits
-" close help
-noremap  <silent> <leader>qh <ESC>:helpclose<CR>
-inoremap <silent> <leader>qh <ESC>:helpclose<CR>
-tnoremap <silent> <leader>qh <C-\><C-n>:helpclose<CR>
-" close preview
-noremap  <silent> <leader>qp <ESC>:pclose<CR>
-inoremap <silent> <leader>qp <ESC>:pclose<CR>
-tnoremap <silent> <leader>qp <C-\><C-n>:pclose<CR>
-" open quickfix list
-noremap  <silent> <leader>oc <ESC>:copen<CR>
-inoremap <silent> <leader>oc <ESC>:copen<CR>
-tnoremap <silent> <leader>oc <C-\><C-n>:copen<CR>
-" close quickfix list
-noremap  <silent> <leader>qc <ESC>:cclose<CR>
-inoremap <silent> <leader>qc <ESC>:cclose<CR>
-tnoremap <silent> <leader>qc <C-\><C-n>:cclose<CR>
+call Anoremap('<silent>', '<leader>qh', '<Cmd>helpclose<CR>') " close help
+call Anoremap('<silent>', '<leader>qp', '<Cmd>pclose<CR>')    " close preview
+call Anoremap('<silent>', '<leader>oc', '<Cmd>copen<CR>')     " open quickfix list
+call Anoremap('<silent>', '<leader>qc', '<Cmd>cclose<CR>')    " close quickfix list
 " }}}
 
 " LANGUAGE SERVER {{{
@@ -334,21 +297,21 @@ augroup lsp_aucommands
 augroup END
 
 " Language server related shortcuts
-nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader>ld :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
-nnoremap <leader>li :call LanguageClient#textDocument_implementation()<CR>
-nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <leader>la :call LanguageClient#workspace_applyEdit()<CR>
-nnoremap <leader>ll :call LanguageClient#textDocument_documentHighlight()<CR>
-nnoremap <leader>lc :Denite codeAction<CR>
-nnoremap <leader>lm :Denite contextMenu<CR>
-nnoremap <leader>ls :Denite documentSymbol<CR>
-nnoremap <leader>lS :Denite workspaceSymbol<CR>
-nnoremap <leader>lx :Denite references<CR>
-nnoremap <leader>le :cnext<CR>
-nnoremap <leader>lE :cprev<CR>
+call Anoremap('<silent>', '<leader>lh', '<Cmd>call LanguageClient#textDocument_hover()<CR>')
+call Anoremap('<silent>', '<leader>ld', '<Cmd>call LanguageClient#textDocument_definition({"gotoCmd": "split"})<CR>')
+call Anoremap('<silent>', '<leader>li', '<Cmd>call LanguageClient#textDocument_implementation()<CR>')
+call Anoremap('<silent>', '<leader>lr', '<Cmd>call LanguageClient#textDocument_rename()<CR>')
+call Anoremap('<silent>', '<leader>lf', '<Cmd>call LanguageClient#textDocument_formatting()<CR>')
+call Anoremap('<silent>', '<leader>lt', '<Cmd>call LanguageClient#textDocument_typeDefinition()<CR>')
+call Anoremap('<silent>', '<leader>la', '<Cmd>call LanguageClient#workspace_applyEdit()<CR>')
+call Anoremap('<silent>', '<leader>ll', '<Cmd>call LanguageClient#textDocument_documentHighlight()<CR>')
+call Anoremap('<silent>', '<leader>lc', '<Cmd>Denite codeAction<CR>')
+call Anoremap('<silent>', '<leader>lm', '<Cmd>Denite contextMenu<CR>')
+call Anoremap('<silent>', '<leader>ls', '<Cmd>Denite documentSymbol<CR>')
+call Anoremap('<silent>', '<leader>lS', '<Cmd>Denite workspaceSymbol<CR>')
+call Anoremap('<silent>', '<leader>lx', '<Cmd>Denite references<CR>')
+call Anoremap('<silent>', '<leader>le', '<Cmd>cnext<CR>')
+call Anoremap('<silent>', '<leader>lE', '<Cmd>cprev<CR>')
 " }}}
 
 " LINTER/FIXER {{{
@@ -467,7 +430,7 @@ augroup deinte
 \     , 'prompt'                 : '->>'
 \     , 'reversed'               : 'true'
 \     , 'sorters'                : 'sorter/sublime'
-\     , 'vertical_preview'       : ''
+\     , 'vertical_preview'       : 'true'
 \     }
 \   )
 \ | call denite#custom#var('grep', 'command'       , ['rg'])
@@ -484,26 +447,21 @@ augroup deinte
 \ | call denite#custom#map('normal', 'v'    , '<denite:do_action:vsplit>')
 augroup END
 
-function! DeniteGrepCurrentWord() abort
-  let cw = expand('<cword>')
-  call denite#start([{'name': 'grep', 'args': ['', '', cw]}])
-endfunction
-
-noremap <silent> <leader><space> :Denite source<CR>
-noremap <silent> <leader>sb      :Denite buffer<CR>
-noremap <silent> <leader>scc     :Denite command<CR>
-noremap <silent> <leader>sch     :Denite command_history<CR>
-noremap <silent> <leader>sh      :Denite help<CR>
-noremap <silent> <leader>sf      :Denite file<CR>
-noremap <silent> <leader>sr      :Denite file/rec<CR>
-noremap <silent> <leader>sp      :DeniteProjectDir file/rec<CR>
-noremap <silent> <leader>sg      :DeniteProjectDir grep<CR>
-noremap <silent> <leader>si      :DeniteProjectDir grep/interactive<CR>
-noremap <silent> <leader>sw      :call DeniteGrepCurrentWord()<CR>
-noremap <silent> <leader>sll     :Denite line<CR>
-noremap <silent> <leader>slw     :DeniteCursorWord line<CR>
-noremap <silent> <leader>ss      :Denite spell<CR>
-noremap <silent> <leader>sr      :Denite -resume<CR>
+call Anoremap('<silent>', '<leader><space>', '<Cmd>Denite source<CR>')
+call Anoremap('<silent>', '<leader>sb'     , '<Cmd>Denite buffer<CR>')
+call Anoremap('<silent>', '<leader>scc'    , '<Cmd>Denite command<CR>')
+call Anoremap('<silent>', '<leader>sch'    , '<Cmd>Denite command_history<CR>')
+call Anoremap('<silent>', '<leader>sh'     , '<Cmd>Denite help<CR>')
+call Anoremap('<silent>', '<leader>sf'     , '<Cmd>Denite file<CR>')
+call Anoremap('<silent>', '<leader>sr'     , '<Cmd>Denite file/rec<CR>')
+call Anoremap('<silent>', '<leader>sp'     , '<Cmd>DeniteProjectDir file/rec<CR>')
+call Anoremap('<silent>', '<leader>sg'     , '<Cmd>DeniteProjectDir grep<CR>')
+call Anoremap('<silent>', '<leader>si'     , '<Cmd>DeniteProjectDir grep/interactive<CR>')
+call Anoremap('<silent>', '<leader>sw'     , '<Cmd>execute "Denite -input=".expand("<cword>")." grep"<CR>')
+call Anoremap('<silent>', '<leader>sll'    , '<Cmd>Denite line<CR>')
+call Anoremap('<silent>', '<leader>slw'    , '<Cmd>DeniteCursorWord line<CR>')
+call Anoremap('<silent>', '<leader>ss'     , '<Cmd>Denite spell<CR>')
+call Anoremap('<silent>', '<leader>sr'     , '<Cmd>Denite -resume<CR>')
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter

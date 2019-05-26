@@ -7,7 +7,6 @@ let
       name  = "Malo Bourgon";
       email = "mbourgon@gmail.com";
     };
-    pull.rebase = "true";
     alias = {
       # basic commands
       s   = "status";
@@ -28,8 +27,10 @@ let
       amend = "commit --amend -m";
       # rebase commands
       rb   = "rebase";
-      rbc  = "rebase --continue";
       rba  = "rebase --abort";
+      rbc  = "rebase --continue";
+      rbi  = "rebase --interactive";
+      rbs  = "rebase --skip";
       # reset commands
       r      = "reset HEAD";
       r1     = "reset HEAD^";
@@ -44,13 +45,6 @@ let
       # other commands
       lg = ''log --graph --abbrev-commit --decorate --format=format:'%C(\"#${blue}\")%h%C(reset) - %C(\"#${green}\")(%ar)%C(reset) %s %C(italic)- %an%C(reset)%C(\"#${violet} bold\")%d%C(reset)' --all'';
     };
-    core.pager = "diff-so-fancy | less --tabs=2 -RFX --pattern '^(Date|added|deleted|modified): '";
-    "color.diff-highlight" = {
-      oldNormal    = ''\"#${red} bold\"'';
-      oldHighlight = ''\"#${base03} bold #${red}\"'';
-      newNormal    = ''\"#${green} bold\"'';
-      newHighlight = ''\"#${base03} bold #${green}\"'';
-    };
     "color.diff" = {
       meta       = ''\"#${base0} italic\"'';
       frag       = ''\"#${blue} bold\"'';
@@ -60,6 +54,17 @@ let
       new        = ''\"#${green} bold\"'';
       whitespace = ''\"#${red} reverse\"'';
     };
+    "color.diff-highlight" = {
+      oldNormal    = ''\"#${red} bold\"'';
+      oldHighlight = ''\"#${base03} bold #${red}\"'';
+      newNormal    = ''\"#${green} bold\"'';
+      newHighlight = ''\"#${base03} bold #${green}\"'';
+    };
+    core = {
+      editor = "nvr --remote-wait-silent -cc split";
+      pager  = "diff-so-fancy | less --tabs=2 -RFX --pattern '^(Date|added|deleted|modified): '";
+    };
+    pull.rebase = "true";
   };
 in {
   myGit = super.pkgs.symlinkJoin {
