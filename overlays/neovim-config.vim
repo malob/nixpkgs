@@ -35,10 +35,14 @@ set shiftwidth=2 " Width of auto-indents
 
 " Setup color scheme
 " https://github.com/icymind/NeoSolarized
-" terminal colors configured in ./neovim.nix
 set termguicolors             " truecolor support
-colorscheme NeoSolarized      " version of solarized that works better with truecolors
 let g:neosolarized_italic = 1
+colorscheme NeoSolarized      " version of solarized that works better with truecolors
+" terminal colors configured in ./neovim.nix
+augroup termcolors
+  au!
+  au ColorScheme * call UpdateTermColors()
+augroup END
 
 " Misc basic vim ui config
 set cursorline      " highlight current line
@@ -50,9 +54,10 @@ set signcolumn=yes  " always have signcolumn open to avoid thing shifting around
 set scrolloff=5     " start scrolling when cursor is within 5 lines of the edge
 
 " Variables to reuse in config
-let error_symbol  = ''
-let warnin_symbol = ''
-let info_symbol   = ''
+let error_symbol   = ''
+let warning_symbol = ''
+let info_symbol    = ''
+let pencil_symbol  = ''
 
 " Check if file has changed on disk, if it has and buffer has no changes, relaod it
 augroup checktime
@@ -73,9 +78,9 @@ endfunction
 " https://github.com/vim-airline/vim-airline
 
 " General configuration
-let g:airline#parts#ffenc#skip_expected_string ='utf-8[unix]' " only show unusual file encoding
-let g:airline#extensions#hunks#non_zero_only = 1              " only git stats when there are changes
-let g:airline_skip_empty_sections = 1                         " don't show sections if they're empty
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]' " only show unusual file encoding
+let g:airline#extensions#hunks#non_zero_only = 1               " only git stats when there are changes
+let g:airline_skip_empty_sections = 1                          " don't show sections if they're empty
 
 " Tabline configuration
 let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
@@ -96,11 +101,11 @@ endif
 let g:airline_symbols.branch    = ''
 let g:airline_symbols.readonly  = ''
 let g:airline_symbols.notexists = ''
-let g:airline_symbols.dirty     = ''
+let g:airline_symbols.dirty     = pencil_symbol
 let g:airline_mode_map =
 \ { '__': '-'
 \ , 'c' : ''
-\ , 'i' : ''
+\ , 'i' : pencil_symbol
 \ , 'ic': 'I'
 \ , 'ix': 'I'
 \ , 'n' : ''
@@ -118,12 +123,22 @@ let g:airline_mode_map =
 \ }
 
 " Extensions configuration
-let airline#extensions#ale#error_symbol              = error_symbol  + ':'
-let airline#extensions#ale#warning_symbol            = warnin_symbol + ':'
-let airline#extensions#languageclient#error_symbol   = error_symbol  + ':'
-let airline#extensions#languageclient#warning_symbol = warnin_symbol + ':'
+let airline#extensions#ale#error_symbol              = error_symbol.':'
+let airline#extensions#ale#warning_symbol            = warning_symbol.':'
+let airline#extensions#languageclient#error_symbol   = error_symbol.':'
+let airline#extensions#languageclient#warning_symbol = warning_symbol.':'
 let g:airline#extensions#quickfix#quickfix_text      = ''
 let g:airline#extensions#quickfix#location_text      = ''
+
+" Patch in missing colors for terminal status line
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  if g:airline_theme == 'solarized'
+    for key in ['normal', 'insert', 'replace', 'visual', 'inactive']
+      let a:palette[key].airline_term = a:palette[key].airline_x
+    endfor
+  endif
+endfunction
 " }}}
 
 " WELCOME SCREEN {{{
@@ -235,7 +250,7 @@ let g:LanguageClient_serverCommands =
 \ { 'c'         : ['ccls']
 \ , 'cpp'       : ['ccls']
 \ , 'sh'        : ['bin/bash-language-server', 'start']
-\ , 'haskell'   : ['hie-wrapper']
+\ , 'haskell'   : ['hie-8.6.4']
 \ , 'javascript': ['typescript-language-server', '--stdio']
 \ , 'lua'       : ['lua-lsp']
 \ , 'typescript': ['typescript-language-server', '--stdio']
@@ -257,7 +272,7 @@ let g:LanguageClient_diagnosticsDisplay =
 \ , 2:
 \   { 'name'      : 'Warning'
 \   , 'texthl'    : 'ALEWarning'
-\   , 'signText'  : warnin_symbol
+\   , 'signText'  : warning_symbol
 \   , 'signTexthl': 'ALEWarningSign'
 \   }
 \ , 3:
@@ -341,9 +356,9 @@ let g:ale_fixers =
 
 " Customize symbols
 let g:ale_sign_error         = error_symbol
-let g:ale_sign_warning       = warnin_symbol
+let g:ale_sign_warning       = warning_symbol
 let g:ale_sign_info          = info_symbol
-let g:ale_sign_style_error   = ''
+let g:ale_sign_style_error   = pencil_symbol
 let g:ale_sign_style_warning = g:ale_sign_style_error
 " }}}
 

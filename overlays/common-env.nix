@@ -45,7 +45,6 @@ self: super:
       gitAndTools.diff-so-fancy
       gitAndTools.hub
       google-cloud-sdk
-      haskellPackages.ghcid
       haskellPackages.hoogle
       haskellPackages.weeder
       lua

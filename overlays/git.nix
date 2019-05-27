@@ -24,7 +24,7 @@ let
       cm    = "commit -m";
       ca    = "commit -a";
       cam   = "commit -a -m";
-      amend = "commit --amend -m";
+      amend = "commit --amend --no-edit";
       # rebase commands
       rb   = "rebase";
       rba  = "rebase --abort";
