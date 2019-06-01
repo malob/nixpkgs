@@ -274,13 +274,13 @@ let
         sha512 = "27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==";
       };
     };
-    "core-js-2.6.8" = {
+    "core-js-2.6.9" = {
       name = "core-js";
       packageName = "core-js";
-      version = "2.6.8";
+      version = "2.6.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js/-/core-js-2.6.8.tgz";
-        sha512 = "RWlREFU74TEkdXzyl1bka66O3kYp8jeTXrvJZDzVVMH8AiHUSOFpL1yfhQJ+wHocAm1m+4971W1PPzfLuCv1vg==";
+        url = "https://registry.npmjs.org/core-js/-/core-js-2.6.9.tgz";
+        sha512 = "HOpZf6eXmnl7la+cUdMnLvUxKNqLUzJvgIziQ0DiF3JwSImNphIqdGqzj6hIKyX04MmV0poclQ7+wjWvxQyR2A==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -733,13 +733,13 @@ let
         sha1 = "bf2249886ce514cda112fae9218cdc065211fc9c";
       };
     };
-    "loglevel-1.6.1" = {
+    "loglevel-1.6.2" = {
       name = "loglevel";
       packageName = "loglevel";
-      version = "1.6.1";
+      version = "1.6.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/loglevel/-/loglevel-1.6.1.tgz";
-        sha1 = "e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa";
+        url = "https://registry.npmjs.org/loglevel/-/loglevel-1.6.2.tgz";
+        sha512 = "Jt2MHrCNdtIe1W6co3tF5KXGRkzF+TYffiQstfXa04mrss9IKXzAAXYWak8LbZseAQY03sH2GzMCMU0ZOUc9bg==";
       };
     };
     "loglevel-colored-level-prefix-1.0.0" = {
@@ -1379,7 +1379,7 @@ in
       sources."common-tags-1.8.0"
       sources."concat-map-0.0.1"
       sources."concat-stream-1.6.2"
-      sources."core-js-2.6.8"
+      sources."core-js-2.6.9"
       sources."core-util-is-1.0.2"
       sources."cross-spawn-5.1.0"
       sources."debug-3.2.6"
@@ -1430,7 +1430,7 @@ in
       sources."lodash-4.17.11"
       sources."lodash.merge-4.6.1"
       sources."lodash.unescape-4.0.1"
-      sources."loglevel-1.6.1"
+      sources."loglevel-1.6.2"
       (sources."loglevel-colored-level-prefix-1.0.0" // {
         dependencies = [
           sources."chalk-1.1.3"
