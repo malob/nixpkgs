@@ -53,7 +53,7 @@ self: super:
       unstable.nodePackages.typescript
 
       # Neovim dependencies for linters and languages servers
-      all-hies.latest
+      (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
       unstable.ccls
       luaPackages.luacheck
       unstable.nodePackages.bash-language-server

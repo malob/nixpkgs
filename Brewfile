@@ -3,8 +3,11 @@ tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
+tap "koekeishiya/formulae"
 
-# Non-nixpkgs command line tools
+# Non-nixpkgs tools
+brew "chunkwm"
+brew "skhd"
 brew "fish"
 brew "mas"
 

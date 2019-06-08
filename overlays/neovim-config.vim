@@ -502,6 +502,7 @@ let g:javascript_plugin_jsdoc = 1
 " Syntax highlighting and indentation for Haskell
 " https://github.com/neovimhaskell/haskell-vim.git
 " indenting options
+let g:haskell_classic_highlighting = 1
 let g:haskell_indent_if = 3
 let g:haskell_indent_case = 2
 let g:haskell_indent_let = 4

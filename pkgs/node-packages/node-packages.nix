@@ -796,13 +796,13 @@ let
         sha1 = "30057438eac6cf7f8c4767f38648d6697d75c903";
       };
     };
-    "ms-2.1.1" = {
+    "ms-2.1.2" = {
       name = "ms";
       packageName = "ms";
-      version = "2.1.1";
+      version = "2.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ms/-/ms-2.1.1.tgz";
-        sha512 = "tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==";
+        url = "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz";
+        sha512 = "sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==";
       };
     };
     "mute-stream-0.0.7" = {
@@ -904,13 +904,13 @@ let
         sha1 = "21932a549f5e52ffd9a827f570e04be62a97da54";
       };
     };
-    "prettier-1.17.1" = {
+    "prettier-1.18.2" = {
       name = "prettier";
       packageName = "prettier";
-      version = "1.17.1";
+      version = "1.18.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/prettier/-/prettier-1.17.1.tgz";
-        sha512 = "TzGRNvuUSmPgwivDqkZ9tM/qTGW9hqDKWOE9YHiyQdixlKbv7kvEqsmDPrcHJTKwthU774TQwZXVtaQ/mMsvjg==";
+        url = "https://registry.npmjs.org/prettier/-/prettier-1.18.2.tgz";
+        sha512 = "OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==";
       };
     };
     "pretty-format-23.6.0" = {
@@ -1442,7 +1442,7 @@ in
       sources."minimatch-3.0.4"
       sources."minimist-0.0.8"
       sources."mkdirp-0.5.1"
-      sources."ms-2.1.1"
+      sources."ms-2.1.2"
       sources."mute-stream-0.0.7"
       sources."natural-compare-1.4.0"
       sources."object-assign-4.1.1"
@@ -1454,7 +1454,7 @@ in
       sources."path-is-inside-1.0.2"
       sources."pluralize-7.0.0"
       sources."prelude-ls-1.1.2"
-      sources."prettier-1.17.1"
+      sources."prettier-1.18.2"
       (sources."pretty-format-23.6.0" // {
         dependencies = [
           sources."ansi-regex-3.0.0"
