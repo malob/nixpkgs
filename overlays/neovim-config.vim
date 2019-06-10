@@ -10,7 +10,7 @@ scriptencoding=utf-8
 "   * Avoid single key leader shortcuts. Have the first key be some mnemonic for what the command does.
 "   * <leader>l for language server related commands.
 "   * <leader>w for window related commands.
-"   * <leader>/ for search (Denite) related commands.
+"   * <leader>s for search (Denite) related commands.
 "   * <leader>t for tab related commands.
 "   * <leader>q for quit/close related commands.
 " }}}
@@ -79,8 +79,8 @@ endfunction
 
 " General configuration
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]' " only show unusual file encoding
-let g:airline#extensions#hunks#non_zero_only = 1               " only git stats when there are changes
-let g:airline_skip_empty_sections = 1                          " don't show sections if they're empty
+let g:airline#extensions#hunks#non_zero_only   = 1             " only git stats when there are changes
+let g:airline_skip_empty_sections              = 1             " don't show sections if they're empty
 
 " Tabline configuration
 let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
@@ -133,7 +133,7 @@ let g:airline#extensions#quickfix#location_text      = ''
 " Patch in missing colors for terminal status line
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
-  if g:airline_theme == 'solarized'
+  if g:airline_theme ==# 'solarized'
     for key in ['normal', 'insert', 'replace', 'visual', 'inactive']
       let a:palette[key].airline_term = a:palette[key].airline_x
     endfor
@@ -237,20 +237,18 @@ call Anoremap('<silent>', '<leader>oc', '<Cmd>copen<CR>')     " open quickfix li
 call Anoremap('<silent>', '<leader>qc', '<Cmd>cclose<CR>')    " close quickfix list
 " }}}
 
-" LANGUAGE SERVER {{{
+" LANGUAGE CLIENT {{{
 " ===============
 " LanguageClient-neovim
 " Provides completions, linting, fixers, etc.
 " https://github.com/autozimu/LanguageClient-neovim
-
-let g:LanguageClient_settingsPath = '.vim/settings.json'
 
 " Point language client as some language servers
 let g:LanguageClient_serverCommands =
 \ { 'c'         : ['ccls']
 \ , 'cpp'       : ['ccls']
 \ , 'sh'        : ['bin/bash-language-server', 'start']
-\ , 'haskell'   : ['hie-8.6.4']
+\ , 'haskell'   : ['hie-wrapper']
 \ , 'javascript': ['typescript-language-server', '--stdio']
 \ , 'lua'       : ['lua-lsp']
 \ , 'typescript': ['typescript-language-server', '--stdio']
@@ -289,6 +287,17 @@ let g:LanguageClient_diagnosticsDisplay =
 \   }
 \ }
 
+" Extend timeout
+let g:LanguageClient_waitOutputTimeout = 20
+
+
+augroup LC
+  au!
+  au CursorHold * call LanguageClient#isAlive(function('LspMaybeHighlight'))
+  " au CursorHold * call LanguageClient#isAlive(function('LspMaybeHover'))
+  au FileType   * call LC_maps()
+augroup END
+
 " Automatically invoke hover and highlight on cursor movement
 " https://github.com/autozimu/LanguageClient-neovim/issues/618#issuecomment-424539982
 let g:LanguageClient_hoverPreview = 'Always' " Always show preview window
@@ -305,28 +314,33 @@ function! LspMaybeHighlight(is_running) abort
   endif
 endfunction
 
-"\ call LanguageClient#isAlive(function('LspMaybeHover'))
-augroup lsp_aucommands
-  au!
-  au CursorHold  * call LanguageClient#isAlive(function('LspMaybeHighlight'))
-augroup END
-
-" Language server related shortcuts
-call Anoremap('<silent>', '<leader>lh', '<Cmd>call LanguageClient#textDocument_hover()<CR>')
-call Anoremap('<silent>', '<leader>ld', '<Cmd>call LanguageClient#textDocument_definition({"gotoCmd": "split"})<CR>')
-call Anoremap('<silent>', '<leader>li', '<Cmd>call LanguageClient#textDocument_implementation()<CR>')
-call Anoremap('<silent>', '<leader>lr', '<Cmd>call LanguageClient#textDocument_rename()<CR>')
-call Anoremap('<silent>', '<leader>lf', '<Cmd>call LanguageClient#textDocument_formatting()<CR>')
-call Anoremap('<silent>', '<leader>lt', '<Cmd>call LanguageClient#textDocument_typeDefinition()<CR>')
-call Anoremap('<silent>', '<leader>la', '<Cmd>call LanguageClient#workspace_applyEdit()<CR>')
-call Anoremap('<silent>', '<leader>ll', '<Cmd>call LanguageClient#textDocument_documentHighlight()<CR>')
-call Anoremap('<silent>', '<leader>lc', '<Cmd>Denite codeAction<CR>')
-call Anoremap('<silent>', '<leader>lm', '<Cmd>Denite contextMenu<CR>')
-call Anoremap('<silent>', '<leader>ls', '<Cmd>Denite documentSymbol<CR>')
-call Anoremap('<silent>', '<leader>lS', '<Cmd>Denite workspaceSymbol<CR>')
-call Anoremap('<silent>', '<leader>lx', '<Cmd>Denite references<CR>')
-call Anoremap('<silent>', '<leader>le', '<Cmd>cnext<CR>')
-call Anoremap('<silent>', '<leader>lE', '<Cmd>cprev<CR>')
+" Language server related keybindings
+function! LC_maps() abort
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+    call Anoremap('<buffer><silent>', '<leader>lh', '<Cmd>call LanguageClient#textDocument_hover()<CR>')
+    " goto commands
+    call Anoremap('<buffer><silent>', '<leader>ld', '<Cmd>call LanguageClient#textDocument_definition({"gotoCmd": "split"})<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lt', '<Cmd>call LanguageClient#textDocument_typeDefinition()<CR>')
+    call Anoremap('<buffer><silent>', '<leader>li', '<Cmd>call LanguageClient#textDocument_implementation()<CR>')
+    " formating commands
+    call Anoremap('<buffer><silent>', '<leader>lf', '<Cmd>call LanguageClient#textDocument_formatting()<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lF', '<Cmd>call LanguageClient#textDocument_rangeFormatting()<CR>')
+    " highlight commands
+    call Anoremap('<buffer><silent>', '<leader>ll', '<Cmd>call LanguageClient#textDocument_documentHighlight()<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lL', '<Cmd>call LanguageClient#textDocument_clearDocumentHighlight()<CR>')
+    " other commands
+    call Anoremap('<buffer><silent>', '<leader>le', '<Cmd>call LanguageClient#explainErrorAtPoint()<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lr', '<Cmd>call LanguageClient#textDocument_rename()<CR>')
+    call Anoremap('<buffer><silent>', '<leader>la', '<Cmd>call LanguageClient#workspace_applyEdit()<CR>')
+    " Denite sources
+    call Anoremap('<buffer><silent>', '<leader>lc', '<Cmd>Denite codeAction<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lm', '<Cmd>Denite contextMenu<CR>')
+    call Anoremap('<buffer><silent>', '<leader>ls', '<Cmd>Denite documentSymbol<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lS', '<Cmd>Denite workspaceSymbol<CR>')
+    call Anoremap('<buffer><silent>', '<leader>lx', '<Cmd>Denite references<CR>')
+  endif
+endfunction
 " }}}
 
 " LINTER/FIXER {{{
@@ -425,58 +439,144 @@ augroup END
 " https://github.com/junegunn/goyo.vim
 " }}}
 
-" MISC PLUGIN {{{
-" ===========
-
+" LIST SEARCHER {{{
+" =============
 " denite.vim
 " Powerful list searcher
 " https://github.com/Shougo/denite.nvim
-augroup deinte
+augroup denite_settings
   au!
-  au VimEnter *
-\ call denite#custom#option
-\   ( '_'
-\   , { 'auto_resize'            : 'true'
-\     , 'highlight_matched_char' : 'SpellRare'
-\     , 'highlight_matched_range': 'SpellCap'
-\     , 'highlight_mode_insert'  : 'CursorLine'
-\     , 'highlight_mode_normal'  : 'CursorLine'
-\     , 'ignore'                 : '*/.stack-work'
-\     , 'prompt'                 : '->>'
-\     , 'reversed'               : 'true'
-\     , 'sorters'                : 'sorter/sublime'
-\     , 'vertical_preview'       : 'true'
-\     }
-\   )
-\ | call denite#custom#var('grep', 'command'       , ['rg'])
-\ | call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading'])
-\ | call denite#custom#var('grep', 'recursive_opts', [])
-\ | call denite#custom#var('grep', 'pattern_opt'   , ['--regexp'])
-\ | call denite#custom#var('grep', 'separator'     , ['--'])
-\ | call denite#custom#var('grep', 'final_opts'    , [])
-\ | call denite#custom#alias ('source'          , 'grep/interactive', 'grep')
-\ | call denite#custom#source('grep/interactive', 'args'            , ['', '', '!'])
-\ | call denite#custom#map('insert', '<ESC>', '<denite:enter_mode:normal>')
-\ | call denite#custom#map('normal', '<ESC>', '<denite:quit>')
-\ | call denite#custom#map('normal', 's'    , '<denite:do_action:split>')
-\ | call denite#custom#map('normal', 'v'    , '<denite:do_action:vsplit>')
+  au FileType denite        call s:denite_maps()
+  au FileType denite-filter call deoplete#custom#buffer_option('auto_complete', v:false)
+  au VimEnter *             call s:denite_settings()
 augroup END
 
-call Anoremap('<silent>', '<leader><space>', '<Cmd>Denite source<CR>')
-call Anoremap('<silent>', '<leader>sb'     , '<Cmd>Denite buffer<CR>')
-call Anoremap('<silent>', '<leader>scc'    , '<Cmd>Denite command<CR>')
-call Anoremap('<silent>', '<leader>sch'    , '<Cmd>Denite command_history<CR>')
-call Anoremap('<silent>', '<leader>sh'     , '<Cmd>Denite help<CR>')
-call Anoremap('<silent>', '<leader>sf'     , '<Cmd>Denite file<CR>')
-call Anoremap('<silent>', '<leader>sr'     , '<Cmd>Denite file/rec<CR>')
-call Anoremap('<silent>', '<leader>sp'     , '<Cmd>DeniteProjectDir file/rec<CR>')
-call Anoremap('<silent>', '<leader>sg'     , '<Cmd>DeniteProjectDir grep<CR>')
-call Anoremap('<silent>', '<leader>si'     , '<Cmd>DeniteProjectDir grep/interactive<CR>')
-call Anoremap('<silent>', '<leader>sw'     , '<Cmd>execute "DeniteProjectDir -input=".expand("<cword>")." grep"<CR>')
-call Anoremap('<silent>', '<leader>sll'    , '<Cmd>Denite line<CR>')
-call Anoremap('<silent>', '<leader>slw'    , '<Cmd>DeniteCursorWord line<CR>')
-call Anoremap('<silent>', '<leader>ss'     , '<Cmd>Denite spell<CR>')
-call Anoremap('<silent>', '<leader>sr'     , '<Cmd>Denite -resume<CR>')
+" Denite buffer command mapping
+function! s:denite_maps() abort
+  " general commands
+  nnoremap <silent><buffer><expr> <TAB>   denite#do_map('choose_action')
+  nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action') " do default action
+  nnoremap <silent><buffer><expr> <ESC>   denite#do_map('quit')
+  nnoremap <silent><buffer><expr> u       denite#do_map('move_up_path')
+  nnoremap <silent><buffer><expr> i       denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select')
+  nnoremap <silent><buffer><expr> *       denite#do_map('toggle_select_all')
+  " global actions
+  nnoremap <silent><buffer><expr> A       denite#do_map('do_action', 'append')  " insert the candidate after the cursor
+  nnoremap <silent><buffer><expr> E       denite#do_map('do_action', 'echo')    " print the candidates to denite messages
+  nnoremap <silent><buffer><expr> R       denite#do_map('do_action', 'replace') " replace word under cursor with candidate
+  nnoremap <silent><buffer><expr> Y       denite#do_map('do_action', 'yank')    " yank the candidate
+  " buffer actions (default 'open')
+  nnoremap <silent><buffer><expr> d       denite#do_map('do_action', 'delete') " delete the buffer
+  " command actions (default 'execute')
+  nnoremap <silent><buffer><expr> e       denite#do_map('do_action', 'edit') " edit command than execute
+  " directory actions (default 'narrow')
+  nnoremap <silent><buffer><expr> c       denite#do_map('do_action', 'cd') " change vim current dir
+  " file actions (default 'open', i.e., ':edit' the file)
+  nnoremap <silent><buffer><expr> D       denite#do_map('do_action', 'drop')     " ':drop' file
+  nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')  " preview file
+  nnoremap <silent><buffer><expr> q       denite#do_map('do_action', 'quickfix') " set the quickfix list and open it
+  nnoremap <silent><buffer><expr> l       denite#do_map('do_action', 'location') " set the location list and open it
+  " openable actions (for buffers and files)
+  nnoremap <silent><buffer><expr> O       denite#do_map('do_action', 'open')         " ':edit' the candidate
+  nnoremap <silent><buffer><expr> T       denite#do_map('do_action', 'tabopen')      " open the candidate in a tab
+  nnoremap <silent><buffer><expr> S       denite#do_map('do_action', 'split')        " open the candidate in a horizontal split
+  nnoremap <silent><buffer><expr> V       denite#do_map('do_action', 'vsplit')       " open the candidate in a vertical split
+  nnoremap <silent><buffer><expr> o       denite#do_map('do_action', 'switch')       " switch to window if open, else 'open'
+  nnoremap <silent><buffer><expr> t       denite#do_map('do_action', 'tabswitch')    " switch to window if open, else 'tabopen'
+  nnoremap <silent><buffer><expr> s       denite#do_map('do_action', 'splitswitch')  " switch to window if open, else 'split'
+  nnoremap <silent><buffer><expr> v       denite#do_map('do_action', 'vsplitswitch') " switch to window if open, else 'vsplit'
+endfunction
+
+" Denite options/configuration
+function! s:denite_settings() abort
+  " set options for all Denite buffers
+  call denite#custom#option('_',
+  \ { 'auto_resize'                : v:true
+  \ , 'highlight_matched_char'     : 'SpellRare'
+  \ , 'highlight_matched_range'    : 'SpellCap'
+  \ , 'prompt'                     : '->'
+  \ , 'reversed'                   : v:true
+  \ , 'smartcase'                  : v:true
+  \ , 'sorters'                    : 'sorter/sublime'
+  \ , 'statusline'                 : v:false
+  \ , 'vertical_preview'           : v:true
+  \ })
+  " set options for specific Denite buffers
+  call denite#custom#option('buffer'          , 'default_action', 'switch')
+  call denite#custom#option('file'            , 'default_action', 'switch')
+  call denite#custom#option('file/rec'        , 'default_action', 'switch')
+  call denite#custom#option('grep'            , 'default_action', 'switch')
+  call denite#custom#option('grep/interactive', 'default_action', 'switch')
+  " use Ripgrep for grep source
+  call denite#custom#var('grep', 'command'       , ['rg'])
+  call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt'   , ['--regexp'])
+  call denite#custom#var('grep', 'separator'     , ['--'])
+  call denite#custom#var('grep', 'final_opts'    , [])
+  " redefine diretory search to ignore hidden folders
+  call denite#custom#var
+  \ ('directory_rec'
+  \ , 'command'
+  \ , [ 'find'
+  \   , ':directory'
+  \   , '-type', 'd'
+  \   , '-not', '-path', '*\/.*'
+  \   , '-print'
+  \   ]
+  \ )
+  " create interactive grep source
+  " TODO: fix Denite errors
+  call denite#custom#alias ('source'          , 'grep/interactive', 'grep')
+  call denite#custom#source('grep/interactive', 'args'            , ['', '', '!'])
+  " change default matchers for some sources
+  call denite#custom#source('file'         , 'matchers', ['matcher/fuzzy', 'matcher/hide_hidden_files'])
+  call denite#custom#source('file/rec'     , 'matchers', ['matcher/fuzzy', 'matcher/hide_hidden_files'])
+endfunction
+
+" Denite source mappings
+" buffers
+call Anoremap('<silent>', '<leader>sb' , '<Cmd>Denite buffer<CR>')
+" ':changes' results
+call Anoremap('<silent>', '<leader>sc' , '<Cmd>Denite change<CR>')
+" commands
+call Anoremap('<silent>', '<leader>sx' , '<Cmd>Denite command<CR>')
+" commands history
+call Anoremap('<silent>', '<leader>sh' , '<Cmd>Denite command_history<CR>')
+" directories
+call Anoremap('<silent>', '<leader>sd' , '<Cmd>DeniteProjectDir directory_rec<CR>') " in project folder
+call Anoremap('<silent>', '<leader>s~' , '<Cmd>Denite -path=~ directory_rec<CR>')   " in home folder
+call Anoremap('<silent>', '<leader>s/' , '<Cmd>Denite -path=/ directory_rec<CR>')   " in root folder
+" files
+call Anoremap('<silent>', '<leader>sf' , '<Cmd>Denite file<CR>')               " in current folder
+call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite file/rec<CR>')           " in current folder recursively
+call Anoremap('<silent>', '<leader>sp' , '<Cmd>DeniteProjectDir file/rec<CR>') " in project folder recursively
+" filetypes
+call Anoremap('<silent>', '<leader>st' , '<Cmd>Denite filetype<CR>')
+" grep results
+call Anoremap('<silent>', '<leader>sg' , '<Cmd>DeniteProjectDir grep<CR>')             " in project folder
+call Anoremap('<silent>', '<leader>si' , '<Cmd>DeniteProjectDir grep/interactive<CR>') " in project folder interactively
+call Anoremap('<silent>', '<leader>sw' , '<Cmd>execute "DeniteProjectDir -input=".expand("<cword>")." grep"<CR>') " in project folder w/ cursor word
+" help tags
+call Anoremap('<silent>', '<leader>s?' , '<Cmd>Denite help<CR>')
+" ':jump' results
+call Anoremap('<silent>', '<leader>sj' , '<Cmd>Denite jump<CR>')
+" lines of buffer
+call Anoremap('<silent>', '<leader>sll', '<Cmd>Denite line<CR>')
+call Anoremap('<silent>', '<leader>slw', '<Cmd>DeniteCursorWord line<CR>') " starting w/ cursor word
+" outline (ctags)
+call Anoremap('<silent>', '<leader>so' , '<Cmd>Denite outline<CR>')
+" registers
+call Anoremap('<silent>', '<leader>s"' , '<Cmd>Denite register<CR>')
+" spell suggestions
+call Anoremap('<silent>', '<leader>ss' , '<Cmd>Denite spell<CR>')
+" resume previous search
+call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite -resume<CR>')
+" }}}
+
+" MISC PLUGIN {{{
+" ===========
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter
@@ -502,7 +602,6 @@ let g:javascript_plugin_jsdoc = 1
 " Syntax highlighting and indentation for Haskell
 " https://github.com/neovimhaskell/haskell-vim.git
 " indenting options
-let g:haskell_classic_highlighting = 1
 let g:haskell_indent_if = 3
 let g:haskell_indent_case = 2
 let g:haskell_indent_let = 4
