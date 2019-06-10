@@ -1,5 +1,5 @@
 self: super:
-with import ../neo-solazired.nix; let
+let
   # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
   customVimPlugins = with super.vimUtils; {
   #  package-name-here = buildVimPluginFrom2Nix {
@@ -26,7 +26,6 @@ in {
           deoplete-nvim
           gitgutter
           goyo-vim
-          haskell-vim
           LanguageClient-neovim
           neco-vim
           NeoSolarized
@@ -34,12 +33,9 @@ in {
           vim-airline-themes
           vim-choosewin
           vim-commentary
-          vim-fish
           vim-fugitive
-          vim-javascript
-          vim-markdown
-          vim-nix
           vim-pencil
+          vim-polyglot
           vim-startify
           vim-surround
           yats-vim

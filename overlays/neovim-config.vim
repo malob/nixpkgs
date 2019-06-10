@@ -201,8 +201,8 @@ let g:startify_commands =
 " See keyboard mappings in next section
 " }}}
 
-" WINDOW/SPLITS/TABS/TERMINAL {{{
-" ===========================
+" WINDOWS/SPLITS/TABS/TERMINALS {{{
+" =============================
 
 " Make escape more sensible in terminal mode
 tnoremap <ESC> <C-\><C-n>    " enter normal mode
@@ -216,7 +216,7 @@ augroup END
 " vim-choosewin
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
-" color setting in neovim.nix
+" color setting in BASIC VIM CONFIG section
 call Anoremap('<silent>', '<leader><leader>', '<Cmd>ChooseWin<CR>')
 let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
 let g:choosewin_tabline_replace = 0 " don't use choosewin tabline since Airline provides numbers
@@ -426,35 +426,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " https://github.com/ponko2/deoplete-fish
 " }}}
 
-" WRITING AND MARKDOWN {{{
-" ====================
-
-" vim-markdown
-" Adds a ton of functionality for Markdown
-" https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_folding_disabled     = 1
-let g:vim_markdown_new_list_item_indent = 2
-set conceallevel=2
-
-" vim-pencil
-" Adds a bunch of really nice features for writing
-" https://github.com/reedes/vim-pencil
-let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
-let g:airline_section_x = '%{PencilMode()}'
-augroup pencil
-  au!
-  au FileType markdown,mkd,text call pencil#init() | set spell
-augroup END
-
-" tabular
-" Helps vim-markdown with table formatting amoung other things
-" https://github.com/godlygeek/tabular
-"
-" Goyo
-" Distraction free writing mode for vim
-" https://github.com/junegunn/goyo.vim
-" }}}
-
 " LIST SEARCHER {{{
 " =============
 " denite.vim
@@ -591,8 +562,78 @@ call Anoremap('<silent>', '<leader>ss' , '<Cmd>Denite spell<CR>')
 call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite -resume<CR>')
 " }}}
 
-" MISC PLUGIN {{{
-" ===========
+" WRITING {{{
+" =======
+
+" vim-pencil
+" Adds a bunch of really nice features for writing
+" https://github.com/reedes/vim-pencil
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+let g:airline_section_x = '%{PencilMode()}'
+augroup pencil
+  au!
+  au FileType markdown,mkd,text call pencil#init() | set spell
+augroup END
+
+" Goyo
+" Distraction free writing mode for vim
+" https://github.com/junegunn/goyo.vim
+" }}}
+
+" FILETYPE SPECIFIC {{{
+" =================
+
+" Most filetypes
+" vim-polyglot
+" A solid language pack for Vim
+" https://github.com/sheerun/vim-polyglot
+
+" Haskell
+" haskell-vim (comes in vim-polyglot)
+" https://github.com/neovimhaskell/haskell-vim.git
+" indenting options
+let g:haskell_indent_if               = 3
+let g:haskell_indent_case             = 2
+let g:haskell_indent_let              = 4
+let g:haskell_indent_where            = 6
+let g:haskell_indent_before_where     = 2
+let g:haskell_indent_after_bare_where = 2
+let g:haskell_indent_do               = 3
+let g:haskell_indent_in               = 1
+let g:haskell_indent_guard            = 2
+" turn on extra highlighting
+let g:haskell_backpack                = 1 " to enable highlighting of backpack keywords
+let g:haskell_enable_arrowsyntax      = 1 " to enable highlighting of `proc`
+let g:haskell_enable_quantification   = 1 " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo      = 1 " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_static_pointers  = 1 " to enable highlighting of `static`
+let g:haskell_enable_typeroles        = 1 " to enable highlighting of type roles
+
+" Javascript
+" vim-javascript (comes in vim-polyglot)
+" https://github.com/pangloss/vim-javascript
+let g:javascript_plugin_jsdoc = 1
+
+" Markdown
+" vim-markdown (comes in vim-polyglot)
+" https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled     = 1
+let g:vim_markdown_new_list_item_indent = 2
+set conceallevel=2
+
+" Typescript
+" yats.vim
+" https://github.com/herringtondarkholme/yats.vim
+let g:polyglot_disabled = ['typescript']
+" }}}
+
+" MISC {{{
+" ====
+
+" vim-fugitive
+" A Git wrapper so awesome, it should be illegal
+" https://github.com/tpope/vim-fugitive
 
 " GitGutter
 " https://github.com/airblade/vim-gitgutter
@@ -601,38 +642,11 @@ let g:gitgutter_sign_added    = '┃'                    " replace default symbo
 let g:gitgutter_sign_modified = g:gitgutter_sign_added
 let g:gitgutter_sign_removed  = g:gitgutter_sign_added
 
-" vim-javascript
-" Syntax highlighting for js
-" https://github.com/pangloss/vim-javascript
-let g:javascript_plugin_jsdoc = 1
+" vim-commentary
+" Comment stuff out (easily)
+" https://github.com/tpope/vim-commentary
 
-" yats.vim
-" Syntax highlighting for TypeScript
-" https://github.com/herringtondarkholme/yats.vim
-
-" vim-fish
-" Syntax highlighting and a bunch of other stuff for Fish
-" https://github.com/dag/vim-fish
-
-" haskell-vim
-" Syntax highlighting and indentation for Haskell
-" https://github.com/neovimhaskell/haskell-vim.git
-" indenting options
-let g:haskell_indent_if = 3
-let g:haskell_indent_case = 2
-let g:haskell_indent_let = 4
-let g:haskell_indent_where = 6
-let g:haskell_indent_before_where = 2
-let g:haskell_indent_after_bare_where = 2
-let g:haskell_indent_do = 3
-let g:haskell_indent_in = 1
-let g:haskell_indent_guard = 2
-" turn on extra highlighting
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+" tabular
+" Helps vim-markdown with table formatting amoung many other things
+" https://github.com/godlygeek/tabular
 " }}}
