@@ -59,7 +59,7 @@ let warning_symbol = ''
 let info_symbol    = ''
 let pencil_symbol  = ''
 
-" Check if file has changed on disk, if it has and buffer has no changes, relaod it
+" Check if file has changed on disk, if it has and buffer has no changes, reload it
 augroup checktime
   au!
   au BufEnter,FocusGained,CursorHold,CursorHoldI * checktime
@@ -170,18 +170,18 @@ let g:startify_commands =
 \ [ {'t': ['Open Terminal',  'term']}
 \ , {'r':
 \     [ 'Rebuild Nix User'
-\     , ' let nixRubuildOutput=system("nixuser-rebuild")
+\     , ' let nixRebuildOutput=system("nixuser-rebuild")
 \       | let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc")
 \       | execute "source" newVimConfig
 \       | redraw
-\       | echo nixRubuildOutput
+\       | echo nixRebuildOutput
 \       '
 \     ]
 \   }
 \ ]
 
 " Run Startify in new tabs
-" See keyboard shortcuts in next section
+" See keyboard mappings in next section
 " }}}
 
 " WINDOW/SPLITS/TABS/TERMINAL {{{
@@ -426,8 +426,7 @@ let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 let g:airline_section_x = '%{PencilMode()}'
 augroup pencil
   au!
-  au FileType markdown,mkd call pencil#init()
-  au FileType text         call pencil#init()
+  au FileType markdown,mkd,text call pencil#init() | set spell
 augroup END
 
 " tabular

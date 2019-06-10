@@ -7,6 +7,7 @@ self: super:
     paths = with self.pkgs; [
       myCommonEnv
       kiwix-tools
+      slack
     ];
   };
 }
