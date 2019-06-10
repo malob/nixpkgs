@@ -38,11 +38,22 @@ set shiftwidth=2 " Width of auto-indents
 set termguicolors             " truecolor support
 let g:neosolarized_italic = 1
 colorscheme NeoSolarized      " version of solarized that works better with truecolors
-" terminal colors configured in ./neovim.nix
+
 augroup termcolors
   au!
-  au ColorScheme * call UpdateTermColors()
+  au ColorScheme,VimEnter * call UpdateTermColors()
 augroup END
+
+function! UpdateTermColors()
+  let g:terminal_color_8  = g:terminal_color_0
+  let g:terminal_color_9  = g:terminal_color_1
+  let g:terminal_color_10 = g:terminal_color_2
+  let g:terminal_color_11 = g:terminal_color_3
+  let g:terminal_color_12 = g:terminal_color_4
+  let g:terminal_color_13 = g:terminal_color_5
+  let g:terminal_color_14 = g:terminal_color_6
+  let g:terminal_color_15 = g:terminal_color_7
+endfunction
 
 " Misc basic vim ui config
 set cursorline      " highlight current line
@@ -247,7 +258,7 @@ call Anoremap('<silent>', '<leader>qc', '<Cmd>cclose<CR>')    " close quickfix l
 let g:LanguageClient_serverCommands =
 \ { 'c'         : ['ccls']
 \ , 'cpp'       : ['ccls']
-\ , 'sh'        : ['bin/bash-language-server', 'start']
+\ , 'sh'        : ['bash-language-server', 'start']
 \ , 'haskell'   : ['hie-wrapper']
 \ , 'javascript': ['typescript-language-server', '--stdio']
 \ , 'lua'       : ['lua-lsp']
