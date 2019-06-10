@@ -41,10 +41,16 @@ colorscheme NeoSolarized      " version of solarized that works better with true
 
 augroup termcolors
   au!
-  au ColorScheme,VimEnter * call UpdateTermColors()
+  au ColorScheme,VimEnter * call UpdateColors()
 augroup END
 
-function! UpdateTermColors()
+function! UpdateColors()
+  " Style choosewin to fit in with NeoSolarized colorscheme
+  let g:choosewin_color_label         = {'gui': [g:terminal_color_2 , g:terminal_color_15, 'bold'], 'cterm': [2 , 15, 'bold']}
+  let g:choosewin_color_label_current = {'gui': [g:terminal_color_11, g:terminal_color_0 ]        , 'cterm': [11, 0 ]}
+  let g:choosewin_color_other         = {'gui': [g:terminal_color_11, g:terminal_color_11]        , 'cterm': [11, 11]}
+  let g:choosewin_color_land          = {'gui': [g:terminal_color_3 , g:terminal_color_0 ]        , 'cterm': [3 , 0 ]}
+  " Make term colors 8-15 the same as 0-7 to get around bold as bright issue.
   let g:terminal_color_8  = g:terminal_color_0
   let g:terminal_color_9  = g:terminal_color_1
   let g:terminal_color_10 = g:terminal_color_2
