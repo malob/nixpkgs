@@ -1,7 +1,7 @@
 " vim: foldmethod=marker
 scriptencoding=utf-8
 
-" COMMENTS AND CONTEXT {{{
+" Comments and Context {{{
 " ====================
 "
 " Keyboard shortcut philosophy:
@@ -15,16 +15,18 @@ scriptencoding=utf-8
 "   * <leader>q for quit/close related commands.
 " }}}
 
-" BASIC VIM CONFIG {{{
+" Basic Vim Config {{{
 " ================
 
 let mapleader = '`'
 let timeouttlen = 2000 " extend time-out on leader key
-set updatetime=100     " number of ms before changes are written to swap file
-set mouse=a            " enable mouse support for Neovim
+set scrolloff=5        " start scrolling when cursor is within 5 lines of the edge
+set linebreak          " soft wraps on words not individual chars
+set mouse=a            " enable mouse support in all modes
 set autochdir
 
-" Search
+" Search and replace
+set ignorecase         " make searches with lower case characters case insensative
 set smartcase          " search is case sensitive only if it contains uppercase chars
 set inccommand=nosplit " show preview in buffer while doing find and replace
 
@@ -32,49 +34,6 @@ set inccommand=nosplit " show preview in buffer while doing find and replace
 set expandtab 	 " Convert tabs to spaces
 set tabstop=2    " Width of tab character
 set shiftwidth=2 " Width of auto-indents
-
-" Setup color scheme
-" https://github.com/icymind/NeoSolarized
-set termguicolors             " truecolor support
-let g:neosolarized_italic = 1
-colorscheme NeoSolarized      " version of solarized that works better with truecolors
-
-augroup termcolors
-  au!
-  au ColorScheme,VimEnter * call UpdateColors()
-augroup END
-
-function! UpdateColors()
-  " Style choosewin to fit in with NeoSolarized colorscheme
-  let g:choosewin_color_label         = {'gui': [g:terminal_color_2 , g:terminal_color_15, 'bold'], 'cterm': [2 , 15, 'bold']}
-  let g:choosewin_color_label_current = {'gui': [g:terminal_color_11, g:terminal_color_0 ]        , 'cterm': [11, 0 ]}
-  let g:choosewin_color_other         = {'gui': [g:terminal_color_11, g:terminal_color_11]        , 'cterm': [11, 11]}
-  let g:choosewin_color_land          = {'gui': [g:terminal_color_3 , g:terminal_color_0 ]        , 'cterm': [3 , 0 ]}
-  " Make term colors 8-15 the same as 0-7 to get around bold as bright issue.
-  let g:terminal_color_8  = g:terminal_color_0
-  let g:terminal_color_9  = g:terminal_color_1
-  let g:terminal_color_10 = g:terminal_color_2
-  let g:terminal_color_11 = g:terminal_color_3
-  let g:terminal_color_12 = g:terminal_color_4
-  let g:terminal_color_13 = g:terminal_color_5
-  let g:terminal_color_14 = g:terminal_color_6
-  let g:terminal_color_15 = g:terminal_color_7
-endfunction
-
-" Misc basic vim ui config
-set cursorline      " highlight current line
-set linebreak       " soft wraps on words not individual chars
-set noshowmode      " don't show --INSERT-- etc.
-set colorcolumn=100 " show column boarder
-set relativenumber  " relative line numbers
-set signcolumn=yes  " always have signcolumn open to avoid thing shifting around all the time
-set scrolloff=5     " start scrolling when cursor is within 5 lines of the edge
-
-" Variables to reuse in config
-let error_symbol   = ''
-let warning_symbol = ''
-let info_symbol    = ''
-let pencil_symbol  = ''
 
 " Check if file has changed on disk, if it has and buffer has no changes, reload it
 augroup checktime
@@ -90,8 +49,64 @@ function! Anoremap(arg, lhs, rhs)
 endfunction
 " }}}
 
-" STATUS LINE {{{
-" ===========
+" UI General {{{
+" ==========
+
+" Misc basic vim ui config
+set colorcolumn=100 " show column boarder
+set cursorline      " highlight current line
+set noshowmode      " don't show --INSERT-- etc.
+set relativenumber  " relative line numbers
+set signcolumn=yes  " always have signcolumn open to avoid thing shifting around all the time
+set termguicolors   " truecolor support
+
+" Setup color scheme
+" https://github.com/icymind/NeoSolarized
+let g:neosolarized_italic = 1 " enable italics (must come before colorcheme command)
+colorscheme NeoSolarized      " version of solarized that works better with truecolors
+
+" Automatically update some setting related to colors
+augroup update_colors_autocommands
+  au!
+  au ColorScheme,VimEnter * call UpdateColors()
+augroup END
+
+function! UpdateColors()
+  " Style ChooseWin to fit in with NeoSolarized colors
+  let g:choosewin_color_label         = {'gui': [g:terminal_color_2 , g:terminal_color_15, 'bold'], 'cterm': [2 , 15, 'bold']}
+  let g:choosewin_color_label_current = {'gui': [g:terminal_color_11, g:terminal_color_0 ]        , 'cterm': [11, 0 ]}
+  let g:choosewin_color_other         = {'gui': [g:terminal_color_11, g:terminal_color_11]        , 'cterm': [11, 11]}
+  let g:choosewin_color_land          = {'gui': [g:terminal_color_3 , g:terminal_color_0 ]        , 'cterm': [3 , 0 ]}
+  " Make term colors 8-15 the same as 0-7 to get around bold as bright issue.
+  let g:terminal_color_8  = g:terminal_color_0
+  let g:terminal_color_9  = g:terminal_color_1
+  let g:terminal_color_10 = g:terminal_color_2
+  let g:terminal_color_11 = g:terminal_color_3
+  let g:terminal_color_12 = g:terminal_color_4
+  let g:terminal_color_13 = g:terminal_color_5
+  let g:terminal_color_14 = g:terminal_color_6
+  let g:terminal_color_15 = g:terminal_color_7
+endfunction
+
+" Variables for symbol used in config
+let error_symbol      = ''
+let warning_symbol    = ''
+let info_symbol       = ''
+
+let ibar_symbol       = ''
+let git_branch_symbol = ''
+let list_symbol       = ''
+let lock_symbol       = ''
+let pencil_symbol     = ''
+let question_symbol   = ''
+let spinner_symbol    = ''
+let term_symbol       = ''
+let vim_symbol        = ''
+let wand_symbol       = ''
+" }}}
+
+" UI Status Line {{{
+" ==============
 " https://github.com/vim-airline/vim-airline
 
 " General configuration
@@ -115,37 +130,35 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
-let g:airline_symbols.branch    = ''
-let g:airline_symbols.readonly  = ''
-let g:airline_symbols.notexists = ''
+let g:airline_symbols.branch    = git_branch_symbol
+let g:airline_symbols.readonly  = lock_symbol
+let g:airline_symbols.notexists = question_symbol
 let g:airline_symbols.dirty     = pencil_symbol
 let g:airline_mode_map =
 \ { '__': '-'
-\ , 'c' : ''
+\ , 'c' : term_symbol
 \ , 'i' : pencil_symbol
-\ , 'ic': 'I'
-\ , 'ix': 'I'
-\ , 'n' : ''
+\ , 'ic': pencil_symbol.' '.list_symbol
+\ , 'ix': pencil_symbol.' '.list_symbol
+\ , 'n' : vim_symbol
 \ , 'ni': 'N'
-\ , 'no': 'N'
+\ , 'no': spinner_symbol
 \ , 'R' : 'R'
-\ , 'Rv': 'R'
+\ , 'Rv': 'R VIRTUAL'
 \ , 's' : 'S'
-\ , 'S' : 'S'
-\ , '': 'S'
-\ , 't' : ''
-\ , 'v' : ''
-\ , 'V' : ' LINE'
-\ , '': ' BLOCK'
+\ , 'S' : 'S LINE'
+\ , '': 'S BLOCK'
+\ , 't' : term_symbol
+\ , 'v' : ibar_symbol
+\ , 'V' : ibar_symbol.' LINE'
+\ , '': ibar_symbol.' BLOCK'
 \ }
-
-" Extensions configuration
-let airline#extensions#ale#error_symbol              = error_symbol.':'
-let airline#extensions#ale#warning_symbol            = warning_symbol.':'
-let airline#extensions#languageclient#error_symbol   = error_symbol.':'
-let airline#extensions#languageclient#warning_symbol = warning_symbol.':'
-let g:airline#extensions#quickfix#quickfix_text      = ''
-let g:airline#extensions#quickfix#location_text      = ''
+let airline#extensions#ale#error_symbol         = error_symbol.':'
+let airline#extensions#ale#warning_symbol       = warning_symbol.':'
+let airline#extensions#coc#error_symbol         = error_symbol.':'
+let airline#extensions#coc#warning_symbol       = warning_symbol.':'
+let g:airline#extensions#quickfix#quickfix_text = wand_symbol
+let g:airline#extensions#quickfix#location_text = list_symbol
 
 " Patch in missing colors for terminal status line
 let g:airline_theme_patch_func = 'AirlineThemePatch'
@@ -158,8 +171,8 @@ function! AirlineThemePatch(palette)
 endfunction
 " }}}
 
-" WELCOME SCREEN {{{
-" ==============
+" UI Welcome Screen {{{
+" =================
 
 " Startify
 " Start screen configuration
@@ -196,12 +209,9 @@ let g:startify_commands =
 \     ]
 \   }
 \ ]
-
-" Run Startify in new tabs
-" See keyboard mappings in next section
 " }}}
 
-" WINDOWS/SPLITS/TABS/TERMINALS {{{
+" Window/Tab Creation/Navigation {{{
 " =============================
 
 " Make escape more sensible in terminal mode
@@ -213,20 +223,21 @@ augroup nvimTerm
   au TermOpen * if &buftype == 'terminal' | :startinsert | endif
 augroup END
 
+" Set where splits open
+set splitbelow " open horizontal splits below instead of above which is the default
+set splitright " open vertical splits to the right instead of the left with is the default
+
 " vim-choosewin
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
 " color setting in BASIC VIM CONFIG section
 call Anoremap('<silent>', '<leader><leader>', '<Cmd>ChooseWin<CR>')
 let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
-let g:choosewin_tabline_replace = 0 " don't use choosewin tabline since Airline provides numbers
-
-" Set where splits open
-set splitbelow " open horizontal splits below instead of above which is the default
-set splitright " open vertical splits to the right instead of the left with is the default
+let g:choosewin_tabline_replace = 0 " don't use ChooseWin tabline since Airline provides numbers
 
 " Tab creation/destruction
 call Anoremap('<silent>', '<leader>tt', '<Cmd>tabnew +Startify<CR>') " new tab w/ Startify
+call Anoremap('<silent>', '<leader>to', '<Cmd>tabclose<CR>')         " close all other tabs
 call Anoremap('<silent>', '<leader>qt', '<Cmd>tabclose<CR>')         " close tab
 
 " Tab navigation
@@ -234,12 +245,22 @@ call Anoremap('<silent>', '<leader>tn', '<Cmd>tabnext<CR>')     " next tab
 call Anoremap('<silent>', '<leader>tN', '<Cmd>tabprevious<CR>') " previous tab
 
 " Split creation/destruction
-call Anoremap('<silent>', '<leader>-' , '<Cmd>new +term<CR>')           " new horizontal split w/ terminal
-call Anoremap('<silent>', '<leader>_' , '<Cmd>botright new +term<CR>')  " new full width horizontal split w/ terminal
-call Anoremap('<silent>', '<leader>\' , '<Cmd>vnew +term<CR>')          " new vertical split w/ terminal
-call Anoremap('<silent>', '<leader>\|', '<Cmd>botright vnew +term<CR>') " new full height vertical split w/ terminal
-call Anoremap('<silent>', '<leader>qw', '<Cmd>q<CR>')                   " close split/window
-call Anoremap('<silent>', '<leader>qa', '<Cmd>qa<CR>')                  " close vim
+call Anoremap('<silent>', '<leader>-' , '<Cmd>new +term<CR>')           " new horizontal window w/ terminal
+call Anoremap('<silent>', '<leader>_' , '<Cmd>botright new +term<CR>')  " new full width horizontal window w/ terminal
+call Anoremap('<silent>', '<leader>\' , '<Cmd>vnew +term<CR>')          " new vertical window w/ terminal
+call Anoremap('<silent>', '<leader>\|', '<Cmd>botright vnew +term<CR>') " new full height vertical window w/ terminal
+call Anoremap('<silent>', '<leader>ws', '<Cmd>split<CR>')               " new horizontal split
+call Anoremap('<silent>', '<leader>wv', '<Cmd>vsplit<CR>')              " new vertical split
+call Anoremap('<silent>', '<leader>qw', '<Cmd>q<CR>')                   " close window
+call Anoremap('<silent>', '<leader>wo', '<Cmd>only<CR>')                " close all other windows
+
+" Split movement
+call Anoremap('<silent>', '<leader>wmk', '<C-w>K') " move window to very top and make full width
+call Anoremap('<silent>', '<leader>wmj', '<C-w>J') " move window to very bottom and make full width
+call Anoremap('<silent>', '<leader>wmh', '<C-w>H') " move window to fast left and make full height
+call Anoremap('<silent>', '<leader>wml', '<C-w>L') " move window to fast right and make full height
+call Anoremap('<silent>', '<leader>wmt', '<C-w>T') " move window to new tab
+
 
 " Split navigation
 call Anoremap('<silent>', '<leader>wh', '<Cmd>wincmd h<CR>') " move left
@@ -247,194 +268,22 @@ call Anoremap('<silent>', '<leader>wl', '<Cmd>wincmd l<CR>') " move right
 call Anoremap('<silent>', '<leader>wk', '<Cmd>wincmd k<CR>') " move up
 call Anoremap('<silent>', '<leader>wj', '<Cmd>wincmd j<CR>') " move down
 
-" Close/open various special splits
+" Close various special windows
 call Anoremap('<silent>', '<leader>qh', '<Cmd>helpclose<CR>') " close help
 call Anoremap('<silent>', '<leader>qp', '<Cmd>pclose<CR>')    " close preview
-call Anoremap('<silent>', '<leader>oc', '<Cmd>copen<CR>')     " open quickfix list
 call Anoremap('<silent>', '<leader>qc', '<Cmd>cclose<CR>')    " close quickfix list
-" }}}
+"" }}}
 
-" LANGUAGE CLIENT {{{
-" ===============
-" LanguageClient-neovim
-" Provides completions, linting, fixers, etc.
-" https://github.com/autozimu/LanguageClient-neovim
-
-" Point language client as some language servers
-let g:LanguageClient_serverCommands =
-\ { 'c'         : ['ccls']
-\ , 'cpp'       : ['ccls']
-\ , 'sh'        : ['bash-language-server', 'start']
-\ , 'haskell'   : ['hie-wrapper']
-\ , 'javascript': ['typescript-language-server', '--stdio']
-\ , 'lua'       : ['lua-lsp']
-\ , 'typescript': ['typescript-language-server', '--stdio']
-\ }
-
-" Help some language servers find project roots
-let g:LanguageClient_rootMarkers = {
-\ 'haskell': ['stack.yaml'],
-\ }
-
-" Customize symbols
-let g:LanguageClient_diagnosticsDisplay =
-\ { 1:
-\   { 'name'      : 'Error'
-\   , 'texthl'    : 'ALEError'
-\   , 'signText'  : error_symbol
-\   , 'signTexthl': 'ALEErrorSign'
-\   }
-\ , 2:
-\   { 'name'      : 'Warning'
-\   , 'texthl'    : 'ALEWarning'
-\   , 'signText'  : warning_symbol
-\   , 'signTexthl': 'ALEWarningSign'
-\   }
-\ , 3:
-\   { 'name'      : 'Information'
-\   , 'texthl'    : 'ALEInfo'
-\   , 'signText'  : info_symbol
-\   , 'signTexthl': 'ALEInfoSign'
-\   }
-\ , 4:
-\   { 'name'     : 'Hint'
-\   , 'texthl'    : 'ALEInfo'
-\   , 'signText'  : '➤'
-\   , 'signTexthl': 'ALEInfoSign'
-\   }
-\ }
-
-" Extend timeout
-let g:LanguageClient_waitOutputTimeout = 20
-
-
-augroup LC
-  au!
-  au CursorHold * call LanguageClient#isAlive(function('LspMaybeHighlight'))
-  " au CursorHold * call LanguageClient#isAlive(function('LspMaybeHover'))
-  au FileType   * call LC_maps()
-augroup END
-
-" Automatically invoke hover and highlight on cursor movement
-" https://github.com/autozimu/LanguageClient-neovim/issues/618#issuecomment-424539982
-let g:LanguageClient_hoverPreview = 'Always' " Always show preview window
-
-function! LspMaybeHover(is_running) abort
-  if a:is_running.result
-    call LanguageClient_textDocument_hover()
-  endif
-endfunction
-
-function! LspMaybeHighlight(is_running) abort
-  if a:is_running.result
-    call LanguageClient#textDocument_documentHighlight()
-  endif
-endfunction
-
-" Language server related keybindings
-function! LC_maps() abort
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-    call Anoremap('<buffer><silent>', '<leader>lh', '<Cmd>call LanguageClient#textDocument_hover()<CR>')
-    " goto commands
-    call Anoremap('<buffer><silent>', '<leader>ld', '<Cmd>call LanguageClient#textDocument_definition({"gotoCmd": "split"})<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lt', '<Cmd>call LanguageClient#textDocument_typeDefinition()<CR>')
-    call Anoremap('<buffer><silent>', '<leader>li', '<Cmd>call LanguageClient#textDocument_implementation()<CR>')
-    " formating commands
-    call Anoremap('<buffer><silent>', '<leader>lf', '<Cmd>call LanguageClient#textDocument_formatting()<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lF', '<Cmd>call LanguageClient#textDocument_rangeFormatting()<CR>')
-    " highlight commands
-    call Anoremap('<buffer><silent>', '<leader>ll', '<Cmd>call LanguageClient#textDocument_documentHighlight()<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lL', '<Cmd>call LanguageClient#textDocument_clearDocumentHighlight()<CR>')
-    " other commands
-    call Anoremap('<buffer><silent>', '<leader>le', '<Cmd>call LanguageClient#explainErrorAtPoint()<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lr', '<Cmd>call LanguageClient#textDocument_rename()<CR>')
-    call Anoremap('<buffer><silent>', '<leader>la', '<Cmd>call LanguageClient#workspace_applyEdit()<CR>')
-    " Denite sources
-    call Anoremap('<buffer><silent>', '<leader>lc', '<Cmd>Denite codeAction<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lm', '<Cmd>Denite contextMenu<CR>')
-    call Anoremap('<buffer><silent>', '<leader>ls', '<Cmd>Denite documentSymbol<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lS', '<Cmd>Denite workspaceSymbol<CR>')
-    call Anoremap('<buffer><silent>', '<leader>lx', '<Cmd>Denite references<CR>')
-  endif
-endfunction
-" }}}
-
-" LINTER/FIXER {{{
-" ============
-" Asyncronous Linting Engine (ALE)
-" Used for linting when no good language server is available
-" https://github.com/w0rp/ale
-
-" Disable linters for languges that have defined language servers above
-let g:ale_linters =
-\ { 'c'         : []
-\ , 'sh'        : []
-\ , 'haskell'   : []
-\ , 'javascript': []
-\ , 'lua'       : []
-\ , 'typescript': []
-\ }
-
-" Configure and enable fixer
-let g:ale_fix_on_save = 1
-let g:ale_fixers =
-\ { '*'         : ['remove_trailing_lines', 'trim_whitespace']
-\ , 'javascript': ['prettier-eslint']
-\ , 'json'      : ['prettier']
-\ , 'puppet'    : ['puppetlint']
-\ }
-
-" Customize symbols
-let g:ale_sign_error         = error_symbol
-let g:ale_sign_warning       = warning_symbol
-let g:ale_sign_info          = info_symbol
-let g:ale_sign_style_error   = pencil_symbol
-let g:ale_sign_style_warning = g:ale_sign_style_error
-" }}}
-
-" COMPLETION {{{
-" ==========
-" Deoplete autocompletion engine
-" Used to display/manage all completions including those from language servers
-" https://github.com/Shougo/deoplete.nvim
-augroup deoplete
-  au!
-  au VimEnter *
-\ call deoplete#enable()
-\ | call deoplete#custom#var
-\   ( 'around'
-\   , { 'range_above' : 20
-\     , 'range_below' : 20
-\     , 'mark_above'  : '[↑]'
-\     , 'mark_below'  : '[↓]'
-\     , 'mark_changes': '[*]'
-\     }
-\   )
-augroup END
-
-" Use tab to navigate completion menu
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" neco-vim
-" Deoplete completion source for vim files
-" https://github.com/Shougo/neco-vim
-
-" deoplete-fish
-" Deoplete completion source for fish files
-" https://github.com/ponko2/deoplete-fish
-" }}}
-
-" LIST SEARCHER {{{
+" List Searcher {{{
 " =============
+
 " denite.vim
 " Powerful list searcher
 " https://github.com/Shougo/denite.nvim
 augroup denite_settings
   au!
   au FileType denite        call s:denite_maps()
-  au FileType denite-filter call deoplete#custom#buffer_option('auto_complete', v:false)
+  " au FileType denite-filter call deoplete#custom#buffer_option('auto_complete', v:false)
   au VimEnter *             call s:denite_settings()
 augroup END
 
@@ -562,7 +411,200 @@ call Anoremap('<silent>', '<leader>ss' , '<Cmd>Denite spell<CR>')
 call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite -resume<CR>')
 " }}}
 
-" WRITING {{{
+" Coc.vim {{{
+" =======
+
+set hidden         " if not set, TextEdit might fail
+set nobackup       " some lang servers have issues with backups, should be default, set just in case
+set nowritebackup
+set cmdheight=2    " more room for messages
+set updatetime=300 " smaller update time for CursorHold and CursorHoldI
+set shortmess+=c   " don't show ins-completion-menu messages.
+
+" General configuration
+let g:coc_global_extensions = ['coc-json', 'coc-lists', 'coc-tsserver', 'coc-vimlsp']
+let g:coc_user_config =
+\ { 'coc.preferences':
+\     { 'formatOnSaveFiletypes': []
+\     , 'jumpCommand'          : 'split'
+\     }
+\ , 'codeLens':
+\     { 'enable': v:true
+\     }
+\ , 'diagnostic':
+\     { 'virtualText'        : v:true
+\     , 'refreshOnInsertMode': v:false
+\     , 'errorSign'          : error_symbol
+\     , 'warningSign'        : warning_symbol
+\     , 'infoSign'           : info_symbol
+\     , 'hintSign'           : info_symbol
+\     }
+\ , 'list':
+\     { 'indicator'         : '->>'
+\     , 'selectedSignText'  : ''
+\     , 'extendedSearchMode': v:true
+\     , 'normalMappings'    : {}
+\     , 'insertMappings'    :
+\         { '<CR>' : '<C-o>'
+\         }
+\     }
+\ , 'suggest':
+\     { 'enablePreview'           : v:true
+\     , 'detailField'             : 'menu'
+\     , 'snippetIndicator'        : ''
+\     , 'completionItemKindLabels':
+\         { 'keyword'      : ''
+\         , 'variable'     : ''
+\         , 'value'        : ''
+\         , 'operator'     : 'Ψ'
+\         , 'function'     : 'ƒ'
+\         , 'reference'    : '渚'
+\         , 'constant'     : ''
+\         , 'method'       : ''
+\         , 'struct'       : 'פּ'
+\		      , 'class'        : ''
+\         , 'interface'    : ''
+\         , 'text'         : ''
+\         , 'enum'         : ''
+\         , 'enumMember'   : ''
+\         , 'module'       : ''
+\         , 'color'        : ''
+\         , 'property'     : ''
+\         , 'field'        : '料'
+\         , 'unit'         : ''
+\         , 'event'        : '鬒'
+\         , 'file'         : ''
+\         , 'folder'       : ''
+\         , 'snippet'      : ''
+\         , 'typeParameter': ''
+\         , 'default'      : ''
+\	        }
+\     }
+\ , 'languageserver':
+\     { 'haskell':
+\         { 'command'     : 'hie-8.6.4'
+\         , 'filetypes'   : ['hs', 'lhs', 'haskell']
+\         , 'rootPatterns': ['stack.yaml']
+\         , 'initializationOptions': {}
+\         }
+\     , 'ccls':
+\         { 'command'     : 'ccls'
+\         , 'filetypes'   : ['c', 'cpp', 'objc', 'objcpp']
+\         , 'rootPatterns': ['.ccls', 'compile_commands.json', '.git/']
+\         , 'initializationOptions': {}
+\         }
+\     , 'bash':
+\         { 'command'         : 'bash-language-server'
+\         , 'args'            : ['start']
+\         , 'filetypes'       : ['sh']
+\         , 'ignoredRootPaths': ['~']
+\         }
+\     }
+\
+\ }
+
+let g:coc_status_error_sign   = error_symbol
+let g:coc_status_warning_sign = warning_symbol
+let g:markdown_fenced_languages = ['vim', 'help']
+
+" Keybindings
+nmap <silent> <leader>le <Plug>(coc-diagnostic-info)
+nmap <silent>         [c <Plug>(coc-diagnostic-prev) " TODO: overwrites vim mapping, make sure I want this
+nmap <silent>         ]c <Plug>(coc-diagnostic-next) " TODO: overwrites vim mapping, make sure I want this
+nmap <silent>         gd <Plug>(coc-definition)      " TODO: overwrites vim mapping, make sure I want this
+"<Plug>(coc-declaration)
+nmap <silent>         gi <Plug>(coc-implementation)  " TODO: overwrites vim mapping, make sure I want this
+nmap <silent>         gy <Plug>(coc-type-definition)
+nmap <silent>         gr <Plug>(coc-references)      " TODO: overwrites vim mapping, make sure I want this
+vmap <silent> <leader>lf <Plug>(coc-format-selected)
+nmap <silent> <leader>lf <Plug>(coc-format-selected)
+nmap <silent> <leader>lF <Plug>(coc-format)
+nmap <silent> <leader>lr <Plug>(coc-rename)
+nmap <silent> <leader>la <Plug>(coc-codeaction)
+nmap <silent> <leader>lc <Plug>(coc-codelens-action)
+nmap <silent> <leader>lq <Plug>(coc-fix-current)
+nmap <silent>         K  :call CocAction('doHover')<CR>
+nmap <silent> <leader>ls :Denite coc-symbols<CR>
+nmap <silent> <leader>lS :Denite coc-workspace<CR>
+nmap <silent> <leader>lE :Denite coc-diagnostic<CR>
+" use tab to navigate completion menu and jump in snippets
+inoremap <expr> <Tab>
+\ pumvisible()
+\ ? '<C-n>'
+\ : coc#jumpable()
+\   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
+\   : '<Tab>'
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+augroup coc_autocomands
+  au!
+  " Setup formatexpr specified filetypes (default binding is gq)
+  autocmd FileType typescript,json,haskell setl formatexpr=CocAction('formatSelected')
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Update signature help on jump placeholder
+  " TODO: understand what this does
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+hi link CocErrorSign NeomakeErrorSign
+hi link CocWarningSign NeomakeWarningSign
+hi link CocInfoSign NeomakeInfoSign
+hi link CocHintSign NeomakeMessagesSign
+hi link CocErrorHighlight SpellBad
+hi link CocWarningHighlight SpellLocal
+hi link CocInfoHighlight CocUnderline
+hi link CocHintHighlight SpellRare
+hi link CocHighlightText SpellCap
+hi link CocCodeLens Comment
+
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Close preview window when completion is done
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" }}}
+
+" Linter/Fixer {{{
+" ============
+" Asyncronous Linting Engine (ALE)
+" Used for linting when no good language server is available
+" https://github.com/w0rp/ale
+
+" Disable linters for languges that have defined language servers above
+let g:ale_linters =
+\ { 'c'         : []
+\ , 'haskell'   : []
+\ , 'javascript': []
+\ , 'lua'       : []
+\ , 'sh'        : []
+\ , 'typescript': []
+\ , 'vim'       : []
+\ }
+
+" Configure and enable fixer
+let g:ale_fix_on_save = 1
+let g:ale_fixers = { '*' : ['remove_trailing_lines', 'trim_whitespace'] }
+
+" Customize symbols
+let g:ale_sign_error         = error_symbol
+let g:ale_sign_warning       = warning_symbol
+let g:ale_sign_info          = info_symbol
+let g:ale_sign_style_error   = pencil_symbol
+let g:ale_sign_style_warning = g:ale_sign_style_error
+" }}}
+
+" Writing {{{
 " =======
 
 " vim-pencil
@@ -580,7 +622,7 @@ augroup END
 " https://github.com/junegunn/goyo.vim
 " }}}
 
-" FILETYPE SPECIFIC {{{
+" Filetype Specific {{{
 " =================
 
 " Most filetypes
@@ -625,10 +667,10 @@ set conceallevel=2
 " Typescript
 " yats.vim
 " https://github.com/herringtondarkholme/yats.vim
-let g:polyglot_disabled = ['typescript']
+" let g:polyglot_disabled = ['typescript']
 " }}}
 
-" MISC {{{
+" Misc {{{
 " ====
 
 " vim-fugitive
@@ -642,11 +684,15 @@ let g:gitgutter_sign_added    = '┃'                    " replace default symbo
 let g:gitgutter_sign_modified = g:gitgutter_sign_added
 let g:gitgutter_sign_removed  = g:gitgutter_sign_added
 
+" tabular
+" Helps vim-markdown with table formatting amoung many other things
+" https://github.com/godlygeek/tabular
+
 " vim-commentary
 " Comment stuff out (easily)
 " https://github.com/tpope/vim-commentary
 
-" tabular
-" Helps vim-markdown with table formatting amoung many other things
-" https://github.com/godlygeek/tabular
+" vim-surround
+" Quoting/parenthesizing made simple
+" https://github.com/tpope/vim-surround
 " }}}

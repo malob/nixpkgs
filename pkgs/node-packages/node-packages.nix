@@ -733,13 +733,13 @@ let
         sha1 = "bf2249886ce514cda112fae9218cdc065211fc9c";
       };
     };
-    "loglevel-1.6.2" = {
+    "loglevel-1.6.3" = {
       name = "loglevel";
       packageName = "loglevel";
-      version = "1.6.2";
+      version = "1.6.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/loglevel/-/loglevel-1.6.2.tgz";
-        sha512 = "Jt2MHrCNdtIe1W6co3tF5KXGRkzF+TYffiQstfXa04mrss9IKXzAAXYWak8LbZseAQY03sH2GzMCMU0ZOUc9bg==";
+        url = "https://registry.npmjs.org/loglevel/-/loglevel-1.6.3.tgz";
+        sha512 = "LoEDv5pgpvWgPF4kNYuIp0qqSJVWak/dML0RY74xlzMZiT9w77teNAwKYKWBTYjlokMirg+o3jBwp+vlLrcfAA==";
       };
     };
     "loglevel-colored-level-prefix-1.0.0" = {
@@ -1430,7 +1430,7 @@ in
       sources."lodash-4.17.11"
       sources."lodash.merge-4.6.1"
       sources."lodash.unescape-4.0.1"
-      sources."loglevel-1.6.2"
+      sources."loglevel-1.6.3"
       (sources."loglevel-colored-level-prefix-1.0.0" // {
         dependencies = [
           sources."chalk-1.1.3"

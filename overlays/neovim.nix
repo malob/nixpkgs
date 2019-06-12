@@ -2,15 +2,15 @@ self: super:
 let
   # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
   customVimPlugins = with super.vimUtils; {
-  #  package-name-here = buildVimPluginFrom2Nix {
-  #    name = "";
-  #    src = super.fetchFromGitHub {
-  #      owner = "";
-  #      repo = "";
-  #      rev = "";
-  #      sha256 = "";
-  #    };
-  #  };
+    coc-denite = buildVimPluginFrom2Nix {
+      name = "coc-denite";
+      src = super.fetchFromGitHub {
+        owner = "neoclide";
+        repo = "coc-denite";
+        rev = "ec7dfd5";
+        sha256 = "0fc03ndq7ys4lvqgfbh314fsvbcjf3nm4spfklsmz2c587qbvv1l";
+      };
+    };
   };
 
 in {
@@ -19,26 +19,36 @@ in {
       customRC = builtins.readFile ./neovim-config.vim;
       packages.myVimPackages = with self.pkgs.unstable.vimPlugins // customVimPlugins; {
         start = [
+
+          # UI plugins
           airline
-          ale
-          denite
-          deoplete-fish
-          deoplete-nvim
-          gitgutter
-          goyo-vim
-          LanguageClient-neovim
-          neco-vim
           NeoSolarized
-          tabular
           vim-airline-themes
           vim-choosewin
+          vim-devicons
+          vim-startify
+
+          # other plugins
+          ale
+          coc-nvim
+          coc-denite
+          denite
+          gitgutter
+          goyo-vim
+          tabular
           vim-commentary
           vim-fugitive
           vim-pencil
           vim-polyglot
-          vim-startify
           vim-surround
-          yats-vim
+
+          # old plugins
+
+          # deoplete-fish
+          # deoplete-nvim
+          # LanguageClient-neovim
+          # neco-vim
+          # yats-vim
         ];
       };
     };

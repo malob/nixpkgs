@@ -51,6 +51,8 @@ self: super:
       nodejs
       stack
       unstable.nodePackages.typescript
+      watchman
+      yarn
 
       # Neovim dependencies for linters and languages servers
       (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
