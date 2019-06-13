@@ -11,6 +11,15 @@ let
         sha256 = "0fc03ndq7ys4lvqgfbh314fsvbcjf3nm4spfklsmz2c587qbvv1l";
       };
     };
+    NeoSolarized = buildVimPluginFrom2Nix {
+      name = "NeoSolarized";
+      src = super.fetchFromGitHub {
+        owner = "malob";
+        repo = "NeoSolarized";
+        rev = "a8e6e52";
+        sha256 = "0bxrm2vm3z1y37sm6m2hdn72g2sw31dx1xhmjvd0ng72cnp84d9k";
+      };
+    };
   };
 
 in {

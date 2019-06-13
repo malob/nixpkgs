@@ -62,31 +62,9 @@ set termguicolors   " truecolor support
 
 " Setup color scheme
 " https://github.com/icymind/NeoSolarized
-let g:neosolarized_italic = 1 " enable italics (must come before colorcheme command)
-colorscheme NeoSolarized      " version of solarized that works better with truecolors
-
-" Automatically update some setting related to colors
-augroup update_colors_autocommands
-  au!
-  au ColorScheme,VimEnter * call UpdateColors()
-augroup END
-
-function! UpdateColors()
-  " Style ChooseWin to fit in with NeoSolarized colors
-  let g:choosewin_color_label         = {'gui': [g:terminal_color_2 , g:terminal_color_15, 'bold'], 'cterm': [2 , 15, 'bold']}
-  let g:choosewin_color_label_current = {'gui': [g:terminal_color_11, g:terminal_color_0 ]        , 'cterm': [11, 0 ]}
-  let g:choosewin_color_other         = {'gui': [g:terminal_color_11, g:terminal_color_11]        , 'cterm': [11, 11]}
-  let g:choosewin_color_land          = {'gui': [g:terminal_color_3 , g:terminal_color_0 ]        , 'cterm': [3 , 0 ]}
-  " Make term colors 8-15 the same as 0-7 to get around bold as bright issue.
-  let g:terminal_color_8  = g:terminal_color_0
-  let g:terminal_color_9  = g:terminal_color_1
-  let g:terminal_color_10 = g:terminal_color_2
-  let g:terminal_color_11 = g:terminal_color_3
-  let g:terminal_color_12 = g:terminal_color_4
-  let g:terminal_color_13 = g:terminal_color_5
-  let g:terminal_color_14 = g:terminal_color_6
-  let g:terminal_color_15 = g:terminal_color_7
-endfunction
+let g:neosolarized_italic           = 1 " enable italics (must come before colorcheme command)
+let g:neosolarized_termBoldAsBright = 0 " don't change color of text when bolded in terminal
+colorscheme NeoSolarized                " version of solarized that works better with truecolors
 
 " Variables for symbol used in config
 let error_symbol      = ''
@@ -113,9 +91,23 @@ let wand_symbol       = ''
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]' " only show unusual file encoding
 let g:airline#extensions#hunks#non_zero_only   = 1             " only git stats when there are changes
 let g:airline_skip_empty_sections              = 1             " don't show sections if they're empty
+let g:airline_extensions =
+\ [ 'ale'
+\ , 'branch'
+\ , 'coc'
+\ , 'denite'
+\ , 'fugitiveline'
+\ , 'hunks'
+\ , 'keymap'
+\ , 'netrw'
+\ , 'quickfix'
+\ , 'tabline'
+\ , 'whitespace'
+\ , 'wordcount'
+\ ]
 
 " Tabline configuration
-let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
+"let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
 let g:airline#extensions#tabline#show_tabs         = 1 " always show tabs in tabline
 let g:airline#extensions#tabline#show_buffers      = 0 " don't show buffers in tabline
 let g:airline#extensions#tabline#show_splits       = 0 " don't number of splits
@@ -167,7 +159,71 @@ function! AirlineThemePatch(palette)
     for key in ['normal', 'insert', 'replace', 'visual', 'inactive']
       let a:palette[key].airline_term = a:palette[key].airline_x
     endfor
+    let a:palette.inactive.airline_choosewin = [g:terminal_color_7, g:terminal_color_2, 2, 7, 'bold']
   endif
+endfunction
+" }}}
+
+" UI Window Chooser {{{
+" =================
+
+" vim-choosewin
+" mimic tmux's display-pane feature
+" https://github.com/t9md/vim-choosewin
+" color setting in BASIC VIM CONFIG section
+call Anoremap('<silent>', '<leader><leader>', '<Cmd>call ActiveChooseWin()<CR>')
+let g:choosewin_active = 0
+let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
+let g:choosewin_tabline_replace = 0    " don't use ChooseWin tabline since Airline provides numbers
+let g:choosewin_statusline_replace = 0 " don't use ChooseWin statusline, since we make our own below
+
+" Setup autocommands to customize status line for ChooseWin
+augroup choosevim_airline
+  au!
+  au User AirlineAfterInit call airline#add_statusline_func('ChooseWinAirline')
+  au User AirlineAfterInit call airline#add_inactive_statusline_func('ChooseWinAirline')
+augroup END
+
+" Create custom status line when ChooseWin is trigger
+function! ChooseWinAirline(builder, context)
+  if g:choosewin_active == 1
+    " Define label
+    let label_pad = "      "
+    let label = label_pad . g:choosewin_label[a:context.winnr-1] . label_pad
+
+    " Figure out how long sides need to be
+    let total_side_width = (winwidth(a:context.winnr)) - 2 - strlen(label) " -2 is for separators
+    let side_width = total_side_width / 2
+
+    " Create side padding
+    let right_pad = ""
+    for i in range(1, side_width) | let right_pad = right_pad . " " | endfor
+    let left_pad = (total_side_width % 2 == 1) ? right_pad . " " : right_pad
+
+    if a:context.active == 0
+      " Define status line for inactive windows
+      call a:builder.add_section('airline_a', left_pad)
+      call a:builder.add_section('airline_choosewin', label)
+      call a:builder.split()
+      call a:builder.add_section('airline_z', right_pad)
+    else
+      " Define status line of active windows
+      call a:builder.add_section('airline_b', left_pad)
+      call a:builder.add_section('airline_x', label)
+      call a:builder.split()
+      call a:builder.add_section('airline_y', right_pad)
+    endif
+    return 1
+  endif
+
+  return 0
+endfunction
+
+" Custom function to launch ChooseWin
+function! ActiveChooseWin() abort
+  let g:choosewin_active = 1 " Airline doesn't see when ChooseWin toggles this
+  AirlineRefresh
+  ChooseWin
 endfunction
 " }}}
 
@@ -226,14 +282,6 @@ augroup END
 " Set where splits open
 set splitbelow " open horizontal splits below instead of above which is the default
 set splitright " open vertical splits to the right instead of the left with is the default
-
-" vim-choosewin
-" mimic tmux's display-pane feature
-" https://github.com/t9md/vim-choosewin
-" color setting in BASIC VIM CONFIG section
-call Anoremap('<silent>', '<leader><leader>', '<Cmd>ChooseWin<CR>')
-let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
-let g:choosewin_tabline_replace = 0 " don't use ChooseWin tabline since Airline provides numbers
 
 " Tab creation/destruction
 call Anoremap('<silent>', '<leader>tt', '<Cmd>tabnew +Startify<CR>') " new tab w/ Startify
@@ -417,7 +465,6 @@ call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite -resume<CR>')
 set hidden         " if not set, TextEdit might fail
 set nobackup       " some lang servers have issues with backups, should be default, set just in case
 set nowritebackup
-set cmdheight=2    " more room for messages
 set updatetime=300 " smaller update time for CursorHold and CursorHoldI
 set shortmess+=c   " don't show ins-completion-menu messages.
 
