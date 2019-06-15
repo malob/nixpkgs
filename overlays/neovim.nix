@@ -42,7 +42,6 @@ in {
           coc-nvim
           coc-denite
           denite
-          gitgutter
           goyo-vim
           tabular
           vim-commentary

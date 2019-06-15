@@ -65,6 +65,7 @@ set termguicolors   " truecolor support
 let g:neosolarized_italic           = 1 " enable italics (must come before colorcheme command)
 let g:neosolarized_termBoldAsBright = 0 " don't change color of text when bolded in terminal
 colorscheme NeoSolarized                " version of solarized that works better with truecolors
+hi! link SignColumn Normal
 
 " Variables for symbol used in config
 let error_symbol      = ''
@@ -97,7 +98,6 @@ let g:airline_extensions =
 \ , 'coc'
 \ , 'denite'
 \ , 'fugitiveline'
-\ , 'hunks'
 \ , 'keymap'
 \ , 'netrw'
 \ , 'quickfix'
@@ -469,7 +469,15 @@ set updatetime=300 " smaller update time for CursorHold and CursorHoldI
 set shortmess+=c   " don't show ins-completion-menu messages.
 
 " General configuration
-let g:coc_global_extensions = ['coc-json', 'coc-lists', 'coc-tsserver', 'coc-vimlsp']
+let g:coc_global_extensions =
+\ [ 'coc-json'
+\ , 'coc-git'
+\ , 'coc-lists'
+\ , 'coc-pairs'
+\ , 'coc-tsserver'
+\ , 'coc-vimlsp'
+\ ]
+
 let g:coc_user_config =
 \ { 'coc.preferences':
 \     { 'formatOnSaveFiletypes': []
@@ -529,7 +537,7 @@ let g:coc_user_config =
 \     }
 \ , 'languageserver':
 \     { 'haskell':
-\         { 'command'     : 'hie-8.6.4'
+\         { 'command'     : 'hie-8.6.5'
 \         , 'filetypes'   : ['hs', 'lhs', 'haskell']
 \         , 'rootPatterns': ['stack.yaml']
 \         , 'initializationOptions': {}
@@ -547,7 +555,18 @@ let g:coc_user_config =
 \         , 'ignoredRootPaths': ['~']
 \         }
 \     }
-\
+\ , 'git':
+\     { 'changedSign.text'         : '┃'
+\     , 'addedSign.text'           : '┃'
+\     , 'removedSign.text'         : '_'
+\     , 'topRemovedSign.text'      : '‾'
+\     , 'changeRemovedSign.text'   : '≃'
+\     , 'addedSign.hlGroup'        : 'GitGutterAdd'
+\     , 'changedSign.hlGroup'      : 'GitGutterChange'
+\     , 'removedSign.hlGroup'      : 'GitGutterDelete'
+\     , 'topRemovedSign.hlGroup'   : 'GitGutterDelete'
+\     , 'changeRemovedSign.hlGroup': 'GitGutterChangeDelete'
+\     }
 \ }
 
 let g:coc_status_error_sign   = error_symbol
@@ -585,18 +604,27 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+
 
 augroup coc_autocomands
   au!
   " Setup formatexpr specified filetypes (default binding is gq)
-  autocmd FileType typescript,json,haskell setl formatexpr=CocAction('formatSelected')
+  au FileType typescript,json,haskell setl formatexpr=CocAction('formatSelected')
   " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  au CursorHold * silent call CocActionAsync('highlight')
   " Update signature help on jump placeholder
   " TODO: understand what this does
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " Close preview window when completion is done
+  au CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup end
 
+" Make highlights fit in with colorscheme
 hi link CocErrorSign NeomakeErrorSign
 hi link CocWarningSign NeomakeWarningSign
 hi link CocInfoSign NeomakeInfoSign
@@ -608,18 +636,6 @@ hi link CocHintHighlight SpellRare
 hi link CocHighlightText SpellCap
 hi link CocCodeLens Comment
 
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Close preview window when completion is done
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " }}}
 
 " Linter/Fixer {{{
@@ -723,13 +739,6 @@ set conceallevel=2
 " vim-fugitive
 " A Git wrapper so awesome, it should be illegal
 " https://github.com/tpope/vim-fugitive
-
-" GitGutter
-" https://github.com/airblade/vim-gitgutter
-let g:gitgutter_override_sign_column_highlight = 0     " make sign column look consistent
-let g:gitgutter_sign_added    = '┃'                    " replace default symbols with something nicer
-let g:gitgutter_sign_modified = g:gitgutter_sign_added
-let g:gitgutter_sign_removed  = g:gitgutter_sign_added
 
 " tabular
 " Helps vim-markdown with table formatting amoung many other things
