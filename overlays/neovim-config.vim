@@ -285,7 +285,7 @@ set splitright " open vertical splits to the right instead of the left with is t
 
 " Tab creation/destruction
 call Anoremap('<silent>', '<leader>tt', '<Cmd>tabnew +Startify<CR>') " new tab w/ Startify
-call Anoremap('<silent>', '<leader>to', '<Cmd>tabclose<CR>')         " close all other tabs
+call Anoremap('<silent>', '<leader>to', '<Cmd>tabonly<CR>')         " close all other tabs
 call Anoremap('<silent>', '<leader>qt', '<Cmd>tabclose<CR>')         " close tab
 
 " Tab navigation
