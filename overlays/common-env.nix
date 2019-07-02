@@ -49,6 +49,7 @@ self: super:
       haskellPackages.weeder
       lua
       nodejs
+      myNodePackages.serverless
       stack
       unstable.nodePackages.typescript
       watchman

@@ -470,7 +470,8 @@ set shortmess+=c   " don't show ins-completion-menu messages.
 
 " General configuration
 let g:coc_global_extensions =
-\ [ 'coc-json'
+\ [ 'coc-eslint'
+\ , 'coc-json'
 \ , 'coc-git'
 \ , 'coc-lists'
 \ , 'coc-pairs'
@@ -567,6 +568,9 @@ let g:coc_user_config =
 \     , 'topRemovedSign.hlGroup'   : 'GitGutterDelete'
 \     , 'changeRemovedSign.hlGroup': 'GitGutterChangeDelete'
 \     }
+\ , 'eslint':
+\     { 'filetypes': ['javascript', 'typescript']
+\     }
 \ }
 
 let g:coc_status_error_sign   = error_symbol
@@ -575,13 +579,13 @@ let g:markdown_fenced_languages = ['vim', 'help']
 
 " Keybindings
 nmap <silent> <leader>le <Plug>(coc-diagnostic-info)
-nmap <silent>         [c <Plug>(coc-diagnostic-prev) " TODO: overwrites vim mapping, make sure I want this
-nmap <silent>         ]c <Plug>(coc-diagnostic-next) " TODO: overwrites vim mapping, make sure I want this
-nmap <silent>         gd <Plug>(coc-definition)      " TODO: overwrites vim mapping, make sure I want this
+nmap <silent>         [c <Plug>(coc-diagnostic-prev)
+nmap <silent>         ]c <Plug>(coc-diagnostic-next)
+nmap <silent>         gd <Plug>(coc-definition)
 "<Plug>(coc-declaration)
-nmap <silent>         gi <Plug>(coc-implementation)  " TODO: overwrites vim mapping, make sure I want this
+nmap <silent>         gi <Plug>(coc-implementation)
 nmap <silent>         gy <Plug>(coc-type-definition)
-nmap <silent>         gr <Plug>(coc-references)      " TODO: overwrites vim mapping, make sure I want this
+nmap <silent>         gr <Plug>(coc-references)
 vmap <silent> <leader>lf <Plug>(coc-format-selected)
 nmap <silent> <leader>lf <Plug>(coc-format-selected)
 nmap <silent> <leader>lF <Plug>(coc-format)

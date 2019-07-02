@@ -93,8 +93,8 @@ let
 
 
     "typing" = python.mkDerivation {
-      name = "typing-3.6.6";
-      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/bf/9b/2bf84e841575b633d8d91ad923e198a415e3901f228715524689495b4317/typing-3.6.6.tar.gz"; sha256 = "4027c5f6127a6267a435201981ba156de91ad0d1d98e9ddc2aa173453453492d"; };
+      name = "typing-3.7.4";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/60/e8/944bd083411be12c6d46d400a06744a5a85ad27d3c6e487a5da0d58950cc/typing-3.7.4.tar.gz"; sha256 = "53765ec4f83a2b720214727e319607879fec4acde22c4fbb54fa2604e79e44ce"; };
       doCheck = commonDoCheck;
       buildInputs = commonBuildInputs;
       propagatedBuildInputs = [ ];

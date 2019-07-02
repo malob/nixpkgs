@@ -31,6 +31,7 @@ cask "superhuman"
 cask "torbrowser"
 cask "transmission"
 cask "transmit"
+cask "unetbootin"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
 cask "visual-studio-code"
@@ -58,6 +59,7 @@ mas "Patterns",             id: 429449079
 mas "Pixelmator",           id: 407963104
 mas "Pixelmator Pro",       id: 1289583905
 mas "Slack",                id: 803453959
+mas "SiteSucker",           id: 442168834
 mas "Ulysses",              id: 1225570693
 mas "WiFi Explorer",        id: 494803304
 mas "Xcode",                id: 497799835
