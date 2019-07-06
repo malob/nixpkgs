@@ -8,6 +8,7 @@ self: super:
       myCommonEnv
       kiwix-tools
       slack
+      vscode
     ];
   };
 }
