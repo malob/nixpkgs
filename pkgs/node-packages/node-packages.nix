@@ -256,13 +256,13 @@ let
         sha512 = "Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==";
       };
     };
-    "aws-sdk-2.486.0" = {
+    "aws-sdk-2.488.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.486.0";
+      version = "2.488.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.486.0.tgz";
-        sha512 = "Gd5IB3HPG+fBE7sh16ATwEuHLv7DcpRLmG381i+0UwrWmka+0t6Dc7/yHKkLOXQKVBDI5FvRdlsWAsP/LFpOxw==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.488.0.tgz";
+        sha512 = "9AP48tyF1E5+x1CKeiRlj0Sv1YF7KI0BdSW9JP8x3ClhPWNUHjDYNH2OwsALuG1BloeY2ZigYqfI2fB7g3rNHQ==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -1201,13 +1201,13 @@ let
         sha1 = "81068d295a8142ec0ac726c6e2200c30fb6d5e80";
       };
     };
-    "form-data-2.4.0" = {
+    "form-data-2.5.0" = {
       name = "form-data";
       packageName = "form-data";
-      version = "2.4.0";
+      version = "2.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/form-data/-/form-data-2.4.0.tgz";
-        sha512 = "4FinE8RfqYnNim20xDwZZE0V2kOs/AuElIjFUbPuegQSaoZM+vUT5FnwSl10KPugH4voTg1bEQlcbCG9ka75TA==";
+        url = "https://registry.npmjs.org/form-data/-/form-data-2.5.0.tgz";
+        sha512 = "WXieX3G/8side6VIqx44ablyULoGruSde5PNTxoUyo5CeyAMX6nVWUd0rgist/EuX655cjhUhTo1Fo3tRYqbcA==";
       };
     };
     "formidable-1.2.1" = {
@@ -1489,13 +1489,13 @@ let
         sha512 = "uUQBt3H/cSIVfch6i1EuPNy/YsRSOUBXTVfZ+yR7Zjez3qjBz6i9+i4zjNaoqcoFVI4lQJ5plg63TvGfRSDCRg==";
       };
     };
-    "https-proxy-agent-2.2.1" = {
+    "https-proxy-agent-2.2.2" = {
       name = "https-proxy-agent";
       packageName = "https-proxy-agent";
-      version = "2.2.1";
+      version = "2.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-2.2.1.tgz";
-        sha512 = "HPCTS1LW51bcyMYbxUIOO4HEOlQ1/1qRaFWcyxvwaqUS9TY88aoEuHUY33kuAh1YhVVaDQhLZsnPd+XNARWZlQ==";
+        url = "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-2.2.2.tgz";
+        sha512 = "c8Ndjc9Bkpfx/vCJueCPy0jlP4ccCCSNDp8xwCZzPjKJUm+B+u9WX2x98Qx4n1PiMNTWo3D7KK5ifNV/yJyRzg==";
       };
     };
     "iconv-lite-0.4.24" = {
@@ -1957,13 +1957,13 @@ let
         sha1 = "1296a2d58fd45f19a0f6ce01d65701e2c735b6eb";
       };
     };
-    "jsonata-1.6.4" = {
+    "jsonata-1.6.5" = {
       name = "jsonata";
       packageName = "jsonata";
-      version = "1.6.4";
+      version = "1.6.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jsonata/-/jsonata-1.6.4.tgz";
-        sha512 = "3MWTH77OHLf3muMknZJS4GnDhGPMITyF9D84hpRQrjt1Hk3pBtTiyZcqodHUDSaDq8VDy9YyIbanRI+3RoW3FA==";
+        url = "https://registry.npmjs.org/jsonata/-/jsonata-1.6.5.tgz";
+        sha512 = "iRx9U6AkvsjrRdFf9MMbQmGVAL3bXVANR12vbVxjgXouMPU9VJQEcFnLWUCaW8IDmOzdxsaxK4Xe7SGlBYr5Bg==";
       };
     };
     "jsonfile-2.4.0" = {
@@ -1984,13 +1984,13 @@ let
         sha1 = "8771aae0799b64076b76640fca058f9c10e33ecb";
       };
     };
-    "jszip-3.2.1" = {
+    "jszip-3.2.2" = {
       name = "jszip";
       packageName = "jszip";
-      version = "3.2.1";
+      version = "3.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jszip/-/jszip-3.2.1.tgz";
-        sha512 = "iCMBbo4eE5rb1VCpm5qXOAaUiRKRUKiItn8ah2YQQx9qymmSAY98eyQfioChEYcVQLh0zxJ3wS4A0mh90AVPvw==";
+        url = "https://registry.npmjs.org/jszip/-/jszip-3.2.2.tgz";
+        sha512 = "NmKajvAFQpbg3taXQXr/ccS2wcucR1AZ+NtyWp2Nq7HHVsXhcJFR8p0Baf32C2yVvBylFWVeKf+WI2AnvlPhpA==";
       };
     };
     "jwt-decode-2.2.0" = {
@@ -3787,7 +3787,7 @@ in
       sources."async-1.5.2"
       sources."asynckit-0.4.0"
       sources."atob-2.1.2"
-      (sources."aws-sdk-2.486.0" // {
+      (sources."aws-sdk-2.488.0" // {
         dependencies = [
           sources."buffer-4.9.1"
           sources."ieee754-1.1.8"
@@ -3925,7 +3925,7 @@ in
       sources."finalhandler-1.1.2"
       sources."flat-4.1.0"
       sources."for-in-1.0.2"
-      sources."form-data-2.4.0"
+      sources."form-data-2.5.0"
       sources."formidable-1.2.1"
       sources."forwarded-0.1.2"
       sources."fragment-cache-0.2.1"
@@ -3962,7 +3962,7 @@ in
         ];
       })
       sources."http-errors-1.7.2"
-      (sources."https-proxy-agent-2.2.1" // {
+      (sources."https-proxy-agent-2.2.2" // {
         dependencies = [
           sources."debug-3.2.6"
           sources."ms-2.1.2"
@@ -4026,9 +4026,9 @@ in
         ];
       })
       sources."json-stringify-safe-5.0.1"
-      sources."jsonata-1.6.4"
+      sources."jsonata-1.6.5"
       sources."jsonfile-4.0.0"
-      sources."jszip-3.2.1"
+      sources."jszip-3.2.2"
       sources."jwt-decode-2.2.0"
       sources."kind-of-6.0.2"
       sources."klaw-1.3.1"
