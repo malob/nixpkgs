@@ -477,6 +477,7 @@ let g:coc_global_extensions =
 \ , 'coc-pairs'
 \ , 'coc-tsserver'
 \ , 'coc-vimlsp'
+\ , 'coc-yaml'
 \ ]
 
 let g:coc_user_config =

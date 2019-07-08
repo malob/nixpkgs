@@ -20,6 +20,26 @@ let
         sha256 = "0bxrm2vm3z1y37sm6m2hdn72g2sw31dx1xhmjvd0ng72cnp84d9k";
       };
     };
+    my-coc-nvim = let
+      version = "0.0.72";
+      index_js = super.fetchzip {
+        url = "https://github.com/neoclide/coc.nvim/releases/download/v${version}/coc.tar.gz";
+        sha256 = "128wlbnpz4gwpfnmzry5k52d58fyp9nccha314ndfnr9xgd6r52y";
+      };
+    in buildVimPluginFrom2Nix {
+      pname = "coc-nvim";
+      version = "2019-07-05";
+      src = super.fetchFromGitHub {
+        owner = "neoclide";
+        repo = "coc.nvim";
+        rev = "eed5413bc65e2b2dd8297f4937ec0eea3c12256a";
+        sha256 = "1hncsmr11z9kq0jkdkxrpf5sm31qz1dkc38az20dlfba8b8p7x1g";
+      };
+      postInstall = ''
+        mkdir -p $out/share/vim-plugins/coc-nvim/build
+        cp ${index_js}/index.js $out/share/vim-plugins/coc-nvim/build/
+      '';
+    };
   };
 
 in {
@@ -39,7 +59,7 @@ in {
 
           # other plugins
           ale
-          coc-nvim
+          my-coc-nvim
           coc-denite
           denite
           goyo-vim
@@ -49,14 +69,7 @@ in {
           vim-pencil
           vim-polyglot
           vim-surround
-
-          # old plugins
-
-          # deoplete-fish
-          # deoplete-nvim
-          # LanguageClient-neovim
-          # neco-vim
-          # yats-vim
+          yats-vim
         ];
       };
     };
