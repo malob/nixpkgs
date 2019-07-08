@@ -471,6 +471,7 @@ set shortmess+=c   " don't show ins-completion-menu messages.
 " General configuration
 let g:coc_global_extensions =
 \ [ 'coc-eslint'
+\ , 'coc-import-cost'
 \ , 'coc-json'
 \ , 'coc-git'
 \ , 'coc-lists'
@@ -557,6 +558,9 @@ let g:coc_user_config =
 \         , 'ignoredRootPaths': ['~']
 \         }
 \     }
+\ , 'eslint':
+\     { 'filetypes': ['javascript', 'typescript']
+\     }
 \ , 'git':
 \     { 'changedSign.text'         : '┃'
 \     , 'addedSign.text'           : '┃'
@@ -569,9 +573,7 @@ let g:coc_user_config =
 \     , 'topRemovedSign.hlGroup'   : 'GitGutterDelete'
 \     , 'changeRemovedSign.hlGroup': 'GitGutterChangeDelete'
 \     }
-\ , 'eslint':
-\     { 'filetypes': ['javascript', 'typescript']
-\     }
+\ , 'importCost.debug': v:true
 \ }
 
 let g:coc_status_error_sign   = error_symbol

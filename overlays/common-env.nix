@@ -37,7 +37,7 @@ self: super:
       bundix
       cachix
       nixops
-      nodePackages.node2nix
+      unstable.nodePackages.node2nix
       pypi2nix
 
       # Development tools
