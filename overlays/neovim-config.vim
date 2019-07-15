@@ -476,6 +476,7 @@ let g:coc_global_extensions =
 \ , 'coc-git'
 \ , 'coc-lists'
 \ , 'coc-pairs'
+\ , 'coc-tabnine'
 \ , 'coc-tsserver'
 \ , 'coc-vimlsp'
 \ , 'coc-yaml'

@@ -76,32 +76,15 @@ let
   generated = self: {
 
     "scan-build" = python.mkDerivation {
-      name = "scan-build-2.0.16";
-      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/7d/54/fc56937c51c1db0e09465d2068b1fa01e63bf9513a828d7ccab02686718f/scan-build-2.0.16.tar.gz"; sha256 = "f3dd20031493dd2421219f093daa16c4e4130aee4477254409fb7b73467e8105"; };
-      doCheck = commonDoCheck;
-      buildInputs = commonBuildInputs;
-      propagatedBuildInputs = [
-      self."typing"
-    ];
-      meta = with pkgs.stdenv.lib; {
-        homepage = "https://github.com/rizsotto/scan-build";
-        license = licenses.ncsa;
-        description = "static code analyzer wrapper for Clang.";
-      };
-    };
-
-
-
-    "typing" = python.mkDerivation {
-      name = "typing-3.7.4";
-      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/60/e8/944bd083411be12c6d46d400a06744a5a85ad27d3c6e487a5da0d58950cc/typing-3.7.4.tar.gz"; sha256 = "53765ec4f83a2b720214727e319607879fec4acde22c4fbb54fa2604e79e44ce"; };
+      name = "scan-build-2.0.17";
+      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/93/03/f012b6a20a6c8fcac54ebe985fc137d4e899e3b997881445bf69e4277384/scan-build-2.0.17.tar.gz"; sha256 = "29f8a99f61fa5bedd4be4eff00d1dd50d9990ec9853230b9fc826c0c694146fa"; };
       doCheck = commonDoCheck;
       buildInputs = commonBuildInputs;
       propagatedBuildInputs = [ ];
       meta = with pkgs.stdenv.lib; {
-        homepage = "https://docs.python.org/3/library/typing.html";
-        license = licenses.psfl;
-        description = "Type Hints for Python";
+        homepage = "https://github.com/rizsotto/scan-build";
+        license = licenses.ncsa;
+        description = "static code analyzer wrapper for Clang.";
       };
     };
 

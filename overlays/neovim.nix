@@ -11,6 +11,7 @@ let
         sha256 = "0fc03ndq7ys4lvqgfbh314fsvbcjf3nm4spfklsmz2c587qbvv1l";
       };
     };
+    # Personal fork of NeoSolarized
     NeoSolarized = buildVimPluginFrom2Nix {
       name = "NeoSolarized";
       src = super.fetchFromGitHub {
@@ -20,28 +21,18 @@ let
         sha256 = "0bxrm2vm3z1y37sm6m2hdn72g2sw31dx1xhmjvd0ng72cnp84d9k";
       };
     };
-    my-coc-nvim = let
-      version = "0.0.72";
-      index_js = super.fetchzip {
-        url = "https://github.com/neoclide/coc.nvim/releases/download/v${version}/coc.tar.gz";
-        sha256 = "128wlbnpz4gwpfnmzry5k52d58fyp9nccha314ndfnr9xgd6r52y";
-      };
-    in buildVimPluginFrom2Nix {
+    # Needed until PR lands in unstable channel
+    my-coc-nvim = buildVimPluginFrom2Nix rec {
       pname = "coc-nvim";
-      version = "2019-07-05";
+      version = "0.0.73";
       src = super.fetchFromGitHub {
         owner = "neoclide";
         repo = "coc.nvim";
-        rev = "eed5413bc65e2b2dd8297f4937ec0eea3c12256a";
-        sha256 = "1hncsmr11z9kq0jkdkxrpf5sm31qz1dkc38az20dlfba8b8p7x1g";
+        rev = "v${version}";
+        sha256 = "1z7573rbh806nmkh75hr1kbhxr4jysv6k9x01fcyjfwricpa3cf7";
       };
-      postInstall = ''
-        mkdir -p $out/share/vim-plugins/coc-nvim/build
-        cp ${index_js}/index.js $out/share/vim-plugins/coc-nvim/build/
-      '';
     };
   };
-
 in {
   myNeovim = self.pkgs.unstable.neovim.override {
     configure = {
@@ -57,10 +48,12 @@ in {
           vim-devicons
           vim-startify
 
-          # other plugins
-          ale
+          # coc.nvim related
           my-coc-nvim
           coc-denite
+
+          # other plugins
+          ale
           denite
           goyo-vim
           tabular
