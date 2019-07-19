@@ -459,7 +459,7 @@ call Anoremap('<silent>', '<leader>ss' , '<Cmd>Denite spell<CR>')
 call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite -resume<CR>')
 " }}}
 
-" Coc.vim {{{
+" Coc.nvim {{{
 " =======
 
 set hidden         " if not set, TextEdit might fail
@@ -738,7 +738,7 @@ set conceallevel=2
 " Typescript
 " yats.vim
 " https://github.com/herringtondarkholme/yats.vim
-" let g:polyglot_disabled = ['typescript']
+let g:polyglot_disabled = ['typescript']
 " }}}
 
 " Misc {{{

@@ -2,15 +2,6 @@ self: super:
 let
   # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
   customVimPlugins = with super.vimUtils; {
-    coc-denite = buildVimPluginFrom2Nix {
-      name = "coc-denite";
-      src = super.fetchFromGitHub {
-        owner = "neoclide";
-        repo = "coc-denite";
-        rev = "ec7dfd5";
-        sha256 = "0fc03ndq7ys4lvqgfbh314fsvbcjf3nm4spfklsmz2c587qbvv1l";
-      };
-    };
     # Personal fork of NeoSolarized
     NeoSolarized = buildVimPluginFrom2Nix {
       name = "NeoSolarized";
@@ -22,16 +13,16 @@ let
       };
     };
     # Needed until PR lands in unstable channel
-    my-coc-nvim = buildVimPluginFrom2Nix rec {
-      pname = "coc-nvim";
-      version = "0.0.73";
-      src = super.fetchFromGitHub {
-        owner = "neoclide";
-        repo = "coc.nvim";
-        rev = "v${version}";
-        sha256 = "1z7573rbh806nmkh75hr1kbhxr4jysv6k9x01fcyjfwricpa3cf7";
-      };
-    };
+    # my-coc-nvim = buildVimPluginFrom2Nix rec {
+    #   pname = "coc-nvim";
+    #   version = "0.0.73";
+    #   src = super.fetchFromGitHub {
+    #     owner = "neoclide";
+    #     repo = "coc.nvim";
+    #     rev = "v${version}";
+    #     sha256 = "1z7573rbh806nmkh75hr1kbhxr4jysv6k9x01fcyjfwricpa3cf7";
+    #   };
+    # };
   };
 in {
   myNeovim = self.pkgs.unstable.neovim.override {
@@ -49,7 +40,7 @@ in {
           vim-startify
 
           # coc.nvim related
-          my-coc-nvim
+          coc-nvim
           coc-denite
 
           # other plugins
