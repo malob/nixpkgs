@@ -27,7 +27,9 @@ let
 in {
   myNeovim = self.pkgs.unstable.neovim.override {
     configure = {
-      customRC = builtins.readFile ./neovim-config.vim;
+      customRC = ''
+        source $HOME/.config/nixpkgs/configs/init.vim
+      '';
       packages.myVimPackages = with self.pkgs.unstable.vimPlugins // customVimPlugins; {
         start = [
 

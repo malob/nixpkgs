@@ -250,7 +250,7 @@ let g:startify_lists =
 " Define bookmarks and commands
 " Remember that Startify uses h, j, k, l, e, i, q, b, s, v, and t.
 let g:startify_bookmarks =
-\ [ {'n': '~/.config/nixpkgs/overlays/neovim-config.vim'}
+\ [ {'n': '~/.config/nixpkgs/configs/init.vim'}
 \ , {'f': '~/.config/fish/config.fish'}
 \ ]
 let g:startify_commands =
@@ -328,6 +328,7 @@ set nowritebackup
 set updatetime=300 " smaller update time for CursorHold and CursorHoldI
 set shortmess+=c   " don't show ins-completion-menu messages.
 
+" Extensions to load
 let g:coc_global_extensions =
 \ [ 'coc-eslint'
 \ , 'coc-import-cost'
@@ -341,113 +342,8 @@ let g:coc_global_extensions =
 \ , 'coc-yank'
 \ ]
 
-" TODO: Use function call instead and breakout into smaller chunks
-let g:coc_user_config =
-\ { 'coc.preferences':
-\     { 'formatOnSaveFiletypes': []
-\     , 'jumpCommand'          : 'split'
-\     }
-\ , 'codeLens':
-\     { 'enable': v:true
-\     }
-\ , 'diagnostic':
-\     { 'virtualText'        : v:true
-\     , 'refreshOnInsertMode': v:false
-\     , 'errorSign'          : error_symbol
-\     , 'warningSign'        : warning_symbol
-\     , 'infoSign'           : info_symbol
-\     , 'hintSign'           : info_symbol
-\     }
-\ , 'list':
-\     { 'indicator'         : '->>'
-\     , 'maxHeight'         : 20
-\     , 'selectedSignText'  : ''
-\     , 'extendedSearchMode': v:true
-\     , 'normalMappings'    :
-\         { '*'      : 'do:selectall'
-\         , '?'      : 'do:help'
-\         , 'd'      : 'action:delete'
-\         , 'D'      : 'action:drop'
-\         , 'p'      : 'action:preview'
-\         , 'q'      : 'action:quickfix'
-\         , 's'      : 'action:split'
-\         , 't'      : 'action:tabe'
-\         , 'v'      : 'action:vsplit'
-\         }
-\     , 'insertMappings'    :
-\         { '<Down>': 'do:next'
-\         , '<Up>'  : 'do:previous'
-\         }
-\     }
-\ , 'suggest':
-\     { 'enablePreview'           : v:true
-\     , 'detailField'             : 'menu'
-\     , 'snippetIndicator'        : ''
-\     , 'completionItemKindLabels':
-\         { 'keyword'      : ''
-\         , 'variable'     : ''
-\         , 'value'        : ''
-\         , 'operator'     : 'Ψ'
-\         , 'function'     : 'ƒ'
-\         , 'reference'    : '渚'
-\         , 'constant'     : ''
-\         , 'method'       : ''
-\         , 'struct'       : 'פּ'
-\		      , 'class'        : ''
-\         , 'interface'    : ''
-\         , 'text'         : ''
-\         , 'enum'         : ''
-\         , 'enumMember'   : ''
-\         , 'module'       : ''
-\         , 'color'        : ''
-\         , 'property'     : ''
-\         , 'field'        : '料'
-\         , 'unit'         : ''
-\         , 'event'        : '鬒'
-\         , 'file'         : ''
-\         , 'folder'       : ''
-\         , 'snippet'      : ''
-\         , 'typeParameter': ''
-\         , 'default'      : ''
-\	        }
-\     }
-\ , 'languageserver':
-\     { 'haskell':
-\         { 'command'     : 'hie-8.6.5'
-\         , 'filetypes'   : ['hs', 'lhs', 'haskell']
-\         , 'rootPatterns': ['stack.yaml', 'cabal.project']
-\         , 'initializationOptions': {}
-\         }
-\     , 'ccls':
-\         { 'command'     : 'ccls'
-\         , 'filetypes'   : ['c', 'cpp', 'objc', 'objcpp']
-\         , 'rootPatterns': ['.ccls', 'compile_commands.json', '.git/']
-\         , 'initializationOptions': {}
-\         }
-\     , 'bash':
-\         { 'command'         : 'bash-language-server'
-\         , 'args'            : ['start']
-\         , 'filetypes'       : ['sh']
-\         , 'ignoredRootPaths': ['~']
-\         }
-\     }
-\ , 'eslint':
-\     { 'filetypes': ['javascript', 'typescript']
-\     }
-\ , 'git':
-\     { 'changedSign.text'         : '┃'
-\     , 'addedSign.text'           : '┃'
-\     , 'removedSign.text'         : '_'
-\     , 'topRemovedSign.text'      : '‾'
-\     , 'changeRemovedSign.text'   : '≃'
-\     , 'addedSign.hlGroup'        : 'GitGutterAdd'
-\     , 'changedSign.hlGroup'      : 'GitGutterChange'
-\     , 'removedSign.hlGroup'      : 'GitGutterDelete'
-\     , 'topRemovedSign.hlGroup'   : 'GitGutterDelete'
-\     , 'changeRemovedSign.hlGroup': 'GitGutterChangeDelete'
-\     }
-\ , 'importCost.debug': v:true
-\ }
+" Hack to use coc-settings.json file with Nix
+let g:coc_user_config = json_decode(readfile($HOME . '/.config/nixpkgs/configs/coc-settings.json'))
 
 let g:coc_status_error_sign   = error_symbol
 let g:coc_status_warning_sign = warning_symbol

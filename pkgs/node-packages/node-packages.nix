@@ -328,13 +328,13 @@ let
         sha512 = "Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==";
       };
     };
-    "aws-sdk-2.495.0" = {
+    "aws-sdk-2.496.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.495.0";
+      version = "2.496.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.495.0.tgz";
-        sha512 = "KG2nqF3biiAliMJpbavM0tLGzhcLkgJMHQ/q84+Wi5kc6+mjPSbtnctWYnvAFwoRiiygx82FA4Fx5ShnHOqinw==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.496.0.tgz";
+        sha512 = "6xZ//phdvp7/dUZjOdDsorl+xehhkAgxOMber9vUlMO9ckBOeufIvED7oKF0NvSlfG8laHK4JprXKQvhXqVLqA==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -4384,10 +4384,10 @@ in
   serverless = nodeEnv.buildNodePackage {
     name = "serverless";
     packageName = "serverless";
-    version = "1.48.0";
+    version = "1.48.2";
     src = fetchurl {
-      url = "https://registry.npmjs.org/serverless/-/serverless-1.48.0.tgz";
-      sha512 = "YIyXgf3WaWDPNJlaDoMAYeSdhzXVJEdXcSD3/QAVK/BqHAoo95aexs724sSQGmc5yT73764gxQrJaR2jtCUnKQ==";
+      url = "https://registry.npmjs.org/serverless/-/serverless-1.48.2.tgz";
+      sha512 = "BfOg+30LVF+nzPisLyP/Zzp6zrO/F70lOtTnBt4VGraKVupWvDidW49v7hgRrBZc8WJR0sL1Tb6npCwb3pqgTw==";
     };
     dependencies = [
       sources."@serverless/cli-1.0.1"
@@ -4440,7 +4440,7 @@ in
       sources."async-1.5.2"
       sources."asynckit-0.4.0"
       sources."atob-2.1.2"
-      (sources."aws-sdk-2.495.0" // {
+      (sources."aws-sdk-2.496.0" // {
         dependencies = [
           sources."buffer-4.9.1"
           sources."ieee754-1.1.8"
