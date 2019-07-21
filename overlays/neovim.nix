@@ -41,11 +41,9 @@ in {
 
           # coc.nvim related
           coc-nvim
-          coc-denite
 
           # other plugins
           ale
-          denite
           goyo-vim
           tabular
           vim-commentary

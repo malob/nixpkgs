@@ -44,6 +44,7 @@ self: super:
       cabal-install
       gitAndTools.diff-so-fancy
       gitAndTools.hub
+      ghc
       google-cloud-sdk
       haskellPackages.hoogle
       haskellPackages.weeder
@@ -60,7 +61,6 @@ self: super:
       unstable.ccls
       luaPackages.luacheck
       unstable.nodePackages.bash-language-server
-      unstable.nodePackages.typescript-language-server
       vim-vint
     ];
   };

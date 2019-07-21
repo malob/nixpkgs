@@ -322,153 +322,19 @@ call Anoremap('<silent>', '<leader>qp', '<Cmd>pclose<CR>')    " close preview
 call Anoremap('<silent>', '<leader>qc', '<Cmd>cclose<CR>')    " close quickfix list
 "" }}}
 
-" List Searcher {{{
-" =============
-
-" denite.vim
-" Powerful list searcher
-" https://github.com/Shougo/denite.nvim
-augroup denite_settings
-  au!
-  au FileType denite        call s:denite_maps()
-  " au FileType denite-filter call deoplete#custom#buffer_option('auto_complete', v:false)
-  au VimEnter *             call s:denite_settings()
-augroup END
-
-" Denite buffer command mapping
-function! s:denite_maps() abort
-  " general commands
-  nnoremap <silent><buffer><expr> <TAB>   denite#do_map('choose_action')
-  nnoremap <silent><buffer><expr> <CR>    denite#do_map('do_action') " do default action
-  nnoremap <silent><buffer><expr> <ESC>   denite#do_map('quit')
-  nnoremap <silent><buffer><expr> u       denite#do_map('move_up_path')
-  nnoremap <silent><buffer><expr> i       denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select')
-  nnoremap <silent><buffer><expr> *       denite#do_map('toggle_select_all')
-  " global actions
-  nnoremap <silent><buffer><expr> A       denite#do_map('do_action', 'append')  " insert the candidate after the cursor
-  nnoremap <silent><buffer><expr> E       denite#do_map('do_action', 'echo')    " print the candidates to denite messages
-  nnoremap <silent><buffer><expr> R       denite#do_map('do_action', 'replace') " replace word under cursor with candidate
-  nnoremap <silent><buffer><expr> Y       denite#do_map('do_action', 'yank')    " yank the candidate
-  " buffer actions (default 'open')
-  nnoremap <silent><buffer><expr> d       denite#do_map('do_action', 'delete') " delete the buffer
-  " command actions (default 'execute')
-  nnoremap <silent><buffer><expr> e       denite#do_map('do_action', 'edit') " edit command than execute
-  " directory actions (default 'narrow')
-  nnoremap <silent><buffer><expr> c       denite#do_map('do_action', 'cd') " change vim current dir
-  " file actions (default 'open', i.e., ':edit' the file)
-  nnoremap <silent><buffer><expr> D       denite#do_map('do_action', 'drop')     " ':drop' file
-  nnoremap <silent><buffer><expr> p       denite#do_map('do_action', 'preview')  " preview file
-  nnoremap <silent><buffer><expr> q       denite#do_map('do_action', 'quickfix') " set the quickfix list and open it
-  nnoremap <silent><buffer><expr> l       denite#do_map('do_action', 'location') " set the location list and open it
-  " openable actions (for buffers and files)
-  nnoremap <silent><buffer><expr> O       denite#do_map('do_action', 'open')         " ':edit' the candidate
-  nnoremap <silent><buffer><expr> T       denite#do_map('do_action', 'tabopen')      " open the candidate in a tab
-  nnoremap <silent><buffer><expr> S       denite#do_map('do_action', 'split')        " open the candidate in a horizontal split
-  nnoremap <silent><buffer><expr> V       denite#do_map('do_action', 'vsplit')       " open the candidate in a vertical split
-  nnoremap <silent><buffer><expr> o       denite#do_map('do_action', 'switch')       " switch to window if open, else 'open'
-  nnoremap <silent><buffer><expr> t       denite#do_map('do_action', 'tabswitch')    " switch to window if open, else 'tabopen'
-  nnoremap <silent><buffer><expr> s       denite#do_map('do_action', 'splitswitch')  " switch to window if open, else 'split'
-  nnoremap <silent><buffer><expr> v       denite#do_map('do_action', 'vsplitswitch') " switch to window if open, else 'vsplit'
-endfunction
-
-" Denite options/configuration
-function! s:denite_settings() abort
-  " set options for all Denite buffers
-  call denite#custom#option('_',
-  \ { 'auto_resize'                : v:true
-  \ , 'highlight_matched_char'     : 'SpellRare'
-  \ , 'highlight_matched_range'    : 'SpellCap'
-  \ , 'prompt'                     : '->'
-  \ , 'reversed'                   : v:true
-  \ , 'smartcase'                  : v:true
-  \ , 'sorters'                    : 'sorter/sublime'
-  \ , 'statusline'                 : v:false
-  \ , 'vertical_preview'           : v:true
-  \ })
-  " set options for specific Denite buffers
-  call denite#custom#option('buffer'          , 'default_action', 'switch')
-  call denite#custom#option('file'            , 'default_action', 'switch')
-  call denite#custom#option('file/rec'        , 'default_action', 'switch')
-  call denite#custom#option('grep'            , 'default_action', 'switch')
-  call denite#custom#option('grep/interactive', 'default_action', 'switch')
-  " use Ripgrep for grep source
-  call denite#custom#var('grep', 'command'       , ['rg'])
-  call denite#custom#var('grep', 'default_opts'  , ['-i', '--vimgrep', '--no-heading'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt'   , ['--regexp'])
-  call denite#custom#var('grep', 'separator'     , ['--'])
-  call denite#custom#var('grep', 'final_opts'    , [])
-  " redefine diretory search to ignore hidden folders
-  call denite#custom#var
-  \ ('directory_rec'
-  \ , 'command'
-  \ , [ 'find'
-  \   , ':directory'
-  \   , '-type', 'd'
-  \   , '-not', '-path', '*\/.*'
-  \   , '-print'
-  \   ]
-  \ )
-  " create interactive grep source
-  " TODO: fix Denite errors
-  call denite#custom#alias ('source'          , 'grep/interactive', 'grep')
-  call denite#custom#source('grep/interactive', 'args'            , ['', '', '!'])
-  " change default matchers for some sources
-  call denite#custom#source('file'         , 'matchers', ['matcher/fuzzy', 'matcher/hide_hidden_files'])
-  call denite#custom#source('file/rec'     , 'matchers', ['matcher/fuzzy', 'matcher/hide_hidden_files'])
-endfunction
-
-" Denite source mappings
-" buffers
-call Anoremap('<silent>', '<leader>sb' , '<Cmd>Denite buffer<CR>')
-" ':changes' results
-call Anoremap('<silent>', '<leader>sc' , '<Cmd>Denite change<CR>')
-" commands
-call Anoremap('<silent>', '<leader>sx' , '<Cmd>Denite command<CR>')
-" commands history
-call Anoremap('<silent>', '<leader>sh' , '<Cmd>Denite command_history<CR>')
-" directories
-call Anoremap('<silent>', '<leader>sd' , '<Cmd>DeniteProjectDir directory_rec<CR>') " in project folder
-call Anoremap('<silent>', '<leader>s~' , '<Cmd>Denite -path=~ directory_rec<CR>')   " in home folder
-call Anoremap('<silent>', '<leader>s/' , '<Cmd>Denite -path=/ directory_rec<CR>')   " in root folder
-" files
-call Anoremap('<silent>', '<leader>sf' , '<Cmd>Denite file<CR>')               " in current folder
-call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite file/rec<CR>')           " in current folder recursively
-call Anoremap('<silent>', '<leader>sp' , '<Cmd>DeniteProjectDir file/rec<CR>') " in project folder recursively
-" filetypes
-call Anoremap('<silent>', '<leader>st' , '<Cmd>Denite filetype<CR>')
-" grep results
-call Anoremap('<silent>', '<leader>sg' , '<Cmd>DeniteProjectDir grep<CR>')             " in project folder
-call Anoremap('<silent>', '<leader>si' , '<Cmd>DeniteProjectDir grep/interactive<CR>') " in project folder interactively
-call Anoremap('<silent>', '<leader>sw' , '<Cmd>execute "DeniteProjectDir -input=".expand("<cword>")." grep"<CR>') " in project folder w/ cursor word
-" help tags
-call Anoremap('<silent>', '<leader>s?' , '<Cmd>Denite help<CR>')
-" ':jump' results
-call Anoremap('<silent>', '<leader>sj' , '<Cmd>Denite jump<CR>')
-" lines of buffer
-call Anoremap('<silent>', '<leader>sll', '<Cmd>Denite line<CR>')
-call Anoremap('<silent>', '<leader>slw', '<Cmd>DeniteCursorWord line<CR>') " starting w/ cursor word
-" outline (ctags)
-call Anoremap('<silent>', '<leader>so' , '<Cmd>Denite outline<CR>')
-" registers
-call Anoremap('<silent>', '<leader>s"' , '<Cmd>Denite register<CR>')
-" spell suggestions
-call Anoremap('<silent>', '<leader>ss' , '<Cmd>Denite spell<CR>')
-" resume previous search
-call Anoremap('<silent>', '<leader>sr' , '<Cmd>Denite -resume<CR>')
-" }}}
-
 " Coc.nvim {{{
 " =======
 
+" General configuration {{{
+
+" Vim setting recommended by Coc.nvim
 set hidden         " if not set, TextEdit might fail
 set nobackup       " some lang servers have issues with backups, should be default, set just in case
 set nowritebackup
 set updatetime=300 " smaller update time for CursorHold and CursorHoldI
 set shortmess+=c   " don't show ins-completion-menu messages.
 
-" General configuration
+" TODO: Use function call instead
 let g:coc_global_extensions =
 \ [ 'coc-eslint'
 \ , 'coc-import-cost'
@@ -482,6 +348,7 @@ let g:coc_global_extensions =
 \ , 'coc-yaml'
 \ ]
 
+" TODO: Use function call instead and breakout into smaller chunks
 let g:coc_user_config =
 \ { 'coc.preferences':
 \     { 'formatOnSaveFiletypes': []
@@ -500,11 +367,23 @@ let g:coc_user_config =
 \     }
 \ , 'list':
 \     { 'indicator'         : '->>'
+\     , 'maxHeight'         : 20
 \     , 'selectedSignText'  : ''
 \     , 'extendedSearchMode': v:true
-\     , 'normalMappings'    : {}
+\     , 'normalMappings'    :
+\         { '*'      : 'do:selectall'
+\         , '?'      : 'do:help'
+\         , 'd'      : 'action:delete'
+\         , 'D'      : 'action:drop'
+\         , 'p'      : 'action:preview'
+\         , 'q'      : 'action:quickfix'
+\         , 's'      : 'action:split'
+\         , 't'      : 'action:tabe'
+\         , 'v'      : 'action:vsplit'
+\         }
 \     , 'insertMappings'    :
-\         { '<CR>' : '<C-o>'
+\         { '<Down>': 'do:next'
+\         , '<Up>'  : 'do:previous'
 \         }
 \     }
 \ , 'suggest':
@@ -580,8 +459,9 @@ let g:coc_user_config =
 let g:coc_status_error_sign   = error_symbol
 let g:coc_status_warning_sign = warning_symbol
 let g:markdown_fenced_languages = ['vim', 'help']
+" }}}
 
-" Keybindings
+" Language server keybinding {{{
 nmap <silent> <leader>le <Plug>(coc-diagnostic-info)
 nmap <silent>         [c <Plug>(coc-diagnostic-prev)
 nmap <silent>         ]c <Plug>(coc-diagnostic-next)
@@ -598,9 +478,65 @@ nmap <silent> <leader>la <Plug>(coc-codeaction)
 nmap <silent> <leader>lc <Plug>(coc-codelens-action)
 nmap <silent> <leader>lq <Plug>(coc-fix-current)
 nmap <silent>         K  :call CocAction('doHover')<CR>
-nmap <silent> <leader>ls :Denite coc-symbols<CR>
-nmap <silent> <leader>lS :Denite coc-workspace<CR>
-nmap <silent> <leader>lE :Denite coc-diagnostic<CR>
+nmap <silent> <leader>ls :CocList symbols<CR>
+nmap <silent> <leader>lE :CocList diagnostics<CR>
+nmap <silent> <leader>lA :CocList actions<CR>
+" }}}
+
+" List keybindings {{{
+
+" Coc.nvim
+call Anoremap('<silent>', '<leader>scc', '<Cmd>CocList commands<CR>')
+call Anoremap('<silent>', '<leader>sce', '<Cmd>CocList extensions<CR>')
+call Anoremap('<silent>', '<leader>scs', '<Cmd>CocList sources<CR>')
+
+" buffers
+call Anoremap('<silent>', '<leader>sb', '<Cmd>CocList buffers<CR>')
+
+" files
+" TODO: find easy way to search hidden files (in Denite prepending with "." works)
+" TODO: find a way to move up path
+call Anoremap('<silent>', '<leader>sf', '<Cmd>CocList files<CR>')  " in current folder
+call Anoremap('<silent>', '<leader>sp', '<Cmd>CocList files -F<CR>') " in project folder recursively
+
+" filetypes
+call Anoremap('<silent>', '<leader>st', '<Cmd>CocList filetypes<CR>')
+
+" git
+call Anoremap('<silent>', '<leader>sgb', '<Cmd>CocList branches<CR>')
+call Anoremap('<silent>', '<leader>sgc', '<Cmd>CocList commits<CR>')
+call Anoremap('<silent>', '<leader>sgi', '<Cmd>CocList issues<CR>')
+call Anoremap('<silent>', '<leader>sgs', '<Cmd>CocList gstatus<CR>')
+
+" grep
+call Anoremap('<silent>', '<leader>sg', '<Cmd>CocList --interactive grep -F<CR>') " in project folder
+call Anoremap('<silent>', '<leader>sw', '<Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>')
+
+" help tags
+call Anoremap('<silent>', '<leader>s?', '<Cmd>CocList helptags<CR>')
+
+" lines of buffer
+call Anoremap('<silent>', '<leader>sl', '<Cmd>CocList lines<CR>')
+call Anoremap('<silent>', '<leader>s*', '<Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>')
+
+" maps
+call Anoremap('<silent>', '<leader>sm', '<Cmd>CocList maps<CR>')
+
+" search history
+call Anoremap('<silent>', '<leader>ss', '<Cmd>CocList searchhistory<CR>')
+
+" Vim commands
+call Anoremap('<silent>', '<leader>sx', '<Cmd>CocList vimcommands<CR>')
+
+" Vim commands history
+call Anoremap('<silent>', '<leader>sh', '<Cmd>CocList cmdhistory<CR>')
+
+" resume previous search
+call Anoremap('<silent>', '<leader>sr', '<Cmd>CocListResume<CR>')
+" }}}
+
+" Misc {{{
+
 " use tab to navigate completion menu and jump in snippets
 inoremap <expr> <Tab>
 \ pumvisible()
@@ -609,16 +545,19 @@ inoremap <expr> <Tab>
 \   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
 \   : '<Tab>'
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
+
 " show chunk diff at current position
 nmap gs <Plug>(coc-git-chunkinfo)
 
-
+" Autocommands
 augroup coc_autocomands
   au!
   " Setup formatexpr specified filetypes (default binding is gq)
@@ -643,6 +582,7 @@ hi link CocInfoHighlight CocUnderline
 hi link CocHintHighlight SpellRare
 hi link CocHighlightText SpellCap
 hi link CocCodeLens Comment
+" }}}
 
 " }}}
 
@@ -738,7 +678,7 @@ set conceallevel=2
 " Typescript
 " yats.vim
 " https://github.com/herringtondarkholme/yats.vim
-let g:polyglot_disabled = ['typescript']
+let g:polyglot_disabled = ['typescript', 'jsx']
 " }}}
 
 " Misc {{{
