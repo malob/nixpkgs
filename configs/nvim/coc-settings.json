@@ -1,0 +1,100 @@
+{ "coc.preferences.formatOnSaveFiletypes" : []
+, "coc.preferences.jumpCommand"           : "split"
+
+, "codeLens.enable" : true
+
+, "diagnostic.errorSign"           : ""
+, "diagnostic.warningSign"         : ""
+, "diagnostic.infoSign"            : ""
+, "diagnostic.hintSign"            : ""
+, "diagnostic.refreshOnInsertMode" : false
+, "diagnostic.virtualText"         : true
+ 
+, "list.indicator"          : "->>"
+, "list.extendedSearchMode" : true
+, "list.maxHeight"          : 20
+, "list.previewSplitRight"  : true
+, "list.selectedSignText"   : ""
+, "list.insertMappings"     : 
+  { "<Down>" : "do:next"
+  , "<Up>"   : "do:previous"
+  }
+, "list.normalMappings"     : 
+  { "p" : "action:preview"
+  , "q" : "action:quickfix"
+  , "s" : "action:split"
+  , "d" : "action:delete"
+  , "v" : "action:vsplit"
+  , "t" : "action:tabe"
+  , "D" : "action:drop"
+  , "*" : "do:selectall"
+  , "?" : "do:help"
+  }
+
+, "suggest.detailField"              : "menu"
+, "suggest.enablePreview"            : true
+, "suggest.snippetIndicator"         : ""
+, "suggest.completionItemKindLabels" : 
+  { "method"        : ""
+  , "default"       : ""
+  , "enum"          : ""
+  , "property"      : ""
+  , "enumMember"    : ""
+  , "text"          : ""
+  , "color"         : ""
+  , "file"          : ""
+  , "typeParameter" : ""
+  , "snippet"       : ""
+  , "event"         : "鬒"
+  , "unit"          : ""
+  , "function"      : "ƒ"
+  , "keyword"       : ""
+  , "reference"     : "渚"
+  , "folder"        : ""
+  , "variable"      : ""
+  , "value"         : ""
+  , "constant"      : ""
+  , "field"         : "料"
+  , "module"        : ""
+  , "interface"     : ""
+  , "class"         : ""
+  , "operator"      : "Ψ"
+  , "struct"        : "פּ"
+  }
+
+, "languageserver" : 
+  { "ccls" : 
+    { "command"               : "ccls"
+    , "initializationOptions" : {}
+    , "filetypes"             : [ "c", "cpp", "objc", "objcpp" ]
+    , "rootPatterns"          : [ ".ccls", "compile_commands.json", ".git/" ]
+    }
+  , "haskell" : 
+    { "command"               : "hie-8.6.5"
+    , "filetypes"             : [ "hs", "lhs", "haskell" ]
+    , "initializationOptions" : {}
+    , "rootPatterns"          : [ "stack.yaml", "cabal.project" ]
+    }
+  , "bash" : 
+    { "command"          : "bash-language-server"
+    , "args"             : [ "start" ]
+    , "filetypes"        : [ "sh" ]
+    , "ignoredRootPaths" : [ "~" ]
+    }
+  }
+
+, "eslint.filetypes": [ "javascript", "typescript" ]
+
+, "git.addedSign.hlGroup"         : "GitGutterAdd"
+, "git.addedSign.text"            : "┃"
+, "git.changedSign.hlGroup"       : "GitGutterChange"
+, "git.changedSign.text"          : "┃"
+, "git.changeRemovedSign.hlGroup" : "GitGutterChangeDelete"
+, "git.changeRemovedSign.text"    : "≃"
+, "git.removedSign.hlGroup"       : "GitGutterDelete"
+, "git.removedSign.text"          : "_"
+, "git.topRemovedSign.hlGroup"    : "GitGutterDelete"
+, "git.topRemovedSign.text"       : "‾"
+
+, "importCost.debug": true
+}

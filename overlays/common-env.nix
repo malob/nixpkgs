@@ -16,7 +16,6 @@ self: super:
       hyperfine
       loc
       mosh
-      neovim-remote
       parallel
       ripgrep
       s3cmd
@@ -29,9 +28,9 @@ self: super:
 
       # My wrapped and config derivations
       myBat
-      myGit
+      myGitEnv
       myKitty
-      myNeovim
+      myNeovimEnv
 
       # Useful nix related tools
       bundix
@@ -42,8 +41,6 @@ self: super:
 
       # Development tools
       cabal-install
-      gitAndTools.diff-so-fancy
-      gitAndTools.hub
       ghc
       google-cloud-sdk
       haskellPackages.hoogle

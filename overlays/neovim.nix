@@ -3,7 +3,7 @@ let
   # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
   customVimPlugins = with super.vimUtils; {
     # Personal fork of NeoSolarized
-    NeoSolarized = buildVimPluginFrom2Nix {
+    myNeoSolarized = buildVimPluginFrom2Nix {
       name = "NeoSolarized";
       src = super.fetchFromGitHub {
         owner = "malob";
@@ -28,24 +28,21 @@ in {
   myNeovim = self.pkgs.unstable.neovim.override {
     configure = {
       customRC = ''
-        source $HOME/.config/nixpkgs/configs/init.vim
+        source $HOME/.config/nixpkgs/configs/nvim/init.vim
       '';
       packages.myVimPackages = with self.pkgs.unstable.vimPlugins // customVimPlugins; {
         start = [
-
           # UI plugins
           airline
-          NeoSolarized
+          myNeoSolarized
           vim-airline-themes
           vim-choosewin
           vim-devicons
           vim-startify
 
-          # coc.nvim related
-          coc-nvim
-
           # other plugins
           ale
+          coc-nvim
           goyo-vim
           tabular
           vim-commentary
@@ -57,5 +54,13 @@ in {
         ];
       };
     };
+  };
+
+  myNeovimEnv = super.buildEnv {
+    name = "NeovimEnv";
+    paths = with self.pkgs; [
+      neovim-remote
+      myNeovim
+    ];
   };
 }

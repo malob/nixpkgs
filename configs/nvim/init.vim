@@ -250,18 +250,17 @@ let g:startify_lists =
 " Define bookmarks and commands
 " Remember that Startify uses h, j, k, l, e, i, q, b, s, v, and t.
 let g:startify_bookmarks =
-\ [ {'n': '~/.config/nixpkgs/configs/init.vim'}
+\ [ {'n': '~/.config/nixpkgs/configs/nvim/init.vim'}
+\ , {'c': '~/.config/nixpkgs/configs/nvim/coc-settings.json'}
 \ , {'f': '~/.config/fish/config.fish'}
 \ ]
 let g:startify_commands =
 \ [ {'t': ['Open Terminal',  'term']}
 \ , {'r':
-\     [ 'Rebuild Nix User'
-\     , ' let nixRebuildOutput=system("nix-env -iA nixpkgs.myNeovim")
-\       | let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc")
+\     [ 'Resource NeoVim config'
+\     , ' let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc")
 \       | execute "source" newVimConfig
 \       | redraw
-\       | echo nixRebuildOutput
 \       '
 \     ]
 \   }
@@ -319,7 +318,7 @@ nnoremap <silent><space>qc <Cmd>cclose<CR>
 " Coc.nvim {{{
 " =======
 
-" General configuration {{{
+" General config {{{
 
 " Vim setting recommended by Coc.nvim
 set hidden         " if not set, TextEdit might fail
@@ -343,121 +342,12 @@ let g:coc_global_extensions =
 \ ]
 
 " Hack to use coc-settings.json file with Nix
-let g:coc_user_config = json_decode(readfile($HOME . '/.config/nixpkgs/configs/coc-settings.json'))
+let g:coc_user_config = json_decode(readfile($HOME . '/.config/nixpkgs/configs/nvim/coc-settings.json'))
 
+" Other basic Coc.nvim config
 let g:coc_status_error_sign   = error_symbol
 let g:coc_status_warning_sign = warning_symbol
 let g:markdown_fenced_languages = ['vim', 'help']
-" }}}
-
-" Language server keybinding {{{
-noremap <silent><space>le <Plug>(coc-diagnostic-info)
-noremap <silent><space>lE <Cmd>CocList diagnostics<CR>
-noremap <silent><space>ln <Plug>(coc-diagnostic-next)
-noremap <silent><space>lN <Plug>(coc-diagnostic-prev)
-
-noremap <silent><space>ld <Plug>(coc-definition)
-noremap <silent><space>lh <Cmd>call CocAction('doHover')<CR>
-noremap <silent><space>li <Plug>(coc-implementation)
-noremap <silent><space>lt <Plug>(coc-type-definition)
-noremap <silent><space>lR <Plug>(coc-references)
-noremap <silent><space>lr <Plug>(coc-rename)
-
-noremap <silent><space>lf <Plug>(coc-format)
-noremap <silent><space>lF <Plug>(coc-format-selected)
-
-noremap <silent><space>la <Plug>(coc-codeaction)
-noremap <silent><space>lA <Cmd>CocList actions<CR>
-noremap <silent><space>lc <Plug>(coc-codelens-action)
-noremap <silent><space>lq <Plug>(coc-fix-current)
-noremap <silent><space>ls <Cmd>CocList symbols<CR>
-" }}}
-
-" List keybindings {{{
-
-" Coc.nvim
-nnoremap <silent><space>scc <Cmd>CocList commands<CR>
-nnoremap <silent><space>sce <Cmd>CocList extensions<CR>
-nnoremap <silent><space>scl <Cmd>CocList lists<CR>
-nnoremap <silent><space>scs <Cmd>CocList sources<CR>
-
-" buffers
-nnoremap <silent><space>sb  <Cmd>CocList buffers<CR>
-
-" files
-" TODO: find easy way to search hidden files (in Denite prepending with "." works)
-" TODO: find a way to move up path
-nnoremap <silent><space>sf  <Cmd>CocList files<CR>
-nnoremap <silent><space>sp  <Cmd>CocList files -F<CR>
-
-" filetypes
-nnoremap <silent><space>st  <Cmd>CocList filetypes<CR>
-
-" git
-nnoremap <silent><space>sgb <Cmd>CocList branches<CR>
-nnoremap <silent><space>sgc <Cmd>CocList commits<CR>
-nnoremap <silent><space>sgi <Cmd>CocList issues<CR>
-nnoremap <silent><space>sgs <Cmd>CocList gstatus<CR>
-
-" grep
-nnoremap <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
-nnoremap <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
-
-" help tags
-nnoremap <silent><space>s?  <Cmd>CocList helptags<CR>
-
-" lines of buffer
-nnoremap <silent><space>sl  <Cmd>CocList lines<CR>
-nnoremap <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
-
-" maps
-nnoremap <silent><space>sm  <Cmd>CocList maps<CR>
-
-" search history
-nnoremap <silent><space>ss  <Cmd>CocList searchhistory<CR>
-
-" Vim commands
-nnoremap <silent><space>sx  <Cmd>CocList vimcommands<CR>
-
-" Vim commands history
-nnoremap <silent><space>sh  <Cmd>CocList cmdhistory<CR>
-
-" yank history
-nnoremap <silent><space>sy  <Cmd>CocList --normal yank<CR>
-
-" resume previous search
-nnoremap <silent><space>sr  <Cmd>CocList CocListResume<CR>
-" }}}
-
-" Other keybindings {{{
-
-" Git related
-nnoremap <silent><space>gw <Cmd>CocCommand git.browserOpen<CR>
-nnoremap <silent><space>gcd <Plug>(coc-git-chunkinfo)
-nnoremap <silent><space>gcn <Plug>(coc-git-nextchunk)
-nnoremap <silent><space>gcN <Plug>(coc-git-prevchunk)
-nnoremap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
-nnoremap <silent><space>gcu <Cmd>CocCommand git.undoChunk<CR>
-
-" use tab to navigate completion menu and jump in snippets
-inoremap <expr> <Tab>
-\ pumvisible()
-\ ? '<C-n>'
-\ : coc#jumpable()
-\   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
-\   : '<Tab>'
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" }}}
-
-" Autocommands and highlighting {{{
 
 " Autocommands
 augroup coc_autocomands
@@ -485,6 +375,101 @@ hi link CocHintHighlight SpellRare
 hi link CocHighlightText SpellCap
 hi link CocCodeLens Comment
 hi link HighlightedyankRegion Visual
+
+" }}}
+
+" Keybindings {{{
+
+" Language server keybinding
+noremap <silent><space>le <Plug>(coc-diagnostic-info)
+noremap <silent><space>lE <Cmd>CocList diagnostics<CR>
+noremap <silent><space>ln <Plug>(coc-diagnostic-next)
+noremap <silent><space>lN <Plug>(coc-diagnostic-prev)
+
+noremap <silent><space>ld <Plug>(coc-definition)
+noremap <silent><space>lh <Cmd>call CocAction('doHover')<CR>
+noremap <silent><space>li <Plug>(coc-implementation)
+noremap <silent><space>lt <Plug>(coc-type-definition)
+noremap <silent><space>lR <Plug>(coc-references)
+noremap <silent><space>lr <Plug>(coc-rename)
+
+noremap <silent><space>lf <Plug>(coc-format)
+noremap <silent><space>lF <Plug>(coc-format-selected)
+
+noremap <silent><space>la <Plug>(coc-codeaction)
+noremap <silent><space>lA <Cmd>CocList actions<CR>
+noremap <silent><space>lc <Plug>(coc-codelens-action)
+noremap <silent><space>lq <Plug>(coc-fix-current)
+noremap <silent><space>ls <Cmd>CocList symbols<CR>
+
+" List keybindings
+" Coc.nvim
+nnoremap <silent><space>scc <Cmd>CocList commands<CR>
+nnoremap <silent><space>sce <Cmd>CocList extensions<CR>
+nnoremap <silent><space>scl <Cmd>CocList lists<CR>
+nnoremap <silent><space>scs <Cmd>CocList sources<CR>
+" buffers
+nnoremap <silent><space>sb  <Cmd>CocList buffers<CR>
+" files
+" TODO: find easy way to search hidden files (in Denite prepending with "." works)
+" TODO: find a way to move up path
+nnoremap <silent><space>sf  <Cmd>CocList files<CR>
+nnoremap <silent><space>sp  <Cmd>CocList files -F<CR>
+" filetypes
+nnoremap <silent><space>st  <Cmd>CocList filetypes<CR>
+" git
+nnoremap <silent><space>sgb <Cmd>CocList branches<CR>
+nnoremap <silent><space>sgc <Cmd>CocList commits<CR>
+nnoremap <silent><space>sgi <Cmd>CocList issues<CR>
+nnoremap <silent><space>sgs <Cmd>CocList gstatus<CR>
+" grep
+nnoremap <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
+nnoremap <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
+" help tags
+nnoremap <silent><space>s?  <Cmd>CocList helptags<CR>
+" lines of buffer
+nnoremap <silent><space>sl  <Cmd>CocList lines<CR>
+nnoremap <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
+" maps
+nnoremap <silent><space>sm  <Cmd>CocList maps<CR>
+" search history
+nnoremap <silent><space>ss  <Cmd>CocList searchhistory<CR>
+" Vim commands
+nnoremap <silent><space>sx  <Cmd>CocList vimcommands<CR>
+" Vim commands history
+nnoremap <silent><space>sh  <Cmd>CocList cmdhistory<CR>
+" yank history
+nnoremap <silent><space>sy  <Cmd>CocList --normal yank<CR>
+" resume previous search
+nnoremap <silent><space>sr  <Cmd>CocList CocListResume<CR>
+
+
+" Other keybindings
+
+" Git related
+nnoremap <silent><space>gw <Cmd>CocCommand git.browserOpen<CR>
+nnoremap <silent><space>gcd <Plug>(coc-git-chunkinfo)
+nnoremap <silent><space>gcn <Plug>(coc-git-nextchunk)
+nnoremap <silent><space>gcN <Plug>(coc-git-prevchunk)
+nnoremap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
+nnoremap <silent><space>gcu <Cmd>CocCommand git.undoChunk<CR>
+
+" use tab to navigate completion menu and jump in snippets
+inoremap <expr> <Tab>
+\ pumvisible()
+\ ? '<C-n>'
+\ : coc#jumpable()
+\   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
+\   : '<Tab>'
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 " }}}
 
 " }}}
