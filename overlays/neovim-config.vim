@@ -6,13 +6,14 @@ scriptencoding=utf-8
 "
 " Keyboard shortcut philosophy:
 " * Don't change default shortcuts unless there a consistent model for the change.
-" * Leader shortcuts are for commands that don't fit nicely into Vim's shortcut grammar.
-"   * Avoid single key leader shortcuts. Have the first key be some mnemonic for what the command does.
-"   * <leader>l for language server related commands.
-"   * <leader>w for window related commands.
-"   * <leader>s for search (Denite) related commands.
-"   * <leader>t for tab related commands.
-"   * <leader>q for quit/close related commands.
+" * Use <space> prefixed shortcuts are for commands that don't fit nicely into Vim's shortcut grammar.
+"   * Avoid single key shortcuts. Have the first key be some mnemonic for what the command does.
+"   * <space>l for language server related commands.
+"   * <space>w for split/window related commands.
+"   * <space>s for search (CocList) related commands.
+"   * <space>t for tab related commands.
+"   * <space>q for quit/close related commands.
+"   * <space>g for git related commands.
 " }}}
 
 " Basic Vim Config {{{
@@ -96,7 +97,6 @@ let g:airline_extensions =
 \ [ 'ale'
 \ , 'branch'
 \ , 'coc'
-\ , 'denite'
 \ , 'fugitiveline'
 \ , 'keymap'
 \ , 'netrw'
@@ -171,7 +171,7 @@ endfunction
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
 " color setting in BASIC VIM CONFIG section
-call Anoremap('<silent>', '<leader><leader>', '<Cmd>call ActiveChooseWin()<CR>')
+nnoremap <silent><space><space> <Cmd>call ActiveChooseWin()<CR>
 let g:choosewin_active = 0
 let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
 let g:choosewin_tabline_replace = 0    " don't use ChooseWin tabline since Airline provides numbers
@@ -224,6 +224,7 @@ function! ActiveChooseWin() abort
   let g:choosewin_active = 1 " Airline doesn't see when ChooseWin toggles this
   AirlineRefresh
   ChooseWin
+  AirlineRefresh
 endfunction
 " }}}
 
@@ -233,10 +234,10 @@ endfunction
 " Startify
 " Start screen configuration
 " https://github.com/mhinz/vim-startify
-let g:startify_files_number        = 7 " max number of files/dirs in lists
-let g:startify_relative_path       = 1 " use relative path if file is below current directory
-let g:startify_update_oldfiles     = 1 " update old file list whenever Startify launches
-let g:startify_fortune_use_unicode = 1 " use unicode rather than ASCII in fortune
+let g:startify_files_number        = 10 " max number of files/dirs in lists
+let g:startify_relative_path       = 1  " use relative path if file is below current directory
+let g:startify_update_oldfiles     = 1  " update old file list whenever Startify launches
+let g:startify_fortune_use_unicode = 1  " use unicode rather than ASCII in fortune
 
 " Define Startify lists
 let g:startify_lists =
@@ -256,7 +257,7 @@ let g:startify_commands =
 \ [ {'t': ['Open Terminal',  'term']}
 \ , {'r':
 \     [ 'Rebuild Nix User'
-\     , ' let nixRebuildOutput=system("nixuser-rebuild")
+\     , ' let nixRebuildOutput=system("nix-env -iA nixpkgs.myNeovim")
 \       | let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc")
 \       | execute "source" newVimConfig
 \       | redraw
@@ -284,42 +285,35 @@ set splitbelow " open horizontal splits below instead of above which is the defa
 set splitright " open vertical splits to the right instead of the left with is the default
 
 " Tab creation/destruction
-call Anoremap('<silent>', '<leader>tt', '<Cmd>tabnew +Startify<CR>') " new tab w/ Startify
-call Anoremap('<silent>', '<leader>to', '<Cmd>tabonly<CR>')         " close all other tabs
-call Anoremap('<silent>', '<leader>qt', '<Cmd>tabclose<CR>')         " close tab
+nnoremap <silent><space>tt <Cmd>tabnew +Startify<CR>
+nnoremap <silent><space>to <Cmd>tabonly<CR>
+nnoremap <silent><space>tq <Cmd>tabclose<CR>
 
 " Tab navigation
-call Anoremap('<silent>', '<leader>tn', '<Cmd>tabnext<CR>')     " next tab
-call Anoremap('<silent>', '<leader>tN', '<Cmd>tabprevious<CR>') " previous tab
+nnoremap <silent><space>tn <Cmd>tabnext<CR>
+nnoremap <silent><space>tN <Cmd>tabprevious<CR>
 
 " Split creation/destruction
-call Anoremap('<silent>', '<leader>-' , '<Cmd>new +term<CR>')           " new horizontal window w/ terminal
-call Anoremap('<silent>', '<leader>_' , '<Cmd>botright new +term<CR>')  " new full width horizontal window w/ terminal
-call Anoremap('<silent>', '<leader>\' , '<Cmd>vnew +term<CR>')          " new vertical window w/ terminal
-call Anoremap('<silent>', '<leader>\|', '<Cmd>botright vnew +term<CR>') " new full height vertical window w/ terminal
-call Anoremap('<silent>', '<leader>ws', '<Cmd>split<CR>')               " new horizontal split
-call Anoremap('<silent>', '<leader>wv', '<Cmd>vsplit<CR>')              " new vertical split
-call Anoremap('<silent>', '<leader>qw', '<Cmd>q<CR>')                   " close window
-call Anoremap('<silent>', '<leader>wo', '<Cmd>only<CR>')                " close all other windows
+nnoremap <silent><space>_  <Cmd>new +term<CR>
+nnoremap <silent><space>-  <Cmd>botright new +term<CR>
+nnoremap <silent><space>\  <Cmd>vnew +term<CR>
+nnoremap <silent><space>\| <Cmd>botright vnew +term<CR>
+nnoremap <silent><space>ws <Cmd>split<CR>
+nnoremap <silent><space>wv <Cmd>vsplit<CR>
+nnoremap <silent><space>wq <Cmd>q<CR>
+nnoremap <silent><space>wo <Cmd>only<CR>
 
 " Split movement
-call Anoremap('<silent>', '<leader>wmk', '<C-w>K') " move window to very top and make full width
-call Anoremap('<silent>', '<leader>wmj', '<C-w>J') " move window to very bottom and make full width
-call Anoremap('<silent>', '<leader>wmh', '<C-w>H') " move window to fast left and make full height
-call Anoremap('<silent>', '<leader>wml', '<C-w>L') " move window to fast right and make full height
-call Anoremap('<silent>', '<leader>wmt', '<C-w>T') " move window to new tab
+nnoremap <silent><space>wk <C-w>K
+nnoremap <silent><space>wj <C-w>J
+nnoremap <silent><space>wh <C-w>H
+nnoremap <silent><space>wl <C-w>L
+nnoremap <silent><space>wt <C-w>T
 
-
-" Split navigation
-call Anoremap('<silent>', '<leader>wh', '<Cmd>wincmd h<CR>') " move left
-call Anoremap('<silent>', '<leader>wl', '<Cmd>wincmd l<CR>') " move right
-call Anoremap('<silent>', '<leader>wk', '<Cmd>wincmd k<CR>') " move up
-call Anoremap('<silent>', '<leader>wj', '<Cmd>wincmd j<CR>') " move down
-
-" Close various special windows
-call Anoremap('<silent>', '<leader>qh', '<Cmd>helpclose<CR>') " close help
-call Anoremap('<silent>', '<leader>qp', '<Cmd>pclose<CR>')    " close preview
-call Anoremap('<silent>', '<leader>qc', '<Cmd>cclose<CR>')    " close quickfix list
+" Various quite/close commands
+nnoremap <silent><space>qh <Cmd>helpclose<CR>
+nnoremap <silent><space>qp <Cmd>pclose<CR>
+nnoremap <silent><space>qc <Cmd>cclose<CR>
 "" }}}
 
 " Coc.nvim {{{
@@ -334,7 +328,6 @@ set nowritebackup
 set updatetime=300 " smaller update time for CursorHold and CursorHoldI
 set shortmess+=c   " don't show ins-completion-menu messages.
 
-" TODO: Use function call instead
 let g:coc_global_extensions =
 \ [ 'coc-eslint'
 \ , 'coc-import-cost'
@@ -346,6 +339,7 @@ let g:coc_global_extensions =
 \ , 'coc-tsserver'
 \ , 'coc-vimlsp'
 \ , 'coc-yaml'
+\ , 'coc-yank'
 \ ]
 
 " TODO: Use function call instead and breakout into smaller chunks
@@ -422,7 +416,7 @@ let g:coc_user_config =
 \     { 'haskell':
 \         { 'command'     : 'hie-8.6.5'
 \         , 'filetypes'   : ['hs', 'lhs', 'haskell']
-\         , 'rootPatterns': ['stack.yaml']
+\         , 'rootPatterns': ['stack.yaml', 'cabal.project']
 \         , 'initializationOptions': {}
 \         }
 \     , 'ccls':
@@ -462,80 +456,93 @@ let g:markdown_fenced_languages = ['vim', 'help']
 " }}}
 
 " Language server keybinding {{{
-nmap <silent> <leader>le <Plug>(coc-diagnostic-info)
-nmap <silent>         [c <Plug>(coc-diagnostic-prev)
-nmap <silent>         ]c <Plug>(coc-diagnostic-next)
-nmap <silent>         gd <Plug>(coc-definition)
-"<Plug>(coc-declaration)
-nmap <silent>         gi <Plug>(coc-implementation)
-nmap <silent>         gy <Plug>(coc-type-definition)
-nmap <silent>         gr <Plug>(coc-references)
-vmap <silent> <leader>lf <Plug>(coc-format-selected)
-nmap <silent> <leader>lf <Plug>(coc-format-selected)
-nmap <silent> <leader>lF <Plug>(coc-format)
-nmap <silent> <leader>lr <Plug>(coc-rename)
-nmap <silent> <leader>la <Plug>(coc-codeaction)
-nmap <silent> <leader>lc <Plug>(coc-codelens-action)
-nmap <silent> <leader>lq <Plug>(coc-fix-current)
-nmap <silent>         K  :call CocAction('doHover')<CR>
-nmap <silent> <leader>ls :CocList symbols<CR>
-nmap <silent> <leader>lE :CocList diagnostics<CR>
-nmap <silent> <leader>lA :CocList actions<CR>
+noremap <silent><space>le <Plug>(coc-diagnostic-info)
+noremap <silent><space>lE <Cmd>CocList diagnostics<CR>
+noremap <silent><space>ln <Plug>(coc-diagnostic-next)
+noremap <silent><space>lN <Plug>(coc-diagnostic-prev)
+
+noremap <silent><space>ld <Plug>(coc-definition)
+noremap <silent><space>lh <Cmd>call CocAction('doHover')<CR>
+noremap <silent><space>li <Plug>(coc-implementation)
+noremap <silent><space>lt <Plug>(coc-type-definition)
+noremap <silent><space>lR <Plug>(coc-references)
+noremap <silent><space>lr <Plug>(coc-rename)
+
+noremap <silent><space>lf <Plug>(coc-format)
+noremap <silent><space>lF <Plug>(coc-format-selected)
+
+noremap <silent><space>la <Plug>(coc-codeaction)
+noremap <silent><space>lA <Cmd>CocList actions<CR>
+noremap <silent><space>lc <Plug>(coc-codelens-action)
+noremap <silent><space>lq <Plug>(coc-fix-current)
+noremap <silent><space>ls <Cmd>CocList symbols<CR>
 " }}}
 
 " List keybindings {{{
 
 " Coc.nvim
-call Anoremap('<silent>', '<leader>scc', '<Cmd>CocList commands<CR>')
-call Anoremap('<silent>', '<leader>sce', '<Cmd>CocList extensions<CR>')
-call Anoremap('<silent>', '<leader>scs', '<Cmd>CocList sources<CR>')
+nnoremap <silent><space>scc <Cmd>CocList commands<CR>
+nnoremap <silent><space>sce <Cmd>CocList extensions<CR>
+nnoremap <silent><space>scl <Cmd>CocList lists<CR>
+nnoremap <silent><space>scs <Cmd>CocList sources<CR>
 
 " buffers
-call Anoremap('<silent>', '<leader>sb', '<Cmd>CocList buffers<CR>')
+nnoremap <silent><space>sb  <Cmd>CocList buffers<CR>
 
 " files
 " TODO: find easy way to search hidden files (in Denite prepending with "." works)
 " TODO: find a way to move up path
-call Anoremap('<silent>', '<leader>sf', '<Cmd>CocList files<CR>')  " in current folder
-call Anoremap('<silent>', '<leader>sp', '<Cmd>CocList files -F<CR>') " in project folder recursively
+nnoremap <silent><space>sf  <Cmd>CocList files<CR>
+nnoremap <silent><space>sp  <Cmd>CocList files -F<CR>
 
 " filetypes
-call Anoremap('<silent>', '<leader>st', '<Cmd>CocList filetypes<CR>')
+nnoremap <silent><space>st  <Cmd>CocList filetypes<CR>
 
 " git
-call Anoremap('<silent>', '<leader>sgb', '<Cmd>CocList branches<CR>')
-call Anoremap('<silent>', '<leader>sgc', '<Cmd>CocList commits<CR>')
-call Anoremap('<silent>', '<leader>sgi', '<Cmd>CocList issues<CR>')
-call Anoremap('<silent>', '<leader>sgs', '<Cmd>CocList gstatus<CR>')
+nnoremap <silent><space>sgb <Cmd>CocList branches<CR>
+nnoremap <silent><space>sgc <Cmd>CocList commits<CR>
+nnoremap <silent><space>sgi <Cmd>CocList issues<CR>
+nnoremap <silent><space>sgs <Cmd>CocList gstatus<CR>
 
 " grep
-call Anoremap('<silent>', '<leader>sg', '<Cmd>CocList --interactive grep -F<CR>') " in project folder
-call Anoremap('<silent>', '<leader>sw', '<Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>')
+nnoremap <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
+nnoremap <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
 
 " help tags
-call Anoremap('<silent>', '<leader>s?', '<Cmd>CocList helptags<CR>')
+nnoremap <silent><space>s?  <Cmd>CocList helptags<CR>
 
 " lines of buffer
-call Anoremap('<silent>', '<leader>sl', '<Cmd>CocList lines<CR>')
-call Anoremap('<silent>', '<leader>s*', '<Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>')
+nnoremap <silent><space>sl  <Cmd>CocList lines<CR>
+nnoremap <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
 
 " maps
-call Anoremap('<silent>', '<leader>sm', '<Cmd>CocList maps<CR>')
+nnoremap <silent><space>sm  <Cmd>CocList maps<CR>
 
 " search history
-call Anoremap('<silent>', '<leader>ss', '<Cmd>CocList searchhistory<CR>')
+nnoremap <silent><space>ss  <Cmd>CocList searchhistory<CR>
 
 " Vim commands
-call Anoremap('<silent>', '<leader>sx', '<Cmd>CocList vimcommands<CR>')
+nnoremap <silent><space>sx  <Cmd>CocList vimcommands<CR>
 
 " Vim commands history
-call Anoremap('<silent>', '<leader>sh', '<Cmd>CocList cmdhistory<CR>')
+nnoremap <silent><space>sh  <Cmd>CocList cmdhistory<CR>
+
+" yank history
+nnoremap <silent><space>sy  <Cmd>CocList --normal yank<CR>
 
 " resume previous search
-call Anoremap('<silent>', '<leader>sr', '<Cmd>CocListResume<CR>')
+nnoremap <silent><space>sr  <Cmd>CocList CocListResume<CR>
 " }}}
 
-" Misc {{{
+" Other keybindings {{{
+
+" Git related
+nnoremap <silent><space>gcb <Cmd>CocCommand git.browserOpen<CR>
+nnoremap <silent><space>gcd <Plug>(coc-git-chunkinfo)
+nnoremap <silent><space>gcn <Plug>(coc-git-nextchunk)
+nnoremap <silent><space>gcN <Plug>(coc-git-prevchunk)
+nnoremap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
+nnoremap <silent><space>gcu <Cmd>CocCommand git.undoChunk<CR>
 
 " use tab to navigate completion menu and jump in snippets
 inoremap <expr> <Tab>
@@ -546,16 +553,16 @@ inoremap <expr> <Tab>
 \   : '<Tab>'
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
+" }}}
 
-" show chunk diff at current position
-nmap gs <Plug>(coc-git-chunkinfo)
+" Autocommands and highlighting {{{
 
 " Autocommands
 augroup coc_autocomands
@@ -582,6 +589,7 @@ hi link CocInfoHighlight CocUnderline
 hi link CocHintHighlight SpellRare
 hi link CocHighlightText SpellCap
 hi link CocCodeLens Comment
+hi link HighlightedyankRegion Visual
 " }}}
 
 " }}}
