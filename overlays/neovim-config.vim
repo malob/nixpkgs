@@ -334,7 +334,6 @@ let g:coc_global_extensions =
 \ , 'coc-json'
 \ , 'coc-git'
 \ , 'coc-lists'
-\ , 'coc-pairs'
 \ , 'coc-tabnine'
 \ , 'coc-tsserver'
 \ , 'coc-vimlsp'
@@ -537,7 +536,7 @@ nnoremap <silent><space>sr  <Cmd>CocList CocListResume<CR>
 " Other keybindings {{{
 
 " Git related
-nnoremap <silent><space>gcb <Cmd>CocCommand git.browserOpen<CR>
+nnoremap <silent><space>gw <Cmd>CocCommand git.browserOpen<CR>
 nnoremap <silent><space>gcd <Plug>(coc-git-chunkinfo)
 nnoremap <silent><space>gcn <Plug>(coc-git-nextchunk)
 nnoremap <silent><space>gcN <Plug>(coc-git-prevchunk)
@@ -695,6 +694,11 @@ let g:polyglot_disabled = ['typescript', 'jsx']
 " vim-fugitive
 " A Git wrapper so awesome, it should be illegal
 " https://github.com/tpope/vim-fugitive
+nnoremap <silent><space>gb  <Cmd>Gblame<CR>
+nnoremap <silent><space>gs  <Cmd>Gstatus<CR>
+nnoremap <silent><space>gds <Cmd>Ghdiffsplit<CR>
+nnoremap <silent><space>gdv <Cmd>Gvdiffsplit<CR>
+
 
 " tabular
 " Helps vim-markdown with table formatting amoung many other things
