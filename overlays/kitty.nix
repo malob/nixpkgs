@@ -27,7 +27,7 @@ let
       cursor_text_color = "#${base03}";
 
       # Window layout
-      hide_window_decorations = "yes";
+      hide_window_decorations = "no";
 
       # Tab bar
       tab_bar_edge            = "top";

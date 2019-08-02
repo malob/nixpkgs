@@ -2,17 +2,17 @@
 tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
-tap "koekeishiya/formulae"
+tap "homebrew/services"
 
 # Non-nixpkgs tools
-brew "chunkwm"
-brew "skhd"
 brew "fish"
 brew "mas"
 
 # GUI apps from Hombrew
 cask "atom"
+cask "amethyst"
 cask "arq"
 cask "balenaetcher"
 cask "coda"
@@ -24,6 +24,7 @@ cask "gpgtools"
 cask "hammerspoon"
 cask "keybase"
 cask "protonvpn"
+cask "safari-technology-preview"
 cask "signal"
 cask "skype"
 cask "steam"
@@ -60,6 +61,7 @@ mas "Pixelmator",           id: 407963104
 mas "Pixelmator Pro",       id: 1289583905
 mas "Slack",                id: 803453959
 mas "SiteSucker",           id: 442168834
+mas "Type Fu",              id: 509818877
 mas "Ulysses",              id: 1225570693
 mas "WiFi Explorer",        id: 494803304
 mas "Xcode",                id: 497799835

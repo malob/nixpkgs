@@ -290,8 +290,8 @@ nmap <silent><space>to <Cmd>tabonly<CR>
 nmap <silent><space>tq <Cmd>tabclose<CR>
 
 " Tab navigation
-nmap <silent><space>tn <Cmd>tabnext<CR>
-nmap <silent><space>tN <Cmd>tabprevious<CR>
+nmap <silent><space>tl <Cmd>tabnext<CR>
+nmap <silent><space>th <Cmd>tabprevious<CR>
 
 " Split creation/destruction
 nmap <silent><space>_  <Cmd>new +term<CR>
@@ -449,8 +449,8 @@ nmap <silent><space>sr  <Cmd>CocListResume<CR>
 " Git related
 nmap <silent><space>gw <Cmd>CocCommand git.browserOpen<CR>
 nmap <silent><space>gcd <Plug>(coc-git-chunkinfo)
-nmap <silent><space>gcn <Plug>(coc-git-nextchunk)
-nmap <silent><space>gcN <Plug>(coc-git-prevchunk)
+nmap <silent><space>gcj <Plug>(coc-git-nextchunk)
+nmap <silent><space>gck <Plug>(coc-git-prevchunk)
 nmap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
 nmap <silent><space>gcu <Cmd>CocCommand git.chunkUndo<CR>
 
