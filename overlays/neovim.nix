@@ -5,10 +5,10 @@ let
     # Personal fork of NeoSolarized
     myNeoSolarized = buildVimPluginFrom2Nix {
       name = "NeoSolarized";
-      src = super.fetchFromGitHub {
-        owner = "malob";
-        repo = "NeoSolarized";
-        rev = "a8e6e52";
+      src  = super.fetchFromGitHub {
+        owner  = "malob";
+        repo   = "NeoSolarized";
+        rev    = "a8e6e52";
         sha256 = "0bxrm2vm3z1y37sm6m2hdn72g2sw31dx1xhmjvd0ng72cnp84d9k";
       };
     };

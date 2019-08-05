@@ -8,17 +8,17 @@ let
       font_family = if super.stdenv.isDarwin then
                       "FuraCode Nerd Font Mono Retina"
                     else
-                      "Fura Code Retina Nerd Font Complete Mono";
+                      "Fira Code Retina Nerd Font Complete";
 
       bold_font   = if super.stdenv.isDarwin then
                       "FuraCode Nerd Font Mono Bold"
                     else
-                      "Fura Code Bold Nerd Font Complete Mono";
+                      "Fira Code Bold Nerd Font Complete";
 
       italic_font = if super.stdenv.isDarwin then
                       "FuraCode Nerd Font Mono Light"
                     else
-                      "Fura Code Light Nerd Font Complete Mono";
+                      "Fira Code Light Nerd Font Complete";
 
       font_size   = "13.0";
 
@@ -69,17 +69,18 @@ let
       color15    = "#${base3}";
   };
 in {
-  myKitty = super.pkgs.symlinkJoin {
-    name = "myKitty";
-    paths = [ self.pkgs.unstable.kitty ];
+  myKitty = super.pkgs.symlinkJoin rec {
+    name        = "myKitty";
+    paths       = [ self.pkgs.unstable.kitty ];
     buildInputs = [ super.pkgs.makeWrapper ];
-    postBuild = ''
-      mkdir -p "$out/.config/kitty"
-      echo "${kittyConfig}" > "$out/.config/kitty/kitty.conf"
+    configPath  = "$out/.config/kitty";
+    postBuild   = ''
+      mkdir -p ${configPath}
+      echo "${kittyConfig}" > ${configPath}/kitty.conf
       ${if super.stdenv.isDarwin then ''
-      wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty --add-flags "--config $out/.config/kitty/kitty.conf"
+      wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty --set KITTY_CONFIG_DIRECTORY ${configPath}
       '' else ''
-      wrapProgram $out/bin/kitty --add-flags "--config $out/.config/kitty/kitty.conf"
+      wrapProgram $out/bin/kitty --set KITTY_CONFIG_DIRECTORY ${configPath}
       ''}
     '';
   };

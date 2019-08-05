@@ -1678,13 +1678,13 @@ let
         sha512 = "R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q==";
       };
     };
-    "graceful-fs-4.2.0" = {
+    "graceful-fs-4.2.1" = {
       name = "graceful-fs";
       packageName = "graceful-fs";
-      version = "4.2.0";
+      version = "4.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.0.tgz";
-        sha512 = "jpSvDPV4Cq/bgtpndIWbI5hmYxhQGHPC4d4cqBPb4DLniCfhJokdXhwhaDuLBGLQdvvRum/UiX6ECVIPvDXqdg==";
+        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.1.tgz";
+        sha512 = "b9usnbDGnD928gJB3LrCmxoibr3VE4U2SMo5PBuBnokWyDADTqDPXg4YpwKF1trpH+UbGp7QLicO3+aWEy0+mw==";
       };
     };
     "graceful-readlink-1.0.1" = {
@@ -4634,7 +4634,7 @@ in
       sources."global-dirs-0.1.1"
       sources."globby-6.1.0"
       sources."got-9.6.0"
-      sources."graceful-fs-4.2.0"
+      sources."graceful-fs-4.2.1"
       sources."graceful-readlink-1.0.1"
       sources."graphlib-2.1.7"
       (sources."has-ansi-2.0.0" // {

@@ -1,6 +1,5 @@
-self: super:
-{
-  myMacosEnv = self.buildEnv {
+self: super: {
+  myMacosEnv = super.buildEnv {
     name = "macOSEnv";
     paths = with self.pkgs; [
       myCommonEnv

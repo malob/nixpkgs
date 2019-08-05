@@ -1,5 +1,4 @@
-self: super:
-{
+self: super: {
   myGems = super.pkgs.callPackage ../pkgs/ruby-gems {};
   myNodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
   myPythonPackages = import ../pkgs/python-packages/requirements.nix {};
@@ -9,12 +8,12 @@ self: super:
     paths = with self.pkgs; [
       # Some basics
       coreutils
+      cloc
       curl
       fish-foreign-env
       gotop
       htop
       hyperfine
-      loc
       mosh
       parallel
       ripgrep
@@ -28,9 +27,9 @@ self: super:
 
       # My wrapped and config derivations
       myBat
-      myGitEnv
+      myGitEnv # includes diff-so-fancy and hub
       myKitty
-      myNeovimEnv
+      myNeovimEnv # includes neovim-remote
 
       # Useful nix related tools
       bundix
@@ -39,26 +38,25 @@ self: super:
       unstable.nodePackages.node2nix
       pypi2nix
 
-      # Development tools
+      # Haskell stuff
+      (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
       cabal-install
       ghc
-      google-cloud-sdk
       haskellPackages.hoogle
-      haskellPackages.weeder
+      stack
+
+      # Other dev stuff
+      unstable.ccls
+      google-cloud-sdk
       lua
+      luaPackages.luacheck
       nodejs
       myNodePackages.serverless
-      stack
+      unstable.nodePackages.bash-language-server
       unstable.nodePackages.typescript
+      vim-vint
       watchman
       yarn
-
-      # Neovim dependencies for linters and languages servers
-      (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
-      unstable.ccls
-      luaPackages.luacheck
-      unstable.nodePackages.bash-language-server
-      vim-vint
     ];
   };
 }
