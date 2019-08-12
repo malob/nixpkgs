@@ -50,6 +50,7 @@ self: super: {
       google-cloud-sdk
       lua
       luaPackages.luacheck
+      unstable.luaPackages.lua-lsp
       nodejs
       myNodePackages.serverless
       unstable.nodePackages.bash-language-server

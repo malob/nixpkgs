@@ -9,17 +9,17 @@
 , "diagnostic.hintSign"            : ""
 , "diagnostic.refreshOnInsertMode" : false
 , "diagnostic.virtualText"         : true
- 
+
 , "list.indicator"          : "->>"
 , "list.extendedSearchMode" : true
 , "list.maxHeight"          : 20
 , "list.previewSplitRight"  : true
 , "list.selectedSignText"   : ""
-, "list.insertMappings"     : 
+, "list.insertMappings"     :
   { "<Down>" : "do:next"
   , "<Up>"   : "do:previous"
   }
-, "list.normalMappings"     : 
+, "list.normalMappings"     :
   { "p" : "action:preview"
   , "q" : "action:quickfix"
   , "s" : "action:split"
@@ -34,7 +34,7 @@
 , "suggest.detailField"              : "menu"
 , "suggest.enablePreview"            : true
 , "suggest.snippetIndicator"         : ""
-, "suggest.completionItemKindLabels" : 
+, "suggest.completionItemKindLabels" :
   { "method"        : ""
   , "default"       : ""
   , "enum"          : ""
@@ -62,24 +62,28 @@
   , "struct"        : "פּ"
   }
 
-, "languageserver" : 
-  { "ccls" : 
+, "languageserver" :
+  { "bash" :
+    { "command"          : "bash-language-server"
+    , "args"             : [ "start" ]
+    , "filetypes"        : [ "sh" ]
+    , "ignoredRootPaths" : [ "~" ]
+    }
+  , "ccls" :
     { "command"               : "ccls"
     , "initializationOptions" : {}
     , "filetypes"             : [ "c", "cpp", "objc", "objcpp" ]
     , "rootPatterns"          : [ ".ccls", "compile_commands.json", ".git/" ]
     }
-  , "haskell" : 
+  , "haskell" :
     { "command"               : "hie-8.6.5"
     , "filetypes"             : [ "hs", "lhs", "haskell" ]
     , "initializationOptions" : {}
     , "rootPatterns"          : [ "stack.yaml", "cabal.project" ]
     }
-  , "bash" : 
-    { "command"          : "bash-language-server"
-    , "args"             : [ "start" ]
-    , "filetypes"        : [ "sh" ]
-    , "ignoredRootPaths" : [ "~" ]
+  , "lua" :
+    { "command"      : "lua-lsp"
+    , "filetypes"    : [ "lua" ]
     }
   }
 

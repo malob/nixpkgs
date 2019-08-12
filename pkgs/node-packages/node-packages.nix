@@ -4,13 +4,22 @@
 
 let
   sources = {
-    "@serverless/cli-1.0.1" = {
+    "@serverless/cli-1.0.3" = {
       name = "_at_serverless_slash_cli";
       packageName = "@serverless/cli";
-      version = "1.0.1";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@serverless/cli/-/cli-1.0.1.tgz";
-        sha512 = "af7khnRPbDolqUkivOSNkScTAidFtl2JN4EhQM5wv2+zOAY56KegFYFk/4FZaPREB2rNQfUYF9kuN7OmePtZyQ==";
+        url = "https://registry.npmjs.org/@serverless/cli/-/cli-1.0.3.tgz";
+        sha512 = "r8v/WVP600yMXFvXMEiMxlVrjZeCBOCY57f33wFYf5RvBr7iv46s140uDe2JfuHh3lX3+wgB++LOPOEOHmVqsQ==";
+      };
+    };
+    "@serverless/component-metrics-1.0.8" = {
+      name = "_at_serverless_slash_component-metrics";
+      packageName = "@serverless/component-metrics";
+      version = "1.0.8";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@serverless/component-metrics/-/component-metrics-1.0.8.tgz";
+        sha512 = "lOUyRopNTKJYVEU9T6stp2irwlTDsYMmUKBOUjnMcwGveuUfIJqrCOtFLtIPPj3XJlbZy5F68l4KP9rZ8Ipang==";
       };
     };
     "@serverless/core-1.0.0" = {
@@ -22,13 +31,13 @@ let
         sha512 = "XP5KXvEGlrNIOV/KJ0KKwzeov9MqZQ+Ck3z7JW/gtd8ryoKK+5+ah2WL77DXETeHeEwxZhJdrNatqc0FXauEiw==";
       };
     };
-    "@serverless/enterprise-plugin-1.3.6" = {
+    "@serverless/enterprise-plugin-1.3.8" = {
       name = "_at_serverless_slash_enterprise-plugin";
       packageName = "@serverless/enterprise-plugin";
-      version = "1.3.6";
+      version = "1.3.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@serverless/enterprise-plugin/-/enterprise-plugin-1.3.6.tgz";
-        sha512 = "buIaxjyBa2cTC/ptgjycew25I03lfkPNhQ8pQWbjf8b7JfRJY3KctroDFP2u/zcr6KvFChu/TFNeXOPGZMwdaA==";
+        url = "https://registry.npmjs.org/@serverless/enterprise-plugin/-/enterprise-plugin-1.3.8.tgz";
+        sha512 = "r2rTxVZZQB4eOcq2Toe89WYY2vHkyPiLWXGCfzmZcxRYe+Triv1/E1c7A6JE4sGIimLKONDVN6OPECmHanYlgQ==";
       };
     };
     "@serverless/event-mocks-1.1.1" = {
@@ -49,13 +58,13 @@ let
         sha512 = "f9MY6tf9SXyAEX/1gqWPOJbm83y7F/GxsoGyCYn7mmo9RDIisy8uwoITmqIRsbxcoC6v2xQxuSRlAZPBH4JCyQ==";
       };
     };
-    "@serverless/template-1.0.1" = {
+    "@serverless/template-1.0.2" = {
       name = "_at_serverless_slash_template";
       packageName = "@serverless/template";
-      version = "1.0.1";
+      version = "1.0.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@serverless/template/-/template-1.0.1.tgz";
-        sha512 = "rXnVDzafGTRP29TcrzLpcIkqgO1PmdrZTqWLBT8k+2rpN1Lf2DS+Rmd50vGfe+BhfPZM46sBbOrS16RrFcElQQ==";
+        url = "https://registry.npmjs.org/@serverless/template/-/template-1.0.2.tgz";
+        sha512 = "HtiAHBrYRVDMo2652wCqspro1eTTjjQT1loG6zLkRZs9NeXijduSLZM7Vj032AKZOayGLmyXggHffWgF3w+/oA==";
       };
     };
     "@sindresorhus/is-0.14.0" = {
@@ -328,13 +337,13 @@ let
         sha512 = "Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==";
       };
     };
-    "aws-sdk-2.503.0" = {
+    "aws-sdk-2.507.0" = {
       name = "aws-sdk";
       packageName = "aws-sdk";
-      version = "2.503.0";
+      version = "2.507.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.503.0.tgz";
-        sha512 = "DPwRxhPYCGNvKL9rUhpAoOVpMRyISbVMlXykLQknYo7wyOI+jYcyA7t8H7IFPAqj4ZG+R+Au9tO/KT4im+2gbg==";
+        url = "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.507.0.tgz";
+        sha512 = "sOtaZONTfUx1jh9HzrWMLwoA2cZK2Xn2RAmGV4Y11NM2qhMePOQ501dhAq/ygKMZRffjw23b8mT1rAaDGTn05g==";
       };
     };
     "balanced-match-1.0.0" = {
@@ -355,13 +364,13 @@ let
         sha512 = "5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg==";
       };
     };
-    "base64-js-1.3.0" = {
+    "base64-js-1.3.1" = {
       name = "base64-js";
       packageName = "base64-js";
-      version = "1.3.0";
+      version = "1.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/base64-js/-/base64-js-1.3.0.tgz";
-        sha512 = "ccav/yGvoa80BQDljCxsmmQ3Xvx60/UpBIij5QN21W3wBi/hhIC9OoO+KLpu9IJTS9j4DRVJ3aDDF9cMSoa2lw==";
+        url = "https://registry.npmjs.org/base64-js/-/base64-js-1.3.1.tgz";
+        sha512 = "mLQ4i2QO1ytvGWFWmcngKO//JXAQueZvwEKtjgQFM4jIK0kU+ytMfplL8j+n5mspOfjHwoAg+9yhb7BwAHm36g==";
       };
     };
     "bl-1.2.2" = {
@@ -2731,6 +2740,15 @@ let
         sha1 = "3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab";
       };
     };
+    "nanoid-2.0.3" = {
+      name = "nanoid";
+      packageName = "nanoid";
+      version = "2.0.3";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/nanoid/-/nanoid-2.0.3.tgz";
+        sha512 = "NbaoqdhIYmY6FXDRB4eYtDVC9Z9eCbn8TyaiC16LNKtpPv/aqa0tOPD8y6gNE4yUNnaZ7LLhYtXOev/6+cBtfw==";
+      };
+    };
     "nanomatch-1.2.13" = {
       name = "nanomatch";
       packageName = "nanomatch";
@@ -3604,6 +3622,15 @@ let
         sha1 = "da42f49740c0b42db2ca9728571cb190c98efea3";
       };
     };
+    "shortid-2.2.14" = {
+      name = "shortid";
+      packageName = "shortid";
+      version = "2.2.14";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/shortid/-/shortid-2.2.14.tgz";
+        sha512 = "4UnZgr9gDdA1kaKj/38IiudfC3KHKhDc1zi/HSxd9FQDR0VLwH3/y79tZJLsVYPsJgIjeHjqIWaWVRJUj9qZOQ==";
+      };
+    };
     "signal-exit-3.0.2" = {
       name = "signal-exit";
       packageName = "signal-exit";
@@ -4009,13 +4036,13 @@ let
         sha1 = "27a5dea06b36b04a0a9966774b290868f0fc40fd";
       };
     };
-    "type-1.0.1" = {
+    "type-1.0.3" = {
       name = "type";
       packageName = "type";
-      version = "1.0.1";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/type/-/type-1.0.1.tgz";
-        sha512 = "MAM5dBMJCJNKs9E7JXo4CXRAansRfG0nlJxW7Wf6GZzSOvH31zClSaHdIMWLehe/EGMBkqeC55rrkaOr5Oo7Nw==";
+        url = "https://registry.npmjs.org/type/-/type-1.0.3.tgz";
+        sha512 = "51IMtNfVcee8+9GJvj0spSuFcZHe9vSib6Xtgsny1Km9ugyz2mbS08I3rsUIRYgJohFRFU1160sgRodYz378Hg==";
       };
     };
     "type-fest-0.5.2" = {
@@ -4390,14 +4417,19 @@ in
       sha512 = "rDMrhfJVs+vLmB8djU7BFXshLN3JOplSe3NsGAqK8akbuEg8ab6SNYoJ4qpEWYzoes74DjthDPZc3zfNkrPOXQ==";
     };
     dependencies = [
-      sources."@serverless/cli-1.0.1"
+      sources."@serverless/cli-1.0.3"
+      (sources."@serverless/component-metrics-1.0.8" // {
+        dependencies = [
+          sources."node-fetch-2.6.0"
+        ];
+      })
       (sources."@serverless/core-1.0.0" // {
         dependencies = [
           sources."fs-extra-7.0.1"
           sources."semver-6.3.0"
         ];
       })
-      (sources."@serverless/enterprise-plugin-1.3.6" // {
+      (sources."@serverless/enterprise-plugin-1.3.8" // {
         dependencies = [
           sources."fs-extra-7.0.1"
           sources."node-fetch-2.6.0"
@@ -4411,7 +4443,7 @@ in
           sources."uuid-3.3.2"
         ];
       })
-      sources."@serverless/template-1.0.1"
+      sources."@serverless/template-1.0.2"
       sources."@sindresorhus/is-0.14.0"
       sources."@szmarczak/http-timer-1.1.2"
       sources."@types/lodash-4.14.136"
@@ -4440,7 +4472,7 @@ in
       sources."async-1.5.2"
       sources."asynckit-0.4.0"
       sources."atob-2.1.2"
-      (sources."aws-sdk-2.503.0" // {
+      (sources."aws-sdk-2.507.0" // {
         dependencies = [
           sources."buffer-4.9.1"
           sources."ieee754-1.1.8"
@@ -4453,7 +4485,7 @@ in
           sources."define-property-1.0.0"
         ];
       })
-      sources."base64-js-1.3.0"
+      sources."base64-js-1.3.1"
       sources."bl-1.2.2"
       sources."bluebird-3.5.5"
       sources."body-parser-1.19.0"
@@ -4773,6 +4805,7 @@ in
       sources."moment-2.24.0"
       sources."ms-2.0.0"
       sources."mute-stream-0.0.7"
+      sources."nanoid-2.0.3"
       sources."nanomatch-1.2.13"
       sources."native-promise-only-0.8.1"
       sources."ncjsm-2.3.0"
@@ -4901,6 +4934,7 @@ in
       sources."setprototypeof-1.1.1"
       sources."shebang-command-1.2.0"
       sources."shebang-regex-1.0.0"
+      sources."shortid-2.2.14"
       sources."signal-exit-3.0.2"
       (sources."simple-git-1.124.0" // {
         dependencies = [
@@ -5020,7 +5054,7 @@ in
       sources."trim-repeated-1.0.0"
       sources."tslib-1.10.0"
       sources."tunnel-agent-0.6.0"
-      sources."type-1.0.1"
+      sources."type-1.0.3"
       sources."type-fest-0.5.2"
       sources."type-is-1.6.18"
       sources."typedarray-0.0.6"
