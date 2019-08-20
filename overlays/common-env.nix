@@ -10,6 +10,7 @@ self: super: {
       coreutils
       cloc
       curl
+      fd
       fish-foreign-env
       gotop
       htop
@@ -48,9 +49,9 @@ self: super: {
       # Other dev stuff
       unstable.ccls
       google-cloud-sdk
-      lua
-      luaPackages.luacheck
-      unstable.luaPackages.lua-lsp
+      lua53Packages.lua
+      unstable.lua53Packages.luacheck
+      ninja
       nodejs
       myNodePackages.serverless
       unstable.nodePackages.bash-language-server
