@@ -44,7 +44,7 @@ self: super: {
       cabal-install
       ghc
       haskellPackages.hoogle
-      stack
+      unstable.stack
 
       # Other dev stuff
       unstable.ccls

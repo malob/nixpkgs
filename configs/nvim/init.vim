@@ -331,6 +331,7 @@ set shortmess+=c   " don't show ins-completion-menu messages.
 " Extensions to load
 let g:coc_global_extensions =
 \ [ 'coc-eslint'
+\ , 'coc-fish'
 \ , 'coc-import-cost'
 \ , 'coc-json'
 \ , 'coc-git'
