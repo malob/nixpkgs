@@ -53,7 +53,7 @@ self: super: {
       unstable.lua53Packages.luacheck
       ninja
       nodejs
-      myNodePackages.serverless
+      unstable.nodePackages.serverless
       unstable.nodePackages.bash-language-server
       unstable.nodePackages.typescript
       vim-vint
