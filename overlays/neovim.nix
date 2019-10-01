@@ -12,6 +12,15 @@ let
         sha256 = "0bxrm2vm3z1y37sm6m2hdn72g2sw31dx1xhmjvd0ng72cnp84d9k";
       };
     };
+    vim-haskell-module-name = buildVimPluginFrom2Nix {
+      name = "vim-haskell-module-name";
+      src  = super.fetchFromGitHub {
+        owner  = "chkno";
+        repo   = "vim-haskell-module-name";
+        rev    = "6dcd594";
+        sha256 = "126p0i4mw1f9nmzh96yxymaizja5vbl6z9k1y3zqhxq9nglgdvxb";
+      };
+    };
     # Needed until PR lands in unstable channel
     # my-coc-nvim = buildVimPluginFrom2Nix rec {
     #   pname = "coc-nvim";
@@ -25,7 +34,7 @@ let
     # };
   };
 in {
-  myNeovim = self.pkgs.unstable.neovim.override {
+  myNeovim = self.pkgs.neovim.override {
     configure = {
       customRC = ''
         source $HOME/.config/nixpkgs/configs/nvim/init.vim
@@ -46,7 +55,9 @@ in {
           goyo-vim
           tabular
           vim-commentary
+          vim-eunuch
           vim-fugitive
+          vim-haskell-module-name
           vim-pencil
           vim-polyglot
           vim-surround
