@@ -34,7 +34,7 @@ let
     # };
   };
 in {
-  myNeovim = self.pkgs.neovim.override {
+  myNeovim = self.pkgs.master.neovim.override {
     configure = {
       customRC = ''
         source $HOME/.config/nixpkgs/configs/nvim/init.vim
