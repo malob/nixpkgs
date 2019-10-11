@@ -1,4 +1,5 @@
 { "coc.preferences.formatOnSaveFiletypes" : []
+, "coc.preferences.enableFloatHighlight"  : false
 , "coc.preferences.jumpCommand"           : "split"
 
 , "codeLens.enable" : true
@@ -8,7 +9,7 @@
 , "diagnostic.infoSign"            : ""
 , "diagnostic.hintSign"            : ""
 , "diagnostic.refreshOnInsertMode" : false
-, "diagnostic.virtualText"         : true
+, "diagnostic.maxWindowHeight"     : 20
 
 , "list.indicator"          : "->>"
 , "list.extendedSearchMode" : true
@@ -101,6 +102,4 @@
 , "git.removedSign.text"          : "_"
 , "git.topRemovedSign.hlGroup"    : "GitGutterDelete"
 , "git.topRemovedSign.text"       : "‾"
-
-, "importCost.debug": true
 }

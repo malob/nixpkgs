@@ -382,8 +382,7 @@ hi link HighlightedyankRegion Visual
 " Keybindings {{{
 
 " Language server keybinding
-nmap <silent><space>le <Plug>(coc-diagnostic-info)
-nmap <silent><space>lE <Cmd>CocList diagnostics<CR>
+nmap <silent><space>le <Cmd>CocList diagnostics<CR>
 nmap <silent><space>ln <Plug>(coc-diagnostic-next)
 nmap <silent><space>lN <Plug>(coc-diagnostic-prev)
 

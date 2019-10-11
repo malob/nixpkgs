@@ -7,6 +7,10 @@ self: super: {
       m-cli
       terminal-notifier
       myGems.vimgolf
+
+      # My custom nix related shell scripts
+      nixuser-simlink-apps
+      nix-update-darwin
     ];
   };
 }
