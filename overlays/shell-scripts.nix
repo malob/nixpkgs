@@ -1,11 +1,11 @@
 self: super: {
   # Command to update Nix user enviroment that picks right environment based on OS
   nixuser-rebuild = super.writeShellScriptBin "nixuser-rebuild" ''
-    if [ $1 = "update" ]; then
+    if [ "$1" == "--update" ]; then
       nixuser-update-sources
     fi
 
-    if [ $(uname) = "Darwin" ]; then
+    if [ $(uname) == "Darwin" ]; then
       nix-env -riA nixpkgs.myMacosEnv
       nixuser-simlink-apps
     elif test -f /etc/nixos/configuration.nix; then
@@ -36,7 +36,7 @@ self: super: {
   nixuser-simlink-apps = super.writeShellScriptBin "nixuser-simlink-apps" ''
     for app in $(find ~/Applications -name '*.app')
     do
-      if test -L $app && string match '*/nix/store/*' $(readlink -f $app) > /dev/null; then
+      if test -L $app && [[ $(readlink -f $app) == /nix/store/* ]]; then
         rm $app
       fi
     done
