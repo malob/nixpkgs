@@ -336,6 +336,9 @@ let g:coc_global_extensions =
 \ , 'coc-json'
 \ , 'coc-git'
 \ , 'coc-lists'
+\ , 'coc-markdownlint'
+\ , 'coc-sh'
+\,  'coc-smartf'
 \ , 'coc-tabnine'
 \ , 'coc-tsserver'
 \ , 'coc-vimlsp'
@@ -453,6 +456,12 @@ nmap <silent><space>gcj <Plug>(coc-git-nextchunk)
 nmap <silent><space>gck <Plug>(coc-git-prevchunk)
 nmap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
 nmap <silent><space>gcu <Cmd>CocCommand git.chunkUndo<CR>
+
+" Smartf
+nmap f <Plug>(coc-smartf-forward)
+nmap F <Plug>(coc-smartf-backward)
+nmap ; <Plug>(coc-smartf-repeat)
+nmap , <Plug>(coc-smartf-repeat-opposite)
 
 " use tab to navigate completion menu and jump in snippets
 inoremap <expr> <Tab>

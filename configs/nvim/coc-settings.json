@@ -64,13 +64,7 @@
   }
 
 , "languageserver" :
-  { "bash" :
-    { "command"          : "bash-language-server"
-    , "args"             : [ "start" ]
-    , "filetypes"        : [ "sh" ]
-    , "ignoredRootPaths" : [ "~" ]
-    }
-  , "ccls" :
+  { "ccls" :
     { "command"               : "ccls"
     , "initializationOptions" : {}
     , "filetypes"             : [ "c", "cpp", "objc", "objcpp" ]
@@ -102,4 +96,9 @@
 , "git.removedSign.text"          : "_"
 , "git.topRemovedSign.hlGroup"    : "GitGutterDelete"
 , "git.topRemovedSign.text"       : "‾"
+
+, "markdownlint.config":
+  { "default": true
+  , "line-length": false
+  }
 }
