@@ -100,5 +100,6 @@
 , "markdownlint.config":
   { "default": true
   , "line-length": false
+  , "no-multiple-blanks": false
   }
 }
