@@ -3,6 +3,8 @@ self: super: {
     name  = "LinuxEnv";
     paths = with self.pkgs; [
       myCommonEnv
+
+      unstable.abduco
     ];
   };
 }
