@@ -71,7 +71,7 @@ let
 in {
   myKitty = super.pkgs.symlinkJoin rec {
     name        = "myKitty";
-    paths       = [ self.pkgs.unstable.kitty ];
+    paths       = [ self.pkgs.master.kitty ];
     buildInputs = [ super.pkgs.makeWrapper ];
     configPath  = "$out/.config/kitty";
     postBuild   = ''
