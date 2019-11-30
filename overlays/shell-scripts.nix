@@ -49,6 +49,12 @@ self: super: {
 
   # Command to update Nix on macOs
   nix-update-darwin = super.writeShellScriptBin "nix-update" ''
-     sudo -i sh -c 'nix-channel --update && nix-env -iA nixpkgs.nix && launchctl remove org.nixos.nix-daemon && launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist'
+    sudo -i sh -c 'nix-channel --update && nix-env -iA nixpkgs.nix && launchctl remove org.nixos.nix-daemon && launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist'
+  '';
+
+  # Collect garbage, optimize store, repair paths
+  nix-cleanup-store = super.writeShellScriptBin "nix-cleanup" ''
+    nix-collect-garbage -d
+    nix optimise-store 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo parallel 'nix-store --repair-path {}'
   '';
 }

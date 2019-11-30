@@ -42,6 +42,7 @@ self: super: {
       # My custom nix related shell scripts
       nixuser-rebuild
       nixuser-update-sources
+      nix-cleanup-store
 
       # Haskell stuff
       (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
