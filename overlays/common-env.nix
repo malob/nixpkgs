@@ -47,7 +47,7 @@ self: super: {
       # Haskell stuff
       (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
       unstable.cabal-install
-      unstable.cabal2nix
+      # unstable.cabal2nix
       haskellPackages.hoogle
       haskellPackages.hpack
       unstable.stack

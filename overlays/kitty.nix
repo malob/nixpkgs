@@ -31,7 +31,7 @@ let
 
       # Tab bar
       tab_bar_edge            = "top";
-      tab_bar_style           = "separator";
+      tab_bar_style           = "powerline";
       tab_title_template      = ''Tab {index}: {title}'';
       active_tab_foreground   = "#${base3}";
       active_tab_background   = "#${green}";
@@ -71,7 +71,7 @@ let
 in {
   myKitty = super.pkgs.symlinkJoin rec {
     name        = "myKitty";
-    paths       = [ self.pkgs.master.kitty ];
+    paths       = [ self.pkgs.unstable.kitty ];
     buildInputs = [ super.pkgs.makeWrapper ];
     configPath  = "$out/.config/kitty";
     postBuild   = ''
