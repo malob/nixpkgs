@@ -73,7 +73,7 @@
   , "haskell" :
     { "command"               : "hie-8.6.5"
     , "filetypes"             : [ "hs", "lhs", "haskell" ]
-    , "rootPatterns"          : [ "stack.yaml", "cabal.project" ]
+    , "rootPatterns"          : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
     , "initializationOptions" : {}
     }
   , "lua-language-server":
