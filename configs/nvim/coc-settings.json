@@ -71,7 +71,8 @@
     , "initializationOptions" : {}
     }
   , "haskell" :
-    { "command"               : "hie-8.6.5"
+    { "command"               : "hie-wrapper"
+    , "args"                  : [ "--lsp" ]
     , "filetypes"             : [ "hs", "lhs", "haskell" ]
     , "rootPatterns"          : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
     , "initializationOptions" : {}

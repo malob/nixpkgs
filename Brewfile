@@ -55,13 +55,13 @@ mas "Keynote",              id: 409183694
 mas "LG Screen Manager",    id: 1142051783
 mas "MindNode",             id: 1289197285
 mas "Numbers",              id: 409203825
-mas "OmniFocus",            id: 1346203938
 mas "Pages",                id: 409201541
 mas "Patterns",             id: 429449079
 mas "Pixelmator",           id: 407963104
 mas "Pixelmator Pro",       id: 1289583905
 mas "Slack",                id: 803453959
 mas "SiteSucker",           id: 442168834
+mas "Things 3",             id: 904280696
 mas "Type Fu",              id: 509818877
 mas "Ulysses",              id: 1225570693
 mas "WiFi Explorer",        id: 494803304
