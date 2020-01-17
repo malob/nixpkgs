@@ -71,11 +71,13 @@
     , "initializationOptions" : {}
     }
   , "haskell" :
-    { "command"               : "hie-wrapper"
+    { "command"               : "~/.local/bin/hie-8.8.1"
     , "args"                  : [ "--lsp" ]
     , "filetypes"             : [ "hs", "lhs", "haskell" ]
     , "rootPatterns"          : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
-    , "initializationOptions" : {}
+    , "initializationOptions" : {
+        "languageServerHaskell": {}
+    }
     }
   , "lua-language-server":
     { "cwd"       : "/Users/malo/.vscode/extensions/sumneko.lua-0.11.5/server"
