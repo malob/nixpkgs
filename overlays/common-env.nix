@@ -7,6 +7,7 @@ self: super: {
     name = "CommonEnv";
     paths = with self.pkgs; [
       # Some basics
+      browsh
       coreutils
       cloc
       curl

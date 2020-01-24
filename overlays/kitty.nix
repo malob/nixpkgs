@@ -6,19 +6,24 @@ let
     toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; } {
       # Fonts
       font_family = if super.stdenv.isDarwin then
-                      "FuraCode Nerd Font Mono Retina"
+                      "JetBrainsMono Nerd Font Mono Regular"
                     else
                       "Fira Code Retina Nerd Font Complete";
 
       bold_font   = if super.stdenv.isDarwin then
-                      "FuraCode Nerd Font Mono Bold"
+                      "JetBrainsMono Nerd Font Mono Bold"
                     else
                       "Fira Code Bold Nerd Font Complete";
 
       italic_font = if super.stdenv.isDarwin then
-                      "FuraCode Nerd Font Mono Light"
+                      "JetBrainsMono Nerd Font Mono Italic"
                     else
                       "Fira Code Light Nerd Font Complete";
+
+      bold_italic_font = if super.stdenv.isDarwin then
+                           "JetBrainsMono Nerd Font Mono Bold Italic"
+                         else
+                           "auto";
 
       font_size   = "13.0";
 
