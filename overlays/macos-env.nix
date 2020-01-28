@@ -21,7 +21,7 @@ self: super: {
     done
   '';
 
-  # Update Nix on macOS
+  # Update Nix on macOS (see https://nixos.org/nix/manual/#ch-upgrading-nix)
   nix-update = super.writeShellScriptBin "nix-update" ''
     sudo -i sh -c 'nix-channel --update && nix-env -iA nixpkgs.nix && launchctl remove org.nixos.nix-daemon && launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist'
   '';
@@ -37,7 +37,7 @@ self: super: {
     brew bundle cleanup --zap $1 --file=~/.config/nixpkgs/Brewfile
   '';
 
-  # Update all the things
+  # Update/upgrade all the things
   update-all-macos = super.writeShellScriptBin "update-all" ''
     nix-channel --update
     ${self.pkgs.nixuser-update-mypkgs}/bin/nixuser-update-mypkgs
@@ -45,6 +45,16 @@ self: super: {
     ${self.pkgs.nixuser-rebuild-macos}/bin/nixuser-rebuild
     printf "\nUpdating Homebrew bundle\n"
     ${self.pkgs.brew-bundle}/bin/brewb
+  '';
+
+  # Cleanup all the things
+  cleanup-all-macos = super.writeShellScriptBin "cleanup-all" ''
+    printf "\nGarbage collecting, optimizing, and repairing Nix store\n"
+    ${self.pkgs.nix-cleanup-store}/bin/nix-cleanup
+    printf "\nRemoving Homebrew packages/apps not in Brewfile\n"
+    ${self.pkgs.brew-bundle-cleanup}/bin/brewb-cleanup --force
+    printf "\nCleaning up Hombrew cache\n"
+    brew cleanup
   '';
 
   myMacosEnv = super.buildEnv {
@@ -62,6 +72,7 @@ self: super: {
       brew-bundle
       brew-bundle-cleanup
       update-all-macos
+      cleanup-all-macos
     ];
   };
 }
