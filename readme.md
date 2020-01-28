@@ -1,3 +1,5 @@
+(Note: This readme is pretty out of date.)
+
 # Overview
 
 This is my `nix` configuration that I use on all my systems. My overall goal/motivation is to make as much of my system configuration as possible declarative.
