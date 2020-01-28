@@ -46,9 +46,8 @@ self: super: {
       nix-cleanup-store
 
       # Haskell stuff
-      (all-hies.selection { selector = p: { inherit (p) ghc865 ghc864 ghc863; }; })
+      (all-hies.unstableFallback.selection { selector = p: { inherit (p) ghc881 ghc865 ghc864; }; })
       unstable.cabal-install
-      # unstable.cabal2nix
       haskellPackages.hoogle
       haskellPackages.hpack
       unstable.stack
