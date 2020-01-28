@@ -75,19 +75,6 @@ let
 
   generated = self: {
 
-    "scan-build" = python.mkDerivation {
-      name = "scan-build-2.0.17";
-      src = pkgs.fetchurl { url = "https://files.pythonhosted.org/packages/93/03/f012b6a20a6c8fcac54ebe985fc137d4e899e3b997881445bf69e4277384/scan-build-2.0.17.tar.gz"; sha256 = "29f8a99f61fa5bedd4be4eff00d1dd50d9990ec9853230b9fc826c0c694146fa"; };
-      doCheck = commonDoCheck;
-      buildInputs = commonBuildInputs;
-      propagatedBuildInputs = [ ];
-      meta = with pkgs.stdenv.lib; {
-        homepage = "https://github.com/rizsotto/scan-build";
-        license = licenses.ncsa;
-        description = "static code analyzer wrapper for Clang.";
-      };
-    };
-
   };
   localOverridesFile = ./requirements_override.nix;
   overrides = import localOverridesFile { inherit pkgs python; };

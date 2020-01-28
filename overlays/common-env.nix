@@ -1,7 +1,26 @@
 self: super: {
-  myGems = super.pkgs.callPackage ../pkgs/ruby-gems {};
-  myNodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
-  myPythonPackages = import ../pkgs/python-packages/requirements.nix {};
+
+  # Update custom packages
+  nixuser-update-mypkgs = super.writeShellScriptBin "nixuser-update-mypkgs" ''
+    pushd ~/.config/nixpkgs/pkgs/node-packages
+    printf "\nUpdating Node package nix expressions ...\n"
+    ${self.pkgs.unstable.nodePackages.node2nix}/bin/node2nix --nodejs-10 -i node-packages.json
+    popd
+    pushd ~/.config/nixpkgs/pkgs/ruby-gems/
+    printf "\nUpdating Ruby Gems nix expressions ...\n"
+    ${super.pkgs.bundix}/bin/bundix --magic
+    popd
+    pushd ~/.config/nixpkgs/pkgs/python-packages
+    printf "\nUpdating Python package nix expressions ...\n"
+    ${super.pkgs.pypi2nix}/bin/pypi2nix --python-version 3.6 --requirements requirements.txt
+    popd
+  '';
+
+  # Collect garbage, optimize store, repair paths
+  nix-cleanup-store = super.writeShellScriptBin "nix-cleanup" ''
+    nix-collect-garbage -d
+    nix optimise-store 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${super.pkgs.parallel}/bin/parallel 'nix-store --repair-path {}'
+  '';
 
   myCommonEnv = self.buildEnv {
     name = "CommonEnv";
@@ -36,13 +55,11 @@ self: super: {
       # Useful nix related tools
       bundix
       cachix
-      nixops
       unstable.nodePackages.node2nix
       pypi2nix
 
       # My custom nix related shell scripts
-      nixuser-rebuild
-      nixuser-update-sources
+      nixuser-update-mypkgs
       nix-cleanup-store
 
       # Haskell stuff
