@@ -12,7 +12,7 @@ self: super: {
     popd
     pushd ~/.config/nixpkgs/pkgs/python-packages
     printf "\nUpdating Python package nix expressions ...\n"
-    ${super.pkgs.pypi2nix}/bin/pypi2nix --python-version 3.6 --requirements requirements.txt
+    ${super.pkgs.unstable.pypi2nix}/bin/pypi2nix --python-version python36 --requirements requirements.txt
     popd
   '';
 
@@ -22,7 +22,7 @@ self: super: {
     nix optimise-store 2>&1 | sed -E 's/.*'\'''(\/nix\/store\/[^\/]*).*'\'''/\1/g' | uniq | sudo ${super.pkgs.parallel}/bin/parallel 'nix-store --repair-path {}'
   '';
 
-  myCommonEnv = self.buildEnv {
+  myCommonEnv = super.buildEnv {
     name = "CommonEnv";
     paths = with self.pkgs; [
       # Some basics
@@ -56,7 +56,7 @@ self: super: {
       bundix
       cachix
       unstable.nodePackages.node2nix
-      pypi2nix
+      unstable.pypi2nix
 
       # My custom nix related shell scripts
       nixuser-update-mypkgs
@@ -76,6 +76,7 @@ self: super: {
       unstable.lua53Packages.luacheck
       ninja
       nodejs-12_x
+      myPythonPackages.packages.scan-build
       unstable.nodePackages.serverless
       unstable.nodePackages.bash-language-server
       unstable.nodePackages.typescript
