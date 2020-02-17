@@ -2,3 +2,5 @@ pkgs/ruby-gems/vendor
 pkgs/ruby-gems/.bundle
 pkgs/ruby-gems/Gemfile.lock
 pkgs/python-packages/requirements_frozen.txt
+
+Brewfile.lock.json

@@ -63,7 +63,7 @@ self: super: {
       nix-cleanup-store
 
       # Haskell stuff
-      (all-hies.unstableFallback.selection { selector = p: { inherit (p) ghc881 ghc865 ghc864; }; })
+      (all-hies.unstableFallback.selection { selector = p: { inherit (p) ghc882 ghc881 ghc865; }; })
       unstable.cabal-install
       haskellPackages.hoogle
       haskellPackages.hpack
@@ -75,7 +75,7 @@ self: super: {
       lua53Packages.lua
       unstable.lua53Packages.luacheck
       ninja
-      nodejs
+      nodejs-12_x
       unstable.nodePackages.serverless
       unstable.nodePackages.bash-language-server
       unstable.nodePackages.typescript
