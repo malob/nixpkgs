@@ -46,7 +46,6 @@ mas "1Password",            id: 1333542190
 mas "DaisyDisk",            id: 411643860
 mas "Dark Mode for Safari", id: 1397180934
 mas "Deliveries",           id: 924726344
-mas "Downlink",             id: 1454269192
 mas "Fantastical",          id: 975937182
 mas "Keynote",              id: 409183694
 mas "LG Screen Manager",    id: 1142051783
