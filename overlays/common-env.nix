@@ -26,63 +26,60 @@ self: super: {
     name = "CommonEnv";
     paths = with self.pkgs; [
       # Some basics
-      browsh
-      coreutils
-      cloc
+      browsh            # in terminal browser
+      coreutils         
+      cloc              # source code line counter
       curl
-      fd
-      fish-foreign-env
-      gotop
-      htop
-      hyperfine
-      mosh
-      parallel
-      ripgrep
-      s3cmd
+      fd                # substitute for `find`
+      fish-foreign-env  # needed for fish-shell for non-NixOS installations
+      gotop             # fancy version of `top` with ASCII graphs
+      htop              # fancy version of `top`
+      hyperfine         # benchmarking tool
+      mosh              # wrapper for `ssh` that better and not dropping connections
+      parallel          # runs commands in parallel
+      ripgrep           # better version of grep
+      s3cmd             # utility for interacting with AWS S3
       unstable.nodePackages.speed-test
-      thefuck
-      tldr
-      unrar
+      thefuck           # suggests fixes to commands that exit with a non-zero status
+      tldr              # simple man pages, mostly examples of how to use commands
+      unrar             # extract RAR archives
       wget
-      xz
+      xz                # extract XZ archives
 
-      # My wrapped and config derivations
-      myBat
-      myGitEnv # includes diff-so-fancy and hub
-      myKitty
-      myNeovimEnv # includes neovim-remote
+      # General dev stuff 
+      google-cloud-sdk
+      nodejs-12_x
+      unstable.nodePackages.serverless
 
-      # Useful nix related tools
-      bundix
-      cachix
-      unstable.nodePackages.node2nix
-      unstable.pypi2nix
-
-      # My custom nix related shell scripts
-      nixuser-update-mypkgs
-      nix-cleanup-store
-
-      # Haskell stuff
+      # Haskell
       (all-hies.unstableFallback.selection { selector = p: { inherit (p) ghc882 ghc881 ghc865; }; })
       unstable.cabal-install
       haskellPackages.hoogle
       haskellPackages.hpack
       unstable.stack
 
-      # Other dev stuff
+      # Language servers, linters, etc.
       unstable.ccls
-      google-cloud-sdk
-      lua53Packages.lua
-      unstable.lua53Packages.luacheck
-      ninja
-      nodejs-12_x
-      myPythonPackages.packages.scan-build
-      unstable.nodePackages.serverless
       unstable.nodePackages.bash-language-server
       unstable.nodePackages.typescript
       vim-vint
       watchman
-      yarn
+
+      # My wrapped and config derivations
+      myBat       # a better version of `cat`
+      myGitEnv    # includes diff-so-fancy and hub
+      myKitty     # my prefered terminal
+      myNeovimEnv # includes neovim-remote
+
+      # Useful nix related tools
+      bundix                          # working with Ruby projects
+      cachix                          # adding/managing atternative binary caches hosted by Cachix 
+      unstable.nodePackages.node2nix  # working with Node projects
+      unstable.pypi2nix               # working with Python projects
+
+      # My custom nix related shell scripts
+      nixuser-update-mypkgs
+      nix-cleanup-store
     ];
   };
 }

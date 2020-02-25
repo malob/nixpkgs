@@ -21,8 +21,8 @@ self: super: {
     name  = "myGitEnv";
     paths = with self.pkgs; [
       myGit
-      gitAndTools.diff-so-fancy
-      gitAndTools.hub
+      gitAndTools.diff-so-fancy # make Git diffs nicer
+      gitAndTools.hub           # Git wrapper that works adds a bunch of GitHub features
     ];
   };
 }

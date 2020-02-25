@@ -62,9 +62,9 @@ self: super: {
     paths = with self.pkgs; [
       myCommonEnv
 
-      m-cli
-      terminal-notifier
-      myGems.vimgolf
+      m-cli             # useful macOS cli commands
+      terminal-notifier # notifications when terminal commands finish running
+      myGems.vimgolf    # fun Vim puzzels
 
       # My convinience shell scripts
       nixuser-rebuild-macos
