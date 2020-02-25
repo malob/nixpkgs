@@ -15,8 +15,6 @@ cask "atom"
 cask "amethyst"
 cask "arq"
 cask "balenaetcher"
-cask "coda"
-cask "dash"
 cask "firefox"
 cask "google-chrome"
 cask "google-drive-file-stream"
@@ -33,7 +31,6 @@ cask "superhuman"
 cask "tor-browser"
 cask "transmission"
 cask "transmit"
-cask "unetbootin"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
 cask "visual-studio-code"
@@ -50,8 +47,6 @@ mas "Dark Mode for Safari", id: 1397180934
 mas "Deliveries",           id: 924726344
 mas "Downlink",             id: 1454269192
 mas "Fantastical",          id: 975937182
-mas "Haskell",              id: 841285201
-mas "iHex",                 id: 909566003
 mas "Keynote",              id: 409183694
 mas "LG Screen Manager",    id: 1142051783
 mas "MindNode",             id: 1289197285
