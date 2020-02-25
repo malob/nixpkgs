@@ -45,6 +45,8 @@ self: super: {
     ${self.pkgs.nixuser-rebuild-macos}/bin/nixuser-rebuild
     printf "\nUpdating Homebrew bundle\n"
     ${self.pkgs.brew-bundle}/bin/brewb
+    printf "\nUpdate tldr database\n"
+    tldr --update
   '';
 
   # Cleanup all the things
