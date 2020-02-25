@@ -26,25 +26,25 @@ self: super: {
     name = "CommonEnv";
     paths = with self.pkgs; [
       # Some basics
-      browsh            # in terminal browser
-      coreutils         
-      cloc              # source code line counter
+      browsh                           # in terminal browser
+      coreutils
+      cloc                             # source code line counter
       curl
-      fd                # substitute for `find`
-      fish-foreign-env  # needed for fish-shell for non-NixOS installations
-      gotop             # fancy version of `top` with ASCII graphs
-      htop              # fancy version of `top`
-      hyperfine         # benchmarking tool
-      mosh              # wrapper for `ssh` that better and not dropping connections
-      parallel          # runs commands in parallel
-      ripgrep           # better version of grep
-      s3cmd             # utility for interacting with AWS S3
+      fd                               # substitute for `find`
+      unstable.fish-foreign-env        # needed for fish-shell for non-NixOS installations
+      gotop                            # fancy version of `top` with ASCII graphs
+      htop                             # fancy version of `top`
+      hyperfine                        # benchmarking tool
+      mosh                             # wrapper for `ssh` that better and not dropping connections
+      parallel                         # runs commands in parallel
+      ripgrep                          # better version of grep
+      s3cmd                            # utility for interacting with AWS S3
       unstable.nodePackages.speed-test
-      thefuck           # suggests fixes to commands that exit with a non-zero status
-      tldr              # simple man pages, mostly examples of how to use commands
-      unrar             # extract RAR archives
+      thefuck                          # suggests fixes to commands that exit with a non-zero status
+      tldr                             # simple man pages, mostly examples of how to use commands
+      unrar                            # extract RAR archives
       wget
-      xz                # extract XZ archives
+      xz                               # extract XZ archives
 
       # General dev stuff 
       google-cloud-sdk

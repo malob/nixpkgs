@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    highline (2.0.3)
+    json_pure (2.2.0)
+    thor (1.0.1)
+    vimgolf (0.4.8)
+      highline
+      json_pure
+      thor (>= 0.14.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  vimgolf
+
+BUNDLED WITH
+   1.17.3

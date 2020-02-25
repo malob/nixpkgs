@@ -77,10 +77,10 @@ let
 
   generated = self: {
     "scan-build" = python.mkDerivation {
-      name = "scan-build-2.0.18";
+      name = "scan-build-2.0.19";
       src = pkgs.fetchurl {
-        url = "https://files.pythonhosted.org/packages/dc/5f/74c7397094d8db6bbd32a3129f4e9ce18f6f86b2c437a9a971fe5fcf823f/scan-build-2.0.18.tar.gz";
-        sha256 = "296bb899dc4c126b985fca0c15c9ec20cf758b7c7ff830db64c4ca971d886797";
+        url = "https://files.pythonhosted.org/packages/dd/74/dcd74273f01501bf61f7690c2f4c0dc9fc5ed231e3fbb5d927a8d1847080/scan-build-2.0.19.tar.gz";
+        sha256 = "79edcbcdec433682528258870ed1efbf66d3ebcf857ecca335c830d8adbf17eb";
 };
       doCheck = commonDoCheck;
       format = "setuptools";
@@ -96,7 +96,7 @@ let
   localOverridesFile = ./requirements_override.nix;
   localOverrides = import localOverridesFile { inherit pkgs python; };
   commonOverrides = [
-        (let src = pkgs.fetchFromGitHub { owner = "nix-community"; repo = "pypi2nix-overrides"; rev = "fbbcadd9e5fedade659ba2585893d3a8cbba8e56"; sha256 = "1fmqib6j08lswfw0agbgy1hdib3rfmrzx2x5zyzrqbkvc80a734b"; } ; in import "${src}/overrides.nix" { inherit pkgs python; })
+        (let src = pkgs.fetchFromGitHub { owner = "nix-community"; repo = "pypi2nix-overrides"; rev = "100c15ec7dfe7d241402ecfb1e796328d0eaf1ec"; sha256 = "0akfkvdakcdxc1lrxznh1rz2811x4pafnsq3jnyr5pn3m30pc7db"; } ; in import "${src}/overrides.nix" { inherit pkgs python; })
   ];
   paramOverrides = [
     (overrides { inherit pkgs python; })
