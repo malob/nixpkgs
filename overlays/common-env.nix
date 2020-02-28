@@ -46,7 +46,7 @@ self: super: {
       wget
       xz                               # extract XZ archives
 
-      # General dev stuff 
+      # General dev stuff
       google-cloud-sdk
       nodejs-12_x
       unstable.nodePackages.serverless
@@ -73,7 +73,7 @@ self: super: {
 
       # Useful nix related tools
       bundix                          # working with Ruby projects
-      cachix                          # adding/managing atternative binary caches hosted by Cachix 
+      cachix                          # adding/managing atternative binary caches hosted by Cachix
       unstable.nodePackages.node2nix  # working with Node projects
       unstable.pypi2nix               # working with Python projects
 

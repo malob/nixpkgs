@@ -272,8 +272,10 @@ let g:startify_commands =
 " =============================
 
 " Make escape more sensible in terminal mode
-tnoremap <ESC> <C-\><C-n>    " enter normal mode
-tnoremap <leader><ESC> <ESC> " send escape to terminal
+" enter normal mode
+tnoremap <ESC> <C-\><C-n>
+" send escape to terminal
+tnoremap <leader><ESC> <ESC>
 
 " Start new terminals in insert mode
 augroup nvimTerm
@@ -310,7 +312,7 @@ nnoremap <silent><space>wh <C-w>H
 nnoremap <silent><space>wl <C-w>L
 nnoremap <silent><space>wt <C-w>T
 
-" Various quite/close commands
+" Various quit/close commands
 nmap <silent><space>qh <Cmd>helpclose<CR>
 nmap <silent><space>qp <Cmd>pclose<CR>
 nmap <silent><space>qc <Cmd>cclose<CR>
