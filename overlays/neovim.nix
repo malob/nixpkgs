@@ -34,7 +34,7 @@ let
     # };
   };
 in {
-  myNeovim = self.pkgs.unstable.neovim.override {
+  myNeovim = self.pkgs.release-beta.neovim.override {
     configure = {
       customRC = ''
         source $HOME/.config/nixpkgs/configs/nvim/init.vim

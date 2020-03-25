@@ -56,7 +56,7 @@ self: super: {
       unstable.cabal-install
       haskellPackages.hoogle
       haskellPackages.hpack
-      unstable.stack
+      stack
 
       # Language servers, linters, etc.
       unstable.ccls
