@@ -89,6 +89,7 @@
 
 , "eslint.filetypes": [ "javascript", "typescript" ]
 
+, "git.branchCharacter"           : ""
 , "git.addedSign.hlGroup"         : "GitGutterAdd"
 , "git.addedSign.text"            : "┃"
 , "git.changedSign.hlGroup"       : "GitGutterChange"

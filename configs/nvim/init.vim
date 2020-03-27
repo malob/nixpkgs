@@ -19,7 +19,6 @@ scriptencoding=utf-8
 " Basic Vim Config {{{
 " ================
 
-let mapleader = '`'
 let timeouttlen = 2000 " extend time-out on leader key
 set scrolloff=5        " start scrolling when cursor is within 5 lines of the edge
 set linebreak          " soft wraps on words not individual chars
@@ -48,6 +47,15 @@ function! Anoremap(arg, lhs, rhs)
     execute map_command a:arg a:lhs a:rhs
   endfor
 endfunction
+
+" Start new terminals in insert mode
+augroup nvimTerm
+  au TermOpen * if &buftype == 'terminal' | :startinsert | :setlocal nonumber | :setlocal norelativenumber | :setlocal signcolumn=no | endif
+augroup END
+
+" Set where splits open
+set splitbelow " open horizontal splits below instead of above which is the default
+set splitright " open vertical splits to the right instead of the left with is the default
 " }}}
 
 " UI General {{{
@@ -64,7 +72,7 @@ set termguicolors   " truecolor support
 
 " Setup color scheme
 " https://github.com/icymind/NeoSolarized
-let g:neosolarized_italic           = 1 " enable italics (must come before colorcheme command)
+let g:neosolarized_italic           = 1 " enable italics (must come before colorscheme command)
 let g:neosolarized_termBoldAsBright = 0 " don't change color of text when bolded in terminal
 colorscheme NeoSolarized                " version of solarized that works better with truecolors
 hi! link SignColumn Normal
@@ -172,9 +180,8 @@ endfunction
 " mimic tmux's display-pane feature
 " https://github.com/t9md/vim-choosewin
 " color setting in BASIC VIM CONFIG section
-nmap <silent><space><space> <Cmd>call ActiveChooseWin()<CR>
 let g:choosewin_active = 0
-let g:choosewin_label = 'TNERIAODH' " alternating on homerow for colemak (choosewin uses 'S')
+let g:choosewin_label = 'TNERIAODH'    " alternating on homerow for colemak (choosewin uses 'S')
 let g:choosewin_tabline_replace = 0    " don't use ChooseWin tabline since Airline provides numbers
 let g:choosewin_statusline_replace = 0 " don't use ChooseWin statusline, since we make our own below
 
@@ -268,60 +275,8 @@ let g:startify_commands =
 \ ]
 " }}}
 
-" Window/Tab Creation/Navigation {{{
-" =============================
-
-" Make escape more sensible in terminal mode
-" enter normal mode
-tnoremap <ESC> <C-\><C-n>
-" send escape to terminal
-tnoremap <leader><ESC> <ESC>
-
-" Start new terminals in insert mode
-augroup nvimTerm
-  au TermOpen * if &buftype == 'terminal' | :startinsert | :setlocal nonumber | :setlocal norelativenumber | :setlocal signcolumn=no | endif
-augroup END
-
-" Set where splits open
-set splitbelow " open horizontal splits below instead of above which is the default
-set splitright " open vertical splits to the right instead of the left with is the default
-
-" Tab creation/destruction
-nmap <silent><space>tt <Cmd>tabnew +Startify<CR>
-nmap <silent><space>to <Cmd>tabonly<CR>
-nmap <silent><space>tq <Cmd>tabclose<CR>
-
-" Tab navigation
-nmap <silent><space>tl <Cmd>tabnext<CR>
-nmap <silent><space>th <Cmd>tabprevious<CR>
-
-" Split creation/destruction
-nmap <silent><space>_  <Cmd>new +term<CR>
-nmap <silent><space>-  <Cmd>botright new +term<CR>
-nmap <silent><space>\  <Cmd>vnew +term<CR>
-nmap <silent><space>\| <Cmd>botright vnew +term<CR>
-nmap <silent><space>ws <Cmd>split<CR>
-nmap <silent><space>wv <Cmd>vsplit<CR>
-nmap <silent><space>wq <Cmd>q<CR>
-nmap <silent><space>wo <Cmd>only<CR>
-
-" Split movement
-nnoremap <silent><space>wk <C-w>K
-nnoremap <silent><space>wj <C-w>J
-nnoremap <silent><space>wh <C-w>H
-nnoremap <silent><space>wl <C-w>L
-nnoremap <silent><space>wt <C-w>T
-
-" Various quit/close commands
-nmap <silent><space>qh <Cmd>helpclose<CR>
-nmap <silent><space>qp <Cmd>pclose<CR>
-nmap <silent><space>qc <Cmd>cclose<CR>
-"" }}}
-
 " Coc.nvim {{{
 " =======
-
-" General Config {{{
 
 " Vim setting recommended by Coc.nvim
 set hidden         " if not set, TextEdit might fail
@@ -340,21 +295,21 @@ let g:coc_global_extensions =
 \ , 'coc-lists'
 \ , 'coc-markdownlint'
 \ , 'coc-sh'
-\,  'coc-smartf'
 \ , 'coc-tabnine'
+\ , 'coc-terminal'
 \ , 'coc-tsserver'
 \ , 'coc-vimlsp'
 \ , 'coc-yaml'
 \ , 'coc-yank'
 \ ]
 
-" Hack to use coc-settings.json file with Nix
-let g:coc_user_config = json_decode(readfile($HOME . '/.config/nixpkgs/configs/nvim/coc-settings.json'))
+" Custom configuration home
+let g:coc_config_home = $HOME . '/.config/nixpkgs/configs/nvim/'
 
 " Other basic Coc.nvim config
 let g:coc_status_error_sign   = error_symbol
 let g:coc_status_warning_sign = warning_symbol
-let g:markdown_fenced_languages = ['vim', 'help']
+let g:markdown_fenced_languages = ['vim', 'help', 'haskell', 'bash=sh', 'nix']
 
 " Autocommands
 augroup coc_autocomands
@@ -384,126 +339,24 @@ hi link CocCodeLens Comment
 hi link HighlightedyankRegion Visual
 " }}}
 
-" Keybindings {{{
-
-" Language server keybinding
-nmap <silent><space>le <Cmd>CocList diagnostics<CR>
-nmap <silent><space>ln <Plug>(coc-diagnostic-next)
-nmap <silent><space>lN <Plug>(coc-diagnostic-prev)
-
-nmap <silent><space>ld <Plug>(coc-definition)
-nmap <silent><space>lh <Cmd>call CocAction('doHover')<CR>
-nmap <silent><space>li <Plug>(coc-implementation)
-nmap <silent><space>lt <Plug>(coc-type-definition)
-nmap <silent><space>lR <Plug>(coc-references)
-nmap <silent><space>lr <Plug>(coc-rename)
-
-nmap <silent><space>lf <Plug>(coc-format)
-nmap <silent><space>lF <Plug>(coc-format-selected)
-
-nmap <silent><space>la <Plug>(coc-codeaction)
-nmap <silent><space>lA <Cmd>CocList actions<CR>
-nmap <silent><space>lc <Plug>(coc-codelens-action)
-nmap <silent><space>lq <Plug>(coc-fix-current)
-nmap <silent><space>ls <Cmd>CocList symbols<CR>
-
-" List keybindings
-" Coc.nvim
-nmap <silent><space>scc <Cmd>CocList commands<CR>
-nmap <silent><space>sce <Cmd>CocList extensions<CR>
-nmap <silent><space>scl <Cmd>CocList lists<CR>
-nmap <silent><space>scs <Cmd>CocList sources<CR>
-" buffers
-nmap <silent><space>sb  <Cmd>CocList buffers<CR>
-" files
-" TODO: find easy way to search hidden files (in Denite prepending with "." works)
-" TODO: find a way to move up path
-nmap <silent><space>sf  <Cmd>CocList files<CR>
-nmap <silent><space>sp  <Cmd>CocList files -F<CR>
-" filetypes
-nmap <silent><space>st  <Cmd>CocList filetypes<CR>
-" git
-nmap <silent><space>sgb <Cmd>CocList branches<CR>
-nmap <silent><space>sgc <Cmd>CocList commits<CR>
-nmap <silent><space>sgi <Cmd>CocList issues<CR>
-nmap <silent><space>sgs <Cmd>CocList gstatus<CR>
-" grep
-nmap <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
-nmap <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
-" help tags
-nmap <silent><space>s?  <Cmd>CocList helptags<CR>
-" lines of buffer
-nmap <silent><space>sl  <Cmd>CocList lines<CR>
-nmap <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
-" maps
-nmap <silent><space>sm  <Cmd>CocList maps<CR>
-" search history
-nmap <silent><space>ss  <Cmd>CocList searchhistory<CR>
-" Vim commands
-nmap <silent><space>sx  <Cmd>CocList vimcommands<CR>
-" Vim commands history
-nmap <silent><space>sh  <Cmd>CocList cmdhistory<CR>
-" yank history
-nmap <silent><space>sy  <Cmd>CocList --normal yank<CR>
-" resume previous search
-nmap <silent><space>sr  <Cmd>CocListResume<CR>
-
-
-" Other keybindings
-
-" Git related
-nmap <silent><space>gw <Cmd>CocCommand git.browserOpen<CR>
-nmap <silent><space>gcd <Plug>(coc-git-chunkinfo)
-nmap <silent><space>gcj <Plug>(coc-git-nextchunk)
-nmap <silent><space>gck <Plug>(coc-git-prevchunk)
-nmap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
-nmap <silent><space>gcu <Cmd>CocCommand git.chunkUndo<CR>
-
-" Smartf
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap , <Plug>(coc-smartf-repeat-opposite)
-
-augroup Smartf
-  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
-  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
-augroup end
-
-" use tab to navigate completion menu and jump in snippets
-inoremap <expr> <Tab>
-\ pumvisible()
-\ ? '<C-n>'
-\ : coc#jumpable()
-\   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
-\   : '<Tab>'
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" }}}
-
-" }}}
-
 " Linter/Fixer {{{
 " ============
 " Asyncronous Linting Engine (ALE)
 " Used for linting when no good language server is available
 " https://github.com/w0rp/ale
 
-" Disable linters for languges that have defined language servers above
+" Disable linters for languages that have defined language servers above
 let g:ale_linters =
 \ { 'c'         : []
+\ , 'fish'      : []
 \ , 'haskell'   : []
+\ , 'json'      : []
 \ , 'javascript': []
 \ , 'lua'       : []
 \ , 'sh'        : []
 \ , 'typescript': []
 \ , 'vim'       : []
+\ , 'yaml'      : []
 \ }
 
 " Configure and enable fixer
@@ -577,11 +430,6 @@ let g:javascript_plugin_jsdoc = 1
 let g:vim_markdown_folding_disabled     = 1
 let g:vim_markdown_new_list_item_indent = 2
 set conceallevel=2
-
-" Typescript
-" yats.vim
-" https://github.com/herringtondarkholme/yats.vim
-let g:polyglot_disabled = ['typescript', 'jsx']
 " }}}
 
 " Misc {{{
@@ -590,11 +438,6 @@ let g:polyglot_disabled = ['typescript', 'jsx']
 " vim-fugitive
 " A Git wrapper so awesome, it should be illegal
 " https://github.com/tpope/vim-fugitive
-nnoremap <silent><space>gb  <Cmd>Gblame<CR>
-nnoremap <silent><space>gs  <Cmd>Gstatus<CR>
-nnoremap <silent><space>gds <Cmd>Ghdiffsplit<CR>
-nnoremap <silent><space>gdv <Cmd>Gvdiffsplit<CR>
-
 
 " tabular
 " Helps vim-markdown with table formatting amoung many other things
@@ -607,4 +450,166 @@ nnoremap <silent><space>gdv <Cmd>Gvdiffsplit<CR>
 " vim-surround
 " Quoting/parenthesizing made simple
 " https://github.com/tpope/vim-surround
+" }}}
+
+" Keybindings {{{
+" ===========
+
+let mapleader = '`'
+
+" Terminal
+" enter normal mode in terminal
+tnoremap <ESC> <C-\><C-n>
+" send escape to terminal
+tnoremap <leader><ESC> <ESC>
+" toggle terminal (coc-terminal)
+nmap <silent><space>wt <Plug>(coc-terminal-toggle)
+
+" Tab creation/destruction
+nmap <silent><space>tt <Cmd>tabnew +Startify<CR>
+nmap <silent><space>to <Cmd>tabonly<CR>
+nmap <silent><space>tq <Cmd>tabclose<CR>
+
+" Tab navigation
+nmap <silent><space>tl <Cmd>tabnext<CR>
+nmap <silent><space>th <Cmd>tabprevious<CR>
+
+" Split creation/destruction
+nmap <silent><space>_  <Cmd>new +term<CR>
+nmap <silent><space>-  <Cmd>botright new +term<CR>
+nmap <silent><space>\  <Cmd>vnew +term<CR>
+nmap <silent><space>\| <Cmd>botright vnew +term<CR>
+nmap <silent><space>ws <Cmd>split<CR>
+nmap <silent><space>wv <Cmd>vsplit<CR>
+nmap <silent><space>wq <Cmd>q<CR>
+nmap <silent><space>wo <Cmd>only<CR>
+
+" Split navigation
+nnoremap <silent><space>wk <Cmd>wincmd k<CR>
+nnoremap <silent><space>wj <Cmd>wincmd j<CR>
+nnoremap <silent><space>wh <Cmd>wincmd h<CR>
+nnoremap <silent><space>wl <Cmd>wincmd l<CR>
+nnoremap <silent><space>wp <Cmd>wincmd p<CR>
+
+" Split movement
+nnoremap <silent><space>wmk <C-w>K
+nnoremap <silent><space>wmj <C-w>J
+nnoremap <silent><space>wmh <C-w>H
+nnoremap <silent><space>wml <C-w>L
+nnoremap <silent><space>wmt <C-w>T
+nnoremap <silent><space>wmr <C-w>r
+nnoremap <silent><space>wmR <C-w>R
+nnoremap <silent><space>wmx <C-w>x
+
+" Various quit/close commands
+nmap <silent><space>qw <Cmd>q<CR>
+nmap <silent><space>qt <Cmd>tabclose<CR>
+nmap <silent><space>qh <Cmd>helpclose<CR>
+nmap <silent><space>qp <Cmd>pclose<CR>
+nmap <silent><space>qc <Cmd>cclose<CR>
+
+" vim-choosewin
+nmap <silent><space><space> <Cmd>call ActiveChooseWin()<CR>
+
+" Git
+" vim-fugitive
+nnoremap <silent><space>gb  <Cmd>Gblame<CR>
+nnoremap <silent><space>gs  <Cmd>Gstatus<CR>
+nnoremap <silent><space>gds <Cmd>Ghdiffsplit<CR>
+nnoremap <silent><space>gdv <Cmd>Gvdiffsplit<CR>
+" coc-nvim (coc-git)
+nmap <silent><space>gw  <Cmd>CocCommand git.browserOpen<CR>
+nmap <silent><space>gcd <Plug>(coc-git-chunkinfo)
+nmap <silent><space>gcj <Plug>(coc-git-nextchunk)
+nmap <silent><space>gck <Plug>(coc-git-prevchunk)
+nmap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
+nmap <silent><space>gcu <Cmd>CocCommand git.chunkUndo<CR>
+lmap <silent><space>glb <Cmd>CocList branches<CR>
+nmap <silent><space>glc <Cmd>CocList commits<CR>
+nmap <silent><space>gli <Cmd>CocList issues<CR>
+nmap <silent><space>gls <Cmd>CocList gstatus<CR>
+
+" Language server (coc-nvim)
+" actions
+nmap <silent><space>la <Plug>(coc-codeaction)
+nmap <silent><space>lA <Cmd>CocList actions<CR>
+nmap <silent><space>lc <Plug>(coc-codelens-action)
+nmap <silent><space>lq <Plug>(coc-fix-current)
+nmap <silent><space>lf <Plug>(coc-format-selected)
+nmap <silent><space>lF <Plug>(coc-format)
+nmap <silent><space>lr <Plug>(coc-rename)
+" goto
+nmap <silent><space>ln <Plug>(coc-diagnostic-next)
+nmap <silent><space>lN <Plug>(coc-diagnostic-prev)
+nmap <silent><space>ld <Plug>(coc-definition)
+nmap <silent><space>lD <Plug>(coc-declaration)
+nmap <silent><space>li <Plug>(coc-implementation)
+nmap <silent><space>lt <Plug>(coc-type-definition)
+nmap <silent><space>lR <Plug>(coc-references)
+" hover/docs
+nnoremap <silent><space>lh :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" lists
+nmap <silent><space>ls <Cmd>CocList symbols<CR>
+nmap <silent><space>le <Cmd>CocList diagnostics<CR>
+
+" List search (coc-nvim)
+" coc meta lists
+nmap <silent><space>scc <Cmd>CocList commands<CR>
+nmap <silent><space>sce <Cmd>CocList extensions<CR>
+nmap <silent><space>scl <Cmd>CocList lists<CR>
+nmap <silent><space>scs <Cmd>CocList sources<CR>
+" buffers
+nmap <silent><space>sb  <Cmd>CocList buffers<CR>
+" files
+" TODO: find easy way to search hidden files (in Denite prepending with "." works)
+" TODO: find a way to move up path
+nmap <silent><space>sf  <Cmd>CocList files<CR>
+nmap <silent><space>sp  <Cmd>CocList files -F<CR>
+" filetypes
+nmap <silent><space>st  <Cmd>CocList filetypes<CR>
+" grep
+nmap <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
+nmap <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
+" help tags
+nmap <silent><space>s?  <Cmd>CocList helptags<CR>
+" lines of buffer
+nmap <silent><space>sl  <Cmd>CocList lines<CR>
+nmap <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
+" maps
+nmap <silent><space>sm  <Cmd>CocList maps<CR>
+" search history
+nmap <silent><space>ss  <Cmd>CocList searchhistory<CR>
+" Vim commands
+nmap <silent><space>sx  <Cmd>CocList vimcommands<CR>
+" Vim commands history
+nmap <silent><space>sh  <Cmd>CocList cmdhistory<CR>
+" yank history
+nmap <silent><space>sy  <Cmd>CocList --normal yank<CR>
+" resume previous search
+nmap <silent><space>sr  <Cmd>CocListResume<CR>
+
+" use tab to navigate completion menu and jump in snippets
+" TODO: fix all below, I don't quite understand how it works
+inoremap <expr> <Tab>
+\ pumvisible()
+\ ? '<C-n>'
+\ : coc#jumpable()
+\   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
+\   : '<Tab>'
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 " }}}

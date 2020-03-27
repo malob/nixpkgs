@@ -2,16 +2,6 @@ self: super:
 let
   # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
   customVimPlugins = with super.vimUtils; {
-    # Personal fork of NeoSolarized
-    myNeoSolarized = buildVimPluginFrom2Nix {
-      name = "NeoSolarized";
-      src  = super.fetchFromGitHub {
-        owner  = "malob";
-        repo   = "NeoSolarized";
-        rev    = "a8e6e52";
-        sha256 = "0bxrm2vm3z1y37sm6m2hdn72g2sw31dx1xhmjvd0ng72cnp84d9k";
-      };
-    };
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
       src  = super.fetchFromGitHub {
@@ -43,7 +33,7 @@ in {
         start = [
           # UI plugins
           airline
-          myNeoSolarized
+          NeoSolarized
           vim-airline-themes
           vim-choosewin
           vim-devicons
@@ -61,7 +51,6 @@ in {
           vim-pencil
           vim-polyglot
           vim-surround
-          yats-vim
         ];
       };
     };
