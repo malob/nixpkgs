@@ -350,6 +350,7 @@ let g:ale_linters =
 \ { 'c'         : []
 \ , 'fish'      : []
 \ , 'haskell'   : []
+\ , 'idris'     : ['idris']
 \ , 'json'      : []
 \ , 'javascript': []
 \ , 'lua'       : []
@@ -358,6 +359,9 @@ let g:ale_linters =
 \ , 'vim'       : []
 \ , 'yaml'      : []
 \ }
+
+" Language specific options
+let g:ale_idris_options = '--total --warnpartial --warnreach --warnipkg'
 
 " Configure and enable fixer
 let g:ale_fix_on_save = 1

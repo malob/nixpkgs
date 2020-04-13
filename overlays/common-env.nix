@@ -47,6 +47,7 @@ self: super: {
       xz                               # extract XZ archives
 
       # General dev stuff
+      myIdris
       google-cloud-sdk
       nodejs-12_x
       unstable.nodePackages.serverless
