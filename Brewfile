@@ -7,7 +7,6 @@ tap "homebrew/core"
 tap "homebrew/services"
 
 # Non-nixpkgs tools
-brew "fish"
 brew "mas"
 
 # GUI apps from Hombrew

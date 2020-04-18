@@ -64,6 +64,7 @@ self: super: {
     paths = with self.pkgs; [
       myCommonEnv
 
+      fish
       m-cli             # useful macOS cli commands
       terminal-notifier # notifications when terminal commands finish running
       myGems.vimgolf    # fun Vim puzzels
