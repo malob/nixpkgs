@@ -69,7 +69,7 @@ self: super: {
       # My wrapped and config derivations
       myBat       # a better version of `cat`
       myGitEnv    # includes diff-so-fancy and hub
-      myKitty     # my prefered terminal
+      myKittyEnv  # my prefered terminal
       myNeovimEnv # includes neovim-remote
 
       # Useful nix related tools
