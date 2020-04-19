@@ -112,7 +112,7 @@ let
                          "Fira Code Retina Nerd Font Complete";
 
     bold_font        = if super.stdenv.isDarwin then
-                         "JetBrainsMono Nerd Font Mono Bold"
+                         "JetBrainsMonoExtraBold Nerd Font Mono Extra Bold"
                        else
                          "Fira Code Bold Nerd Font Complete";
 
@@ -122,7 +122,7 @@ let
                          "Fira Code Light Nerd Font Complete";
 
     bold_italic_font = if super.stdenv.isDarwin then
-                         "JetBrainsMono Nerd Font Mono Bold Italic"
+                         "JetBrainsMonoExtraBold Nerd Font Mono Extra Bold Italic"
                        else
                          "auto";
 
