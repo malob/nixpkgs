@@ -1,0 +1,100 @@
+# Config uses nerd font icons suggested here: https://starship.rs/presets/#nerd-font-symbols
+#
+# Current config probably has many features on that I'll turn off as I use Starship more
+
+[aws]
+symbol = " "
+
+[battery]
+full_symbol        = ""
+charging_symbol    = ""
+discharging_symbol = ""
+
+[[battery.display]]
+threshold = 25 # display battery information if charge is <= 25%
+
+[conda]
+symbol = " "
+
+[directory]
+fish_style_pwd_dir_length = 1 # turn on fish directory truncation
+truncation_length         = 2 # number of directories not to truncate
+
+[docker]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[git_state]
+rebase           = "咽"
+merge            = ""
+revert           = ""
+cherry_pick      = ""
+bisect           = ""
+am               = "ﯬ"
+am_or_rebase     = "ﯬ or 咽"
+progress_divider = " of "
+
+[git_status]
+ahead     = ""
+behind    = ""
+diverged  = ""
+untracked = "?"
+stashed   = ""
+modified  = ""
+staged    = ""
+renamed   = ""
+deleted   = ""
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[memory_usage]
+disabled  = false
+symbol    = " "
+threshold = 90
+
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[time]
+disabled = true
+format   = "%R"

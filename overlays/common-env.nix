@@ -40,6 +40,7 @@ self: super: {
       ripgrep                          # better version of grep
       s3cmd                            # utility for interacting with AWS S3
       unstable.nodePackages.speed-test
+      unstable.starship                # fast, customizable prompt for any shell
       thefuck                          # suggests fixes to commands that exit with a non-zero status
       tldr                             # simple man pages, mostly examples of how to use commands
       unrar                            # extract RAR archives
@@ -53,7 +54,7 @@ self: super: {
       unstable.nodePackages.serverless
 
       # Haskell
-      (all-hies.unstableFallback.selection { selector = p: { inherit (p) ghc882 ghc881 ghc865; }; })
+      (all-hies.unstableFallback.selection { selector = p: { inherit (p) ghc882 ghc865; }; })
       unstable.cabal-install
       haskellPackages.hoogle
       haskellPackages.hpack
