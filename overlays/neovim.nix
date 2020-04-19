@@ -56,11 +56,45 @@ in {
     };
   };
 
+  nvr-edit = super.writeShellScriptBin "n" "${super.pkgs.neovim-remote}/bin/nvr -s $@";
+
+  nvr-split = super.writeShellScriptBin "nh" ''
+    if test -n "$NVIM_LISTEN_ADDRESS"; then
+      ${super.pkgs.neovim-remote}/bin/nvr -o $@
+    else
+      echo "Not in Neovim"
+      exit 1
+    fi
+  '';
+
+  nvr-vsplit = super.writeShellScriptBin "nv" ''
+    if test -n "$NVIM_LISTEN_ADDRESS"; then
+      ${super.pkgs.neovim-remote}/bin/nvr -O $@
+    else
+      echo "Not in Neovim"
+      exit 1
+    fi
+  '';
+
+  nvr-tab = super.writeShellScriptBin "nt" ''
+    if test -n "$NVIM_LISTEN_ADDRESS"; then
+      ${super.pkgs.neovim-remote}/bin/nvr --remote-tab $@
+    else
+      echo "Not in Neovim"
+      exit 1
+    fi
+  '';
+
   myNeovimEnv = super.buildEnv {
     name = "NeovimEnv";
     paths = with self.pkgs; [
-      neovim-remote
       myNeovim
+      neovim-remote
+
+      nvr-edit
+      nvr-split
+      nvr-vsplit
+      nvr-tab
     ];
   };
 }
