@@ -16,6 +16,9 @@ self: super: {
     '';
   };
 
+  # Create "alias" for Git
+  git-alias = super.writeShellScriptBin "g" "git $@";
+
   # Create env that includes other Git related stuff
   myGitEnv = super.buildEnv {
     name  = "myGitEnv";
@@ -23,6 +26,8 @@ self: super: {
       myGit
       gitAndTools.diff-so-fancy # make Git diffs nicer
       gitAndTools.hub           # Git wrapper that works adds a bunch of GitHub features
+
+      git-alias
     ];
   };
 }
