@@ -43,15 +43,17 @@ am_or_rebase     = "ﯬ or 咽"
 progress_divider = " of "
 
 [git_status]
-ahead     = ""
-behind    = ""
-diverged  = ""
-untracked = "?"
-stashed   = ""
-modified  = ""
-staged    = ""
-renamed   = ""
-deleted   = ""
+prefix    = ""
+suffix    = ""
+ahead     = " "
+behind    = " "
+diverged  = " "
+untracked = " "
+stashed   = " "
+modified  = " "
+staged    = " "
+renamed   = " "
+deleted   = " "
 
 [golang]
 symbol = " "
@@ -59,8 +61,12 @@ symbol = " "
 [haskell]
 symbol = " "
 
+
 [hg_branch]
 symbol = " "
+
+[hostname]
+style = "bold green"
 
 [java]
 symbol = " "
@@ -98,3 +104,6 @@ symbol = " "
 [time]
 disabled = true
 format   = "%R"
+
+[username]
+style_user = "bold blue"
