@@ -74,6 +74,7 @@ self: super: {
       myNeovimEnv # includes neovim-remote
 
       # Useful nix related tools
+      unstable.any-nix-shell          # add support for nix-shell in fish
       bundix                          # working with Ruby projects
       cachix                          # adding/managing atternative binary caches hosted by Cachix
       unstable.nodePackages.node2nix  # working with Node projects
