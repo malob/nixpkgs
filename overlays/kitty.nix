@@ -107,7 +107,7 @@ let
     # Fonts
     # TODO: transition Linux setup to use JetBrains Mono
     font_family      = if super.stdenv.isDarwin then
-                         "JetBrainsMono Nerd Font Mono Regular"
+                         "JetBrainsMonoMedium Nerd Font Mono Medium"
                        else
                          "Fira Code Retina Nerd Font Complete";
 
@@ -117,7 +117,7 @@ let
                          "Fira Code Bold Nerd Font Complete";
 
     italic_font      = if super.stdenv.isDarwin then
-                         "JetBrainsMono Nerd Font Mono Italic"
+                         "JetBrainsMonoMedium Nerd Font Mono Medium Italic"
                        else
                          "Fira Code Light Nerd Font Complete";
 

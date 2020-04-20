@@ -44,7 +44,7 @@ progress_divider = " of "
 
 [git_status]
 prefix    = ""
-suffix    = ""
+suffix    = " "
 ahead     = " "
 behind    = " "
 diverged  = " "
@@ -59,8 +59,8 @@ deleted   = " "
 symbol = " "
 
 [haskell]
-symbol = " "
-
+disabled = true # too slow
+symbol   = " "
 
 [hg_branch]
 symbol = " "
@@ -75,10 +75,9 @@ symbol = " "
 symbol = " "
 
 [memory_usage]
-disabled  = false
+disabled  = true # disable because it includes cached memory so memory is reported as full a lot
 symbol    = " "
 threshold = 90
-
 
 [nix_shell]
 symbol = " "
