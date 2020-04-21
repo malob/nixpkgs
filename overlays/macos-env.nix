@@ -47,6 +47,7 @@ self: super: {
     ${self.pkgs.brew-bundle}/bin/brewb
     printf "\nUpdate tldr database\n"
     tldr --update
+    fish_update_completions
   '';
 
   # Cleanup all the things
