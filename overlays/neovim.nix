@@ -56,7 +56,13 @@ in {
     };
   };
 
-  nvr-edit = super.writeShellScriptBin "n" "${super.pkgs.neovim-remote}/bin/nvr -s $@";
+  nvr-edit = super.writeShellScriptBin "n" ''
+    if test -n "$NVIM_LISTEN_ADDRESS"; then
+      ${super.pkgs.neovim-remote}/bin/nvr $@
+    else
+      nvim $@
+    fi
+  '';
 
   nvr-split = super.writeShellScriptBin "nh" ''
     if test -n "$NVIM_LISTEN_ADDRESS"; then
