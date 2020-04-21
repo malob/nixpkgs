@@ -177,9 +177,11 @@ in {
     fi
 
     kitty @ --to unix:/tmp/mykitty set-colors --all --configured $CONFIG
-    ${super.pkgs.neovim-remote}/bin/nvr \
-      -s --nostart --servername $(nvr --serverlist) -c "set background=$1"
-   '';
+    if test -n "$(nvr --serverlist)"; then
+      ${super.pkgs.neovim-remote}/bin/nvr \
+        -s --nostart --servername $(nvr --serverlist) -c "colorscheme NeoSolarized"
+    fi
+  '';
 
   terminal-colors-dark = super.writeShellScriptBin "term-dark" ''
     ${self.pkgs.term-colors}/bin/term-colors dark
