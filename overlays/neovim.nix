@@ -42,6 +42,7 @@ in {
           # other plugins
           ale
           coc-nvim
+          editorconfig-vim
           goyo-vim
           tabular
           vim-commentary

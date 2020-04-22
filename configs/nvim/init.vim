@@ -454,6 +454,11 @@ set conceallevel=2
 " vim-surround
 " Quoting/parenthesizing made simple
 " https://github.com/tpope/vim-surround
+
+" editorconfig-vim
+" https://EditorConfig.org
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 " }}}
 
 " Keybindings {{{
