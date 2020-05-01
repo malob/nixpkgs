@@ -1,6 +1,5 @@
 { "coc.preferences.formatOnSaveFiletypes" : []
 , "coc.preferences.enableFloatHighlight"  : false
-, "coc.preferences.jumpCommand"           : "split"
 
 , "codeLens.enable" : true
 
@@ -75,8 +74,8 @@
     , "args"                  : [ "--lsp" ]
     , "filetypes"             : [ "hs", "lhs", "haskell" ]
     , "rootPatterns"          : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
-    , "initializationOptions" : {
-        "languageServerHaskell": {}
+    , "initializationOptions" :
+      { "languageServerHaskell": {}
     }
     }
   , "lua-language-server":
