@@ -76,13 +76,20 @@
     , "rootPatterns"          : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
     , "initializationOptions" :
       { "languageServerHaskell": {}
+      }
     }
-    }
-  , "lua-language-server":
-    { "cwd"       : "/Users/malo/.vscode/extensions/sumneko.lua-0.11.5/server"
-    , "command"   : "/Users/malo/.vscode/extensions/sumneko.lua-0.11.5/server/bin/lua-language-server"
-    , "args"      : [ "-E", "-e", "LANG=en_US", "/Users/malo/.vscode/extensions/sumneko.lua-0.11.5/server/main.lua"]
-    , "filetypes" : [ "lua" ]
+  , "purescript":
+    { "command": "purescript-language-server"
+    , "args": ["--stdio"]
+    , "filetypes": ["purescript"]
+    , "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+    , "initializationOptions" :
+      { "purescript":
+        { "addNpmPath"     : true
+        , "addSpagoSources": true
+        , "buildCommand"   : "spago build --purs-args --json-errors"
+        }
+      }
     }
   }
 

@@ -49,6 +49,7 @@ self: super: {
 
       # General dev stuff
       myIdris
+      myPureScriptEnv
       google-cloud-sdk
       nodejs-12_x
       unstable.nodePackages.serverless
@@ -58,7 +59,7 @@ self: super: {
       unstable.cabal-install
       haskellPackages.hoogle
       haskellPackages.hpack
-      stack
+      unstable.stack
 
       # Language servers, linters, etc.
       unstable.ccls

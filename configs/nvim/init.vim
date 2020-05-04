@@ -315,7 +315,7 @@ let g:markdown_fenced_languages = ['vim', 'help', 'haskell', 'bash=sh', 'nix']
 augroup coc_autocomands
   au!
   " Setup formatexpr specified filetypes (default binding is gq)
-  au FileType typescript,json,haskell setl formatexpr=CocAction('formatSelected')
+  au FileType typescript,json,haskell,purescript setl formatexpr=CocAction('formatSelected')
   " Highlight symbol under cursor on CursorHold
   au CursorHold * silent call CocActionAsync('highlight')
   " Update signature help on jump placeholder
@@ -354,6 +354,7 @@ let g:ale_linters =
 \ , 'json'      : []
 \ , 'javascript': []
 \ , 'lua'       : []
+\ , 'purescript': []
 \ , 'sh'        : []
 \ , 'typescript': []
 \ , 'vim'       : []
