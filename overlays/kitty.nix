@@ -101,9 +101,6 @@ let
     # Include dark colors by default
     include = "${kittyDarkColors}";
 
-    # Set default shell here so we don't need to to `chsh` on system
-    shell = "${super.pkgs.unstable.fish}/bin/fish";
-
     # Fonts
     # TODO: transition Linux setup to use JetBrains Mono
     font_family      = if super.stdenv.isDarwin then
