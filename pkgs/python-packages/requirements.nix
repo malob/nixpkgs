@@ -2,7 +2,7 @@
 # See more at: https://github.com/nix-community/pypi2nix
 #
 # COMMAND:
-#   pypi2nix --python-version python36 --requirements requirements.txt
+#   pypi2nix --python-version python37 --requirements requirements.txt
 #
 
 { pkgs ? import <nixpkgs> {},
@@ -18,7 +18,7 @@ let
   import "${toString pkgs.path}/pkgs/top-level/python-packages.nix" {
     inherit pkgs;
     inherit (pkgs) stdenv;
-    python = pkgs.python36;
+    python = pkgs.python37;
   };
 
   commonBuildInputs = [];
@@ -28,7 +28,7 @@ let
     let
       pkgs = builtins.removeAttrs pkgs' ["__unfix__"];
       interpreterWithPackages = selectPkgsFn: pythonPackages.buildPythonPackage {
-        name = "python36-interpreter";
+        name = "python37-interpreter";
         buildInputs = [ makeWrapper ] ++ (selectPkgsFn pkgs);
         buildCommand = ''
           mkdir -p $out/bin

@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     highline (2.0.3)
-    json_pure (2.2.0)
+    json_pure (2.3.0)
     thor (1.0.1)
     vimgolf (0.4.8)
       highline
