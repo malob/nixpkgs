@@ -1,5 +1,4 @@
 { "coc.preferences.formatOnSaveFiletypes" : []
-, "coc.preferences.enableFloatHighlight"  : false
 
 , "codeLens.enable" : true
 
@@ -112,4 +111,7 @@
   , "line-length": false
   , "no-multiple-blanks": false
   }
+
+, "vimlsp.indexes.count": 8
+, "vimlsp.suggest.fromRuntimepath": true
 }

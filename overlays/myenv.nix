@@ -34,6 +34,7 @@ in{
       # General dev stuff
       myIdris
       myHaskellEnv
+      myPythonEnv
       myPureScriptEnv
       unstable.nodePackages.bash-language-server
       unstable.ccls
@@ -41,7 +42,6 @@ in{
       unstable.nodePackages.typescript
       s3cmd
       nodejs
-      unstable.vim-vint
       watchman
 
       # Useful nix related tools

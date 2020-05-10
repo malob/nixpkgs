@@ -107,7 +107,6 @@ let g:airline_extensions =
 \ , 'branch'
 \ , 'coc'
 \ , 'fugitiveline'
-\ , 'keymap'
 \ , 'netrw'
 \ , 'quickfix'
 \ , 'tabline'
@@ -116,7 +115,6 @@ let g:airline_extensions =
 \ ]
 
 " Tabline configuration
-"let g:airline#extensions#tabline#enabled           = 1 " needed since it isn't on by default
 let g:airline#extensions#tabline#show_tabs         = 1 " always show tabs in tabline
 let g:airline#extensions#tabline#show_buffers      = 0 " don't show buffers in tabline
 let g:airline#extensions#tabline#show_splits       = 0 " don't number of splits
@@ -136,23 +134,24 @@ let g:airline_symbols.readonly  = lock_symbol
 let g:airline_symbols.notexists = question_symbol
 let g:airline_symbols.dirty     = pencil_symbol
 let g:airline_mode_map =
-\ { '__': '-'
-\ , 'c' : term_symbol
-\ , 'i' : pencil_symbol
-\ , 'ic': pencil_symbol.' '.list_symbol
-\ , 'ix': pencil_symbol.' '.list_symbol
-\ , 'n' : vim_symbol
-\ , 'ni': 'N'
-\ , 'no': spinner_symbol
-\ , 'R' : 'R'
-\ , 'Rv': 'R VIRTUAL'
-\ , 's' : 'S'
-\ , 'S' : 'S LINE'
-\ , '': 'S BLOCK'
-\ , 't' : term_symbol
-\ , 'v' : ibar_symbol
-\ , 'V' : ibar_symbol.' LINE'
-\ , '': ibar_symbol.' BLOCK'
+\ { '__'    : '-'
+\ , 'c'     : term_symbol
+\ , 'i'     : pencil_symbol
+\ , 'ic'    : pencil_symbol.' '.list_symbol
+\ , 'ix'    : pencil_symbol.' '.list_symbol
+\ , 'multi' : 'M'
+\ , 'n'     : vim_symbol
+\ , 'ni'    : 'N'
+\ , 'no'    : spinner_symbol
+\ , 'R'     : 'R'
+\ , 'Rv'    : 'R VIRTUAL'
+\ , 's'     : 'S'
+\ , 'S'     : 'S LINE'
+\ , ''    : 'S BLOCK'
+\ , 't'     : term_symbol
+\ , 'v'     : ibar_symbol
+\ , 'V'     : ibar_symbol.' LINE'
+\ , ''    : ibar_symbol.' BLOCK'
 \ }
 let airline#extensions#ale#error_symbol         = error_symbol.':'
 let airline#extensions#ale#warning_symbol       = warning_symbol.':'
@@ -171,6 +170,13 @@ function! AirlineThemePatch(palette)
     let a:palette.inactive.airline_choosewin = [g:terminal_color_7, g:terminal_color_2, 2, 7, 'bold']
   endif
 endfunction
+
+" Add coc status to airline (for some reason they don't if you have autochdir on)
+augroup airline-group
+  au!
+  au User AirlineAfterInit let g:airline_section_c =
+    \ airline#section#create(['%<', 'file', ' ', 'readonly', 'coc_status'])
+augroup END
 " }}}
 
 " UI Window Chooser {{{
@@ -316,7 +322,7 @@ let g:markdown_fenced_languages = ['vim', 'help', 'haskell', 'bash=sh', 'nix']
 augroup coc_autocomands
   au!
   " Setup formatexpr specified filetypes (default binding is gq)
-  au FileType typescript,json,haskell,purescript setl formatexpr=CocAction('formatSelected')
+  au FileType typescript,json,haskell,purescript,python setl formatexpr=CocAction('formatSelected')
   " Highlight symbol under cursor on CursorHold
   au CursorHold * silent call CocActionAsync('highlight')
   " Update signature help on jump placeholder
@@ -338,6 +344,7 @@ hi link CocHintHighlight SpellRare
 hi link CocHighlightText SpellCap
 hi link CocCodeLens Comment
 hi link HighlightedyankRegion Visual
+hi link CocFloating CursorLine
 " }}}
 
 " Linter/Fixer {{{
@@ -355,6 +362,7 @@ let g:ale_linters =
 \ , 'json'      : []
 \ , 'javascript': []
 \ , 'lua'       : []
+\ , 'python'    : []
 \ , 'purescript': []
 \ , 'sh'        : []
 \ , 'typescript': []
@@ -560,7 +568,7 @@ nmap <silent><space>lR <Plug>(coc-references)
 " hover/docs
 nnoremap <silent><space>lh :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
+  if (index(['help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
