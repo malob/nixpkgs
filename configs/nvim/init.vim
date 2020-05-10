@@ -294,6 +294,7 @@ let g:coc_global_extensions =
 \ , 'coc-git'
 \ , 'coc-lists'
 \ , 'coc-markdownlint'
+\ , 'coc-python'
 \ , 'coc-sh'
 \ , 'coc-tabnine'
 \ , 'coc-terminal'

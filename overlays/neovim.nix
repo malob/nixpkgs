@@ -11,17 +11,6 @@ let
         sha256 = "126p0i4mw1f9nmzh96yxymaizja5vbl6z9k1y3zqhxq9nglgdvxb";
       };
     };
-    # Needed until PR lands in unstable channel
-    # my-coc-nvim = buildVimPluginFrom2Nix rec {
-    #   pname = "coc-nvim";
-    #   version = "0.0.73";
-    #   src = super.fetchFromGitHub {
-    #     owner = "neoclide";
-    #     repo = "coc.nvim";
-    #     rev = "v${version}";
-    #     sha256 = "1z7573rbh806nmkh75hr1kbhxr4jysv6k9x01fcyjfwricpa3cf7";
-    #   };
-    # };
   };
 in {
   myNeovim = self.pkgs.neovim.override {

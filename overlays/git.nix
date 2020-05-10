@@ -1,23 +1,17 @@
-self: super: {
+self: super:
+let
+  gitConfig = super.pkgs.writeTextDir "git/config" ''
+    [include]
+      path = ~/.config/nixpkgs/configs/git/config
+  '';
+in {
   # Wrap Git so configs can be stored in ~/.config/nixpkgs
   myGit = super.pkgs.symlinkJoin rec {
     name         = "myGit";
     paths        = [ super.pkgs.git ];
     buildInputs  = [ super.pkgs.makeWrapper ];
-    userConfPath = "~/.config/nixpkgs/configs/git";
-    gitConfig    = ''
-      [include]
-        path = ${userConfPath}/config
-    '';
-    postBuild   = ''
-      mkdir -p "$out/.config/git"
-      echo "${gitConfig}" > "$out/.config/git/config"
-      wrapProgram $out/bin/git --set XDG_CONFIG_HOME "$out/.config"
-    '';
+    postBuild   = "wrapProgram $out/bin/git --set XDG_CONFIG_HOME ${gitConfig}";
   };
-
-  # Create "alias" for Git
-  git-alias = super.writeShellScriptBin "g" "git $@";
 
   # Create env that includes other Git related stuff
   myGitEnv = super.buildEnv {
@@ -25,9 +19,8 @@ self: super: {
     paths = with self.pkgs; [
       myGit
       gitAndTools.diff-so-fancy # make Git diffs nicer
+      unstable.gitAndTools.gh   # GitHub's official CLI tool
       gitAndTools.hub           # Git wrapper that works adds a bunch of GitHub features
-
-      git-alias
     ];
   };
 }

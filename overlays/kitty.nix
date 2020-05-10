@@ -94,7 +94,7 @@ let
   });
 
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kittyConfig = with colors; super.pkgs.writeText "kitty.conf" (setToKittyConfig rec {
+  kittyConfigDir = with colors; super.pkgs.writeTextDir "kitty.conf" (setToKittyConfig rec {
     # Required to use `kitty @` commands
     allow_remote_control= "yes";
 
@@ -149,16 +149,13 @@ in {
     name        = "myKitty";
     paths       = [ self.pkgs.unstable.kitty ];
     buildInputs = [ super.pkgs.makeWrapper ];
-    configPath  = "$out/.config/kitty";
     kittyBin    = if super.stdenv.isDarwin then
                     "$out/Applications/kitty.app/Contents/MacOS/kitty"
                   else
                     "$out/bin/kitty";
     postBuild   = ''
-      mkdir -p ${configPath}
-      ln -s ${kittyConfig} ${configPath}/kitty.conf
       wrapProgram ${kittyBin} \
-        --set KITTY_CONFIG_DIRECTORY ${configPath} \
+        --set KITTY_CONFIG_DIRECTORY ${kittyConfigDir} \
         --add-flags "--listen-on unix:/tmp/mykitty"
     '';
   };
