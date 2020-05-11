@@ -1,4 +1,4 @@
-{ "coc.preferences.formatOnSaveFiletypes" : []
+{ "coc.preferences.formatOnSaveFiletypes" : [ "python" ]
 
 , "codeLens.enable" : true
 
@@ -111,6 +111,13 @@
   , "line-length": false
   , "no-multiple-blanks": false
   }
+
+, "python.jediEnabled": false
+, "python.formatting.provider": "yapf"
+, "python.formatting.yapfArgs": ["--style", "{ column_limit: 100 }"]
+, "python.linting.pylintEnabled": true
+, "python.linting.pylintUseMinimalCheckers": false
+, "python.linting.mypyEnabled": true
 
 , "vimlsp.indexes.count": 8
 , "vimlsp.suggest.fromRuntimepath": true

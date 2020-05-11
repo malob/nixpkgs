@@ -1,9 +1,7 @@
 self: super: {
-  myPythonEnv = with self.pkgs; super.buildEnv {
-    name  = "PythonEnv";
-    paths = [
-      python3
-      python3Packages.pylint
-    ];
-  };
+  myPythonEnv = super.pkgs.python3.withPackages (ps: [
+    ps.mypy
+    ps.pylint
+    ps.yapf
+  ]);
 }
