@@ -28,9 +28,20 @@ in {
           vim-devicons
           vim-startify
 
+          # Coc.nvim plugins
+          coc-nvim
+          coc-eslint
+          coc-json
+          coc-git
+          coc-lists
+          coc-python
+          coc-tabnine
+          coc-tsserver
+          coc-yaml
+          coc-yank
+
           # other plugins
           ale
-          coc-nvim
           editorconfig-vim
           goyo-vim
           tabular

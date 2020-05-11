@@ -63,7 +63,7 @@ set splitright " open vertical splits to the right instead of the left with is t
 
 " Misc basic vim ui config
 set colorcolumn=100 " show column boarder
-set cursorline      " highlight current line
+" set cursorline      " highlight current line
 set noshowmode      " don't show --INSERT-- etc.
 set number
 set relativenumber  " relative line numbers
@@ -293,21 +293,12 @@ set shortmess+=c   " don't show ins-completion-menu messages.
 
 " Extensions to load
 let g:coc_global_extensions =
-\ [ 'coc-eslint'
-\ , 'coc-fish'
+\ [ 'coc-fish'
 \ , 'coc-import-cost'
-\ , 'coc-json'
-\ , 'coc-git'
-\ , 'coc-lists'
 \ , 'coc-markdownlint'
-\ , 'coc-python'
 \ , 'coc-sh'
-\ , 'coc-tabnine'
 \ , 'coc-terminal'
-\ , 'coc-tsserver'
 \ , 'coc-vimlsp'
-\ , 'coc-yaml'
-\ , 'coc-yank'
 \ ]
 
 " Custom configuration home
