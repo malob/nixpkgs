@@ -83,7 +83,9 @@ in {
 
     # Nix
     if [ $1 = 'update' ] || ([ $1 = 'nix' ] && [ $2 = 'update' ]); then
-      nix-channel --update
+      pushd ~/.config/nixpkgs
+      ${self.unstable.pkgs.niv}/bin/niv update $3
+      popd
     fi
 
     if [ $1 = 'update' ] || ([ $1 = 'nix' ] && [ $2 = 'update-mypkgs' ]); then

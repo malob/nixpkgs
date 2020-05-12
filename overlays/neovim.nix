@@ -1,15 +1,11 @@
 self: super:
 let
-  # Get sha256 by running nix-prefetch-url --unpack https://github.com/[owner]/[name]/archive/[rev].tar.gz
+  sources = import ../nix/sources.nix;
+
   customVimPlugins = with super.vimUtils; {
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
-      src  = super.fetchFromGitHub {
-        owner  = "chkno";
-        repo   = "vim-haskell-module-name";
-        rev    = "6dcd594";
-        sha256 = "126p0i4mw1f9nmzh96yxymaizja5vbl6z9k1y3zqhxq9nglgdvxb";
-      };
+      src  = sources.vim-haskell-module-name;
     };
   };
 in {

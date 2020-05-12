@@ -47,6 +47,7 @@ in{
       # Useful nix related tools
       unstable.any-nix-shell # add support for nix-shell in fish
       cachix                 # adding/managing atternative binary caches hosted by Cachix
+      unstable.niv
 
       # My custom nix related shell scripts
       myenv-script
