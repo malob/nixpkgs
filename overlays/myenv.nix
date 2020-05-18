@@ -1,6 +1,10 @@
 self: super:
 let
-  OS = builtins.elemAt (builtins.match "NAME=\"?([A-z]+)\"?.*" (builtins.readFile /etc/os-release)) 0;
+  OS =
+    if super.stdenv.isDarwin then
+      "macOS"
+    else
+      builtins.elemAt (builtins.match "NAME=\"?([A-z]+)\"?.*" (builtins.readFile /etc/os-release)) 0;
 in{
   myEnv = super.buildEnv {
     name  = "Env";
@@ -32,16 +36,16 @@ in{
       myNeovimEnv # includes neovim-remote
 
       # General dev stuff
-      myIdris
+      myIdrisEnv
       myHaskellEnv
       myPythonEnv
-      myPureScriptEnv
       unstable.nodePackages.bash-language-server
       unstable.ccls
       unstable.google-cloud-sdk
-      unstable.nodePackages.typescript
-      s3cmd
       nodejs
+      unstable.nodePackages.typescript
+      unstable.rnix-lsp
+      s3cmd
       watchman
 
       # Useful nix related tools
@@ -60,7 +64,7 @@ in{
     ++ lib.optionals (OS != "Ubuntu") [
       myKittyEnv
     ]
-    ++ lib.optionals super.stdenv.isDarwin [
+    ++ lib.optionals (OS == "macOS") [
       m-cli             # useful macOS cli commands
       terminal-notifier # notifications when terminal commands finish running
       myGems.vimgolf    # fun Vim puzzels

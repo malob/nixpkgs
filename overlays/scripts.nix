@@ -70,8 +70,8 @@ let
 
 in {
   myenv-script = super.writeShellScriptBin "myenv" ''
-    # Brew
     ${if super.stdenv.isDarwin then ''
+    # Brew
     if [ $1 = 'update' ] || ([ $1 = 'brew' ] && [ $2 = ""]); then
       ${brew-bundle-update}/bin/brew-bundle-update
       if [ $1 = 'brew' ]; then exit 0; fi
@@ -79,8 +79,8 @@ in {
       ${brew-bundle-cleanup}/bin/brew-bundle-cleanup
       if [ $1 = 'brew' ]; then exit 0; fi
     fi
-    '' else ""}
 
+    '' else ""}
     # Nix
     if [ $1 = 'update' ] || ([ $1 = 'nix' ] && [ $2 = 'update' ]); then
       pushd ~/.config/nixpkgs
@@ -102,8 +102,8 @@ in {
       ${nix-cleanup-store}/bin/nix-cleanup-store
       if [ $1 = 'nix' ]; then exit 0; fi
     ${if super.stdenv.isDarwin then ''
-    efif [ $1 = 'nix' ] && [ $2 = 'update-self' ]; then
-      ${nix-update-self}/bin/nix-update-self"
+    elif [ $1 = 'nix' ] && [ $2 = 'update-self' ]; then
+      ${nix-update-self}/bin/nix-update-self
       exit 0
     '' else ""}
     fi

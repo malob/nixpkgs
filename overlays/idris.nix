@@ -1,3 +1,3 @@
 self: super: {
-  myIdris = with self.idrisPackages; with-packages [ contrib ];
+  myIdrisEnv = with self.unstable.idrisPackages; with-packages [ contrib ];
 }
