@@ -14,11 +14,11 @@
 , "list.maxHeight"          : 20
 , "list.previewSplitRight"  : true
 , "list.selectedSignText"   : ""
-, "list.insertMappings"     :
+, "list.insertMappings" :
   { "<Down>" : "do:next"
   , "<Up>"   : "do:previous"
   }
-, "list.normalMappings"     :
+, "list.normalMappings" :
   { "p" : "action:preview"
   , "q" : "action:quickfix"
   , "s" : "action:split"
@@ -69,26 +69,31 @@
     , "initializationOptions" : {}
     }
   , "haskell" :
-    { "command"               : "hie-wrapper"
-    , "args"                  : [ "--lsp" ]
-    , "filetypes"             : [ "hs", "lhs", "haskell" ]
-    , "rootPatterns"          : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
-    , "initializationOptions" :
-      { "languageServerHaskell": {}
+    { "command"                 : "hie-wrapper"
+    , "args"                    : [ "--lsp" ]
+    , "filetypes"               : [ "hs", "lhs", "haskell" ]
+    , "rootPatterns"            : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
+    , "initializationOptions"   :
+      { "languageServerHaskell" : {}
       }
     }
-  , "purescript":
-    { "command": "purescript-language-server"
-    , "args": ["--stdio"]
-    , "filetypes": ["purescript"]
-    , "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+  , "purescript" :
+    { "command"               : "purescript-language-server"
+    , "args"                  : [ "--stdio" ]
+    , "filetypes"             : [ "purescript"]
+    , "rootPatterns"          : [ "bower.json", "psc-package.json", "spago.dhall" ]
     , "initializationOptions" :
-      { "purescript":
+      { "purescript" :
         { "addNpmPath"     : true
         , "addSpagoSources": true
         , "buildCommand"   : "spago build --purs-args --json-errors"
         }
       }
+    }
+  , "nix" :
+    { "command"               : "rnix-lsp"
+    , "filetypes"             : [ "nix" ]
+    , "initializationOptions" : {}
     }
   }
 
@@ -107,18 +112,18 @@
 , "git.topRemovedSign.text"       : "‾"
 
 , "markdownlint.config":
-  { "default": true
-  , "line-length": false
-  , "no-multiple-blanks": false
+  { "default"            : true
+  , "line-length"        : false
+  , "no-multiple-blanks" : false
   }
 
-, "python.jediEnabled": false
-, "python.formatting.provider": "yapf"
-, "python.formatting.yapfArgs": ["--style", "{ column_limit: 100 }"]
-, "python.linting.pylintEnabled": true
-, "python.linting.pylintUseMinimalCheckers": false
-, "python.linting.mypyEnabled": true
+, "python.jediEnabled"                      : false
+, "python.formatting.provider"              : "yapf"
+, "python.formatting.yapfArgs"              : [ "--style", "{ column_limit : 100 }" ]
+, "python.linting.pylintEnabled"            : true
+, "python.linting.pylintUseMinimalCheckers" : false
+, "python.linting.mypyEnabled"              : true
 
-, "vimlsp.indexes.count": 8
-, "vimlsp.suggest.fromRuntimepath": true
+, "vimlsp.indexes.count"           : 8
+, "vimlsp.suggest.fromRuntimepath" : true
 }
