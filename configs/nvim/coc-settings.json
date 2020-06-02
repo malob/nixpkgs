@@ -78,16 +78,14 @@
       }
     }
   , "purescript" :
-    { "command"               : "purescript-language-server"
-    , "args"                  : [ "--stdio" ]
+    { "command"               : "npx"
+    , "args"                  : [ "purescript-language-server", "--stdio" ]
     , "filetypes"             : [ "purescript"]
     , "rootPatterns"          : [ "bower.json", "psc-package.json", "spago.dhall" ]
     , "initializationOptions" :
-      { "purescript" :
-        { "addNpmPath"     : true
-        , "addSpagoSources": true
-        , "buildCommand"   : "spago build --purs-args --json-errors"
-        }
+      { "addNpmPath"     : true
+      , "addSpagoSources": true
+      , "buildCommand"   : "spago build --purs-args --json-errors"
       }
     }
   , "nix" :
