@@ -44,24 +44,12 @@ spua = stash push --all
 # Other commands
 lg = log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %s %C(italic)- %an%C(reset)%C(magenta bold)%d%C(reset)' --all
 
-# Configuration for diff-so-fancy: https://github.com/so-fancy/diff-so-fancy
-[color.diff]
-commit     = yellow bold
-frag       = blue bold
-func       = magenta
-meta       = normal italic
-new        = green bold
-old        = red bold
-whitespace = red reverse
-[color.diff-highlight]
-newHighlight = black bold green
-newNormal    = green bold
-oldHighlight = black bold red
-oldNormal    = red bold
-
 [core]
 editor = nvr --remote-wait-silent -cc split
-pager  = diff-so-fancy | less --tabs=2 -RFX --pattern '^(Date|added|deleted|modified): '
+pager  = delta --theme ansi-dark --24-bit-color always
+
+[interactive]
+diffFilter = delta --color-only
 
 [pull]
 rebase = true

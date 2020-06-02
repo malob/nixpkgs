@@ -18,9 +18,9 @@ in {
     name  = "myGitEnv";
     paths = with self.pkgs; [
       myGit
-      gitAndTools.diff-so-fancy # make Git diffs nicer
-      unstable.gitAndTools.gh   # GitHub's official CLI tool
-      gitAndTools.hub           # Git wrapper that works adds a bunch of GitHub features
+      unstable.gitAndTools.delta # make Git diffs nicer
+      unstable.gitAndTools.gh    # GitHub's official CLI tool
+      gitAndTools.hub            # Git wrapper that works adds a bunch of GitHub features
     ];
   };
 }
