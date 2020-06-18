@@ -550,8 +550,8 @@ nmap <silent><space>la <Plug>(coc-codeaction)
 nmap <silent><space>lA <Cmd>CocList actions<CR>
 nmap <silent><space>lc <Plug>(coc-codelens-action)
 nmap <silent><space>lq <Plug>(coc-fix-current)
-nmap <silent><space>lf <Plug>(coc-format-selected)
-nmap <silent><space>lF <Plug>(coc-format)
+vmap <silent><space>lf <Plug>(coc-format-selected)
+nmap <silent><space>lf <Plug>(coc-format)
 nmap <silent><space>lr <Plug>(coc-rename)
 " goto
 nmap <silent><space>ln <Plug>(coc-diagnostic-next)
@@ -610,7 +610,7 @@ nmap <silent><space>sy  <Cmd>CocList --normal yank<CR>
 " resume previous search
 nmap <silent><space>sr  <Cmd>CocListResume<CR>
 
-" use tab to navigate completion menu and jump in snippets
+" Use tab to navigate completion menu and jump in snippets
 " TODO: fix all below, I don't quite understand how it works
 inoremap <expr> <Tab>
 \ pumvisible()

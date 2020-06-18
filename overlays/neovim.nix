@@ -27,16 +27,18 @@ in {
           # Coc.nvim plugins
           coc-nvim
           coc-eslint
-          coc-json
           coc-git
+          coc-json
           coc-lists
           coc-python
+          coc-snippets
           coc-tabnine
           coc-tsserver
           coc-yaml
           coc-yank
 
           # other plugins
+          agda-vim
           ale
           editorconfig-vim
           goyo-vim

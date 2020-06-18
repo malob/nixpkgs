@@ -36,6 +36,7 @@ in{
       myNeovimEnv # includes neovim-remote
 
       # General dev stuff
+      myAgdaEnv
       myIdrisEnv
       myHaskellEnv
       myPythonEnv

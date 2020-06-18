@@ -79,7 +79,7 @@
     }
   , "purescript" :
     { "command"               : "npx"
-    , "args"                  : [ "purescript-language-server", "--stdio" ]
+    , "args"                  : [ "purescript-language-server", "--stdio", "--config {}" ]
     , "filetypes"             : [ "purescript"]
     , "rootPatterns"          : [ "bower.json", "psc-package.json", "spago.dhall" ]
     , "initializationOptions" :

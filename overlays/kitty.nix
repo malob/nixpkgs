@@ -124,6 +124,7 @@ let
                          "auto";
 
     font_size = "13.0";
+    adjust_line_height = "120%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
     # Window layout
