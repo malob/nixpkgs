@@ -43,6 +43,7 @@ in{
       unstable.nodePackages.bash-language-server
       unstable.ccls
       unstable.google-cloud-sdk
+      myTickgit
       nodejs
       unstable.nodePackages.typescript
       unstable.rnix-lsp
