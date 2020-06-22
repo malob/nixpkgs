@@ -67,9 +67,10 @@ in{
       myKittyEnv
     ]
     ++ lib.optionals (OS == "macOS") [
-      m-cli             # useful macOS cli commands
-      terminal-notifier # notifications when terminal commands finish running
-      myGems.vimgolf    # fun Vim puzzels
+      m-cli               # useful macOS cli commands
+      terminal-notifier   # notifications when terminal commands finish running
+      myGems.vimgolf      # fun Vim puzzels
+      enable-touchid-sudo # custom script to enable using `sudo` with TouchID
     ]
     ++ lib.optionals (OS == "Ubuntu") [
       unstable.abduco

@@ -116,4 +116,13 @@ in {
       echo "Unknown command"
     fi
   '';
+
+  # Enable `sudo` with TouchID
+  enable-touchid-sudo = super.writeShellScriptBin "enable-touchid-sudo" ''
+    if ! grep pam_tid.so /etc/pam.d/sudo > /dev/null; then
+      sed -i.old '2i\
+      auth       sufficient     pam_tid.so
+      ' /etc/pam.d/sudo
+    fi
+  '';
 }
