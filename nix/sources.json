@@ -11,6 +11,18 @@
         "url": "https://github.com/Infinisil/all-hies/archive/4b6aab017cdf96a90641dc287437685675d598da.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "hls": {
+        "branch": "master",
+        "description": "Nix derivations for hasekll-language-server",
+        "homepage": "",
+        "owner": "poscat0x04",
+        "repo": "hls-nix",
+        "rev": "772f7e76950bf871263898e02c1c2863375ae5a1",
+        "sha256": "0a0wc5di71s0y38zv7ilrwqfmapv14hd4a47545jvzsv96p9g763",
+        "type": "tarball",
+        "url": "https://github.com/poscat0x04/hls-nix/archive/772f7e76950bf871263898e02c1c2863375ae5a1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixos-stable": {
         "branch": "nixos-20.03",
         "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
