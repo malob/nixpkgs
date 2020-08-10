@@ -16,7 +16,6 @@ in{
       curl
       fd                        # substitute for `find`
       unstable.fish-foreign-env # needed for fish-shell for non-NixOS installations
-      gotop                     # fancy version of `top` with ASCII graphs
       htop                      # fancy version of `top`
       hyperfine                 # benchmarking tool
       mosh                      # wrapper for `ssh` that better and not dropping connections
@@ -29,6 +28,7 @@ in{
       unrar                     # extract RAR archives
       wget
       xz                        # extract XZ archives
+      unstable.ytop             # fancy version of `top` with ASCII graphs
 
       # My wrapped and config derivations
       myBat       # a better version of `cat`
