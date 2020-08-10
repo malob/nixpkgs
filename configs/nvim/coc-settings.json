@@ -69,12 +69,18 @@
     , "initializationOptions" : {}
     }
   , "haskell" :
-    { "command"                 : "hie-wrapper"
+    { "command"                 : "haskell-language-server-wrapper"
     , "args"                    : [ "--lsp" ]
     , "filetypes"               : [ "hs", "lhs", "haskell" ]
-    , "rootPatterns"            : [ "*.cabal", "stack.yaml", "cabal.project", "package.yaml" ]
+    , "rootPatterns"            :
+      [ "hie.yaml"
+      , "*.cabal"
+      , "stack.yaml"
+      , "cabal.project"
+      , "package.yaml"
+      ]
     , "initializationOptions"   :
-      { "languageServerHaskell" : {}
+      { "haskell" : {}
       }
     }
   , "purescript" :
