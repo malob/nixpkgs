@@ -53,7 +53,6 @@ in{
       # Useful nix related tools
       unstable.any-nix-shell # add support for nix-shell in fish
       cachix                 # adding/managing atternative binary caches hosted by Cachix
-      unstable.direnv
       unstable.niv
 
       # My custom nix related shell scripts
@@ -62,6 +61,7 @@ in{
     # Because on NixOS Fish gets installed at the system level and lorri is run as a service
     ++ lib.optionals (OS != "NixOS") [
       fish
+      unstable.direnv
       unstable.lorri
     ]
     # Because I only use Ubuntu for cloud VMs
