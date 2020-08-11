@@ -7,7 +7,7 @@ let
       builtins.elemAt (builtins.match "NAME=\"?([A-z]+)\"?.*" (builtins.readFile /etc/os-release)) 0;
 in{
   myEnv = super.buildEnv {
-    name  = "Env";
+    name  = "myEnv";
     paths = with self.pkgs; [
       # Some basics
       browsh                    # in terminal browser
@@ -53,6 +53,8 @@ in{
       # Useful nix related tools
       unstable.any-nix-shell # add support for nix-shell in fish
       cachix                 # adding/managing atternative binary caches hosted by Cachix
+      unstable.direnv
+      unstable.lorri
       unstable.niv
 
       # My custom nix related shell scripts

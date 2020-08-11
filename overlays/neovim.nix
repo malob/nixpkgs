@@ -40,6 +40,7 @@ in {
           # other plugins
           agda-vim
           ale
+          direnv-vim
           editorconfig-vim
           goyo-vim
           tabular

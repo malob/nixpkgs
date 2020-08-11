@@ -80,6 +80,7 @@ symbol    = " "
 threshold = 90
 
 [nix_shell]
+use_name = true
 symbol = " "
 
 [nodejs]
