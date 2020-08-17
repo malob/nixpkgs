@@ -9,6 +9,7 @@ in{
   myEnv = super.buildEnv {
     name  = "myEnv";
     paths = with self.pkgs; [
+      nixFlakes
       # Some basics
       browsh                    # in terminal browser
       coreutils
