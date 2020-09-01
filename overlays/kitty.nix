@@ -1,14 +1,8 @@
 self: super:
 let
-  # Import colors for colorscheme
-  colors = import ../neo-solazired.nix;
-
-  # Create a function to format Nix sets as Kitty config strings
-  setToKittyConfig = with super.lib.generators;
-    toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
-
+  # Create kitty config for NeoSolarized dark colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kittyDarkColors = with colors; super.pkgs.writeText "kittyDarkColors.conf" (setToKittyConfig rec {
+  kitty-neosolarized-dark-config = with self.neosolarized-colors; rec {
     # Colors
     # black
     color0     = "#${base03}";
@@ -48,10 +42,11 @@ let
 
     # Intactive tab
     tab_bar_background = color8;
-  });
+  };
 
+  # Create kitty config for NeoSolarized light colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kittyLightColors = with colors; super.pkgs.writeText "kittyLightColors.conf" (setToKittyConfig rec {
+  kitty-neosolarized-light-config = with self.neosolarized-colors; rec {
     # Colors
     # black
     color0     = "#${base3}";
@@ -91,40 +86,22 @@ let
 
     # Intactive tab
     tab_bar_background = color8;
-  });
+  };
 
+  # Create kitty config for NeoSolarized light colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kittyConfigDir = with colors; super.pkgs.writeTextDir "kitty.conf" (setToKittyConfig rec {
+  kitty-config = with self.neosolarized-colors; rec {
     # Required to use `kitty @` commands
     allow_remote_control= "yes";
 
-    # Include dark colors by default
-    include = "${kittyDarkColors}";
-
     # Fonts
-    # TODO: transition Linux setup to use JetBrains Mono
-    font_family      = if super.stdenv.isDarwin then
-                         "JetBrainsMonoMedium Nerd Font Mono Medium"
-                       else
-                         "Fira Code Retina Nerd Font Complete";
-
-    bold_font        = if super.stdenv.isDarwin then
-                         "JetBrainsMonoExtraBold Nerd Font Mono Extra Bold"
-                       else
-                         "Fira Code Bold Nerd Font Complete";
-
-    italic_font      = if super.stdenv.isDarwin then
-                         "JetBrainsMono Nerd Font Mono Italic"
-                       else
-                         "Fira Code Light Nerd Font Complete";
-
-    bold_italic_font = if super.stdenv.isDarwin then
-                         "JetBrainsMonoExtraBold Nerd Font Mono Extra Bold Italic"
-                       else
-                         "auto";
+    font_family      = "JetBrainsMono Nerd Font Medium";
+    bold_font        = "JetBrainsMono Nerd Font Extra Bold";
+    italic_font      = "JetBrainsMono Nerd Font Italic";
+    bold_italic_font = "JetBrainsMono Nerd Font Extra Bold Italic";
 
     font_size = "13.0";
-    adjust_line_height = "120%";
+    adjust_line_height = "110%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
     # Window layout
@@ -144,12 +121,24 @@ let
 
     # Set url underline color to fit colors
     url_color = "#${blue}";
-  });
+  };
+
+  # Create a function to format Nix sets as Kitty config strings
+  setToKittyConfig = with super.lib.generators;
+    toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
+
+  writeKittyConfigToStore = fileName: config:
+    super.pkgs.writeTextDir "etc/xdg/kitty/${fileName}" (setToKittyConfig config);
 
 in {
   myKitty = super.pkgs.symlinkJoin rec {
     name        = "myKitty";
-    paths       = [ self.pkgs.unstable.kitty ];
+    paths       = [
+      self.pkgs.unstable.kitty
+      (writeKittyConfigToStore "kitty.conf" (kitty-config // kitty-neosolarized-dark-config))
+      (writeKittyConfigToStore "dark-colors.conf" kitty-neosolarized-dark-config)
+      (writeKittyConfigToStore "light-colors.conf" kitty-neosolarized-light-config)
+    ];
     buildInputs = [ super.pkgs.makeWrapper ];
     kittyBin    = if super.stdenv.isDarwin then
                     "$out/Applications/kitty.app/Contents/MacOS/kitty"
@@ -157,7 +146,7 @@ in {
                     "$out/bin/kitty";
     postBuild   = ''
       wrapProgram ${kittyBin} \
-        --set KITTY_CONFIG_DIRECTORY ${kittyConfigDir} \
+        --set KITTY_CONFIG_DIRECTORY $out/etc/xdg/kitty \
         --add-flags "--listen-on unix:/tmp/mykitty"
     '';
   };
@@ -165,9 +154,9 @@ in {
   term-colors = super.writeShellScriptBin "term-colors" ''
     CONFIG=""
     if [[ $1 == "dark" ]]; then
-      CONFIG=${kittyDarkColors}
+      CONFIG=${self.myKitty}/etc/xdg/kitty/dark-colors.conf
     elif [[ $1 == "light" ]]; then
-      CONFIG=${kittyLightColors}
+      CONFIG=${self.myKitty}/etc/xdg/kitty/light-colors.conf
     else
       exit 1
     fi
@@ -186,13 +175,4 @@ in {
   terminal-colors-light = super.writeShellScriptBin "term-light" ''
     ${self.pkgs.term-colors}/bin/term-colors light
   '';
-
-  myKittyEnv = super.buildEnv {
-    name  = "myKittyEnv";
-    paths = with self.pkgs; [
-      myKitty
-      terminal-colors-dark
-      terminal-colors-light
-    ];
-  };
 }
