@@ -1,14 +1,19 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./defaults.nix
-    ./private.nix
-    ./shells.nix
+  # Module disabled beacause I'm using patched versions not yet upstreamed
+  disabledModules = [
+    "networking"
   ];
 
-  environment.pathsToLink = [
-    "/etc/xdg"
+  imports = [
+    # Patched modules
+    ./modules/networking.nix
+
+    # Other imports
+    ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
+    ./private.nix  # private settings not commited to git
+    ./shells.nix   # shell configuration
   ];
 
   #####################
@@ -17,7 +22,6 @@
 
   nix.nixPath = [
     { nixpkgs = "$HOME/.nix-defexpr/channels/nixpkgs"; }
-    { darwin  = "$HOME/Code/nix-darwin"; } # to incorporate changes that haven't yet been upstreamed
   ];
   nix.binaryCaches = [
     "https://cache.nixos.org/"
@@ -61,6 +65,11 @@
   networking.knownNetworkServices = [
     "Wi-Fi"
     "USB 10/100/1000 LAN"
+  ];
+
+  # Link some additional paths
+  environment.pathsToLink = [
+    "/etc/xdg"
   ];
 
   # List packages installed in system profile.

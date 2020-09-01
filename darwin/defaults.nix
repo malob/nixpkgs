@@ -1,7 +1,24 @@
-# Note many options here have not been upstreamed
 {...}:
 
 {
+  # Module disabled beacause I'm using patched versions not yet upstreamed
+  disabledModules = [
+    "system/defaults/NSGlobalDomain.nix"
+    "system/defaults/alf.nix"
+    "system/defaults/finder.nix"
+    "system/defaults/trackpad.nix"
+    "system/defaults-write.nix"
+  ];
+
+  # Patched versions of disabled modules
+  imports = [
+    ./modules/system/defaults/NSGlobalDomain.nix
+    ./modules/system/defaults/alf.nix
+    ./modules/system/defaults/finder.nix
+    ./modules/system/defaults/trackpad.nix
+    ./modules/system/defaults-write.nix
+  ];
+
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling"         = "3.0";
     AppleMeasurementUnits                = "Centimeters";
