@@ -9,14 +9,12 @@ in{
   myEnv = super.buildEnv {
     name  = "myEnv";
     paths = with self.pkgs; [
-      nixFlakes
       # Some basics
       browsh                    # in terminal browser
       coreutils
       cloc                      # source code line counter
       curl
       fd                        # substitute for `find`
-      unstable.fish-foreign-env # needed for fish-shell for non-NixOS installations
       htop                      # fancy version of `top`
       hyperfine                 # benchmarking tool
       mosh                      # wrapper for `ssh` that better and not dropping connections
@@ -58,25 +56,19 @@ in{
 
       # My custom nix related shell scripts
       myenv-script
+      terminal-colors-dark
+      terminal-colors-light
     ]
-    # Because on NixOS Fish gets installed at the system level and lorri is run as a service
-    ++ lib.optionals (OS != "NixOS") [
-      fish
-      unstable.direnv
-      unstable.lorri
-    ]
-    # Because I only use Ubuntu for cloud VMs
+    # OS specific packages to include (I only use Ubuntu for non-GUI VMs)
     ++ lib.optionals (OS != "Ubuntu") [
-      myKittyEnv
-    ]
-    ++ lib.optionals (OS == "macOS") [
-      m-cli               # useful macOS cli commands
-      terminal-notifier   # notifications when terminal commands finish running
-      myGems.vimgolf      # fun Vim puzzels
-      enable-touchid-sudo # custom script to enable using `sudo` with TouchID
+      myKitty
     ]
     ++ lib.optionals (OS == "Ubuntu") [
       unstable.abduco
+      unstable.direnv
+      unstable.lorri
+      unstable.nixFlakes
+      unstable.fish-foreign-env # needed for Fish shell
     ]
     ++ lib.optionals (OS == "NixOS") [
       slack

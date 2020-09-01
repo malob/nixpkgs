@@ -3,3 +3,4 @@ pkgs/ruby-gems/.bundle
 pkgs/python-packages/requirements_frozen.txt
 
 Brewfile.lock.json
+darwin/private.nix
