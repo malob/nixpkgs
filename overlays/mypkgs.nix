@@ -3,6 +3,8 @@ self: super: {
   myNodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
   myPythonPackages = import ../pkgs/python-packages/requirements.nix {pkgs = self;};
 
+  prefmanager = import (import ../nix/sources.nix).prefmanager {};
+
   myTickgit = super.pkgs.buildGoModule rec {
     pname = "tickgit";
     version = "HEAD";

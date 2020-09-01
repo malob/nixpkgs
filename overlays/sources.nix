@@ -14,8 +14,4 @@ in {
     else
       import sources.nixos-unstable {};
   master = import sources.nixpkgs-master {};
-
-  # Other sources
-  hies = import sources.hies {};
-  hls  = import sources.hls;
 }
