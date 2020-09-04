@@ -1,1 +1,1 @@
-import (import ~/.config/nixpkgs/nix/sources.nix).nixos-stable
+import (import ~/.config/nixpkgs/nix/sources.nix).nixos-unstable

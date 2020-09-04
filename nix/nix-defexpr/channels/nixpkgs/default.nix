@@ -3,6 +3,6 @@ let
   pkgs    = import sources.nixpkgs-unstable {};
 in
   if pkgs.stdenv.isDarwin then
-    import sources.nixpkgs-stable-darwin
+    import sources.nixpkgs-unstable
   else
-    import sources.nixos-stable
+    import sources.nixos-unstable

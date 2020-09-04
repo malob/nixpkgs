@@ -1,6 +1,7 @@
-self: super:
-{
+self: super: {
   # Colors from: https://github.com/overcache/NeoSolarized
+  # Used in Kitty terminal config: `./kitty-configs.nix`
+  # Used in Fish shell config: `../home-manager/shells.nix`
   neosolarized-colors = {
     base03  = "002b36";
     base02  = "073642";

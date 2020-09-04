@@ -1,14 +1,50 @@
 {
+    "fish-plugin-done": {
+        "branch": "master",
+        "description": "A fish-shell package to automatically receive notifications when long processes finish.",
+        "homepage": "",
+        "owner": "franciscolourenco",
+        "repo": "done",
+        "rev": "9351f5a9f4ae6c73dd6f18e41364e63a77be5d90",
+        "sha256": "0ffkhm0ap96kixrck3r3fnmc1iq1wl018iqb7wjwf6miqwxhlb7v",
+        "type": "tarball",
+        "url": "https://github.com/franciscolourenco/done/archive/9351f5a9f4ae6c73dd6f18e41364e63a77be5d90.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "fish-plugin-humanize-duration": {
+        "branch": "master",
+        "description": "Make a time interval human readable",
+        "homepage": "",
+        "owner": "fishpkg",
+        "repo": "fish-humanize-duration",
+        "rev": "245e38ff3c03654271039f119078b721b7a26d3b",
+        "sha256": "078wzrppw62dz297860n2qdljnnpmhpaj60gw5cl4dbfcij24335",
+        "type": "tarball",
+        "url": "https://github.com/fishpkg/fish-humanize-duration/archive/245e38ff3c03654271039f119078b721b7a26d3b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix",
+        "homepage": "https://rycee.gitlab.io/home-manager/",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "e6e49ad73c7d8cbd9f6622f0a3330ce7b71c8a86",
+        "sha256": "0s39c22cmfdqjlvsvr2xhihkqfv6dm07155iqd625g172zgy90pm",
+        "type": "tarball",
+        "url": "https://github.com/rycee/home-manager/archive/e6e49ad73c7d8cbd9f6622f0a3330ce7b71c8a86.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nix-darwin": {
         "branch": "master",
         "description": "nix modules for darwin",
         "homepage": "",
         "owner": "LnL7",
         "repo": "nix-darwin",
-        "rev": "d5f26b4c0cbfc58937cc8660b4e6c74fdcbb8972",
-        "sha256": "0svki83ajhrmw10cy6glrak641j5i0znypm562p1j6vm12wd789p",
+        "rev": "943a6b25d7be58e45df9817139db2cb3808d3006",
+        "sha256": "1xgxpzn0rv4flfn441a2sq7970iagf7a2l36dr4x72vsi2jd3cd9",
         "type": "tarball",
-        "url": "https://github.com/LnL7/nix-darwin/archive/d5f26b4c0cbfc58937cc8660b4e6c74fdcbb8972.tar.gz",
+        "url": "https://github.com/LnL7/nix-darwin/archive/943a6b25d7be58e45df9817139db2cb3808d3006.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-stable": {
@@ -17,10 +53,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "14006b724f3d1f25ecf38238ee723d38b0c2f4ce",
-        "sha256": "07hfbilyh818pigfn342v2r05n8061wpjaf1m4h291lf6ydjagis",
+        "rev": "10aede9bcfe0bcc7c999b598057552f928c31767",
+        "sha256": "186ycr2gn4hwgbw53ahld5lvrdrcpf8cmd7dniwijj6gvflx9nms",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/14006b724f3d1f25ecf38238ee723d38b0c2f4ce.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/10aede9bcfe0bcc7c999b598057552f928c31767.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixos-unstable": {
@@ -41,10 +77,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5a5aab84df4af619df7fc36336c0ef2c6d700ec2",
-        "sha256": "0vjrq5dyvrw3zcsqwhfjvmvdnp6d5bs8kyk8frf56vrwins58hyq",
+        "rev": "0fdc832be5cce9127ccb5f93087049d82d3aa65a",
+        "sha256": "1q9i1z1vrni830qcp3sg10c0lpahag3f6ra061ngqm74d4khy1pw",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5a5aab84df4af619df7fc36336c0ef2c6d700ec2.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/0fdc832be5cce9127ccb5f93087049d82d3aa65a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-stable-darwin": {
@@ -53,10 +89,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "14006b724f3d1f25ecf38238ee723d38b0c2f4ce",
-        "sha256": "07hfbilyh818pigfn342v2r05n8061wpjaf1m4h291lf6ydjagis",
+        "rev": "fa3fb57d322a7f1bc93f763b10961144b37b9633",
+        "sha256": "1l8dpvibnx5p6j91xzjz6bwrrrgbkvqjmbpirav1kylaajgdyx4l",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/14006b724f3d1f25ecf38238ee723d38b0c2f4ce.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/fa3fb57d322a7f1bc93f763b10961144b37b9633.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
@@ -65,10 +101,10 @@
         "homepage": "https://github.com/NixOS/nixpkgs",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a332da8588aeea4feb9359d23f58d95520899e3c",
-        "sha256": "18hlja5syv3xpi14c07h9lrn1cchq2azmj06fyalq52vl064nx75",
+        "rev": "7bc3a08d3a4c700b53a3b27f5acd149f24b931ec",
+        "sha256": "1kiz37052zsgvw7a378zg08mpbi1wk8dkgm5j6dy0x4mxvcg8ws3",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/a332da8588aeea4feb9359d23f58d95520899e3c.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/7bc3a08d3a4c700b53a3b27f5acd149f24b931ec.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "prefmanager": {

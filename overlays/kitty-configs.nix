@@ -1,8 +1,20 @@
+# Used in home-manager Kitty terminal config: `../home-manager/configuration.nix`
+# Used in home-manager Fish shell config: `../home-manager/shells.nix`
 self: super:
 let
-  # Create kitty config for NeoSolarized dark colors
+  # Function to format Nix sets as Kitty config strings
+  setToKittyConfig = with super.lib.generators;
+    toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
+
+  # Funtion to write a Kitty configuration file into the store
+  writeKittyConfigToStore = fileName: config:
+    super.pkgs.writeTextDir "${fileName}" (setToKittyConfig config);
+
+in rec {
+
+  # Config for NeoSolarized dark colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kitty-neosolarized-dark-config = with self.neosolarized-colors; rec {
+  my-kitty-neosolarized-dark-config = with self.neosolarized-colors; rec {
     # Colors
     # black
     color0     = "#${base03}";
@@ -44,9 +56,9 @@ let
     tab_bar_background = color8;
   };
 
-  # Create kitty config for NeoSolarized light colors
+  # Config for NeoSolarized light colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kitty-neosolarized-light-config = with self.neosolarized-colors; rec {
+  my-kitty-neosolarized-light-config = with self.neosolarized-colors; rec {
     # Colors
     # black
     color0     = "#${base3}";
@@ -88,11 +100,11 @@ let
     tab_bar_background = color8;
   };
 
-  # Create kitty config for NeoSolarized light colors
+  # General kitty config (colors omitted)
   # https://sw.kovidgoyal.net/kitty/conf.html
-  kitty-config = with self.neosolarized-colors; rec {
+  my-kitty-config = with self.neosolarized-colors; rec {
     # Required to use `kitty @` commands
-    allow_remote_control= "yes";
+    allow_remote_control = "yes";
 
     # Fonts
     font_family      = "JetBrainsMono Nerd Font Medium";
@@ -105,8 +117,8 @@ let
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
     # Window layout
-    hide_window_decorations = "titlebar-only";
-    window_padding_width = "10 15";
+    hide_window_decorations ="titlebar-only";
+    window_padding_width = "10";
 
     # Tab bar
     tab_bar_edge            = "top";
@@ -123,56 +135,12 @@ let
     url_color = "#${blue}";
   };
 
-  # Create a function to format Nix sets as Kitty config strings
-  setToKittyConfig = with super.lib.generators;
-    toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
-
-  writeKittyConfigToStore = fileName: config:
-    super.pkgs.writeTextDir "etc/xdg/kitty/${fileName}" (setToKittyConfig config);
-
-in {
-  myKitty = super.pkgs.symlinkJoin rec {
-    name        = "myKitty";
+  # Write color configs to Nix store
+  my-kitty-colors = super.pkgs.symlinkJoin {
+    name        = "my-kitty-colors";
     paths       = [
-      self.pkgs.unstable.kitty
-      (writeKittyConfigToStore "kitty.conf" (kitty-config // kitty-neosolarized-dark-config))
-      (writeKittyConfigToStore "dark-colors.conf" kitty-neosolarized-dark-config)
-      (writeKittyConfigToStore "light-colors.conf" kitty-neosolarized-light-config)
+      (writeKittyConfigToStore "dark-colors.conf" my-kitty-neosolarized-dark-config)
+      (writeKittyConfigToStore "light-colors.conf" my-kitty-neosolarized-light-config)
     ];
-    buildInputs = [ super.pkgs.makeWrapper ];
-    kittyBin    = if super.stdenv.isDarwin then
-                    "$out/Applications/kitty.app/Contents/MacOS/kitty"
-                  else
-                    "$out/bin/kitty";
-    postBuild   = ''
-      wrapProgram ${kittyBin} \
-        --set KITTY_CONFIG_DIRECTORY $out/etc/xdg/kitty \
-        --add-flags "--listen-on unix:/tmp/mykitty"
-    '';
   };
-
-  term-colors = super.writeShellScriptBin "term-colors" ''
-    CONFIG=""
-    if [[ $1 == "dark" ]]; then
-      CONFIG=${self.myKitty}/etc/xdg/kitty/dark-colors.conf
-    elif [[ $1 == "light" ]]; then
-      CONFIG=${self.myKitty}/etc/xdg/kitty/light-colors.conf
-    else
-      exit 1
-    fi
-
-    kitty @ --to unix:/tmp/mykitty set-colors --all --configured $CONFIG
-    if test -n "$(nvr --serverlist)"; then
-      ${super.pkgs.neovim-remote}/bin/nvr \
-        -s --nostart --servername $(nvr --serverlist) -c "set background=$1"
-    fi
-  '';
-
-  terminal-colors-dark = super.writeShellScriptBin "term-dark" ''
-    ${self.pkgs.term-colors}/bin/term-colors dark
-  '';
-
-  terminal-colors-light = super.writeShellScriptBin "term-light" ''
-    ${self.pkgs.term-colors}/bin/term-colors light
-  '';
 }

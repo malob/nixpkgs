@@ -1,20 +1,30 @@
 { config, pkgs, lib, ... }:
 
 {
+
+  #######################
+  # Modules and Imports #
+  #######################
+
   # Module disabled beacause I'm using patched versions not yet upstreamed
   disabledModules = [
     "networking"
   ];
 
   imports = [
+    # nix-darwin module form home-manager
+    # Can't just import `<home-manager/nix-darwin>` given that I use `niv` to manager channels
+    "${(import <home-manager> {}).path}/nix-darwin"
+
     # Patched modules
     ./modules/networking.nix
 
-    # Other imports
+    # Other nix-darwin configuration
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
     ./private.nix  # private settings not commited to git
     ./shells.nix   # shell configuration
   ];
+
 
   #####################
   # Nix configuration #
@@ -35,13 +45,13 @@
     "@admin"
   ];
 
-  # Nixpkgs tweaks
+  # Nixpkgs used config from user
   nixpkgs.config = import ../config.nix;
   # Hack to use user overlays with system configuration
-  nixpkgs.overlays = map import ((import ./lsnix.nix) ../overlays);
+  nixpkgs.overlays = map import ((import ../nix/lsnix.nix) ../overlays);
 
   # Enable experimental version of nix with flakes support
-  nix.package      = pkgs.unstable.nixFlakes;
+  nix.package      = pkgs.nixFlakes;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
   # To change location use the following command after updating the option below
@@ -50,6 +60,17 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
+
+
+  ################
+  # home-manager #
+  ################
+
+  # Use home-manager it's nix-darwin module to manage configuration of tools.
+  # https://rycee.gitlab.io/home-manager/index.html#sec-install-nix-darwin-module
+  users.users.malo.home = "/Users/malo";
+  home-manager.users.malo = import ../home-manager/configuration.nix;
+
 
   ########################
   # System configuration #
@@ -67,32 +88,17 @@
     "USB 10/100/1000 LAN"
   ];
 
-  # Link some additional paths
-  environment.pathsToLink = [
-    "/etc/xdg"
-  ];
-
-  # List packages installed in system profile.
+  # GUI apps
   environment.systemPackages = with pkgs; [
-    # My standard set of packages to install
-    myEnv
-
-    # For idiosyncratic reasons I manages these seperatly for different OSs
-    unstable.direnv
-    unstable.lorri
-
-    # macOS specific packages
-    m-cli             # useful macOS cli commands
-    prefmanager       # tool for working with macOS defaults
-    terminal-notifier # notifications when terminal commands finish running
-    myGems.vimgolf    # fun Vim puzzels
+    kitty
+    terminal-notifier
   ];
   programs.nix-index.enable = true;
 
   # Fonts
   fonts.enableFontDir = true;
   fonts.fonts = [
-    (pkgs.unstable.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   # Keyboard
@@ -100,7 +106,9 @@
   system.keyboard.remapCapsLockToEscape = true;
 
   # Add ability to used TouchID for sudo authentication
-  system.patches = [ ./etc-pam.d-sudo.patch ];
+  system.patches = [
+    ./etc-pam.d-sudo.patch
+  ];
 
   # Lorri daemon
   # Taken from: https://github.com/target/lorri/issues/96#issuecomment-579931485
@@ -115,7 +123,7 @@
     };
     script = ''
       source ${config.system.build.setEnvironment}
-      exec ${pkgs.unstable.lorri}/bin/lorri daemon
+      exec ${pkgs.lorri}/bin/lorri daemon
     '';
   };
 
