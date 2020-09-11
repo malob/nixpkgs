@@ -6,7 +6,7 @@
   # Modules and Imports #
   #######################
 
-  # Module disabled beacause I'm using patched versions not yet upstreamed
+  # Module disabled because I'm using patched versions not yet upstreamed
   disabledModules = [
     "networking"
   ];
@@ -21,7 +21,7 @@
 
     # Other nix-darwin configuration
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
-    ./private.nix  # private settings not commited to git
+    ./private.nix  # private settings not committed to git
     ./shells.nix   # shell configuration
   ];
 
@@ -66,7 +66,7 @@
   # home-manager #
   ################
 
-  # Use home-manager it's nix-darwin module to manage configuration of tools.
+  # Use home-manager's nix-darwin module to manage configuration of tools etc.
   # https://rycee.gitlab.io/home-manager/index.html#sec-install-nix-darwin-module
   users.users.malo.home = "/Users/malo";
   home-manager.users.malo = import ../home-manager/configuration.nix;
@@ -88,7 +88,7 @@
     "USB 10/100/1000 LAN"
   ];
 
-  # GUI apps
+  # GUI apps (home-manager currently has issues adding them to ~/Applications)
   environment.systemPackages = with pkgs; [
     kitty
     terminal-notifier

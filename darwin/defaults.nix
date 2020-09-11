@@ -1,7 +1,7 @@
 {...}:
 
 {
-  # Module disabled beacause I'm using patched versions not yet upstreamed
+  # Module disabled because I'm using patched versions not yet upstreamed
   disabledModules = [
     "system/defaults/NSGlobalDomain.nix"
     "system/defaults/alf.nix"

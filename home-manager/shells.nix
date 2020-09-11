@@ -3,7 +3,7 @@
 {
 
   ##############
-  # Fish shell "
+  # Fish shell #
   ##############
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.fish.enable
 
@@ -115,7 +115,7 @@
 
   # config.fish
   programs.fish.interactiveShellInit = with pkgs.neosolarized-colors; ''
-    set -e fish_greeting
+    set -g fish_greeting ""
     nvim-term-change-dir
     thefuck --alias | source
 
