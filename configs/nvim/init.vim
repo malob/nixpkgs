@@ -10,6 +10,7 @@ scriptencoding=utf-8
 "   * Avoid single key shortcuts. Have the first key be some mnemonic for what the command does.
 "   * <space>l for language server related commands.
 "   * <space>w for split/window related commands.
+"   * <space>m for split/window movement/manipulation related commands.
 "   * <space>s for search (CocList) related commands.
 "   * <space>t for tab related commands.
 "   * <space>q for quit/close related commands.
@@ -111,6 +112,7 @@ let g:airline_extensions =
 \ , 'tabline'
 \ , 'whitespace'
 \ , 'wordcount'
+\ , 'zoomwintab'
 \ ]
 
 " Tabline configuration
@@ -284,6 +286,22 @@ let g:startify_commands =
 function! StartifyEntryFormat()
   return 'WebDevIconsGetFileTypeSymbol(absolute_path) ." ". entry_path'
 endfunction
+" }}}
+
+" Terminal {{{
+" ========
+
+" Start new terminals in insert mode
+augroup nvimTerm
+  au!
+  au TermOpen * if &buftype == 'terminal' | :startinsert | :setlocal nonumber | :setlocal norelativenumber | :setlocal signcolumn=no | endif
+augroup END
+
+" Floating terminal
+" https://github.com/voldikss/vim-floaterm
+let g:floaterm_title = 'Terminal ($1/$2)'
+let g:floaterm_borderchars = ['─', '│', '─', '│', '╭', '╮', '╯', '╰']
+" let g:floaterm_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
 " }}}
 
 " Coc.nvim {{{
@@ -477,54 +495,67 @@ let mapleader = '`'
 tnoremap <ESC> <C-\><C-n>
 " send escape to terminal
 tnoremap <leader><ESC> <ESC>
-" toggle terminal (coc-terminal)
-nmap <silent><space>wt <Plug>(coc-terminal-toggle)
+" floating terminal
+function! s:floatermKeybindings() abort
+  map <buffer><silent><space>tn <Cmd>FloatermNew<CR>
+  map <buffer><silent><space>tl <Cmd>FloatermNext<CR>
+  map <buffer><silent><space>th <Cmd>FloatermPrev<CR>
+  map <buffer><silent><space>tq <Cmd>FloatermKill<CR>
+  nmap <buffer><silent><ESC> <Cmd>FloatermToggle<CR>
+  return
+endfunction
+augroup floatTermKeybinding
+  au!
+  au FileType floaterm call <SID>floatermKeybindings()
+augroup END
+map <silent><space><space> <Cmd>FloatermToggle<CR>
 
 " Tab creation/destruction
-nmap <silent><space>tt <Cmd>tabnew +Startify<CR>
-nmap <silent><space>to <Cmd>tabonly<CR>
-nmap <silent><space>tq <Cmd>tabclose<CR>
+map <silent><space>tn <Cmd>tabnew +Startify<CR>
+map <silent><space>to <Cmd>tabonly<CR>
+map <silent><space>tq <Cmd>tabclose<CR>
 
 " Tab navigation
-nmap <silent><space>tl <Cmd>tabnext<CR>
-nmap <silent><space>th <Cmd>tabprevious<CR>
+map <silent><space>tl <Cmd>tabnext<CR>
+map <silent><space>th <Cmd>tabprevious<CR>
 
 " Split creation/destruction
-nmap <silent><space>_  <Cmd>new +term<CR>
-nmap <silent><space>-  <Cmd>botright new +term<CR>
-nmap <silent><space>\  <Cmd>vnew +term<CR>
-nmap <silent><space>\| <Cmd>botright vnew +term<CR>
-nmap <silent><space>ws <Cmd>split<CR>
-nmap <silent><space>wv <Cmd>vsplit<CR>
-nmap <silent><space>wq <Cmd>q<CR>
-nmap <silent><space>wo <Cmd>only<CR>
+map <silent><space>_  <Cmd>new +term<CR>
+map <silent><space>-  <Cmd>botright new +term<CR>
+map <silent><space>\  <Cmd>vnew +term<CR>
+map <silent><space>\| <Cmd>botright vnew +term<CR>
+map <silent><space>ws <Cmd>split<CR>
+map <silent><space>wv <Cmd>vsplit<CR>
+map <silent><space>wq <Cmd>q<CR>
+map <silent><space>wo <Cmd>only<CR>
 
 " Split navigation
-nnoremap <silent><space>wk <Cmd>wincmd k<CR>
-nnoremap <silent><space>wj <Cmd>wincmd j<CR>
-nnoremap <silent><space>wh <Cmd>wincmd h<CR>
-nnoremap <silent><space>wl <Cmd>wincmd l<CR>
-nnoremap <silent><space>wp <Cmd>wincmd p<CR>
+map <silent><space>wk <Cmd>wincmd k<CR>
+map <silent><space>wj <Cmd>wincmd j<CR>
+map <silent><space>wh <Cmd>wincmd h<CR>
+map <silent><space>wl <Cmd>wincmd l<CR>
+map <silent><space>wp <Cmd>wincmd p<CR>
+map <silent><space>wc <Cmd>call ActiveChooseWin()<CR>
+map <silent><space>wz <Cmd>ZoomWinTabToggle<CR>
 
 " Split movement
-nnoremap <silent><space>wmk <C-w>K
-nnoremap <silent><space>wmj <C-w>J
-nnoremap <silent><space>wmh <C-w>H
-nnoremap <silent><space>wml <C-w>L
-nnoremap <silent><space>wmt <C-w>T
-nnoremap <silent><space>wmr <C-w>r
-nnoremap <silent><space>wmR <C-w>R
-nnoremap <silent><space>wmx <C-w>x
+map <silent><space>mk <C-w>K
+map <silent><space>mj <C-w>J
+map <silent><space>mh <C-w>H
+map <silent><space>ml <C-w>L
+map <silent><space>mt <C-w>T
+map <silent><space>mr <C-w>r
+map <silent><space>mR <C-w>R
+map <silent><space>mx <C-w>x
+map <silent><space>ms <Cmd>call ActiveChooseWin()<CR>s
 
 " Various quit/close commands
-nmap <silent><space>qw <Cmd>q<CR>
-nmap <silent><space>qt <Cmd>tabclose<CR>
-nmap <silent><space>qh <Cmd>helpclose<CR>
-nmap <silent><space>qp <Cmd>pclose<CR>
-nmap <silent><space>qc <Cmd>cclose<CR>
+map <silent><space>qw <Cmd>q<CR>
+map <silent><space>qt <Cmd>tabclose<CR>
+map <silent><space>qh <Cmd>helpclose<CR>
+map <silent><space>qp <Cmd>pclose<CR>
+map <silent><space>qc <Cmd>cclose<CR>
 
-" vim-choosewin
-nmap <silent><space><space> <Cmd>call ActiveChooseWin()<CR>
 
 " Git
 " vim-fugitive

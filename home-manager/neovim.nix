@@ -26,7 +26,9 @@ in {
     vim-airline-themes
     vim-choosewin
     vim-devicons
+    vim-floaterm
     vim-startify
+    zoomwintab-vim
 
     # Coc.nvim plugins
     coc-nvim
