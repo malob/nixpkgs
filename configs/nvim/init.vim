@@ -101,6 +101,7 @@ let wand_symbol       = ''
 " General configuration
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]' " only show unusual file encoding
 let g:airline#extensions#hunks#non_zero_only   = 1             " only git stats when there are changes
+let g:airline#extensions#hunks#coc_git         = 1             " only git stats when there are changes
 let g:airline_skip_empty_sections              = 1             " don't show sections if they're empty
 let g:airline_extensions =
 \ [ 'ale'
@@ -125,6 +126,10 @@ let g:airline#extensions#tabline#show_close_button = 0 " don't display close but
 
 " Cutomtomize symbols
 let g:airline_powerline_fonts = 1
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -169,16 +174,22 @@ function! AirlineThemePatch(palette)
     for key in ['normal', 'insert', 'replace', 'visual', 'inactive']
       let a:palette[key].airline_term = a:palette[key].airline_x
     endfor
-    let a:palette.inactive.airline_choosewin = [g:terminal_color_7, g:terminal_color_2, 2, 7, 'bold']
+    " TODO: Fix this, it doesn't do what I want
+    let a:palette.inactive.airline_choosewin = a:palette.normal.airline_a
   endif
 endfunction
 
-" Add coc status to airline (for some reason they don't if you have autochdir on)
+" Add Coc status to Airline (for some reason they don't if you have autochdir on)
 augroup airline-group
   au!
   au User AirlineAfterInit let g:airline_section_c =
     \ airline#section#create(['%<', 'file', ' ', 'readonly', 'coc_status'])
 augroup END
+
+" Add overide for Coc List buffers
+let g:airline_filetype_overrides = {
+\ 'list': [ 'Coc List', '%f' ],
+\ }
 " }}}
 
 " UI Window Chooser {{{
@@ -203,12 +214,17 @@ augroup END
 " Create custom status line when ChooseWin is trigger
 function! ChooseWinAirline(builder, context)
   if g:choosewin_active == 1
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+
     " Define label
-    let label_pad = "      "
+    let label_pad = "       "
     let label = label_pad . g:choosewin_label[a:context.winnr-1] . label_pad
 
     " Figure out how long sides need to be
-    let total_side_width = (winwidth(a:context.winnr)) - 2 - strlen(label) " -2 is for separators
+    let total_side_width = (winwidth(a:context.winnr)) - strlen(label) " add -2 with separators
     let side_width = total_side_width / 2
 
     " Create side padding
@@ -218,7 +234,7 @@ function! ChooseWinAirline(builder, context)
 
     if a:context.active == 0
       " Define status line for inactive windows
-      call a:builder.add_section('airline_a', left_pad)
+      call a:builder.add_section('airline_c', left_pad)
       call a:builder.add_section('airline_choosewin', label)
       call a:builder.split()
       call a:builder.add_section('airline_z', right_pad)
@@ -232,6 +248,10 @@ function! ChooseWinAirline(builder, context)
     return 1
   endif
 
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
   return 0
 endfunction
 
