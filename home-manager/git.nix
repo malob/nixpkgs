@@ -70,7 +70,4 @@
 
   # Enhaced diffs
   programs.git.delta.enable = true;
-  programs.git.delta.options = {
-    theme = "ansi-dark";
-  };
 }

@@ -97,8 +97,10 @@
 
   # Fonts
   fonts.enableFontDir = true;
-  fonts.fonts = [
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  fonts.fonts = with pkgs; [
+    recursive
+    jetbrains-mono
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   # Keyboard

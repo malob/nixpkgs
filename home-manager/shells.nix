@@ -22,30 +22,64 @@
       onEvent = "fish_prompt";
     };
 
-    # Toggles between light and dark colors schemes for Kitty terminal, Neovim, and some CLI tools.
+    # Toggles `$term_colors` between "light" and "dark" (it's initially set in `interactiveShellInit`)
     toggle-colors = {
-      body = let nvr = "${pkgs.neovim-remote}/bin/nvr"; in ''
-        # Toggle envvar (default config on load is "dark")
-        if test "$TERM_COLORS" = light
-          set -xg TERM_COLORS dark
+      body = ''
+        # Toggle envvar (default set in `interactiveShellInit`)
+        if test "$term_colors" = light
+          set -U term_colors dark
         else
-          set -xg TERM_COLORS light
+          set -U term_colors light
         end
+      '';
+    };
 
+    # Changes colors of Kitty, Neovim, and some CLI tools when `$term_colors` changes
+    terminal-colors = with pkgs.neosolarized-colors; {
+      body = let nvr = "${pkgs.neovim-remote}/bin/nvr"; in ''
         # If in Kitty terminal, toggle terminal colors
         if test -n "$KITTY_WINDOW_ID"
-          kitty @ --to unix:/tmp/mykitty set-colors --all --configured ${pkgs.my-kitty-colors}/"$TERM_COLORS"-colors.conf
+          kitty @ --to unix:/tmp/mykitty set-colors --all --configured \
+            ${pkgs.my-kitty-colors}/"$term_colors"-colors.conf &
         end
 
         # If Neovim is running, use neovim-remote to sent command to toggle colors
         if test (${nvr} --serverlist)
-          ${nvr} -s --nostart --servername (nvr --serverlist) -c "set background=$TERM_COLORS"
+          ${nvr} -s --nostart --servername (nvr --serverlist) -c "set background=$term_colors" &
         end
 
         # Toggle colors that Bat and Delta use
-        set -xg BAT_THEME ansi-"$TERM_COLORS"
+        set -xg BAT_THEME ansi-"$term_colors"
+
+        # Set Fish shell colors that depend on `$term_colors`
+        if test "$term_colors" = light
+          set emphasized_text  brgreen  # base01
+          set normal_text      bryellow # base00
+          set secondary_text   brcyan   # base1
+          set background_light white    # base2
+          set background       brwhite  # base3
+        else
+          set emphasized_text  brcyan   # base1
+          set normal_text      brblue   # base0
+          set secondary_text   brgreen  # base01
+          set background_light black    # base02
+          set background       brblack  # base03
+        end
+
+        set -g fish_color_command                    $emphasized_text --bold  # color of commands
+        set -g fish_color_param                      $normal_text             # color of regular command parameters
+        set -g fish_color_comment                    $secondary_text          # color of comments
+        set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
+        set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
+        set -g fish_pager_color_description          $selection_text          # color of the completion description
+        set -g fish_pager_color_selected_prefix      $background
+        set -g fish_pager_color_selected_completion  $background
+        set -g fish_pager_color_selected_description $background
+
       '';
+      onVariable = "term_colors";
     };
+
   };
 
   # Plugins
@@ -81,10 +115,28 @@
 
   # config.fish
   programs.fish.interactiveShellInit = with pkgs.neosolarized-colors; ''
-    set -g fish_greeting ""
-    set -g fish_term24bit 1
+    set -e fish_greeting
     nvim-term-change-dir
     thefuck --alias | source
+
+    # Set terminal colors
+    # the `terminal-colors` function sets certain colors based on the value of `$term_colors`, the
+    # rest don't change and so a set afterwards.
+    set -U fish_term24bit 1
+    if test -z "$term_colors"
+      set -U term_colors light # universal it always persists
+    end
+    terminal-colors
+    set -g fish_color_quote        cyan      # color of commands
+    set -g fish_color_redirection  brmagenta # color of IO redirections
+    set -g fish_color_end          blue      # color of process separators like ';' and '&'
+    set -g fish_color_error        red       # color of potential errors
+    set -g fish_color_match        --reverse # color of highlighted matching parenthesis
+    set -g fish_color_search_match --background=yellow
+    set -g fish_color_selection    --reverse # color of selected text (vi mode)
+    set -g fish_color_operator     green     # color of parameter expansion operators like '*' and '~'
+    set -g fish_color_escape       red       # color of character escapes like '\n' and and '\x70'
+    set -g fish_color_cancel       red       # color of the '^C' indicator on a canceled command
 
     # Neovim Remote aliases
     # Taken from https://github.com/Soares/config.fish/blob/f9a8b48dd042bc93e62d4765633e41b119279040/config.fish#L18-L27
@@ -99,19 +151,6 @@
     else
       alias n 'nvim'
     end
-
-    # Colors for text in commands
-    set -g fish_color_command ${base0} --bold  # color of commands
-    set -g fish_color_param ${base0}           # color of regular command parameters
-    set -g fish_color_autosuggestion ${base01} # color of autosuggestions
-    set -g fish_color_comment ${base01}        # color of code comments
-    set -g fish_color_error ${red}             # color of potential errors
-
-    # Colors for special characters in commands
-    set -g fish_color_escape ${base01}      # color of character escapes like '\n' and and '\x70'
-    set -g fish_color_quote ${cyan}         # color of quoted blocks of text
-    set -g fish_color_redirection ${violet} # color of IO redirections
-    set -g fish_color_end ${blue}           # color of process separators like ';' and '&'
   '';
 
 
@@ -221,15 +260,5 @@
 
     username.style_user = "bold blue";
   };
-
-
-  #########
-  # Other #
-  #########
-
-  # Command history search (ctrl-r)
-  # https://github.com/cantino/mcfly
-  programs.mcfly.enable = true;
-  programs.mcfly.keyScheme = "vim";
 
 }

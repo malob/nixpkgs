@@ -17,7 +17,6 @@
   # https://github.com/sharkdp/bat
   programs.bat.enable = true;
   programs.bat.config = {
-    theme = "ansi-dark";
     style = "plain";
   };
 
@@ -28,7 +27,7 @@
   # Kitty terminal
   # Configuration options defined in overlays: `../overlays/kitty-configs.nix`
   programs.kitty.enable = pkgs.mylib.OS != "Ubuntu";
-  programs.kitty.settings = pkgs.my-kitty-config // pkgs.my-kitty-neosolarized-dark-config;
+  programs.kitty.settings = pkgs.my-kitty-config // pkgs.my-kitty-light-config;
   xdg.configFile."kitty/macos-launch-services-cmdline".text = "--listen-on unix:/tmp/mykitty";
 
   # Htop

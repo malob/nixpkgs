@@ -63,17 +63,16 @@ set splitright " open vertical splits to the right instead of the left with is t
 
 " Misc basic vim ui config
 set colorcolumn=100 " show column boarder
-" set cursorline      " highlight current line
+set cursorline      " highlight current line
 set noshowmode      " don't show --INSERT-- etc.
 set number
 set relativenumber  " relative line numbers
 set signcolumn=yes  " always have signcolumn open to avoid thing shifting around all the time
-set termguicolors   " truecolor support
+set t_Co=16         " use the 16 ANSI terminal colors
 
 " Setup color scheme
 " https://github.com/icymind/NeoSolarized
 let g:neosolarized_italic           = 1 " enable italics (must come before colorscheme command)
-let g:neosolarized_termBoldAsBright = 0 " don't change color of text when bolded in terminal
 colorscheme NeoSolarized                " version of solarized that works better with truecolors
 hi! link SignColumn Normal
 
@@ -161,6 +160,7 @@ let g:airline#extensions#quickfix#quickfix_text = wand_symbol
 let g:airline#extensions#quickfix#location_text = list_symbol
 
 " Patch in missing colors for terminal status line
+let g:airline_solarized_normal_green = 1
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
   if g:airline_theme ==# 'solarized'
