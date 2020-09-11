@@ -36,10 +36,12 @@ in {
     coc-git
     coc-json
     coc-lists
+    coc-markdownlint
     coc-python
     coc-snippets
     coc-tabnine
     coc-tsserver
+    coc-vimlsp
     coc-yaml
     coc-yank
 

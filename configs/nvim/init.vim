@@ -15,6 +15,12 @@ scriptencoding=utf-8
 "   * <space>t for tab related commands.
 "   * <space>q for quit/close related commands.
 "   * <space>g for git related commands.
+"
+" TODO:
+" * Get underline working when terminal can't display squiggly version
+" * ':' keybiding in terminal insert mode
+" * Factor some symbols and colors out to nix config
+" * Fix colors for Choosewin landing highlight and inactive window selection labels
 " }}}
 
 " Basic Vim Config {{{
@@ -40,18 +46,6 @@ set shiftwidth=2 " Width of auto-indents
 augroup checktime
   au!
   au BufEnter,FocusGained,CursorHold,CursorHoldI * checktime
-augroup END
-
-" Function to create mappings in all modes
-function! Anoremap(arg, lhs, rhs)
-  for map_command in ['noremap', 'noremap!', 'tnoremap']
-    execute map_command a:arg a:lhs a:rhs
-  endfor
-endfunction
-
-" Start new terminals in insert mode
-augroup nvimTerm
-  au TermOpen * if &buftype == 'terminal' | :startinsert | :setlocal nonumber | :setlocal norelativenumber | :setlocal signcolumn=no | endif
 augroup END
 
 " Set where splits open
@@ -277,10 +271,10 @@ let g:startify_fortune_use_unicode = 1  " use unicode rather than ASCII in fortu
 
 " Define Startify lists
 let g:startify_lists =
-\ [ {'type': 'files'    , 'header': ['    🕘  Recent']}
-\ , {'type': 'dir'      , 'header': ['    🕘  Recent in '. getcwd()]}
-\ , {'type': 'bookmarks', 'header': ['    🔖  Bookmarks']}
-\ , {'type': 'commands' , 'header': ['    🔧  Commands']}
+\ [ {'type': 'files'    , 'header': ['      Recent']}
+\ , {'type': 'dir'      , 'header': ['      Recent in '. getcwd()]}
+\ , {'type': 'bookmarks', 'header': ['      Bookmarks']}
+\ , {'type': 'commands' , 'header': ['      Commands']}
 \ ]
 
 " Define bookmarks and commands
@@ -288,18 +282,9 @@ let g:startify_lists =
 let g:startify_bookmarks =
 \ [ {'n': '~/.config/nixpkgs/configs/nvim/init.vim'}
 \ , {'c': '~/.config/nixpkgs/configs/nvim/coc-settings.json'}
-\ , {'f': '~/.config/fish/config.fish'}
 \ ]
 let g:startify_commands =
 \ [ {'t': ['Open Terminal',  'term']}
-\ , {'r':
-\     [ 'Resource NeoVim config'
-\     , ' let newVimConfig=system("nix-store --query --references (which nvim) | grep vimrc")
-\       | execute "source" newVimConfig
-\       | redraw
-\       '
-\     ]
-\   }
 \ ]
 
 " Have DevIcons show up in Startify
@@ -338,10 +323,7 @@ set shortmess+=c   " don't show ins-completion-menu messages.
 let g:coc_global_extensions =
 \ [ 'coc-fish'
 \ , 'coc-import-cost'
-\ , 'coc-markdownlint'
 \ , 'coc-sh'
-\ , 'coc-terminal'
-\ , 'coc-vimlsp'
 \ ]
 
 " Custom configuration home
@@ -429,7 +411,7 @@ let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
 let g:airline_section_x = '%{PencilMode()}'
 augroup pencil
   au!
-  au FileType markdown,mkd,text call pencil#init() | set spell
+  au FileType markdown,mkd,text call pencil#init() | setlocal spell
 augroup END
 
 " Goyo
@@ -579,41 +561,41 @@ map <silent><space>qc <Cmd>cclose<CR>
 
 " Git
 " vim-fugitive
-nnoremap <silent><space>gb  <Cmd>Gblame<CR>
-nnoremap <silent><space>gs  <Cmd>Gstatus<CR>
-nnoremap <silent><space>gds <Cmd>Ghdiffsplit<CR>
-nnoremap <silent><space>gdv <Cmd>Gvdiffsplit<CR>
+map <silent><space>gb  <Cmd>Gblame<CR>
+map <silent><space>gs  <Cmd>Gstatus<CR>
+map <silent><space>gds <Cmd>Ghdiffsplit<CR>
+map <silent><space>gdv <Cmd>Gvdiffsplit<CR>
 " coc-nvim (coc-git)
-nmap <silent><space>gw  <Cmd>CocCommand git.browserOpen<CR>
-nmap <silent><space>gcd <Plug>(coc-git-chunkinfo)
-nmap <silent><space>gcj <Plug>(coc-git-nextchunk)
-nmap <silent><space>gck <Plug>(coc-git-prevchunk)
-nmap <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
-nmap <silent><space>gcu <Cmd>CocCommand git.chunkUndo<CR>
-lmap <silent><space>glb <Cmd>CocList branches<CR>
-nmap <silent><space>glc <Cmd>CocList commits<CR>
-nmap <silent><space>gli <Cmd>CocList issues<CR>
-nmap <silent><space>gls <Cmd>CocList gstatus<CR>
+map <silent><space>gw  <Cmd>CocCommand git.browserOpen<CR>
+map <silent><space>gcd <Plug>(coc-git-chunkinfo)
+map <silent><space>gcn <Plug>(coc-git-nextchunk)
+map <silent><space>gcN <Plug>(coc-git-prevchunk)
+map <silent><space>gcs <Cmd>CocCommand git.chunkStage<CR>
+map <silent><space>gcu <Cmd>CocCommand git.chunkUndo<CR>
+map <silent><space>glb <Cmd>CocList branches<CR>
+map <silent><space>glc <Cmd>CocList commits<CR>
+map <silent><space>gli <Cmd>CocList issues<CR>
+map <silent><space>gls <Cmd>CocList gstatus<CR>
 
 " Language server (coc-nvim)
 " actions
-nmap <silent><space>la <Plug>(coc-codeaction)
-nmap <silent><space>lA <Cmd>CocList actions<CR>
-nmap <silent><space>lc <Plug>(coc-codelens-action)
-nmap <silent><space>lq <Plug>(coc-fix-current)
-vmap <silent><space>lf <Plug>(coc-format-selected)
-nmap <silent><space>lf <Plug>(coc-format)
-nmap <silent><space>lr <Plug>(coc-rename)
+map <silent><space>la <Plug>(coc-codeaction)
+map <silent><space>lA <Cmd>CocList actions<CR>
+map <silent><space>lc <Plug>(coc-codelens-action)
+map <silent><space>lq <Plug>(coc-fix-current)
+map <silent><space>lf <Plug>(coc-format-selected)
+map <silent><space>lf <Plug>(coc-format)
+map <silent><space>lr <Plug>(coc-rename)
 " goto
-nmap <silent><space>ln <Plug>(coc-diagnostic-next)
-nmap <silent><space>lN <Plug>(coc-diagnostic-prev)
-nmap <silent><space>ld <Plug>(coc-definition)
-nmap <silent><space>lD <Plug>(coc-declaration)
-nmap <silent><space>li <Plug>(coc-implementation)
-nmap <silent><space>lt <Plug>(coc-type-definition)
-nmap <silent><space>lR <Plug>(coc-references)
+map <silent><space>ln <Plug>(coc-diagnostic-next)
+map <silent><space>lN <Plug>(coc-diagnostic-prev)
+map <silent><space>ld <Plug>(coc-definition)
+map <silent><space>lD <Plug>(coc-declaration)
+map <silent><space>li <Plug>(coc-implementation)
+map <silent><space>lt <Plug>(coc-type-definition)
+map <silent><space>lR <Plug>(coc-references)
 " hover/docs
-nnoremap <silent><space>lh :call <SID>show_documentation()<CR>
+map <silent><space>lh :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -622,59 +604,63 @@ function! s:show_documentation()
   endif
 endfunction
 " lists
-nmap <silent><space>ls <Cmd>CocList symbols<CR>
-nmap <silent><space>le <Cmd>CocList diagnostics<CR>
+map <silent><space>ls <Cmd>CocList symbols<CR>
+map <silent><space>le <Cmd>CocList diagnostics<CR>
 
 " List search (coc-nvim)
 " coc meta lists
-nmap <silent><space>scc <Cmd>CocList commands<CR>
-nmap <silent><space>sce <Cmd>CocList extensions<CR>
-nmap <silent><space>scl <Cmd>CocList lists<CR>
-nmap <silent><space>scs <Cmd>CocList sources<CR>
+map <silent><space>scc <Cmd>CocList commands<CR>
+map <silent><space>sce <Cmd>CocList extensions<CR>
+map <silent><space>scl <Cmd>CocList lists<CR>
+map <silent><space>scs <Cmd>CocList sources<CR>
 " buffers
-nmap <silent><space>sb  <Cmd>CocList buffers<CR>
+map <silent><space>sb  <Cmd>CocList buffers<CR>
 " files
 " TODO: find easy way to search hidden files (in Denite prepending with "." works)
 " TODO: find a way to move up path
-nmap <silent><space>sf  <Cmd>CocList files<CR>
-nmap <silent><space>sp  <Cmd>CocList files -F<CR>
+map <silent><space>sf  <Cmd>CocList files<CR>
+map <silent><space>sp  <Cmd>CocList files -F<CR>
 " filetypes
-nmap <silent><space>st  <Cmd>CocList filetypes<CR>
+map <silent><space>st  <Cmd>CocList filetypes<CR>
 " grep
-nmap <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
-nmap <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
+map <silent><space>sg  <Cmd>CocList --interactive grep -F<CR>
+map <silent><space>sw  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." grep -F"<CR>
 " help tags
-nmap <silent><space>s?  <Cmd>CocList helptags<CR>
+map <silent><space>s?  <Cmd>CocList helptags<CR>
 " lines of buffer
-nmap <silent><space>sl  <Cmd>CocList lines<CR>
-nmap <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
+map <silent><space>sl  <Cmd>CocList lines<CR>
+map <silent><space>s*  <Cmd>execute "CocList --interactive --input=".expand("<cword>")." lines"<CR>
 " maps
-nmap <silent><space>sm  <Cmd>CocList maps<CR>
+map <silent><space>sm  <Cmd>CocList maps<CR>
 " search history
-nmap <silent><space>ss  <Cmd>CocList searchhistory<CR>
+map <silent><space>ss  <Cmd>CocList searchhistory<CR>
 " Vim commands
-nmap <silent><space>sx  <Cmd>CocList vimcommands<CR>
+map <silent><space>sx  <Cmd>CocList vimcommands<CR>
 " Vim commands history
-nmap <silent><space>sh  <Cmd>CocList cmdhistory<CR>
+map <silent><space>sh  <Cmd>CocList cmdhistory<CR>
 " yank history
-nmap <silent><space>sy  <Cmd>CocList --normal yank<CR>
+map <silent><space>sy  <Cmd>CocList --normal yank<CR>
 " resume previous search
-nmap <silent><space>sr  <Cmd>CocListResume<CR>
+map <silent><space>sr  <Cmd>CocListResume<CR>
 
 " Use tab to navigate completion menu and jump in snippets
-" TODO: fix all below, I don't quite understand how it works
-inoremap <expr> <Tab>
+" Pressing Tab goes to next completion of list is open, opens completion list if not preceded by
+" space, and inserts a Tab otherwise.
+inoremap <silent><expr> <Tab>
 \ pumvisible()
-\ ? '<C-n>'
-\ : coc#jumpable()
-\   ? '<C-r>=coc#rpc#request("doKeymap", ["snippets-expand-jump",""])<CR>'
-\   : '<Tab>'
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+\ ? "\<C-n>"
+\ : <SID>check_back_space()
+\   ? "\<Tab>"
+\   : coc#refresh()
+" Pressing Shift-Tab navigates backwards through completion list
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Use <CR> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
