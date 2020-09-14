@@ -8,7 +8,6 @@
 
   # Module disabled because I'm using patched versions not yet upstreamed
   disabledModules = [
-    "networking"
   ];
 
   imports = [
@@ -17,7 +16,6 @@
     "${(import <home-manager> {}).path}/nix-darwin"
 
     # Patched modules
-    ./modules/networking.nix
 
     # Other nix-darwin configuration
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
@@ -81,7 +79,7 @@
     "1.1.1.1"
     "8.8.8.8"
   ];
-  networking.computerName = "Malo’s 💻"; # option not added upstream yet
+  networking.computerName = "Malo’s 💻";
   networking.hostName     = "MaloBookPro";
   networking.knownNetworkServices = [
     "Wi-Fi"
