@@ -38,11 +38,6 @@
   # https://github.com/ajeetdsouza/zoxide
   programs.zoxide.enable = true;
 
-  # lorri, improve `nix-shell` experience in combination with `direnv`
-  # https://github.com/target/lorri
-  # Setup of lorri daemon is handle by nix-darwin on macOS and system config for NixOS
-  # services.lorri.enable = lib.mkIf (pkgs.mylib.OS == "Ubuntu") true;
-
 
   #######################
   # Additional packages #
@@ -101,7 +96,6 @@
     mypkgs.gems.vimgolf # fun Vim puzzels
   ] ++ lib.optionals (mylib.OS == "Ubuntu") [
     abduco
-    nixFlakes
   ]
   ++ lib.optionals (mylib.OS == "NixOS") [
     slack

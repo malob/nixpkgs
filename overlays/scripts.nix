@@ -89,9 +89,9 @@ in {
     fi
 
     if [ $1 = 'update' ] || ([ $1 = 'nix' ] && ([ $2 = 'update' ] || [ $2 = 'update-mypkgs' ] || [ $2 = 'rebuild' ])); then
-      ${if super.stdenv.isDarwin then      "darwin-rebuild switch"
-      else if self.lib.OS == "NixOS" then  "nixos-rebuild switch"
-      else                                 "home-manager switch"}
+      ${if super.stdenv.isDarwin then       "darwin-rebuild switch"
+      else if self.mylib.OS == "NixOS" then "nixos-rebuild switch"
+      else                                  "home-manager switch"}
       if [ $1 = 'nix' ]; then exit 0; fi
     elif [ $1 = 'clean' ] || ([ $1 = 'nix' ] && [ $2 = 'clean' ]); then
       ${nix-cleanup-store}/bin/nix-cleanup-store
