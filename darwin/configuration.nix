@@ -112,21 +112,7 @@
   security.pam.enableSudoTouchIdAuth = true;
 
   # Lorri daemon
-  # Taken from: https://github.com/target/lorri/issues/96#issuecomment-579931485
-  launchd.user.agents.lorri = {
-    serviceConfig = {
-      WorkingDirectory     = (builtins.getEnv "HOME");
-      EnvironmentVariables = { };
-      KeepAlive            = true;
-      RunAtLoad            = true;
-      StandardOutPath      = "/var/tmp/lorri.log";
-      StandardErrorPath    = "/var/tmp/lorri.log";
-    };
-    script = ''
-      source ${config.system.build.setEnvironment}
-      exec ${pkgs.lorri}/bin/lorri daemon
-    '';
-  };
+  services.lorri.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
