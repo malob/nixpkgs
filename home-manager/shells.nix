@@ -39,7 +39,7 @@
       body = let nvr = "${pkgs.neovim-remote}/bin/nvr"; in ''
         # If in Kitty terminal, toggle terminal colors
         if test -n "$KITTY_WINDOW_ID"
-          kitty @ --to unix:/tmp/mykitty set-colors --all --configured \
+          kitty @ --to $KITTY_LISTEN_ON set-colors --all --configured \
             ${pkgs.my-kitty-colors}/"$term_colors"-colors.conf &
         end
 

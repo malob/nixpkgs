@@ -24,6 +24,7 @@ in {
     airline
     NeoSolarized
     vim-airline-themes
+    vim-clap
     vim-choosewin
     vim-devicons
     vim-floaterm
