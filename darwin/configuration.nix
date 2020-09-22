@@ -8,6 +8,7 @@
 
   # Module disabled because I'm using patched versions not yet upstreamed
   disabledModules = [
+    "system/activation-scripts.nix"
   ];
 
   imports = [
@@ -16,6 +17,8 @@
     "${(import <home-manager> {}).path}/nix-darwin"
 
     # Patched modules
+    ./modules/system/activation-scripts.nix
+    ./modules/security/pam.nix
 
     # Other nix-darwin configuration
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
@@ -105,10 +108,8 @@
   system.keyboard.enableKeyMapping      = true;
   system.keyboard.remapCapsLockToEscape = true;
 
-  # Add ability to used TouchID for sudo authentication
-  system.patches = [
-    ./etc-pam.d-sudo.patch
-  ];
+  # Add ability to used TouchID for sudo authentication (custom module)
+  security.pam.enableSudoTouchIdAuth = true;
 
   # Lorri daemon
   # Taken from: https://github.com/target/lorri/issues/96#issuecomment-579931485
