@@ -18,7 +18,7 @@ self: super: {
         sha256 = "1y6416d52qd9cfa4wh4ssarcbl04x6hf157jvas57l9xqkm1b0kq";
       };
 
-      modSha256 = "1ayhg0p3qlgpvahb32iq5xlaydn1gcwr90szyrbjgr7f7cazwqx2";
+      vendorSha256 = "1ayhg0p3qlgpvahb32iq5xlaydn1gcwr90szyrbjgr7f7cazwqx2";
 
       subPackages = [ "cmd/tickgit" ];
 
