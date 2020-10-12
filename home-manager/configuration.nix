@@ -83,16 +83,17 @@
     watchman
 
     # Useful nix related tools
-    cachix # adding/managing atternative binary caches hosted by Cachix
-    lorri  # improve `nix-shell` experience in combination with `direnv`
-    niv    # easy dependency management for nix projects
+    cachix       # adding/managing atternative binary caches hosted by Cachix
+    mypkgs.comma # run software from without installing it
+    lorri        # improve `nix-shell` experience in combination with `direnv`
+    niv          # easy dependency management for nix projects
 
     # My custom nix related shell scripts
     myenv-script
 
   ] ++ lib.optionals (mylib.OS == "macOS") [
     m-cli               # useful macOS cli commands
-    # mypkgs.prefmanager  # tool for working with macOS defaults
+    mypkgs.prefmanager  # tool for working with macOS defaults
     mypkgs.gems.vimgolf # fun Vim puzzels
   ] ++ lib.optionals (mylib.OS == "Ubuntu") [
     abduco

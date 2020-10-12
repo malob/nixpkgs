@@ -1,4 +1,16 @@
 {
+    "comma": {
+        "branch": "master",
+        "description": null,
+        "homepage": null,
+        "owner": "Shopify",
+        "repo": "comma",
+        "rev": "4a62ec17e20ce0e738a8e5126b4298a73903b468",
+        "sha256": "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1",
+        "type": "tarball",
+        "url": "https://github.com/Shopify/comma/archive/4a62ec17e20ce0e738a8e5126b4298a73903b468.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "fish-plugin-done": {
         "branch": "master",
         "description": "A fish-shell package to automatically receive notifications when long processes finish.",
@@ -113,10 +125,10 @@
         "homepage": "",
         "owner": "malob",
         "repo": "prefmanager",
-        "rev": "fa8eb3416cfe798294d93d432e491e82c82025fb",
-        "sha256": "1gi2mhrx3sy54fs7x028ll9d8rdpf19hzkxzq0n2kmnxa6786riw",
+        "rev": "bdf9eae327e058c1708ec01b6e9ec064d2f0557f",
+        "sha256": "110skj5070k9baj2rkxggf7hng7nmjkbgnlidsybgn4hsgi2n13h",
         "type": "tarball",
-        "url": "https://github.com/malob/prefmanager/archive/fa8eb3416cfe798294d93d432e491e82c82025fb.tar.gz",
+        "url": "https://github.com/malob/prefmanager/archive/bdf9eae327e058c1708ec01b6e9ec064d2f0557f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "vim-haskell-module-name": {
