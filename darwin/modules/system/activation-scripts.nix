@@ -57,9 +57,9 @@ in
       ${cfg.activationScripts.users.text}
       ${cfg.activationScripts.nix.text}
       ${cfg.activationScripts.applications.text}
+      ${cfg.activationScripts.pam.text}
       ${cfg.activationScripts.patches.text}
       ${cfg.activationScripts.etc.text}
-      ${cfg.activationScripts.pam.text}
       ${cfg.activationScripts.defaults.text}
       ${cfg.activationScripts.launchd.text}
       ${cfg.activationScripts.nix-daemon.text}
