@@ -181,11 +181,15 @@
       truncation_length         = 2; # number of directories not to truncate
     };
 
+    dart.symbol = " ";
+
     docker.symbol = " ";
 
     elixir.symbol = " ";
 
     elm.symbol = " ";
+
+    gcloud.disabled = true;
 
     git_branch.symbol = " ";
 
@@ -201,25 +205,20 @@
     };
 
     git_status = {
-      prefix    = "";
-      suffix    = " ";
-      ahead     = " ";
-      behind    = " ";
-      diverged  = " ";
-      untracked = " ";
-      stashed   = " ";
-      modified  = " ";
-      staged    = " ";
-      renamed   = " ";
-      deleted   = " ";
+      format     = "([$all_status$ahead_behind]($style) )";
+      conflicted = " ";
+      ahead      = " ";
+      behind     = " ";
+      diverged   = " ";
+      untracked  = " ";
+      stashed    = " ";
+      modified   = " ";
+      staged     = " ";
+      renamed    = " ";
+      deleted    = " ";
     };
 
     golang.symbol = " ";
-
-    haskell = {
-      disabled = true; # too slow
-      symbol   = " ";
-    };
 
     hg_branch.symbol = " ";
 
@@ -236,6 +235,8 @@
       threshold = 90;
     };
 
+    nim.symbol = " ";
+
     nix_shell = {
       use_name = true;
       symbol = " ";
@@ -245,6 +246,8 @@
 
     package.symbol = " ";
 
+    perl.symbol = " ";
+
     php.symbol = " ";
 
     python.symbol = " ";
@@ -252,6 +255,8 @@
     ruby.symbol = " ";
 
     rust.symbol = " ";
+
+    swift.symbol = "ﯣ ";
 
     time = {
       disabled = true;
