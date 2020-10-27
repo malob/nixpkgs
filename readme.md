@@ -10,7 +10,7 @@ This is my Nix configuration (with a few other things thrown in) that I use on a
 ## Notable Features
 * [`niv`](https://github.com/nmattia/niv) as a replacement for `nix-channels` and for better source management throughout the config.
   * Instead of using `nix-channels`, channels are added to [`nix/sources.json`](./nix/sources.json), and [`nix/nix-defexpr`](./nix/nix-defexpr) is simlinked to `~/.nix-defexpr`.
-  * The `unstable` channel is used by default, but both the latest `stable` channel as well as `master` are added to `pkgs` via an [overlay](./overlays/sources.nix) for easy access when need.
+  * The `unstable` channel is used by default, but both the latest `stable` channel as well as `master` are added to `pkgs` via an [overlay](./overlays/channels.nix) for easy access when need.
 * [Git config](home-manager/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
 * Unified colorscheme (based on colors from [NeoSolarized](https://github.com/overcache/NeoSolarized)) for [Kitty terminal](https://sw.kovidgoyal.net/kitty/#), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * adding NeoSolarized colors to `pkgs` via an [overlay](./overlays/neosolarized-colors.nix);
