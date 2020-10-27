@@ -18,7 +18,7 @@
    '';
    # Needed to ensure Fish is set as the default shell:
    # https://github.com/LnL7/nix-darwin/issues/146
-   environment.variables.SHELL = lib.mkForce "/run/current-system/sw/bin/fish";
+   environment.variables.SHELL = "/run/current-system/sw/bin/fish";
 
    # Install and setup ZSH to work with nix(-darwin) as well
    programs.zsh.enable = true;
