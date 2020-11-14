@@ -4,8 +4,9 @@
   # Import config broken out into files
   imports = [
     ./git.nix
-    ./shells.nix
     ./neovim.nix
+    ./shells.nix
+    ./private.nix
   ];
 
 
@@ -47,6 +48,7 @@
     # Some basics
     bandwhich                 # display current network utilization by process
     browsh                    # in terminal browser
+    bottom                    # fancy version of `top` with ASCII graphs
     coreutils
     cloc                      # source code line counter
     curl
@@ -65,7 +67,6 @@
     unrar                     # extract RAR archives
     wget
     xz                        # extract XZ archives
-    ytop                      # fancy version of `top` with ASCII graphs
 
     # General dev stuff
     myenvs.agda
@@ -75,6 +76,7 @@
     nodePackages.bash-language-server
     ccls
     google-cloud-sdk
+    jq
     mypkgs.tickgit
     nodejs
     nodePackages.typescript
