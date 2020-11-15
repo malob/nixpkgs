@@ -119,6 +119,18 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/3090c65041104931adda7625d37fa874b2b5c124.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nixpkgs-staging": {
+        "branch": "staging-next",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "da6239dab3d712aa335fd0928c4e64f9599fef73",
+        "sha256": "0g3rdlx1lp9frg1f8y7j2n1ydc5l4sr4n2rx694dvy4jh0b4fnf3",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/da6239dab3d712aa335fd0928c4e64f9599fef73.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs-unstable": {
         "branch": "nixpkgs-unstable",
         "description": "Nix Packages collection",

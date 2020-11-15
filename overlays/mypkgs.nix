@@ -12,7 +12,7 @@ in {
 
     comma = import sources.comma {};
 
-    tickgit = super.pkgs.stable.buildGoModule rec {
+    tickgit = super.pkgs.buildGoModule rec {
       pname = "tickgit";
       version = "HEAD";
 

@@ -56,8 +56,8 @@
   nixpkgs.overlays = map import ((import ../nix/lsnix.nix) ../overlays);
 
   # Enable experimental version of nix with flakes support
-  nix.package      = pkgs.nixFlakes;
-  nix.extraOptions = "experimental-features = nix-command flakes";
+  # nix.package      = pkgs.nixFlakes;
+  # nix.extraOptions = "experimental-features = nix-command flakes";
 
   # To change location use the following command after updating the option below
   # $ darwin-rebuild switch -I darwin-config=...
