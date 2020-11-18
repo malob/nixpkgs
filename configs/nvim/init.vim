@@ -296,11 +296,22 @@ endfunction
 " Terminal {{{
 " ========
 
-" Start new terminals in insert mode
 augroup nvimTerm
   au!
+  " Set options for terminal buffers
   au TermOpen * if &buftype == 'terminal' | :startinsert | :setlocal nonumber | :setlocal norelativenumber | :setlocal signcolumn=no | endif
+  " Make sure working directory of terminal buffer matches working directory of shell
+  au BufEnter * call Set_term_pwd()
 augroup END
+
+let g:term_pwds = {}
+function Set_term_pwd() abort
+  if &buftype == 'terminal' && exists('g:term_pwds[b:terminal_job_pid]')
+    execute 'lchd ' . g:term_pwds[b:terminal_job_pid]
+    execute 'file term: ' . g:term_pwds[b:terminal_job_pid] . ' [' . b:terminal_job_pid . ']'
+    execute 'AirlineRefresh!'
+  endif
+endfunction
 
 " Floating terminal
 " https://github.com/voldikss/vim-floaterm

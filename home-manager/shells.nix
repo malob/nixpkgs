@@ -16,10 +16,12 @@
     nvim-term-change-dir = {
       body = ''
         if test -n "$NVIM_LISTEN_ADDRESS"
-          ${pkgs.neovim-remote}/bin/nvr -c "lchd $PWD" -c "execute 'file term: $PWD [$fish_pid]'" -c "AirlineRefresh!" &
+          ${pkgs.neovim-remote}/bin/nvr \
+            -c "let g:term_pwds.$fish_pid = '$PWD'" \
+            -c "call Set_term_pwd()"
         end
       '';
-      onEvent = "fish_prompt";
+      onVariable = "PWD";
     };
 
     # Toggles `$term_colors` between "light" and "dark" (it's initially set in `interactiveShellInit`)
@@ -103,6 +105,7 @@
 
   # Aliases
   programs.fish.shellAliases = with pkgs; {
+    ":q" = "exit";
     ".." = "cd ..";
     cat  = "${bat}/bin/bat";
     du   = "${du-dust}/bin/dust";
