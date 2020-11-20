@@ -4,17 +4,20 @@ self: super: {
 
     agda = self.pkgs.agda.withPackages (p: [ p.standard-library ]);
 
-    haskell = self.pkgs.haskellPackages.ghcWithPackages (hPkgs: with hPkgs; [
-      haskell-language-server
-      hoogle
-      hpack
-      implicit-hie
-      stack
-    ]);
+    haskell = super.buildEnv {
+      name = "myHaskellEnv";
+      paths = with self.pkgs; [
+        haskell-language-server
+        haskellPackages.hoogle
+        haskellPackages.hpack
+        haskellPackages.implicit-hie
+        stack
+      ];
+    };
 
     idris = with self.idrisPackages; with-packages [ contrib ];
 
-    python = self.pkgs.stable.python3.withPackages (ps: [
+    python = self.pkgs.python3.withPackages (ps: [
       ps.mypy
       ps.pylint
       ps.yapf
