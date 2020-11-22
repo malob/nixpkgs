@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 let
   sources = import ../nix/sources.nix;
@@ -6,10 +6,11 @@ let
   customVimPlugins = with pkgs.vimUtils; {
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
-      src  = sources.vim-haskell-module-name;
+      src = sources.vim-haskell-module-name;
     };
   };
-in {
+in
+{
 
   programs.neovim.enable = true;
 

@@ -38,47 +38,50 @@
 
     # Changes colors of Kitty, Neovim, and some CLI tools when `$term_colors` changes
     terminal-colors = with pkgs.neosolarized-colors; {
-      body = let nvr = "${pkgs.neovim-remote}/bin/nvr"; in ''
-        # If in Kitty terminal, toggle terminal colors
-        if test -n "$KITTY_WINDOW_ID"
-          kitty @ --to $KITTY_LISTEN_ON set-colors --all --configured \
-            ${pkgs.my-kitty-colors}/"$term_colors"-colors.conf &
-        end
+      body = let
+        nvr = "${pkgs.neovim-remote}/bin/nvr";
+      in
+        ''
+          # If in Kitty terminal, toggle terminal colors
+          if test -n "$KITTY_WINDOW_ID"
+            kitty @ --to $KITTY_LISTEN_ON set-colors --all --configured \
+              ${pkgs.my-kitty-colors}/"$term_colors"-colors.conf &
+          end
 
-        # If Neovim is running, use neovim-remote to sent command to toggle colors
-        if test (${nvr} --serverlist)
-          ${nvr} -s --nostart --servername (nvr --serverlist) -c "set background=$term_colors" &
-        end
+          # If Neovim is running, use neovim-remote to sent command to toggle colors
+          if test (${nvr} --serverlist)
+            ${nvr} -s --nostart --servername (nvr --serverlist) -c "set background=$term_colors" &
+          end
 
-        # Toggle colors that Bat and Delta use
-        set -xg BAT_THEME ansi-"$term_colors"
+          # Toggle colors that Bat and Delta use
+          set -xg BAT_THEME ansi-"$term_colors"
 
-        # Set Fish shell colors that depend on `$term_colors`
-        if test "$term_colors" = light
-          set emphasized_text  brgreen  # base01
-          set normal_text      bryellow # base00
-          set secondary_text   brcyan   # base1
-          set background_light white    # base2
-          set background       brwhite  # base3
-        else
-          set emphasized_text  brcyan   # base1
-          set normal_text      brblue   # base0
-          set secondary_text   brgreen  # base01
-          set background_light black    # base02
-          set background       brblack  # base03
-        end
+          # Set Fish shell colors that depend on `$term_colors`
+          if test "$term_colors" = light
+            set emphasized_text  brgreen  # base01
+            set normal_text      bryellow # base00
+            set secondary_text   brcyan   # base1
+            set background_light white    # base2
+            set background       brwhite  # base3
+          else
+            set emphasized_text  brcyan   # base1
+            set normal_text      brblue   # base0
+            set secondary_text   brgreen  # base01
+            set background_light black    # base02
+            set background       brblack  # base03
+          end
 
-        set -g fish_color_command                    $emphasized_text --bold  # color of commands
-        set -g fish_color_param                      $normal_text             # color of regular command parameters
-        set -g fish_color_comment                    $secondary_text          # color of comments
-        set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
-        set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
-        set -g fish_pager_color_description          $selection_text          # color of the completion description
-        set -g fish_pager_color_selected_prefix      $background
-        set -g fish_pager_color_selected_completion  $background
-        set -g fish_pager_color_selected_description $background
+          set -g fish_color_command                    $emphasized_text --bold  # color of commands
+          set -g fish_color_param                      $normal_text             # color of regular command parameters
+          set -g fish_color_comment                    $secondary_text          # color of comments
+          set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
+          set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
+          set -g fish_pager_color_description          $selection_text          # color of the completion description
+          set -g fish_pager_color_selected_prefix      $background
+          set -g fish_pager_color_selected_completion  $background
+          set -g fish_pager_color_selected_description $background
 
-      '';
+        '';
       onVariable = "term_colors";
     };
 
@@ -91,7 +94,7 @@
       # Receive notifications when long processes finish
       # https://github.com/franciscolourenco/done
       name = "done";
-      src  = (import ../nix/sources.nix).fish-plugin-done;
+      src = (import ../nix/sources.nix).fish-plugin-done;
     }
     {
       # Dependency of Done plugin
@@ -107,13 +110,13 @@
   programs.fish.shellAliases = with pkgs; {
     ":q" = "exit";
     ".." = "cd ..";
-    cat  = "${bat}/bin/bat";
-    du   = "${du-dust}/bin/dust";
-    g    = "${gitAndTools.git}/bin/git";
-    ls   = "${exa}/bin/exa";
-    ll   = "ls -l --time-style long-iso --icons";
-    la   = "ll -a";
-    ps   = "${procs}/bin/procs";
+    cat = "${bat}/bin/bat";
+    du = "${du-dust}/bin/dust";
+    g = "${gitAndTools.git}/bin/git";
+    ls = "${exa}/bin/exa";
+    ll = "ls -l --time-style long-iso --icons";
+    la = "ll -a";
+    ps = "${procs}/bin/procs";
   };
 
   # config.fish
@@ -171,17 +174,17 @@
     aws.symbol = " ";
 
     battery = {
-      full_symbol        = "";
-      charging_symbol    = "";
+      full_symbol = "";
+      charging_symbol = "";
       discharging_symbol = "";
-      display.threshold  = 25; # display battery information if charge is <= 25%
+      display.threshold = 25; # display battery information if charge is <= 25%
     };
 
     conda.symbol = " ";
 
     directory = {
       fish_style_pwd_dir_length = 1; # turn on fish directory truncation
-      truncation_length         = 2; # number of directories not to truncate
+      truncation_length = 2; # number of directories not to truncate
     };
 
     dart.symbol = " ";
@@ -197,28 +200,28 @@
     git_branch.symbol = " ";
 
     git_state = {
-      rebase           = "咽";
-      merge            = "";
-      revert           = "";
-      cherry_pick      = "";
-      bisect           = "";
-      am               = "ﯬ";
-      am_or_rebase     = "ﯬ or 咽";
+      rebase = "咽";
+      merge = "";
+      revert = "";
+      cherry_pick = "";
+      bisect = "";
+      am = "ﯬ";
+      am_or_rebase = "ﯬ or 咽";
       progress_divider = " of ";
     };
 
     git_status = {
-      format     = "([$all_status$ahead_behind]($style) )";
+      format = "([$all_status$ahead_behind]($style) )";
       conflicted = " ";
-      ahead      = " ";
-      behind     = " ";
-      diverged   = " ";
-      untracked  = " ";
-      stashed    = " ";
-      modified   = " ";
-      staged     = " ";
-      renamed    = " ";
-      deleted    = " ";
+      ahead = " ";
+      behind = " ";
+      diverged = " ";
+      untracked = " ";
+      stashed = " ";
+      modified = " ";
+      staged = " ";
+      renamed = " ";
+      deleted = " ";
     };
 
     golang.symbol = " ";
@@ -233,8 +236,8 @@
 
     # Disable because it includes cached memory so memory is reported as full a lot
     memory_usage = {
-      disabled  = true;
-      symbol    = " ";
+      disabled = true;
+      symbol = " ";
       threshold = 90;
     };
 
@@ -263,7 +266,7 @@
 
     time = {
       disabled = true;
-      format   = "%R";
+      format = "%R";
     };
 
     username.style_user = "bold blue";

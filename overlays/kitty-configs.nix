@@ -10,7 +10,8 @@ let
   writeKittyConfigToStore = fileName: config:
     super.pkgs.writeTextDir "${fileName}" (setToKittyConfig config);
 
-in rec {
+in
+rec {
   # Config for NeoSolarized dark colors
   # https://sw.kovidgoyal.net/kitty/conf.html
   my-kitty-dark-config = with self.neosolarized-colors; rec {
@@ -18,7 +19,7 @@ in rec {
     foreground = "#${base0}";
 
     # Cursor
-    cursor            = foreground;
+    cursor = foreground;
     cursor_text_color = background;
 
     # Selection
@@ -36,7 +37,7 @@ in rec {
     foreground = "#${base00}";
 
     # Cursor
-    cursor            = foreground;
+    cursor = foreground;
     cursor_text_color = background;
 
     # Selection
@@ -55,29 +56,29 @@ in rec {
 
     # Colors
     # black
-    color0     = "#${base02}";
-    color8     = "#${base03}";
+    color0 = "#${base02}";
+    color8 = "#${base03}";
     # red
-    color1     = "#${red}";
-    color9     = "#${orange}";
+    color1 = "#${red}";
+    color9 = "#${orange}";
     # green
-    color2     = "#${green}";
-    color10    = "#${base01}";
+    color2 = "#${green}";
+    color10 = "#${base01}";
     # yellow
-    color3     = "#${yellow}";
-    color11    = "#${base00}";
+    color3 = "#${yellow}";
+    color11 = "#${base00}";
     # blue
-    color4     = "#${blue}";
-    color12    = "#${base0}";
+    color4 = "#${blue}";
+    color12 = "#${base0}";
     # magenta
-    color5     = "#${magenta}";
-    color13    = "#${violet}";
+    color5 = "#${magenta}";
+    color13 = "#${violet}";
     # cyan
-    color6     = "#${cyan}";
-    color14    = "#${base1}";
+    color6 = "#${cyan}";
+    color14 = "#${base1}";
     # white
-    color7     = "#${base2}";
-    color15    = "#${base3}";
+    color7 = "#${base2}";
+    color15 = "#${base3}";
     # url underline color to fit colors
     url_color = "#${blue}";
 
@@ -85,7 +86,7 @@ in rec {
     # Recursive: https://www.recursive.design
     # "Duotone" pre-configured version which uses Linear for normal text and Casual for italic
     # https://github.com/arrowtype/recursive/tree/main/fonts/ArrowType-Recursive-1.064/Recursive_Code
-    font_family   = "Rec Mono Duotone";
+    font_family = "Rec Mono Duotone";
     font_features = "RecMono-Duotone +dlig +ss10";
     # Don't use Nerd Font version of fonts cause they often cause display issues in terminal,
     # instead, patch the specific code-points in using `symbol_map`.
@@ -96,25 +97,26 @@ in rec {
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
     # Window layout
-    hide_window_decorations ="titlebar-only";
+    hide_window_decorations = "titlebar-only";
     window_padding_width = "10";
 
     # Tab bar
-    tab_bar_edge            = "top";
-    tab_bar_style           = "powerline";
-    tab_title_template      = ''Tab {index}: {title}'';
-    active_tab_foreground   = "#${base3}";
-    active_tab_background   = "#${green}";
-    active_tab_font_style   = "bold";
+    tab_bar_edge = "top";
+    tab_bar_style = "powerline";
+    tab_title_template = ''Tab {index}: {title}'';
+    active_tab_foreground = "#${base3}";
+    active_tab_background = "#${green}";
+    active_tab_font_style = "bold";
     inactive_tab_foreground = active_tab_foreground;
     inactive_tab_background = "#${base1}";
     inactive_tab_font_style = "normal";
+    tab_activity_symbol = "";
   };
 
   # Write color configs to Nix store
   my-kitty-colors = super.pkgs.symlinkJoin {
-    name        = "my-kitty-colors";
-    paths       = [
+    name = "my-kitty-colors";
+    paths = [
       (writeKittyConfigToStore "dark-colors.conf" my-kitty-dark-config)
       (writeKittyConfigToStore "light-colors.conf" my-kitty-light-config)
     ];

@@ -17,10 +17,12 @@ self: super: {
 
     idris = with self.idrisPackages; with-packages [ contrib ];
 
-    python = self.pkgs.python3.withPackages (ps: [
-      ps.mypy
-      ps.pylint
-      ps.yapf
-    ]);
+    python = self.pkgs.python3.withPackages (
+      ps: [
+        ps.mypy
+        ps.pylint
+        ps.yapf
+      ]
+    );
   };
 }

@@ -22,8 +22,8 @@
 
     # Other nix-darwin configuration
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
-    ./private.nix  # private settings not committed to git
-    ./shells.nix   # shell configuration
+    ./private.nix # private settings not committed to git
+    ./shells.nix # shell configuration
   ];
 
 
@@ -56,8 +56,8 @@
   nixpkgs.overlays = map import ((import ../nix/lsnix.nix) ../overlays);
 
   # Enable experimental version of nix with flakes support
-  # nix.package      = pkgs.nixFlakes;
-  # nix.extraOptions = "experimental-features = nix-command flakes";
+  nix.package = pkgs.nixFlakes;
+  nix.extraOptions = "experimental-features = nix-command flakes";
 
   # To change location use the following command after updating the option below
   # $ darwin-rebuild switch -I darwin-config=...
@@ -87,7 +87,7 @@
     "8.8.8.8"
   ];
   networking.computerName = "Malo’s 💻";
-  networking.hostName     = "MaloBookPro";
+  networking.hostName = "MaloBookPro";
   networking.knownNetworkServices = [
     "Wi-Fi"
     "USB 10/100/1000 LAN"
@@ -109,7 +109,7 @@
   ];
 
   # Keyboard
-  system.keyboard.enableKeyMapping      = true;
+  system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 
   # Add ability to used TouchID for sudo authentication (custom module)

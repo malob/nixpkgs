@@ -32,7 +32,7 @@
   xdg.configFile."kitty/macos-launch-services-cmdline".text = "--listen-on unix:/tmp/mykitty";
 
   # Htop
-  programs.htop.enable          = true;
+  programs.htop.enable = true;
   programs.htop.showProgramPath = true;
 
   # Zoxide, a faster way to navigate the filesystem
@@ -46,27 +46,27 @@
 
   home.packages = with pkgs; [
     # Some basics
-    bandwhich                 # display current network utilization by process
-    browsh                    # in terminal browser
-    bottom                    # fancy version of `top` with ASCII graphs
+    bandwhich # display current network utilization by process
+    browsh # in terminal browser
+    bottom # fancy version of `top` with ASCII graphs
     coreutils
-    cloc                      # source code line counter
+    cloc # source code line counter
     curl
-    du-dust                   # fancy version of `du`
-    exa                       # fancy version of `ls`
-    fd                        # fancy version of `find`
-    htop                      # fancy version of `top`
-    hyperfine                 # benchmarking tool
-    mosh                      # wrapper for `ssh` that better and not dropping connections
-    parallel                  # runs commands in parallel
-    procs                     # fancy version of `ps`
-    ripgrep                   # better version of grep
-    nodePackages.speed-test   # nice speed-test tool
-    thefuck                   # suggests fixes to commands that exit with a non-zero status
-    tealdeer                  # rust implementation of `tldr`
-    unrar                     # extract RAR archives
+    du-dust # fancy version of `du`
+    exa # fancy version of `ls`
+    fd # fancy version of `find`
+    htop # fancy version of `top`
+    hyperfine # benchmarking tool
+    mosh # wrapper for `ssh` that better and not dropping connections
+    parallel # runs commands in parallel
+    procs # fancy version of `ps`
+    ripgrep # better version of grep
+    nodePackages.speed-test # nice speed-test tool
+    thefuck # suggests fixes to commands that exit with a non-zero status
+    tealdeer # rust implementation of `tldr`
+    unrar # extract RAR archives
     wget
-    xz                        # extract XZ archives
+    xz # extract XZ archives
 
     # General dev stuff
     myenvs.agda
@@ -85,18 +85,17 @@
     watchman
 
     # Useful nix related tools
-    cachix       # adding/managing atternative binary caches hosted by Cachix
+    cachix # adding/managing atternative binary caches hosted by Cachix
     mypkgs.comma # run software from without installing it
-    lorri        # improve `nix-shell` experience in combination with `direnv`
-    niv          # easy dependency management for nix projects
+    lorri # improve `nix-shell` experience in combination with `direnv`
+    niv # easy dependency management for nix projects
 
     # My custom nix related shell scripts
     myenv-script
 
   ] ++ lib.optionals (mylib.OS == "macOS") [
-    m-cli               # useful macOS cli commands
-    mypkgs.prefmanager  # tool for working with macOS defaults
-    mypkgs.gems.vimgolf # fun Vim puzzels
+    m-cli # useful macOS cli commands
+    mypkgs.prefmanager # tool for working with macOS defaults
   ] ++ lib.optionals (mylib.OS == "Ubuntu") [
     abduco
   ]
