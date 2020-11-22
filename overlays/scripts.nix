@@ -17,19 +17,7 @@ let
     printf "\n*************************************\n"
     printf "\nUpdating Node package nix expressions\n"
     printf "\n*************************************\n"
-    ${self.pkgs.nodePackages.node2nix}/bin/node2nix --nodejs-12 -i node-packages.json
-    popd
-    pushd ~/.config/nixpkgs/pkgs/ruby-gems/
-    printf "\n**********************************\n"
-    printf "\nUpdating Ruby Gems nix expressions\n"
-    printf "\n**********************************\n"
-    ${self.pkgs.bundix}/bin/bundix --magic
-    popd
-    pushd ~/.config/nixpkgs/pkgs/python-packages
-    printf "\n***************************************\n"
-    printf "\nUpdating Python package nix expressions\n"
-    printf "\n***************************************\n"
-    ${self.pkgs.pypi2nix}/bin/pypi2nix --python-version python37 --requirements requirements.txt
+    ${self.pkgs.nodePackages.node2nix}/bin/node2nix
     popd
   '';
 
@@ -64,7 +52,8 @@ let
     brew bundle cleanup --zap --force --file=~/.config/nixpkgs/Brewfile
   '';
 
-in {
+in
+{
   myenv-script = super.writeShellScriptBin "myenv" ''
     ${if super.stdenv.isDarwin then ''
     # Brew
@@ -76,7 +65,7 @@ in {
       if [ $1 = 'brew' ]; then exit 0; fi
     fi
 
-    '' else ""}
+  '' else ""}
     # Nix
     if [ $1 = 'update' ] || ([ $1 = 'nix' ] && [ $2 = 'update' ]); then
       pushd ~/.config/nixpkgs
@@ -89,9 +78,9 @@ in {
     fi
 
     if [ $1 = 'update' ] || ([ $1 = 'nix' ] && ([ $2 = 'update' ] || [ $2 = 'update-mypkgs' ] || [ $2 = 'rebuild' ])); then
-      ${if super.stdenv.isDarwin then       "darwin-rebuild switch"
-      else if self.mylib.OS == "NixOS" then "nixos-rebuild switch"
-      else                                  "home-manager switch"}
+      ${if super.stdenv.isDarwin then "darwin-rebuild switch"
+  else if self.mylib.OS == "NixOS" then "nixos-rebuild switch"
+  else "home-manager switch"}
       if [ $1 = 'nix' ]; then exit 0; fi
     elif [ $1 = 'clean' ] || ([ $1 = 'nix' ] && [ $2 = 'clean' ]); then
       ${nix-cleanup-store}/bin/nix-cleanup-store

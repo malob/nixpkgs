@@ -2,11 +2,10 @@
 self: super:
 let
   sources = import ../nix/sources.nix;
-in {
+in
+{
   mypkgs = {
-    gems = super.pkgs.callPackage ../pkgs/ruby-gems {};
-    nodePackages =  super.pkgs.callPackage ../pkgs/node-packages {};
-    pythonPackages = import ../pkgs/python-packages/requirements.nix {pkgs = self;};
+    nodePackages = super.pkgs.callPackage ../pkgs/node-packages {};
 
     prefmanager = (import sources.prefmanager {}).prefmanager.components.exes.prefmanager;
 
