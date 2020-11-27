@@ -330,13 +330,6 @@ set nowritebackup
 set updatetime=300 " smaller update time for CursorHold and CursorHoldI
 set shortmess+=c   " don't show ins-completion-menu messages.
 
-" Extensions to load
-let g:coc_global_extensions =
-\ [ 'coc-fish'
-\ , 'coc-import-cost'
-\ , 'coc-sh'
-\ ]
-
 " Custom configuration home
 let g:coc_config_home = $HOME . '/.config/nixpkgs/configs/nvim/'
 

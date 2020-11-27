@@ -1,3 +1,6 @@
 [
-  "purescript-language-server"
+  "purescript-language-server",
+  "coc-fish",
+  "coc-import-cost",
+  "coc-sh"
 ]

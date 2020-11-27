@@ -3,11 +3,14 @@
 let
   sources = import ../nix/sources.nix;
 
-  customVimPlugins = with pkgs.vimUtils; {
+  customVimPlugins = with pkgs.vimUtils // pkgs.mylib; {
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
       src = sources.vim-haskell-module-name;
     };
+    coc-fish = nodePackage2VimPackage "coc-fish";
+    coc-import-cost = nodePackage2VimPackage "coc-import-cost";
+    coc-sh = nodePackage2VimPackage "coc-sh";
   };
 in
 {
@@ -20,7 +23,7 @@ in
   '';
 
   # Plugins
-  programs.neovim.plugins = with pkgs.vimPlugins // customVimPlugins; [
+  programs.neovim.plugins = with pkgs.vimPlugins; [
     # UI plugins
     airline
     NeoSolarized
@@ -35,15 +38,18 @@ in
     # Coc.nvim plugins
     coc-nvim
     coc-eslint
+    customVimPlugins.coc-fish
     coc-git
+    customVimPlugins.coc-import-cost
     coc-json
     coc-lists
-    coc-markdownlint
+    pkgs.master.vimPlugins.coc-markdownlint
     coc-python
+    customVimPlugins.coc-sh
     coc-snippets
     coc-tabnine
     coc-tsserver
-    coc-vimlsp
+    pkgs.master.vimPlugins.coc-vimlsp
     coc-yaml
     coc-yank
 
@@ -57,7 +63,7 @@ in
     vim-commentary
     vim-eunuch
     vim-fugitive
-    vim-haskell-module-name
+    customVimPlugins.vim-haskell-module-name
     vim-pencil
     vim-polyglot
     vim-surround

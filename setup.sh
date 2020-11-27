@@ -19,6 +19,6 @@ if grep 'NAME="Ubuntu"' /etc/os-release > /dev/null; then
   # Other misc stuff
   tldr --update
 
-  # Jump into Fish shell 
+  # Jump into Fish shell
   exec fish
 fi
