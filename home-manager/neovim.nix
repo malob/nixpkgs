@@ -43,13 +43,13 @@ in
     customVimPlugins.coc-import-cost
     coc-json
     coc-lists
-    pkgs.master.vimPlugins.coc-markdownlint
+    coc-markdownlint
     coc-python
     customVimPlugins.coc-sh
     coc-snippets
     coc-tabnine
     coc-tsserver
-    pkgs.master.vimPlugins.coc-vimlsp
+    coc-vimlsp
     coc-yaml
     coc-yank
 

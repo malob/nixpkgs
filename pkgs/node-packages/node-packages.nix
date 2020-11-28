@@ -1327,13 +1327,13 @@ let
         sha1 = "b534e7c734c4f81ec5fbe8aca2ad24354b962c6c";
       };
     };
-    "caniuse-db-1.0.30001161" = {
+    "caniuse-db-1.0.30001164" = {
       name = "caniuse-db";
       packageName = "caniuse-db";
-      version = "1.0.30001161";
+      version = "1.0.30001164";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30001161.tgz";
-        sha512 = "wF8lcUGCKT+Od+27u4z5ahGSI5lB/xSTf/V8sEU5inDsORj0B4zGzs8YVdd76EIjA5muAjhfrkSTclXUb7MDFw==";
+        url = "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30001164.tgz";
+        sha512 = "IbIthrNouxc17oTlwskmg3M1wUVjobS11fBGsym6EnTBZit6vtax2iDyZiSPHCRA1BRO9pO+IDhES8YyXNbaoQ==";
       };
     };
     "caseless-0.12.0" = {
@@ -1921,13 +1921,13 @@ let
         sha1 = "3a83a904e54353287874c564b7549386849a98c9";
       };
     };
-    "electron-to-chromium-1.3.610" = {
+    "electron-to-chromium-1.3.612" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.610";
+      version = "1.3.612";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.610.tgz";
-        sha512 = "eFDC+yVQpEhtlapk4CYDPfV9ajF9cEof5TBcO49L1ETO+aYogrKWDmYpZyxBScMNe8Bo/gJamH4amQ4yyvXg4g==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.612.tgz";
+        sha512 = "CdrdX1B6mQqxfw+51MPWB5qA6TKWjza9f5voBtUlRfEZEwZiFaxJLrhFI8zHE9SBAuGt4h84rQU6Ho9Bauo1LA==";
       };
     };
     "elliptic-6.5.3" = {
@@ -5674,13 +5674,13 @@ let
         sha512 = "LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==";
       };
     };
-    "y18n-4.0.0" = {
+    "y18n-4.0.1" = {
       name = "y18n";
       packageName = "y18n";
-      version = "4.0.0";
+      version = "4.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/y18n/-/y18n-4.0.0.tgz";
-        sha512 = "r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==";
+        url = "https://registry.npmjs.org/y18n/-/y18n-4.0.1.tgz";
+        sha512 = "wNcy4NvjMYL8gogWWYAO7ZFWFfHcbdbE57tZO8e4cbpj8tfUcwrwqSl3ad8HxpYWCdXcJUCeKKZS62Av1affwQ==";
       };
     };
     "yallist-3.1.1" = {
@@ -5932,7 +5932,7 @@ in
       sources."cacache-12.0.4"
       sources."cache-base-1.0.1"
       sources."caniuse-api-1.6.1"
-      sources."caniuse-db-1.0.30001161"
+      sources."caniuse-db-1.0.30001164"
       sources."chalk-2.4.2"
       (sources."chokidar-3.4.3" // {
         dependencies = [
@@ -6020,7 +6020,7 @@ in
       })
       sources."domain-browser-1.2.0"
       sources."duplexify-3.7.1"
-      sources."electron-to-chromium-1.3.610"
+      sources."electron-to-chromium-1.3.612"
       (sources."elliptic-6.5.3" // {
         dependencies = [
           sources."bn.js-4.11.9"
@@ -6547,7 +6547,7 @@ in
       sources."worker-farm-1.7.0"
       sources."wrappy-1.0.2"
       sources."xtend-4.0.2"
-      sources."y18n-4.0.0"
+      sources."y18n-4.0.1"
       sources."yallist-3.1.1"
     ];
     buildInputs = globalBuildInputs;

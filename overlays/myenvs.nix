@@ -15,7 +15,7 @@ self: super: {
       ];
     };
 
-    idris = with self.idrisPackages; with-packages [ contrib ];
+    idris = self.pkgs.idris2; # with self.idrisPackages; with-packages [ contrib ];
 
     python = self.pkgs.python3.withPackages (
       ps: [
