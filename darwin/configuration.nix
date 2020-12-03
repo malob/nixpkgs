@@ -1,23 +1,16 @@
 { config, pkgs, lib, ... }:
 
 {
-
   #######################
   # Modules and Imports #
   #######################
-
-  # Module disabled because I'm using patched versions not yet upstreamed
-  disabledModules = [
-    "system/activation-scripts.nix"
-  ];
 
   imports = [
     # nix-darwin module form home-manager
     # Can't just import `<home-manager/nix-darwin>` given that I use `niv` to manager channels
     "${(import <home-manager> {}).path}/nix-darwin"
 
-    # Patched modules
-    ./modules/system/activation-scripts.nix
+    # Personal modules
     ./modules/security/pam.nix
 
     # Other nix-darwin configuration
@@ -113,6 +106,7 @@
 
   # Add ability to used TouchID for sudo authentication (custom module)
   security.pam.enableSudoTouchIdAuth = true;
+  system.activationScripts.extraActivation.text = config.system.activationScripts.pam.text;
 
   # Lorri daemon
   services.lorri.enable = true;
