@@ -6,8 +6,7 @@
     ./git.nix
     ./neovim.nix
     ./shells.nix
-    ./private.nix
-  ];
+  ] ++ lib.filter lib.pathExists [ ./private.nix ];
 
 
   ###########################

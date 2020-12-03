@@ -22,9 +22,8 @@
 
     # Other nix-darwin configuration
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
-    ./private.nix # private settings not committed to git
     ./shells.nix # shell configuration
-  ];
+  ] ++ lib.filter lib.pathExists [ ./private.nix ];
 
 
   #####################
