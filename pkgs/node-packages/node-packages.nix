@@ -1327,13 +1327,13 @@ let
         sha1 = "b534e7c734c4f81ec5fbe8aca2ad24354b962c6c";
       };
     };
-    "caniuse-db-1.0.30001164" = {
+    "caniuse-db-1.0.30001165" = {
       name = "caniuse-db";
       packageName = "caniuse-db";
-      version = "1.0.30001164";
+      version = "1.0.30001165";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30001164.tgz";
-        sha512 = "IbIthrNouxc17oTlwskmg3M1wUVjobS11fBGsym6EnTBZit6vtax2iDyZiSPHCRA1BRO9pO+IDhES8YyXNbaoQ==";
+        url = "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30001165.tgz";
+        sha512 = "0Z8BRu+sxK2qh/+yXM+sUwbpX+qJpIg7BgAJZe3zw7WL6arffICUfNmUCPDRCP4WGyo4tC1d//1xAHz3mzA2uw==";
       };
     };
     "caseless-0.12.0" = {
@@ -1921,13 +1921,13 @@ let
         sha1 = "3a83a904e54353287874c564b7549386849a98c9";
       };
     };
-    "electron-to-chromium-1.3.612" = {
+    "electron-to-chromium-1.3.615" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.3.612";
+      version = "1.3.615";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.612.tgz";
-        sha512 = "CdrdX1B6mQqxfw+51MPWB5qA6TKWjza9f5voBtUlRfEZEwZiFaxJLrhFI8zHE9SBAuGt4h84rQU6Ho9Bauo1LA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.615.tgz";
+        sha512 = "fNYTQXoUhNc6RmHDlGN4dgcLURSBIqQCN7ls6MuQ741+NJyLNRz8DxAC+pZpOKfRs6cfY0lv2kWdy8Oxf9j4+A==";
       };
     };
     "elliptic-6.5.3" = {
@@ -2659,13 +2659,13 @@ let
         sha1 = "c60eed69e6d8fdb6b3104a1fcbca1c192dc5b501";
       };
     };
-    "import-cost-1.9.0" = {
+    "import-cost-1.10.0" = {
       name = "import-cost";
       packageName = "import-cost";
-      version = "1.9.0";
+      version = "1.10.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/import-cost/-/import-cost-1.9.0.tgz";
-        sha512 = "MdTEAqlwMiXtvbX8h5/lqOCm9NIegU0L1WsqlHdFCAplJzEh/UVrVVatsMCUvrPUV1qexKMp6K438WNWt2JPpw==";
+        url = "https://registry.npmjs.org/import-cost/-/import-cost-1.10.0.tgz";
+        sha512 = "tmKJxPmnISt4OjI1ioJlczAKhIx9GDDTYdbNPR8WM39k40pmpzteqxh6ZR8+cm8AvrKaZT9JXIudHgyCNY+ydw==";
       };
     };
     "imurmurhash-0.1.4" = {
@@ -3361,13 +3361,13 @@ let
         sha1 = "ecdca8f13144e660f1b5bd41f12f3479d98dfb8f";
       };
     };
-    "math-expression-evaluator-1.3.3" = {
+    "math-expression-evaluator-1.3.6" = {
       name = "math-expression-evaluator";
       packageName = "math-expression-evaluator";
-      version = "1.3.3";
+      version = "1.3.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/math-expression-evaluator/-/math-expression-evaluator-1.3.3.tgz";
-        sha512 = "geKTlqoxnjqHoWqB71h0kchWIC23a3yfwwbZu4E2amjvGLF+fTjCCwBQOHkE0/oHc6KdnSVmMt3QB82KaPmKEA==";
+        url = "https://registry.npmjs.org/math-expression-evaluator/-/math-expression-evaluator-1.3.6.tgz";
+        sha512 = "gbzsZEUgefao+OqOUOr03GlpjkdOySxVNHQDuiUZXPbLHgDZqiMtOgDSxuzBEtyt9BDXWS503a16bAmlJW/oFA==";
       };
     };
     "md5.js-1.3.5" = {
@@ -5932,7 +5932,7 @@ in
       sources."cacache-12.0.4"
       sources."cache-base-1.0.1"
       sources."caniuse-api-1.6.1"
-      sources."caniuse-db-1.0.30001164"
+      sources."caniuse-db-1.0.30001165"
       sources."chalk-2.4.2"
       (sources."chokidar-3.4.3" // {
         dependencies = [
@@ -6020,7 +6020,7 @@ in
       })
       sources."domain-browser-1.2.0"
       sources."duplexify-3.7.1"
-      sources."electron-to-chromium-1.3.612"
+      sources."electron-to-chromium-1.3.615"
       (sources."elliptic-6.5.3" // {
         dependencies = [
           sources."bn.js-4.11.9"
@@ -6144,7 +6144,7 @@ in
       })
       sources."ieee754-1.2.1"
       sources."iferr-0.1.5"
-      sources."import-cost-1.9.0"
+      sources."import-cost-1.10.0"
       sources."imurmurhash-0.1.4"
       sources."indexes-of-1.0.1"
       sources."infer-owner-1.0.4"
@@ -6200,7 +6200,7 @@ in
       sources."make-dir-2.1.0"
       sources."map-cache-0.2.2"
       sources."map-visit-1.0.0"
-      sources."math-expression-evaluator-1.3.3"
+      sources."math-expression-evaluator-1.3.6"
       sources."md5.js-1.3.5"
       sources."memory-fs-0.4.1"
       sources."micromatch-3.1.10"
