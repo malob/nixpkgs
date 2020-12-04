@@ -1,0 +1,48 @@
+name: Build/cache Nix environments
+
+on:
+  pull_request:
+  push:
+
+jobs:
+
+  build-macos-env:
+    name: Build/cache macOS Nix enviroment
+    runs-on: macos-latest
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Symlink Nix directories
+      run: |
+        ln -s ${{ github.workspace }} ~/.config/nixpkgs
+        ln -s ${{ github.workspace }}/nix/nix-defexpr ~/.nix-defexpr
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v12
+      with:
+        extra_nix_config: |
+          substituters = https://cache.nixos.org/ https://hydra.iohk.io
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+
+    - name: Setup Cachix
+      uses: cachix/cachix-action@v8
+      with:
+        name: malo
+        extraPullNames: iohk
+        signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+    - name: Build and switch to nix-darwin environment
+      run: |
+        # Create /run directory
+        echo -e "run\tprivate/var/run" | sudo tee -a /etc/synthetic.conf >/dev/null
+        /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B 2>/dev/null || true
+        # Setup required environment variables
+        export NIX_PATH=darwin-config=$HOME/.config/nixpkgs/darwin/ci.nix:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs:$HOME/.nix-defexpr/channels
+        # Prevent conflict between Cachix installed by workflow and the one installed in the config
+        nix-env --set-flag priority 1 cachix
+        # Build and switch to nix-darwin env
+        $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild build
+        $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch
