@@ -1,14 +1,24 @@
-name: Build/cache Nix environments
+name: Build Nix macOS env
 
 on:
   pull_request:
+    paths:
+    - '**'
+    - '!**.md'
   push:
+    paths:
+    - '**'
+    - '!**.md'
+  schedule:
+    - cron: '0 0 * * 0' # Every Sunday at midnight UTC
 
 jobs:
 
   build-macos-env:
-    name: Build/cache macOS Nix enviroment
+    name: Build/cache macOS Nix env
     runs-on: macos-latest
+    env:
+      NIX_PATH: darwin-config=/Users/runner/.config/nixpkgs/darwin/ci.nix:nixpkgs=/Users/runner/.nix-defexpr/channels/nixpkgs:/Users/runner/.nix-defexpr/channels
 
     steps:
 
@@ -34,15 +44,26 @@ jobs:
         extraPullNames: iohk
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
 
-    - name: Build and switch to nix-darwin environment
+    - name: If scheduled, update sources
+      if: ${{ github.event_name == 'schedule' && success() }}
+      run: |
+        nix-shell -p niv --run "niv update"
+
+    - name: Build and switch to nix-darwin env
       run: |
         # Create /run directory
         echo -e "run\tprivate/var/run" | sudo tee -a /etc/synthetic.conf >/dev/null
         /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B 2>/dev/null || true
-        # Setup required environment variables
-        export NIX_PATH=darwin-config=$HOME/.config/nixpkgs/darwin/ci.nix:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs:$HOME/.nix-defexpr/channels
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
         # Build and switch to nix-darwin env
-        $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild build
         $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch
+
+    - name: If scheduled, push commit with updated sources
+      if: ${{ github.event_name == 'schedule' && success() }}
+      run: |
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git aa
+        git cm "Update sources"
+        git push

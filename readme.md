@@ -1,5 +1,7 @@
 # My Nix Configs
 
+![Build Nix macOS env](https://github.com/malob/nixpkgs/workflows/Build%20Nix%20macOS%20env/badge.svg)
+
 This is my Nix configuration (with a few other things thrown in) that I use on all my systems macOS, Ubuntu for VMs, NixOS (used at work with company system configs). My overall goal/motivation is to make as much of my system configuration as possible declarative.
 
 * [`nix-darwin`](https://github.com/LnL7/nix-darwin) is used for managing macOS [system config](./darwin/configuration.nix).
@@ -20,4 +22,4 @@ This is my Nix configuration (with a few other things thrown in) that I use on a
   * setting up a [Fish shell config](./home-manager/shells.nix), references the NeoSolarized colors from the overlay, provides a `toggle-colors` function that toggles an environment variable (`$term_colors`) between `light` and `dark`, and a `terminal-colors` function that is automatically called when `$term_colors` is changed that runs a series of commands to change the colors/themes used by Kitty, Fish, Neovim, Bat, and Delta.
 * A nice [shell prompt config](./home-manager/shells.nix) for Fish using [Starship](https://starship.rs).
 * A feature packed and slick looking Neovim config ([`init.vim`](./configs/nvim/init.vim), [`coc-settings.json`](./configs/nvim/coc-settings.json), [`neovim.nix`](./home-manager/neovim.nix)).
-* A GitHub [workflow](./.github/workflows/ci.yml) that builds my the `nix-darwin` config and updates a Cachix cache.
+* A GitHub [workflow](./.github/workflows/ci.yml) that builds the `nix-darwin` config and updates a Cachix cache. Once a week it also tries to update channels/sources before building, and if successful, it commits the changes.
