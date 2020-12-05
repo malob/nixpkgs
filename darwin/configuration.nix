@@ -12,8 +12,10 @@
 
     # Personal modules
     ./modules/security/pam.nix
+    ./modules/programs/homebrew.nix
 
     # Other nix-darwin configuration
+    ./brew.nix
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
     ./shells.nix # shell configuration
   ] ++ lib.filter lib.pathExists [ ./private.nix ];

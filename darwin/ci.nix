@@ -12,4 +12,7 @@
   home-manager.users = lib.mkForce {
     runner = import ../home-manager/configuration.nix;
   };
+
+  programs.homebrew.cleanup = lib.mkForce false;
+  programs.homebrew.masApps = lib.mkForce {};
 }
