@@ -14,6 +14,8 @@ This is my Nix configuration (with a few other things thrown in) that I use on a
 * [`niv`](https://github.com/nmattia/niv) as a replacement for `nix-channels` and for better source management throughout the config.
   * Instead of using `nix-channels`, channels are added to [`nix/sources.json`](./nix/sources.json), and [`nix/nix-defexpr`](./nix/nix-defexpr) is simlinked to `~/.nix-defexpr`.
   * The `unstable` channel is used by default, but both the latest `stable` channel as well as `master` are added to `pkgs` via an [overlay](./overlays/channels.nix) for easy access when needed.
+* A GitHub [workflow](./.github/workflows/ci.yml) that builds the `nix-darwin` config and updates a Cachix cache. Once a week it also tries to update channels/sources before building, and if successful, it commits the changes.
+* A `nix-darwin` [module](./darwin/modules/programs/homebrew.nix), that manages packages/apps installed via Hombrew. See example usage in [`darwin/brew.nix`](./darwin/brew.nix).
 * [Git config](home-manager/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
 * Unified colorscheme (based on colors from [NeoSolarized](https://github.com/overcache/NeoSolarized)) for [Kitty terminal](https://sw.kovidgoyal.net/kitty/#), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * adding NeoSolarized colors to `pkgs` via an [overlay](./overlays/neosolarized-colors.nix);
@@ -22,4 +24,3 @@ This is my Nix configuration (with a few other things thrown in) that I use on a
   * setting up a [Fish shell config](./home-manager/shells.nix), references the NeoSolarized colors from the overlay, provides a `toggle-colors` function that toggles an environment variable (`$term_colors`) between `light` and `dark`, and a `terminal-colors` function that is automatically called when `$term_colors` is changed that runs a series of commands to change the colors/themes used by Kitty, Fish, Neovim, Bat, and Delta.
 * A nice [shell prompt config](./home-manager/shells.nix) for Fish using [Starship](https://starship.rs).
 * A feature packed and slick looking Neovim config ([`init.vim`](./configs/nvim/init.vim), [`coc-settings.json`](./configs/nvim/coc-settings.json), [`neovim.nix`](./home-manager/neovim.nix)).
-* A GitHub [workflow](./.github/workflows/ci.yml) that builds the `nix-darwin` config and updates a Cachix cache. Once a week it also tries to update channels/sources before building, and if successful, it commits the changes.

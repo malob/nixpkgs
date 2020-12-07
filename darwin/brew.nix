@@ -2,7 +2,7 @@
 
 {
   programs.homebrew.enable = true;
-  programs.homebrew.cleanup = true;
+  programs.homebrew.cleanupType = "zap";
 
   programs.homebrew.taps = [
     "homebrew/cask"
