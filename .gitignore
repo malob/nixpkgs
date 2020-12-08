@@ -5,4 +5,4 @@ pkgs/python-packages/requirements_frozen.txt
 darwin/private.nix
 home-manager/private.nix
 
-result/
+result

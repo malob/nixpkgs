@@ -1,10 +1,10 @@
 { ... }:
 
 {
-  programs.homebrew.enable = true;
-  programs.homebrew.cleanupType = "zap";
+  programs.brew-bundle.enable = true;
+  programs.brew-bundle.cleanupType = "zap";
 
-  programs.homebrew.taps = [
+  programs.brew-bundle.taps = [
     "homebrew/cask"
     "homebrew/cask-drivers"
     "homebrew/cask-fonts"
@@ -13,7 +13,7 @@
     "homebrew/services"
   ];
 
-  programs.homebrew.casks = [
+  programs.brew-bundle.casks = [
     "atom"
     "amethyst"
     "arq"
@@ -46,7 +46,7 @@
     "yubico-yubikey-personalization-gui"
   ];
 
-  programs.homebrew.masApps = {
+  programs.brew-bundle.masApps = {
     "1Blocker" = 1107421413;
     "1Password" = 1333542190;
     DaisyDisk = 411643860;

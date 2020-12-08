@@ -12,7 +12,7 @@
 
     # Personal modules
     ./modules/security/pam.nix
-    ./modules/programs/homebrew.nix
+    ./modules/programs/brew-bundle.nix
 
     # Other nix-darwin configuration
     ./brew.nix
