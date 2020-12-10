@@ -1,8 +1,12 @@
-{ ... }:
+{ config, ... }:
 
 {
+  system.activationScripts.extraUserActivation.text =
+    config.system.activationScripts.brew-bundle.text;
+
   programs.brew-bundle.enable = true;
   programs.brew-bundle.cleanupType = "zap";
+  programs.brew-bundle.noAutoUpdate = false;
 
   programs.brew-bundle.taps = [
     "homebrew/cask"
