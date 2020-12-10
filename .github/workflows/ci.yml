@@ -56,6 +56,8 @@ jobs:
         /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B 2>/dev/null || true
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
+        # Update brew (required for programs.brew-bundle module)
+        brew update
         # Build and switch to nix-darwin env
         $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch
 
