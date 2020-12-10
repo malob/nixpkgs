@@ -6,8 +6,6 @@ This is my Nix configuration (with a few other things thrown in) that I use on a
 
 * [`nix-darwin`](https://github.com/LnL7/nix-darwin) is used for managing macOS [system config](./darwin/configuration.nix).
 * [`home-manager`](https://github.com/nix-community/home-manager) (as `nix-darwin` module on macOS) is used for managing [user config](./home-manager/configuration.nix).
-* [`brew bundle`](https://github.com/Homebrew/homebrew-bundle) is used to manage macOS GUI apps that aren't easy to manage with Nix, see [`Brewfile`](./Brewfile).
-* Misc configs are stored in [`configs`](./configs).
 
 ## Notable Features
 
@@ -15,7 +13,9 @@ This is my Nix configuration (with a few other things thrown in) that I use on a
   * Instead of using `nix-channels`, channels are added to [`nix/sources.json`](./nix/sources.json), and [`nix/nix-defexpr`](./nix/nix-defexpr) is simlinked to `~/.nix-defexpr`.
   * The `unstable` channel is used by default, but both the latest `stable` channel as well as `master` are added to `pkgs` via an [overlay](./overlays/channels.nix) for easy access when needed.
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the `nix-darwin` config and updates a Cachix cache. Once a week it also tries to update channels/sources before building, and if successful, it commits the changes.
-* A `nix-darwin` [module](./darwin/modules/programs/brew-bundle.nix), that manages packages/apps installed via Hombrew Bundle. See example usage in [`darwin/brew.nix`](./darwin/brew.nix).
+* Some custom `nix-darwin` modules:
+  * [`programs.brew-bundle`](./darwin/modules/programs/brew-bundle.nix) which manages packages/apps installed via Hombrew Bundle. See example usage in [`darwin/brew-bundle.nix`](./darwin/brew-bundle.nix). (Pending upstream PR [#262](https://github.com/LnL7/nix-darwin/pull/262).)
+  * [`security.pam`](./darwin/modules/security/pam.nix) which provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
 * [Git config](home-manager/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
 * Unified colorscheme (based on colors from [NeoSolarized](https://github.com/overcache/NeoSolarized)) for [Kitty terminal](https://sw.kovidgoyal.net/kitty/#), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * adding NeoSolarized colors to `pkgs` via an [overlay](./overlays/neosolarized-colors.nix);
