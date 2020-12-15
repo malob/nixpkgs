@@ -13,6 +13,6 @@
     runner = import ../home-manager/configuration.nix;
   };
 
-  programs.brew-bundle.cleanupType = lib.mkForce "none";
+  programs.brew-bundle.cleanup = lib.mkForce "none";
   programs.brew-bundle.masApps = lib.mkForce {};
 }

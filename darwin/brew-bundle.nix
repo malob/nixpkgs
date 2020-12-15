@@ -5,8 +5,8 @@
     config.system.activationScripts.brew-bundle.text;
 
   programs.brew-bundle.enable = true;
-  programs.brew-bundle.cleanupType = "zap";
-  programs.brew-bundle.noAutoUpdate = false;
+  programs.brew-bundle.autoUpdate = true;
+  programs.brew-bundle.cleanup = "zap";
 
   programs.brew-bundle.taps = [
     "homebrew/cask"
