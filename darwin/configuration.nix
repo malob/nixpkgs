@@ -113,6 +113,25 @@
   # Lorri daemon
   services.lorri.enable = true;
 
+  # Service to toggle term colors based on macOS
+  # `AppleInterfaceStyle` is not defined when OS is in light mode, it's equal to "Dark" if the OS is
+  # in dark mode.
+  launchd.user.agents.setTermColors = {
+    path = [ pkgs.fish ];
+    script = ''
+      if test -n $(defaults read -g AppleInterfaceStyle); then
+        fish -c 'set -U term_colors dark'
+      else
+        fish -c 'set -U term_colors light'
+      fi
+    '';
+    serviceConfig = {
+      RunAtLoad = true;
+      ProcessType = "Background";
+      StartInterval = 30;
+    };
+  };
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
