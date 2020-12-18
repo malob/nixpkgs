@@ -5,39 +5,36 @@
 with lib;
 
 let
-  cfg = config.programs.brew-bundle;
+  cfg = config.homebrew;
 
-  brewfileSection = heading: type: entries:
-    if entries != [] then
-      "# ${heading}\n" + (concatMapStrings (name: "${type} \"${name}\"\n") entries) + "\n"
-    else "";
+  brewfileSection = heading: type: entries: optionalString (entries != [])
+    "# ${heading}\n" + (concatMapStrings (name: "${type} \"${name}\"\n") entries) + "\n";
 
-  masBrewfileSection = entries:
-    if entries != {} then
-      "# Mac App Store apps\n" +
-      concatStringsSep "\n" (mapAttrsToList (name: id: ''mas "${name}", id: ${toString id}'') entries) +
-      "\n"
-    else "";
-
-  brewfile = pkgs.writeText "Brewfile" (
-    (brewfileSection "Taps" "tap" cfg.taps) +
-    (brewfileSection "Brews" "brew" cfg.brews) +
-    (brewfileSection "Casks" "cask" cfg.casks) +
-    (masBrewfileSection cfg.masApps) +
-    (brewfileSection "Docker contrainers" "whalebrew" cfg.whalebrews) +
-    (if cfg.extraConfig != "" then "# Extra config\n" + cfg.extraConfig else "")
+  masBrewfileSection = entries: optionalString (entries != {}) (
+    "# Mac App Store apps\n" +
+    concatStringsSep "\n" (mapAttrsToList (name: id: ''mas "${name}", id: ${toString id}'') entries) +
+    "\n"
   );
 
-  brew-bundle-command =
-    (if cfg.autoUpdate then "" else "HOMEBREW_NO_AUTO_UPDATE=1 ") +
-    "brew bundle --file='${brewfile}' --no-lock" +
-    (if cfg.cleanup == "uninstall" || cfg.cleanup == "zap" then " --cleanup" else "") +
-    (if cfg.cleanup == "zap" then " --zap" else "");
+  brewfile = pkgs.writeText "Brewfile" (
+    brewfileSection "Taps" "tap" cfg.taps +
+    brewfileSection "Brews" "brew" cfg.brews +
+    brewfileSection "Casks" "cask" cfg.casks +
+    masBrewfileSection cfg.masApps +
+    brewfileSection "Docker contrainers" "whalebrew" cfg.whalebrews +
+    optionalString (cfg.extraConfig != "") ("# Extra config\n" + cfg.extraConfig)
+  );
 
+  brew-bundle-command = concatStringsSep " " (
+    optional (!cfg.autoUpdate) "HOMEBREW_NO_AUTO_UPDATE=1" ++
+    [ "brew bundle --file='${brewfile}' --no-lock" ] ++
+    optional (cfg.cleanup == "uninstall" || cfg.cleanup == "zap") "--cleanup" ++
+    optional (cfg.cleanup == "zap") "--zap"
+  );
 in
 
 {
-  options.programs.brew-bundle = {
+  options.homebrew = {
     enable = mkEnableOption ''
       configuring your Brewfile, and installing/updating the formulas therein via
       the <command>brew bundle</command> command, using <command>nix-darwin</command>.
@@ -141,12 +138,12 @@ in
         Applications to install from Mac App Store using <command>mas</command>.
 
         When this option is used, <literal>"mas"</literal> is automatically added to
-        <option>programs.brew-bundle.brews</option>.
+        <option>homebrew.brews</option>.
 
         Note that you need to be signed into the Mac App Store for <command>mas</command> to
         successfully install and upgrade applications, and that unfortunately apps removed from this
         option will not be uninstalled automatically even if
-        <option>programs.brew-bundle.cleanup</option> is set to <literal>"uninstall"</literal>
+        <option>homebrew.cleanup</option> is set to <literal>"uninstall"</literal>
         or <literal>"zap"</literal> (this is currently a limitation of Homebrew Bundle).
 
         For more information on <command>mas</command> see: https://github.com/mas-cli/mas
@@ -161,7 +158,7 @@ in
         Docker images to install using <command>whalebrew</command>.
 
         When this option is used, <literal>"whalebrew"</literal> is automatically added to
-        <option>programs.brew-bundle.brews</option>.
+        <option>homebrew.brews</option>.
 
         For more information on <command>whalebrew</command> see:
         https://github.com/whalebrew/whalebrew
@@ -193,33 +190,23 @@ in
   };
 
   config = {
-    assertions = mkIf cfg.enable [
-      {
-        assertion = builtins.pathExists /usr/local/bin/brew;
-        message = ''
-          Homebrew not installed.
-
-          Please install Homebrew yourself before using the programs.brew-bundle module.
-
-          See installation instructions at: https://brew.sh
-        '';
-      }
-    ];
-
-    programs.brew-bundle.brews =
+    homebrew.brews =
       optional (cfg.masApps != {}) "mas" ++
       optional (cfg.whalebrews != []) "whalebrew";
 
     environment.variables = mkIf cfg.enable (
-      (if cfg.userConfig.brewfile then { HOMEBREW_BUNDLE_FILE = "${brewfile}"; } else {}) //
-      (if cfg.userConfig.noLock then { HOMEBREW_BUNDLE_NO_LOCK = "1"; } else {})
+      optionalAttrs cfg.userConfig.brewfile { HOMEBREW_BUNDLE_FILE = "${brewfile}"; } //
+      optionalAttrs cfg.userConfig.noLock { HOMEBREW_BUNDLE_NO_LOCK = "1"; }
     );
 
-    system.activationScripts.brew-bundle.text = mkIf cfg.enable ''
+    system.activationScripts.homebrew.text = mkIf cfg.enable ''
       # Homebrew Bundle
       echo >&2 "Homebrew bundle..."
-      PATH=/usr/local/bin:$PATH ${brew-bundle-command}
+      if [ -f /usr/local/bin/brew ]; then
+        PATH=/usr/local/bin:$PATH ${brew-bundle-command}
+      else
+        echo -e "\e[1;31merror: Homebrew is not installed, skipping...\e[0m" >&2
+      fi
     '';
   };
-
 }

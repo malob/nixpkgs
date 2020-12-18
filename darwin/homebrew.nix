@@ -2,13 +2,13 @@
 
 {
   system.activationScripts.extraUserActivation.text =
-    config.system.activationScripts.brew-bundle.text;
+    config.system.activationScripts.homebrew.text;
 
-  programs.brew-bundle.enable = true;
-  programs.brew-bundle.autoUpdate = true;
-  programs.brew-bundle.cleanup = "zap";
+  homebrew.enable = true;
+  homebrew.autoUpdate = true;
+  homebrew.cleanup = "zap";
 
-  programs.brew-bundle.taps = [
+  homebrew.taps = [
     "homebrew/cask"
     "homebrew/cask-drivers"
     "homebrew/cask-fonts"
@@ -17,7 +17,7 @@
     "homebrew/services"
   ];
 
-  programs.brew-bundle.casks = [
+  homebrew.casks = [
     "atom"
     "amethyst"
     "arq"
@@ -50,7 +50,7 @@
     "yubico-yubikey-personalization-gui"
   ];
 
-  programs.brew-bundle.masApps = {
+  homebrew.masApps = {
     "1Blocker" = 1107421413;
     "1Password" = 1333542190;
     DaisyDisk = 411643860;

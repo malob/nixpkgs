@@ -12,10 +12,10 @@
 
     # Personal modules
     ./modules/security/pam.nix # pending upstream, PR #228
-    ./modules/programs/brew-bundle.nix # pending upstream, PR #262
+    ./modules/homebrew.nix # pending upstream, PR #262
 
     # Other nix-darwin configuration
-    ./brew-bundle.nix
+    ./homebrew.nix
     ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
     ./shells.nix # shell configuration
   ] ++ lib.filter lib.pathExists [ ./private.nix ];
@@ -119,7 +119,7 @@
   launchd.user.agents.setTermColors = {
     path = [ pkgs.fish ];
     script = ''
-      if test -n $(defaults read -g AppleInterfaceStyle); then
+      if defaults read -g AppleInterfaceStyle; then
         fish -c 'set -U term_colors dark'
       else
         fish -c 'set -U term_colors light'
