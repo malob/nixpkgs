@@ -9,22 +9,36 @@
     nixos-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
     # nix-darwin
-    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # home-manager
-    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Other sources
-    comma.url = "github:Shopify/comma";
-    comma.flake = false;
+    # Fish plugins
     fish-plugin-done.url = "github:franciscolourenco/done";
     fish-plugin-done.flake = false;
     fish-plugin-humanize-duration.url = "github:fishpkg/fish-humanize-duration";
     fish-plugin-humanize-duration.flake = false;
+
+    # Vim plugins
+    galaxyline-nvim.url = "github:glepnir/galaxyline.nvim";
+    galaxyline-nvim.flake = false;
+    gitsigns-nvim.url = "github:lewis6991/gitsigns.nvim";
+    gitsigns-nvim.flake = false;
+    moses-lua.url = "github:Yonaba/Moses";
+    moses-lua.flake = false;
+    nvim-bufferline-lua.url = "github:akinsho/nvim-bufferline.lua";
+    nvim-bufferline-lua.flake = false;
     vim-haskell-module-name.url = "github:chkno/vim-haskell-module-name";
     vim-haskell-module-name.flake = false;
+
+    # Other sources
+    comma.url = "github:Shopify/comma";
+    comma.flake = false;
+    neovim.url = "github:neovim/neovim";
+    neovim.flake = false;
   };
 
   outputs = { self, ... }@inputs:
@@ -42,6 +56,11 @@
           mySources = {
             fish-plugin-done = fish-plugin-done;
             fish-plugin-humanize-duration = fish-plugin-humanize-duration;
+            galaxyline-nvim = galaxyline-nvim;
+            gitsigns-nvim = gitsigns-nvim;
+            moses-lua = moses-lua;
+            neovim = neovim;
+            nvim-bufferline-lua = nvim-bufferline-lua;
             vim-haskell-module-name = vim-haskell-module-name;
           };
         })

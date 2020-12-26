@@ -32,7 +32,6 @@
       },
       "original": {
         "owner": "lnl7",
-        "ref": "master",
         "repo": "nix-darwin",
         "type": "github"
       }
@@ -69,6 +68,38 @@
         "type": "github"
       }
     },
+    "galaxyline-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1609375279,
+        "narHash": "sha256-lXLxFOzLvd66gYgpNfzeVHc3yBVtMO4G6gFcanKGhTE=",
+        "owner": "glepnir",
+        "repo": "galaxyline.nvim",
+        "rev": "2064a39025ed004576b45988188802ad69c14cf7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "glepnir",
+        "repo": "galaxyline.nvim",
+        "type": "github"
+      }
+    },
+    "gitsigns-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1608723721,
+        "narHash": "sha256-cdPvedEtZlIOaegas2YSasYqASb6S1SZ80I/pvfocA8=",
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "rev": "9c49451bfd85f397b38ec2362674ac06bf9f3d36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -85,8 +116,39 @@
       },
       "original": {
         "owner": "nix-community",
-        "ref": "master",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "moses-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1573371081,
+        "narHash": "sha256-n/ca2MxiZPk6FZHvQGS6TTl1AZx6ZdDmR7viJFgttik=",
+        "owner": "Yonaba",
+        "repo": "Moses",
+        "rev": "6fe8d76d50a22d85fe064aaa80390b72381befed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Yonaba",
+        "repo": "Moses",
+        "type": "github"
+      }
+    },
+    "neovim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1609458281,
+        "narHash": "sha256-xq/L9Hxg8bW7bckmuv1xwj0m9OYJUxUlVphIVsNMHKY=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "f3a8c930a4b901c5313701849e7010f098bf22e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
         "type": "github"
       }
     },
@@ -154,17 +216,38 @@
         "type": "github"
       }
     },
+    "nvim-bufferline-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1609061415,
+        "narHash": "sha256-O8mRRtqwBsJ6YVqzU7T2iukl1mi5JTPQ9tqmCiIGEpU=",
+        "owner": "akinsho",
+        "repo": "nvim-bufferline.lua",
+        "rev": "a872f34fa53cea9a37f608b17804114add4df049",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "nvim-bufferline.lua",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "comma": "comma",
         "darwin": "darwin",
         "fish-plugin-done": "fish-plugin-done",
         "fish-plugin-humanize-duration": "fish-plugin-humanize-duration",
+        "galaxyline-nvim": "galaxyline-nvim",
+        "gitsigns-nvim": "gitsigns-nvim",
         "home-manager": "home-manager",
+        "moses-lua": "moses-lua",
+        "neovim": "neovim",
         "nixos-stable": "nixos-stable",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
+        "nvim-bufferline-lua": "nvim-bufferline-lua",
         "vim-haskell-module-name": "vim-haskell-module-name"
       }
     },

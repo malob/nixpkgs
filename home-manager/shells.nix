@@ -17,8 +17,8 @@
       body = ''
         if test -n "$NVIM_LISTEN_ADDRESS"
           ${pkgs.neovim-remote}/bin/nvr \
-            -c "let g:term_pwds.$fish_pid = '$PWD'" \
-            -c "call Set_term_pwd()"
+            -c "lua TermPwd['$fish_pid'] = '$PWD'" \
+            -c "lua SetTermPwd()"
         end
       '';
       onVariable = "PWD";
