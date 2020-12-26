@@ -11,7 +11,7 @@ self: super: {
         haskellPackages.hoogle
         haskellPackages.hpack
         haskellPackages.implicit-hie
-        stack
+        stable.stack
       ];
     };
 

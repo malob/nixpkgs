@@ -3,74 +3,93 @@
 let
   sources = import ../nix/sources.nix;
 
-  customVimPlugins = with pkgs.vimUtils // pkgs.mylib; {
+  myPlugins = with pkgs.vimUtils // pkgs.mylib; {
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
       src = sources.vim-haskell-module-name;
     };
-    coc-fish = nodePackage2VimPackage "coc-fish";
-    coc-import-cost = nodePackage2VimPackage "coc-import-cost";
-    coc-sh = nodePackage2VimPackage "coc-sh";
+    galaxyline-nvim = buildVimPluginFrom2Nix {
+      name = "galaxyline-nvim";
+      src = sources."galaxyline.nvim";
+    };
+    nvim-bufferline-lua = buildVimPluginFrom2Nix {
+      name = "nvim-bufferline-lua";
+      src = sources."nvim-bufferline.lua";
+    };
+    gitsigns-nvim = buildVimPluginFrom2Nix {
+      name = "gitsigns-nvim";
+      src = sources."gitsigns.nvim";
+    };
+    moses-nvim = buildVimPluginFrom2Nix {
+      name = "moses-nvim";
+      src = pkgs.linkFarm "moses-nvim" [ { name = "lua"; path = sources.Moses; } ];
+    };
   };
 in
 {
-
   programs.neovim.enable = true;
+  programs.neovim.package = pkgs.mypkgs.neovim-nightly;
 
-  # Source config from out of nix store so that it's easy to edit on the fly
-  programs.neovim.extraConfig = ''
-    source $HOME/.config/nixpkgs/configs/nvim/init.vim
-  '';
+  programs.neovim.configure = {
 
-  # Plugins
-  programs.neovim.plugins = with pkgs.vimPlugins; [
-    # UI plugins
-    airline
-    NeoSolarized
-    vim-airline-themes
-    vim-clap
-    vim-choosewin
-    vim-devicons
-    vim-floaterm
-    vim-startify
-    zoomwintab-vim
+    # Source config from out of nix store so that it's easy to edit on the fly
+    customRC = ''
+      " Add my configs to Neovim runtime path
+      exe 'set rtp+=' . expand('~/.config/nixpkgs/configs/nvim')
+      lua require('init')
+    '';
 
-    # Coc.nvim plugins
-    coc-nvim
-    coc-eslint
-    customVimPlugins.coc-fish
-    coc-git
-    customVimPlugins.coc-import-cost
-    coc-json
-    coc-lists
-    coc-markdownlint
-    coc-python
-    customVimPlugins.coc-sh
-    coc-snippets
-    coc-tabnine
-    coc-tsserver
-    coc-vimlsp
-    coc-yaml
-    coc-yank
+    packages.myVimPackage = with pkgs.vimPlugins; {
 
-    # other plugins
-    agda-vim
-    ale
-    direnv-vim
-    editorconfig-vim
-    goyo-vim
-    tabular
-    vim-commentary
-    vim-eunuch
-    vim-fugitive
-    customVimPlugins.vim-haskell-module-name
-    vim-pencil
-    vim-polyglot
-    vim-surround
-  ];
+      # loaded on launch
+      start = [
+        agda-vim
+        direnv-vim
+        editorconfig-vim
+        goyo-vim
+        myPlugins.moses-nvim
+        myPlugins.vim-haskell-module-name
+        nvim-lspconfig
+        nvim-web-devicons
+        plenary-nvim # required for telescope-nvim and gitsigns.nvim
+        popup-nvim # required for telescope-nvim
+        tabular
+        vim-commentary
+        vim-eunuch
+        vim-fugitive
+        vim-polyglot
+        vim-surround
+      ];
 
-  # Add `nvr` command to environment
-  home.packages = [
-    pkgs.neovim-remote
+      # manually loadable by calling `:packadd $plugin-name`
+      opt = [
+        NeoSolarized
+        completion-buffers
+        completion-nvim
+        completion-tabnine
+        myPlugins.galaxyline-nvim
+        myPlugins.gitsigns-nvim
+        myPlugins.nvim-bufferline-lua
+        telescope-nvim
+        vim-floaterm
+        vim-pencil
+        vim-which-key
+        zoomwintab-vim
+      ];
+    };
+  };
+
+  home.packages = with pkgs; [
+    neovim-remote
+    tabnine
+
+    # Language servers
+    ccls
+    nodePackages.bash-language-server
+    nodePackages.typescript-language-server
+    nodePackages.vim-language-server
+    nodePackages.vscode-json-languageserver
+    nodePackages.yaml-language-server
+    rnix-lsp
   ];
 }

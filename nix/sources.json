@@ -1,4 +1,16 @@
 {
+    "Moses": {
+        "branch": "master",
+        "description": "Utility library for functional programming  in Lua",
+        "homepage": "http://yonaba.github.io/Moses",
+        "owner": "Yonaba",
+        "repo": "Moses",
+        "rev": "6fe8d76d50a22d85fe064aaa80390b72381befed",
+        "sha256": "0adn5mc29qmv8zkd0rbskh0pafadp9j41vwi2lxgjr32rkc1mxwz",
+        "type": "tarball",
+        "url": "https://github.com/Yonaba/Moses/archive/6fe8d76d50a22d85fe064aaa80390b72381befed.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "comma": {
         "branch": "master",
         "description": null,
@@ -35,6 +47,30 @@
         "url": "https://github.com/fishpkg/fish-humanize-duration/archive/81cb002a32bf67f17ad73a7dbb23da8cee7b451d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "galaxyline.nvim": {
+        "branch": "main",
+        "description": "neovim statusline plugin written in lua ",
+        "homepage": null,
+        "owner": "glepnir",
+        "repo": "galaxyline.nvim",
+        "rev": "bf7ee645d0bc5cc4db63b0729544e85dbf0747db",
+        "sha256": "0j5vf5li5kxx2lzbhhwvmx9bhygims9lb4p7rh98q13l84yarvr4",
+        "type": "tarball",
+        "url": "https://github.com/glepnir/galaxyline.nvim/archive/bf7ee645d0bc5cc4db63b0729544e85dbf0747db.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gitsigns.nvim": {
+        "branch": "main",
+        "description": "Git signs written in pure lua",
+        "homepage": "",
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "rev": "9c49451bfd85f397b38ec2362674ac06bf9f3d36",
+        "sha256": "03vhx3vscgs2yfcm8jzs4q0jmika29kb66p8d4754rids5wyzlvi",
+        "type": "tarball",
+        "url": "https://github.com/lewis6991/gitsigns.nvim/archive/9c49451bfd85f397b38ec2362674ac06bf9f3d36.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix",
@@ -45,6 +81,18 @@
         "sha256": "0ih2rp30ldvf4klpiphc1civ5f18flc1a541lw81y23nhrgny55a",
         "type": "tarball",
         "url": "https://github.com/nix-community/home-manager/archive/bcbf09a2021712a501681fa984f659fddad3c2e8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "neovim": {
+        "branch": "master",
+        "description": "Vim-fork focused on extensibility and usability",
+        "homepage": "https://neovim.io",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "8c8cc35926f265bf4f048b83fd130bef3932851e",
+        "sha256": "1iswss5415n56cfxn9pylnpfnwafhfdnxfc1pk9z1m280i2whlyk",
+        "type": "tarball",
+        "url": "https://github.com/neovim/neovim/archive/8c8cc35926f265bf4f048b83fd130bef3932851e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nix-darwin": {
@@ -129,6 +177,18 @@
         "sha256": "1h063hn252jdjajj22r55miqbnxrdgac1g00h4d81qq9hdc0g0l7",
         "type": "tarball",
         "url": "https://github.com/NixOS/nixpkgs/archive/a60a1340b7dbd1402a8ef97de8bc4760961a722f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nvim-bufferline.lua": {
+        "branch": "master",
+        "description": "A snazzy bufferline for Neovim",
+        "homepage": "",
+        "owner": "akinsho",
+        "repo": "nvim-bufferline.lua",
+        "rev": "4194d3b3ec66051ee030595109337cae26ae654b",
+        "sha256": "19k6v204ay9ibl06fpi9rrzqza173dl0kdjg3cd7xsll5aay1bwq",
+        "type": "tarball",
+        "url": "https://github.com/akinsho/nvim-bufferline.lua/archive/4194d3b3ec66051ee030595109337cae26ae654b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "prefmanager": {
