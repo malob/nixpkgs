@@ -2,7 +2,7 @@
 self: super: {
   myenvs = {
 
-    agda = self.pkgs.agda.withPackages (p: [ p.standard-library ]);
+    agda = self.pkgs.stable.agda.withPackages (p: [ p.standard-library ]);
 
     haskell = super.buildEnv {
       name = "myHaskellEnv";

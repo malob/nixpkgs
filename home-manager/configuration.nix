@@ -84,7 +84,7 @@
     watchman
 
     # Useful nix related tools
-    stable.cachix # adding/managing alternative binary caches hosted by Cachix
+    cachix # adding/managing alternative binary caches hosted by Cachix
     mypkgs.comma # run software from without installing it
     lorri # improve `nix-shell` experience in combination with `direnv`
     niv # easy dependency management for nix projects
