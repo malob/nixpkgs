@@ -167,6 +167,8 @@ augroup { name = 'NeovimTerm', cmds = {
   { 'BufEnter', '*', 'lua SetTermPwd()' }
 }}
 
+-- Leader only used for this one case
+g.mapleader = '`'
 keymaps { mode = 't', opts = { 'noremap' }, maps = {
   -- Enter normal mode in terminal using `<ESC>` like everywhere else.
   { '<ESC>', [[<C-\><C-n>]] },
@@ -176,7 +178,7 @@ keymaps { mode = 't', opts = { 'noremap' }, maps = {
 
 -- Floating terminal
 -- https://github.com/voldikss/vim-floaterm
-cmd 'packadd! vim-floaterm'
+-- Plugin loaded on first used keybinding in WhichKey section
 g.floaterm_title       = 'Terminal ($1/$2)'
 g.floaterm_borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
 
@@ -445,20 +447,26 @@ g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 
 -- }}}
 
--- Keymaps ------------------------------------------------------------------------------------- {{{
+-- WhichKey maps ------------------------------------------------------------------------------- {{{
 
-g.mapleader = '`'
-
+-- Define all `<Space>` prefixed keymaps with vim-which-key
+-- https://github.com/liuchengxu/vim-which-key
 cmd 'packadd! vim-which-key'
 vim.fn['which_key#register']('<Space>', 'g:which_key_map')
 keymap( '', '<Space>', [[:WhichKey '<Space>'<CR>]], { 'noremap', 'silent' } )
+
+-- Display popup float full width
+g.which_key_disable_default_offset = 1
+
+
+-- Define maps
 local whichKeyMap = {}
 
-whichKeyMap[' '] = { ':FloatermToggle', 'Toggle floating terminal' }
+whichKeyMap[' '] = { ':packadd vim-floaterm | FloatermToggle', 'Toggle floating terminal' }
 
 -- Tabs
 whichKeyMap.t = {
-  name = 'Tabs',
+  name = '+Tabs',
   n = { ':tabnew +term', 'New with terminal' },
   o = { 'tabonly', 'Close all other' },
   q = { 'tabclose', 'Close' },
@@ -472,7 +480,7 @@ whichKeyMap['_'] = { ':botright new +term', 'New termimal below (full-width)' }
 whichKeyMap['\\'] = { ':vnew +term', 'New terminal right' }
 whichKeyMap['|'] = { ':botright vnew +term', 'New termimal right (full-height)' }
 whichKeyMap.w = {
-  name = 'Windows',
+  name = '+Windows',
   -- Split creation
   s = { 'split', 'Split below' },
   v = { 'vslit', 'Split right' },
@@ -496,7 +504,7 @@ whichKeyMap.w = {
   T = { ':wincmd T', 'Move to new tab' },
   r = { ':wincmd r', 'Rotate clockwise' },
   R = { ':wincmd R', 'Rotate counter-clockwise' },
-  z = { ':packadd! +ZoomWinTabToggle', 'Toggle zoom' },
+  z = { ':packadd zoomwintab-vim | ZoomWinTabToggle', 'Toggle zoom' },
   -- Resize
   ['='] = { ':wincmd =', 'All equal size' },
   ['-'] = { ':resize -5', 'Decrease height' },
@@ -508,27 +516,27 @@ whichKeyMap.w = {
 
 -- Git
 whichKeyMap.g = {
-  name = 'Git',
+  name = '+Git',
   -- vim-fugitive
   b = { 'Gblame', 'Blame' },
   s = { 'Gstatus', 'Status' },
   d = {
-    name = 'Diff',
+    name = '+Diff',
     s = { 'Ghdiffsplit', 'Split horizontal' },
     v = { 'Gvdiffsplit', 'Split vertical' }
   },
   -- gitsigns.nvim
   h = {
-    name = 'Hunks',
-    s = { [[laueval("require'gitsigns'.stage_hunk()")]], 'Stage' },
-    u = { [[laueval("require'gitsigns'.undo_stage_hunk()")]], 'Undo stage' },
-    r = { [[laueval("require'gitsigns'.reset_hunk()")]], 'Reset' },
-    n = { [[laueval("require'gitsigns'.next_hunk()")]], 'Go to next' },
-    N = { [[laueval("require'gitsigns'.prev_hunk()")]], 'Go to prev' },
+    name = '+Hunks',
+    s = { [[luaeval("require'gitsigns'.stage_hunk()")]], 'Stage' },
+    u = { [[luaeval("require'gitsigns'.undo_stage_hunk()")]], 'Undo stage' },
+    r = { [[luaeval("require'gitsigns'.reset_hunk()")]], 'Reset' },
+    n = { [[luaeval("require'gitsigns'.next_hunk()")]], 'Go to next' },
+    N = { [[luaeval("require'gitsigns'.prev_hunk()")]], 'Go to prev' },
   },
   -- telescope.nvim lists
   l = {
-    name = 'Git related lists',
+    name = '+Lists',
     s = { ':Telescope git_status', 'Status' },
     c = { ':Telescope git_commits', 'Commits' },
     C = { ':Telescope git_commits', 'Buffer commits' },
@@ -540,7 +548,7 @@ whichKeyMap.g = {
 
 -- Language server
 whichKeyMap.l = {
-  name = 'Language Server',
+  name = '+LSP',
   h = { [[luaeval('vim.lsp.buf.hover()')]], 'Hover' },
   d = { [[luaeval('vim.lsp.buf.definition()')]], 'Jump to definition' },
   D = { [[luaeval('vim.lsp.buf.declaration()')]], 'Jump to declaration' },
@@ -551,7 +559,7 @@ whichKeyMap.l = {
   n = { [[luaeval('vim.lsp.diagnostic.goto_next()')]], 'Jump to next diagnostic' },
   N = { [[luaeval('vim.lsp.diagnostic.goto_prev()')]], 'Jump to prev diagnostic' },
   l = {
-    name = 'Lists',
+    name = '+Lists',
     a = { ':Telescope lsp_code_actions', 'Code actions' },
     s = { ':Telescope lsp_document_symbols', 'Documents symbols' },
     S = { ':Telescope lsp_workspace_symbols', 'Workspace symbols' },
@@ -561,7 +569,7 @@ whichKeyMap.l = {
 
 -- Seaching with telescope.nvim
 whichKeyMap.s = {
-  name = 'Search',
+  name = '+Search',
   f = { ':Telescope find_files_workspace', 'Files in workspace' },
   F = { ':Telescope find_files', 'Files in cwd' },
   g = { ':Telescope live_grep_workspace', 'Grep in workspace' },
