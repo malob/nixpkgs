@@ -83,6 +83,18 @@
         "url": "https://github.com/nix-community/home-manager/archive/bcbf09a2021712a501681fa984f659fddad3c2e8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "lush.nvim": {
+        "branch": "main",
+        "description": "Define Neovim themes as a DSL in lua, with real-time feedback.",
+        "homepage": "",
+        "owner": "rktjmp",
+        "repo": "lush.nvim",
+        "rev": "6c0db268288e1c50aa17cc817e6e2b5cc63c6099",
+        "sha256": "1s6d005wdkiq7qji3a4gvv8nhd7cvd5r61bfaqv97yz5cz8n3w6v",
+        "type": "tarball",
+        "url": "https://github.com/rktjmp/lush.nvim/archive/6c0db268288e1c50aa17cc817e6e2b5cc63c6099.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "neovim": {
         "branch": "master",
         "description": "Vim-fork focused on extensibility and usability",
