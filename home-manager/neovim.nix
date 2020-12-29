@@ -2,25 +2,29 @@
 
 let
   myPlugins = with pkgs.vimUtils // pkgs.mylib; {
-    vim-haskell-module-name = buildVimPluginFrom2Nix {
-      name = "vim-haskell-module-name";
-      src = pkgs.mySources.vim-haskell-module-name;
-    };
     galaxyline-nvim = buildVimPluginFrom2Nix {
       name = "galaxyline-nvim";
       src = pkgs.mySources.galaxyline-nvim;
-    };
-    nvim-bufferline-lua = buildVimPluginFrom2Nix {
-      name = "nvim-bufferline-lua";
-      src = pkgs.mySources.nvim-bufferline-lua;
     };
     gitsigns-nvim = buildVimPluginFrom2Nix {
       name = "gitsigns-nvim";
       src = pkgs.mySources.gitsigns-nvim;
     };
+    lush-nvim = buildVimPluginFrom2Nix {
+      name = "lush-nvim";
+      src = pkgs.mySources.lush-nvim;
+    };
     moses-nvim = buildVimPluginFrom2Nix {
       name = "moses-nvim";
       src = pkgs.linkFarm "moses-nvim" [ { name = "lua"; path = pkgs.mySources.moses-lua; } ];
+    };
+    nvim-bufferline-lua = buildVimPluginFrom2Nix {
+      name = "nvim-bufferline-lua";
+      src = pkgs.mySources.nvim-bufferline-lua;
+    };
+    vim-haskell-module-name = buildVimPluginFrom2Nix {
+      name = "vim-haskell-module-name";
+      src = pkgs.mySources.vim-haskell-module-name;
     };
   };
 in
@@ -45,6 +49,7 @@ in
         direnv-vim
         editorconfig-vim
         goyo-vim
+        myPlugins.lush-nvim
         myPlugins.moses-nvim
         myPlugins.vim-haskell-module-name
         nvim-lspconfig
@@ -61,7 +66,6 @@ in
 
       # manually loadable by calling `:packadd $plugin-name`
       opt = [
-        NeoSolarized
         completion-buffers
         completion-nvim
         completion-tabnine

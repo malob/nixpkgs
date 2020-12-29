@@ -12,23 +12,7 @@ local _ = require 'moses'
 local M = {}
 
 function M.setStatusLine ()
-  local c = {
-    yellow = '#b58900',
-    green  = '#719e07',
-    blue   = '#268bd2',
-    red    = '#dc322f',
-    white  = '#fdf6e3',
-    black  = '#002b36',
-  }
-  if o.background == 'light' then
-    c.bg = c.white
-    c.barbg = '#eee8d5'
-    c.grey = '#586e75'
-  else
-    c.bg = c.black
-    c.barbg = '#073642'
-    c.grey = '#93a1a1'
-  end
+  local c = require'MaloSolarized'.colors
 
   local buffer_not_empty = function()
     if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
@@ -49,7 +33,7 @@ function M.setStatusLine ()
     {
       FirstElement = {
         provider = _.constant(s.sepRoundLeft),
-        highlight = { c.green, c.bg }
+        highlight = { c.green, c.base }
       }
     },
     {
@@ -67,32 +51,37 @@ function M.setStatusLine ()
           return alias[vim.fn.mode()]
         end,
         separator = s.sepRoundRight .. ' ',
-        separator_highlight = { c.green , c.barbg },
-        highlight = { c.white, c.green, 'bold' },
+        separator_highlight = { c.green , c.basehl },
+        highlight = { c.lightBase, c.green, 'bold' },
       }
     },
     {
       FileIcon = {
         provider = 'FileIcon',
         condition = buffer_not_empty,
-        highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color , c.barbg },
+        highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color , c.basehl },
       }
     },
     {
       FileName = {
         provider = { 'FileName', 'FileSize' },
         condition = buffer_not_empty,
-        separator = s.sepRoundLeft ,
-        separator_highlight = { c.bg , c.barbg },
-        highlight = { c.gray, c.barbg, 'italic' }
+        highlight = { c.gray, c.basehl, 'italic' }
+      }
+    },
+    {
+      GitStart = {
+        provider = _.constant(s.sepRoundLeft),
+        condition = require('galaxyline.provider_vcs').check_git_workspace,
+        highlight = { c.base, c.basehl }
       }
     },
     {
       GitBranch = {
         provider = 'GitBranch',
         condition = buffer_not_empty,
-        icon = ' ' .. s.gitBranch .. ' ',
-        highlight = { c.grey , c.bg, 'bold' },
+        icon = '  ' .. s.gitBranch .. ' ',
+        highlight = { c.main , c.base, 'bold' },
       }
     },
     {
@@ -100,7 +89,7 @@ function M.setStatusLine ()
         provider = 'DiffAdd',
         condition = checkwidth,
         icon = ' ',
-        highlight = { c.green , c.bg },
+        highlight = { c.green , c.base },
       }
     },
     {
@@ -108,7 +97,7 @@ function M.setStatusLine ()
         provider = 'DiffModified',
         condition = checkwidth,
         icon = ' ',
-        highlight = { c.yellow , c.bg },
+        highlight = { c.yellow , c.base },
       }
     },
     {
@@ -116,15 +105,22 @@ function M.setStatusLine ()
         provider = 'DiffRemove',
         condition = checkwidth,
         icon = ' ',
-        highlight = { c.red, c.bg },
+        highlight = { c.red, c.base },
+      }
+    },
+    {
+      GitEnd = {
+        provider = _.constant(s.sepRoundRight),
+        condition = require('galaxyline.provider_vcs').check_git_workspace,
+        highlight = { c.base, c.basehl }
       }
     },
     {
       LeftEnd = {
-        provider = _.constant(s.sepRoundRight),
-        highlight = { c.bg, c.barbg }
+        provider = _.constant(' '),
+        highlight = { c.basehl, c.basehl }
       }
-    }
+    },
   }
 
   gls.right = {
@@ -132,31 +128,28 @@ function M.setStatusLine ()
       DiagnosticError = {
         provider = 'DiagnosticError',
         icon = ' ' .. s.errorShape .. ' ',
-        -- separator = ' ' ,
-        highlight = { c.red , c.barbg }
+        highlight = { c.red , c.basehl }
       }
     },
     {
       DiagnosticWarn = {
         provider = 'DiagnosticWarn',
         icon = '  ' .. s.warningShape .. ' ',
-        -- separator = ' ' ,
-        highlight = { c.yellow, c.barbg },
+        highlight = { c.yellow, c.basehl },
       }
     },
     {
       DiagnosticInfo = {
         provider = 'DiagnosticInfo',
         icon = '  ' .. s.infoShape .. ' ',
-        -- separator = ' ' ,
-        highlight = { c.grey, c.barbg },
+        highlight = { c.main, c.basehl },
       }
     },
     {
       DiagnosticHint = {
         provider = 'DiagnosticHint',
         icon = '  ' .. s.questionShape .. ' ',
-        highlight = { c.grey, c.barbg },
+        highlight = { c.main, c.basehl },
       }
     },
     {
@@ -164,28 +157,28 @@ function M.setStatusLine ()
         provider = 'LineColumn',
         separator = ' ' .. s.sepRoundLeft,
         icon = ' ',
-        separator_highlight = { c.green , c.barbg },
-        highlight = { c.white , c.green },
+        separator_highlight = { c.green , c.basehl },
+        highlight = { c.lightBase , c.green },
       }
     },
     {
       PerCent = {
         provider = 'LinePercent',
         separator = ' ',
-        separator_highlight = { c.white, c.green },
-        highlight = { c.white , c.green },
+        separator_highlight = { c.darkBase, c.green },
+        highlight = { c.lightBase , c.green },
       }
     },
     {
       ScrollBar = {
         provider = 'ScrollBar',
-        highlight = { c.white , c.green },
+        highlight = { c.lightBase , c.green },
       }
     },
     {
       LastElement = {
         provider = _.constant(s.sepRoundRight),
-        highlight = { c.green , c.bg }
+        highlight = { c.green , c.base }
       }
     }
   }
@@ -194,21 +187,21 @@ function M.setStatusLine ()
     {
       ShortFirstElement = {
         provider = _.constant(s.sepRoundLeft),
-        highlight = { c.barbg , c.bg }
+        highlight = { c.basehl , c.base }
       }
     },
     {
       ShortFileIcon = {
         provider = 'FileIcon',
         condition = buffer_not_empty,
-        highlight = { c.grey , c.barbg },
+        highlight = { c.main , c.basehl },
       }
     },
     {
       ShortFileName = {
         provider = { 'FileName', 'FileSize' },
         condition = buffer_not_empty,
-        highlight = { c.grey, c.barbg }
+        highlight = { c.main, c.basehl }
       }
     }
   }
@@ -217,7 +210,7 @@ function M.setStatusLine ()
     {
       ShortLastElement = {
         provider = _.constant(s.sepRoundRight),
-        highlight = { c.barbg, c.bg }
+        highlight = { c.basehl, c.base }
       }
     }
   }

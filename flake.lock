@@ -120,6 +120,22 @@
         "type": "github"
       }
     },
+    "lush-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1606827001,
+        "narHash": "sha256-2/Bh0Wfl+5M2Vm4Fk0vb7DRo0d6PqBElPjjOxgsAzeg=",
+        "owner": "rktjmp",
+        "repo": "lush.nvim",
+        "rev": "6c0db268288e1c50aa17cc817e6e2b5cc63c6099",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rktjmp",
+        "repo": "lush.nvim",
+        "type": "github"
+      }
+    },
     "moses-lua": {
       "flake": false,
       "locked": {
@@ -241,6 +257,7 @@
         "galaxyline-nvim": "galaxyline-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "home-manager": "home-manager",
+        "lush-nvim": "lush-nvim",
         "moses-lua": "moses-lua",
         "neovim": "neovim",
         "nixos-stable": "nixos-stable",

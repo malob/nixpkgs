@@ -27,6 +27,8 @@
     galaxyline-nvim.flake = false;
     gitsigns-nvim.url = "github:lewis6991/gitsigns.nvim";
     gitsigns-nvim.flake = false;
+    lush-nvim.url = "github:rktjmp/lush.nvim";
+    lush-nvim.flake = false;
     moses-lua.url = "github:Yonaba/Moses";
     moses-lua.flake = false;
     nvim-bufferline-lua.url = "github:akinsho/nvim-bufferline.lua";
@@ -56,6 +58,7 @@
           mySources = {
             fish-plugin-done = fish-plugin-done;
             fish-plugin-humanize-duration = fish-plugin-humanize-duration;
+            lush-nvim = lush-nvim;
             galaxyline-nvim = galaxyline-nvim;
             gitsigns-nvim = gitsigns-nvim;
             moses-lua = moses-lua;

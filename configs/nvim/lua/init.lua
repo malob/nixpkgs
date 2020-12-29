@@ -21,14 +21,27 @@ local env = vim.env
 
 -- TODO ---------------------------------------------------------------------------------------- {{{
 
--- - Fix colorscheme issues
---   - Maybe make my own custom Lua version of NeoSolarized?
---   - Add proper highlights for LSP stuff.
+-- - Flesh out custom colorscheme
+--   - Tweak `TabLine` highlights.
+--   - Revisit Pmenu highlights:
+--     - Many Vim plugins use this as the base for their popup/floating windows, since doesn't have
+--       `NormalFloat` as a highlight. (At least I don't think it does).
+--   - Experiment with `Diff` highlights to look more like `delta`'s output.
+--   - Set `g:terminal_color` values.
+--   - Finish defining highlights for internal LSP.
+--   - Decide on whether I want to include a bunch of language specific highlights
+--   - Figure out what to do with `tree-sitter` highlights.
+--   - Add more highlights for plugins I use, and other popular plugins.
+--   - Stretch
+--     - Abstract away specific color choices. Make is so that it's easy to supply custom colors.
+--     - Create monotone variant, where one base color is supplied, and all colors are generate
+--       based on transformations of that colors.
 -- - Make tweaks to custom status line
---   - Hide Git section when not in repo, or in buffers like help.
 --   - Integrate better with colorscheme.
---   - Add in LSP status.
---   - Other little stuff.
+--   - Find a way to dynamically display current LSP status/progress/messages.
+--   - See if there's an easy way to show show Git sections when in terminal buffer.
+--   - Revamp conditions for when segments are displayed
+--   - A bunch of other small tweaks.
 -- - Improve completions
 --   - Not currently satisfied with sorting and what gets included when.
 --   - Add snippet support? Maybe with vim-vsnip?
@@ -40,7 +53,7 @@ local env = vim.env
 --   - Get around to making a Hoogle extention.
 -- - Other
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
---   - Get treesitter stuff setup.
+--   - Play around with `tree-sitter`.
 --   - Look into replacing floaterm-vim with vim-toggleterm.lua.
 
 -- }}}
@@ -94,27 +107,20 @@ o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end o
 -- Add personal hacks
 augroup { name = 'ColorschemeHacks', cmds = {
   { 'ColorScheme', '*', [[lua require'statusline'.setStatusLine()]] },
-  { 'ColorScheme', '*', 'hi! link SignColum Normal' },
-  { 'ColorScheme', '*', 'hi! link LineNr Comment' },
-  { 'ColorScheme', '*', 'hi! link CursorLineNr NonText' },
-  { 'ColorScheme', '*', 'hi! link StatusLine Normal' },
-  { 'ColorScheme', '*', 'hi! clear StatusLineNC' },
 }}
 
 -- Set colorscheme
-cmd 'packadd! NeoSolarized'
-g.neosolarized_italic = 1 -- enable italics (must come before colorscheme command)
-cmd 'colorscheme NeoSolarized'
+cmd 'colorscheme MaloSolarized'
 
--- Tabline
--- nvim-bufferline.lua
--- https://github.com/akinsho/nvim-bufferline.lua
-cmd 'packadd! nvim-bufferline-lua'
-require'bufferline'.setup {
-  options = {
-    view = 'multiwindow',
-  }
-}
+-- -- Tabline
+-- -- nvim-bufferline.lua
+-- -- https://github.com/akinsho/nvim-bufferline.lua
+-- cmd 'packadd! nvim-bufferline-lua'
+-- require'bufferline'.setup {
+--   options = {
+--     view = 'multiwindow',
+--   }
+-- }
 
 -- Git signs
 -- gitsigns.nvim
@@ -122,11 +128,11 @@ require'bufferline'.setup {
 cmd 'packadd! gitsigns-nvim'
 require'gitsigns'.setup {
   signs = {
-    add = { hl = 'GitGutterAdd'   , text = '┃', numhl='' },
-    change = { hl = 'GitGutterChange', text = '┃', numhl='' },
-    delete = { hl = 'GitGutterDelete', text = '_', numhl='' },
-    topdelete = { hl = 'GitGutterDelete', text = '‾', numhl='' },
-    changedelete = { hl = 'GitGutterChangeDelete', text = '≃', numhl='' },
+    add          = { hl = 'GitAddSign'          , text = '┃' , numhl='' },
+    change       = { hl = 'GitChangeSign'       , text = '┃' , numhl='' },
+    delete       = { hl = 'GitDeleteSign'       , text = '_' , numhl='' },
+    topdelete    = { hl = 'GitDeleteSign'       , text = '‾' , numhl='' },
+    changedelete = { hl = 'GitChangeDeleteSign' , text = '≃' , numhl='' },
   },
   numhl = false,
   keymaps = {},
