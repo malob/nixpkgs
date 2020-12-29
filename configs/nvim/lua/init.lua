@@ -35,7 +35,7 @@ local env = vim.env
 --   - Figure out whether I want to keep using nvim-bufferline.lua.
 --   - Find something better or tweak it util I have something I like.
 -- - List searching with telescope.nvim.
---   - Figure out why my extensions stop working after a while.
+--   - Improve workspace folder detection on my telescope.nvim extensions
 --   - Get around to making a Hoogle extention.
 -- - Other
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?

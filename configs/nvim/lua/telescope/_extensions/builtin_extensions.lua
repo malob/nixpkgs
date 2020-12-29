@@ -49,7 +49,7 @@ local function live_grep (opts)
 end
 
 local function get_workspace_folder ()
-  return vim.lsp.buf.list_workspace_folders()[1] or vim.fn.system('git rev-parse --show-toplevel')
+  return vim.lsp.buf.list_workspace_folders()[1] or vim.fn.systemlist('git rev-parse --show-toplevel')[1]
 end
 
 local function live_grep_workspace (opts)
