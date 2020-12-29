@@ -8,6 +8,7 @@ local bufkeymap = utils.bufkeymap
 local keymaps = utils.keymaps
 local bufkeymaps = utils.bufkeymaps
 local s = utils.symbols
+local _ = require 'moses'
 
 -- Add some aliases for Neovim Lua API
 local o = vim.o
@@ -39,7 +40,6 @@ local env = vim.env
 --   - Get around to making a Hoogle extention.
 -- - Other
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
---   - Improve diagnostic display for LSP.
 --   - Get treesitter stuff setup.
 --   - Look into replacing floaterm-vim with vim-toggleterm.lua.
 
@@ -265,6 +265,20 @@ require'telescope'.load_extension 'builtin_extensions'
 
 -- Language Server Configs --------------------------------------------------------------------- {{{
 
+-- Show LSP diagnostics in popups on cursor hold, not in virtual text
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    signs = true,
+    update_in_insert = false,
+  }
+)
+augroup { name = 'LSP', cmds = {
+  { 'CursorHold', '*', 'lua vim.lsp.diagnostic.show_line_diagnostics()' }
+}}
+
+-- Configure available LSPs
+-- Note that all language servers aside from `sumneko_lua` are installed via Nix
 vim.cmd 'packadd! nvim-lspconfig'
 local lspconf = require 'lspconfig'
 
@@ -337,10 +351,13 @@ lspconf.yamlls.setup {
   },
 }
 
-vim.fn.sign_define('LspDiagnosticsSignError', { text = s.error, texthl = 'LspDiagnosticsSignError' })
-vim.fn.sign_define('LspDiagnosticsSignWarning', { text = s.warning, texthl = 'LspDiagnosticsSignWarning' })
-vim.fn.sign_define('LspDiagnosticsSignInformation', { text = s.info, texthl = 'LspDiagnosticsSignInformation' })
-vim.fn.sign_define('LspDiagnosticsSignHint', { text = s.question, texthl = 'LspDiagnosticsSignHint' })
+_{
+  { 'LspDiagnosticsSignError', { text = s.error, texthl = 'LspDiagnosticsSignError' } },
+  { 'LspDiagnosticsSignWarning', { text = s.warning, texthl = 'LspDiagnosticsSignWarning' } },
+  { 'LspDiagnosticsSignInformation', { text = s.info, texthl = 'LspDiagnosticsSignInformation' } },
+  { 'LspDiagnosticsSignHint', { text = s.question, texthl = 'LspDiagnosticsSignHint' } },
+}:eachi(function(v) vim.fn.sign_define(unpack(v)) end)
+
 
 -- }}}
 
