@@ -1,6 +1,22 @@
 -- vim: foldmethod=marker
 
-require 'utils'
+-- Add my personal helpers
+local utils = require 'utils'
+local augroup = utils.augroup
+local keymap = utils.keymap
+local bufkeymap = utils.bufkeymap
+local keymaps = utils.keymaps
+local bufkeymaps = utils.bufkeymaps
+local s = utils.symbols
+
+-- Add some aliases for Neovim Lua API
+local o = vim.o
+local wo = vim.wo
+local b = vim.b
+local bo = vim.bo
+local g = vim.g
+local cmd = vim.cmd
+local env = vim.env
 
 -- TODO ---------------------------------------------------------------------------------------- {{{
 
@@ -22,7 +38,6 @@ require 'utils'
 --   - Figure out why my extensions stop working after a while.
 --   - Get around to making a Hoogle extention.
 -- - Other
---   - Revisit my utils.lua module, do I really want to dump so much into global scope?
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
 --   - Improve diagnostic display for LSP.
 --   - Get treesitter stuff setup.
@@ -266,7 +281,7 @@ lspconf.sumneko_lua.setup {
         -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
         version = 'LuaJIT',
         -- Setup your lua path
-        path = split(package.path, ';'),
+        path = vim.split(package.path, ';'),
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
@@ -322,10 +337,10 @@ lspconf.yamlls.setup {
   },
 }
 
-sign.define('LspDiagnosticsSignError', { text = symbol.error, texthl = 'LspDiagnosticsSignError' })
-sign.define('LspDiagnosticsSignWarning', { text = symbol.warning, texthl = 'LspDiagnosticsSignWarning' })
-sign.define('LspDiagnosticsSignInformation', { text = symbol.info, texthl = 'LspDiagnosticsSignInformation' })
-sign.define('LspDiagnosticsSignHint', { text = symbol.question, texthl = 'LspDiagnosticsSignHint' })
+vim.fn.sign_define('LspDiagnosticsSignError', { text = s.error, texthl = 'LspDiagnosticsSignError' })
+vim.fn.sign_define('LspDiagnosticsSignWarning', { text = s.warning, texthl = 'LspDiagnosticsSignWarning' })
+vim.fn.sign_define('LspDiagnosticsSignInformation', { text = s.info, texthl = 'LspDiagnosticsSignInformation' })
+vim.fn.sign_define('LspDiagnosticsSignHint', { text = s.question, texthl = 'LspDiagnosticsSignHint' })
 
 -- }}}
 
@@ -411,8 +426,8 @@ g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 
 g.mapleader = '`'
 
-cmd('packadd! vim-which-key')
-fn['which_key#register']('<Space>', 'g:which_key_map')
+cmd 'packadd! vim-which-key'
+vim.fn['which_key#register']('<Space>', 'g:which_key_map')
 keymap( '', '<Space>', [[:WhichKey '<Space>'<CR>]], { 'noremap', 'silent' } )
 local whichKeyMap = {}
 

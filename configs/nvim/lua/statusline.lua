@@ -1,15 +1,12 @@
 -- Import required globals
 -- galaxyline.nvim
 -- https://github.com/glepnir/galaxyline.nvim
-cmd('packadd! galaxyline-nvim')
+vim.cmd 'packadd! galaxyline-nvim'
 local gl = require 'galaxyline'
 local gls = gl.section
-local vim = vim
-local s = symbol
-local _ = require 'moses'
 
--- Clear environment
-local _ENV = {}
+local s =  require 'utils'.symbols
+local _ = require 'moses'
 
 -- Module
 local M = {}
@@ -59,13 +56,13 @@ function M.setStatusLine ()
       ViMode = {
         provider = function()
           local alias = {
-            c = '  ' .. symbol.term .. ' ',
-            i = '  ' .. symbol.pencil .. ' ',
-            n = '  ' .. symbol.vim .. ' ',
-            t = '  ' .. symbol.term .. ' ',
-            v = '  ' .. symbol.ibar .. ' ',
-            V = '  ' .. symbol.ibar .. ' ',
-            [''] = symbol.ibar .. ' ',
+            c = '  ' .. s.term .. ' ',
+            i = '  ' .. s.pencil .. ' ',
+            n = '  ' .. s.vim .. ' ',
+            t = '  ' .. s.term .. ' ',
+            v = '  ' .. s.ibar .. ' ',
+            V = '  ' .. s.ibar .. ' ',
+            [''] = s.ibar .. ' ',
           }
           return alias[vim.fn.mode()]
         end,
