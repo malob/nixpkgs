@@ -8,24 +8,8 @@ local _ = require 'moses'
 -- Clear environment
 local _ENV = {}
 
-
--- Neovim Lua API aliases --------------------------------------------------------------------------
-
-o = vim.o
-bo = vim.bo
-wo = vim.wo
-b = vim.b
-g = vim.g
-hi = vim.highlight
-cmd = vim.cmd
-api = vim.api
-fn = vim.fn
-split = vim.split
-env = vim.env
-sign = {
-  define = fn.sign_define
-}
-
+-- Init module
+local M = {}
 
 -- Helper functions -------------------------------------------------------------------------------
 
@@ -56,37 +40,37 @@ end
 ---Makes a global keymap
 ---`keymap(mode:string, lhs:string, rhs:string, opts:[string])`
 ---Where `opts` is a list of strings of the options to enable, e.g., `{ 'noremap', 'silent' }`.
-keymap = _.partial(_keymap, api.nvim_set_keymap)
+M.keymap = _.partial(_keymap, vim.api.nvim_set_keymap)
 
 ---Makes a keymap for the current buffer
 ---`bufkeymap(mode:string, lhs:string, rhs:string, opts:[string])`
 ---Where `opts` is a list of strings of the options to enable, e.g., `{ 'noremap', 'silent' }`.
-bufkeymap = _.partial(_keymap, _.partial(api.nvim_buf_set_keymap, 0))
+M.bufkeymap = _.partial(_keymap, _.partial(vim.api.nvim_buf_set_keymap, 0))
 
 ---Makes a collection of global keymaps with for the same mode with the same options
 ---`keymaps(t:{mode:string, opts:[string], maps:[[string]]})`
 ---Where `opts` is a list of strings of the options to enable, e.g., `{ 'noremap', 'silent' }`, and
 ---`maps` is a list of keymaps of the form `{ '[lhs]', '[rhs]' }`.
-keymaps = _.partial(_keymaps, keymap)
+M.keymaps = _.partial(_keymaps, M.keymap)
 
 ---Makes a collection of global keymaps with for the same mode with the same options
 ---`keymaps(t:{mode:string, opts:[string], maps:[[string]]})`
 ---Where `opts` is a list of strings of the options to enable, e.g., `{ 'noremap', 'silent' }`, and
 ---`maps` is a list of keymaps of the form `{ '[lhs]', '[rhs]' }`.
-bufkeymaps = _.partial(_keymaps, bufkeymap)
+M.bufkeymaps = _.partial(_keymaps, M.bufkeymap)
 
 ---Makes an autocommand group
 ---`augroup(t:{name:string, cmds:[[string]])`
 ---Where `cmds` is a list of autocommands of the form `{ '[event]', '[pattern]', '[cmd]' }`
-function augroup (t)
-  cmd('augroup ' .. t.name)
-  cmd('au!')
-  _.eachi(t.cmds, function(v) cmd('au ' .. _.concat(v, ' ')) end)
-  cmd('augroup END')
+function M.augroup (t)
+  vim.cmd('augroup ' .. t.name)
+  vim.cmd('au!')
+  _.eachi(t.cmds, function(v) vim.cmd('au ' .. _.concat(v, ' ')) end)
+  vim.cmd('augroup END')
 end
 
 ---Commonly used symbols for easy access
-symbol = {
+M.symbols = {
   error = '',
   errorShape = '',
   gitBranch = '',
@@ -108,4 +92,4 @@ symbol = {
   warningShape = '',
 }
 
-return _ENV
+return M
