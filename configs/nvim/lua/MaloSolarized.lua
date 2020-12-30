@@ -503,7 +503,7 @@ M.getParsedLushSpec = function ()
       GitGutterDeleteLineNr { GitDelete, gui = CursorLineNr.gui },
       GitGutterChangeDeleteLineNr { GitChangeDelete, gui = CursorLineNr.gui },
 
-      -- vim-whick-key
+      -- vim-which-key
       -- https://github.com/liuchengxu/vim-which-key
       WhichKeyFloating { NormalFloat },
 
