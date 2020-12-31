@@ -1,12 +1,10 @@
 { pkgs, ... }:
 
 let
-  sources = import ../nix/sources.nix;
-
   customVimPlugins = with pkgs.vimUtils // pkgs.mylib; {
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
-      src = sources.vim-haskell-module-name;
+      src = pkgs.mySources.vim-haskell-module-name;
     };
     coc-fish = nodePackage2VimPackage "coc-fish";
     coc-import-cost = nodePackage2VimPackage "coc-import-cost";

@@ -26,7 +26,7 @@
 
   # Kitty terminal
   # Configuration options defined in overlays: `../overlays/kitty-configs.nix`
-  programs.kitty.enable = pkgs.mylib.OS != "Ubuntu";
+  programs.kitty.enable = true;
   programs.kitty.settings = pkgs.my-kitty-config // pkgs.my-kitty-light-config;
   xdg.configFile."kitty/macos-launch-services-cmdline".text = "--listen-on unix:/tmp/mykitty";
 
@@ -85,22 +85,15 @@
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
-    mypkgs.comma # run software from without installing it
+    comma # run software from without installing it
     lorri # improve `nix-shell` experience in combination with `direnv`
     niv # easy dependency management for nix projects
+    nodePackages.node2nix
 
-    # My custom nix related shell scripts
-    myenv-script
-
-  ] ++ lib.optionals (mylib.OS == "macOS") [
-    m-cli # useful macOS cli commands
-    mypkgs.prefmanager # tool for working with macOS defaults
-  ] ++ lib.optionals (mylib.OS == "Ubuntu") [
     abduco
-  ]
-  ++ lib.optionals (mylib.OS == "NixOS") [
-    slack
-    vscode
+  ] ++ lib.optionals stdenv.isDarwin [
+    m-cli # useful macOS cli commands
+    # mypkgs.prefmanager # tool for working with macOS defaults
   ];
 
   # This value determines the Home Manager release that your configuration is compatible with. This

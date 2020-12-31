@@ -1,17 +1,10 @@
 # My Nix Configs
 
-![Build Nix macOS env](https://github.com/malob/nixpkgs/workflows/Build%20Nix%20macOS%20env/badge.svg)
-
-This is my Nix configuration (with a few other things thrown in) that I use on all my systems macOS, Ubuntu for VMs, NixOS (used at work with company system configs). My overall goal/motivation is to make as much of my system configuration as possible declarative.
-
-* [`nix-darwin`](https://github.com/LnL7/nix-darwin) is used for managing macOS [system config](./darwin/configuration.nix).
-* [`home-manager`](https://github.com/nix-community/home-manager) (as `nix-darwin` module on macOS) is used for managing [user config](./home-manager/configuration.nix).
+![Build Nix envs](https://github.com/malob/nixpkgs/workflows/Build%20Nix%20envs/badge.svg)
 
 ## Notable Features
 
-* [`niv`](https://github.com/nmattia/niv) as a replacement for `nix-channels` and for better source management throughout the config.
-  * Instead of using `nix-channels`, channels are added to [`nix/sources.json`](./nix/sources.json), and [`nix/nix-defexpr`](./nix/nix-defexpr) is simlinked to `~/.nix-defexpr`.
-  * The `unstable` channel is used by default, but both the latest `stable` channel as well as `master` are added to `pkgs` via an [overlay](./overlays/channels.nix) for easy access when needed.
+* Flakes!
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the `nix-darwin` config and updates a Cachix cache. Once a week it also tries to update channels/sources before building, and if successful, it commits the changes.
 * Some custom `nix-darwin` modules:
   * [`homebrew`](./darwin/modules/homebrew.nix) which manages packages/apps installed via Hombrew Bundle. See example usage in [`darwin/homebrew.nix`](./darwin/homebrew.nix). (Pending upstream PR [#262](https://github.com/LnL7/nix-darwin/pull/262).)

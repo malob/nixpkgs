@@ -94,7 +94,7 @@
       # Receive notifications when long processes finish
       # https://github.com/franciscolourenco/done
       name = "done";
-      src = (import ../nix/sources.nix).fish-plugin-done;
+      src = pkgs.mySources.fish-plugin-done;
     }
     {
       # Dependency of Done plugin
@@ -102,7 +102,7 @@
       name = "humanize-duration";
       # We need to move the functions in a funcions dir for `programs.fish.plugins` to pick it up
       src = pkgs.linkFarm "humanize-duration"
-        [ { name = "functions"; path = (import ../nix/sources.nix).fish-plugin-humanize-duration; } ];
+        [ { name = "functions"; path = pkgs.mySources.fish-plugin-humanize-duration; } ];
     }
   ];
 
@@ -110,6 +110,8 @@
   programs.fish.shellAliases = with pkgs; {
     ":q" = "exit";
     ".." = "cd ..";
+    drb = "darwin-rebuild build --flake ~/.config/nixpkgs/";
+    drs = "darwin-rebuild switch --flake ~/.config/nixpkgs/";
     cat = "${bat}/bin/bat";
     du = "${du-dust}/bin/dust";
     g = "${gitAndTools.git}/bin/git";

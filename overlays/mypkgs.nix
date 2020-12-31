@@ -1,15 +1,7 @@
 # Packages for which I've created my own Nix derivations
-self: super:
-let
-  sources = import ../nix/sources.nix;
-in
-{
+self: super: {
   mypkgs = {
     nodePackages = super.pkgs.callPackage ../pkgs/node-packages {};
-
-    prefmanager = (import sources.prefmanager {}).prefmanager.components.exes.prefmanager;
-
-    comma = import sources.comma {};
 
     tickgit = super.pkgs.buildGoModule rec {
       pname = "tickgit";

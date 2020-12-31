@@ -1,0 +1,190 @@
+{
+  "nodes": {
+    "comma": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1588170489,
+        "narHash": "sha256-IT7zlcM1Oh4sWeCJ1m4NkteuajPxTnNo1tbitG0eqlg=",
+        "owner": "Shopify",
+        "repo": "comma",
+        "rev": "4a62ec17e20ce0e738a8e5126b4298a73903b468",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shopify",
+        "repo": "comma",
+        "type": "github"
+      }
+    },
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1608628442,
+        "narHash": "sha256-MNpNlZ2TqaQNiYuP8UcudfQoZAT/ocwFwFxhANSRt1c=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "8834df431736c3037bbef017b24c62bc4ace4645",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "fish-plugin-done": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1605248195,
+        "narHash": "sha256-ifwri5FCkEY8AdrJYxAiP+pQjwWLxbnmFhEnsSbdgbM=",
+        "owner": "franciscolourenco",
+        "repo": "done",
+        "rev": "f6f1998f4b5e89f0783b139a9f86aa2dce147f31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "franciscolourenco",
+        "repo": "done",
+        "type": "github"
+      }
+    },
+    "fish-plugin-humanize-duration": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1609162019,
+        "narHash": "sha256-Y9Siqkt+CXiXB6515QuRPQWsqYh6bP/Qc6vBCNWWfP8=",
+        "owner": "fishpkg",
+        "repo": "fish-humanize-duration",
+        "rev": "852d19cc8d856063dacfc162260e44fdb63f1449",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fishpkg",
+        "repo": "fish-humanize-duration",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1609426169,
+        "narHash": "sha256-JK3P0uxgzuNr0AnrL4KRsR76h5T2TPIs0MpLuOyG0TQ=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "f6fd7e3fa4fac876f02309b780492f9f2d58093a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixos-stable": {
+      "locked": {
+        "lastModified": 1609187327,
+        "narHash": "sha256-6lCwWpGpZxbSYclryv4ixsxxbISe7HuLyyQnGWCC8ZQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e065200fc90175a8f6e50e76ef10a48786126e1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-20.09",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1609349023,
+        "narHash": "sha256-Iw+A25SO8zAltCKcJubl7RzgA/eKCx2oHNBvHwmYTpM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "bea44d5ebe332260aa34a1bd48250b6364527356",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1609452757,
+        "narHash": "sha256-eJHI7PCR/u0AxnpawCsgLAjl2keiUpiFVF1ooipjWlU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e79ddcf8c90c4bb3db773100d8f74f09c35d3f1e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable-darwin": {
+      "locked": {
+        "lastModified": 1609419190,
+        "narHash": "sha256-hY5KJ+gWJXD3EGUr6B3qgQdK7Bvg86Aum84tt0Y/TLE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "388ed4e09f3bf9de1b14d043cc0ba5b03183b09b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-20.09-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "comma": "comma",
+        "darwin": "darwin",
+        "fish-plugin-done": "fish-plugin-done",
+        "fish-plugin-humanize-duration": "fish-plugin-humanize-duration",
+        "home-manager": "home-manager",
+        "nixos-stable": "nixos-stable",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-master": "nixpkgs-master",
+        "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
+        "vim-haskell-module-name": "vim-haskell-module-name"
+      }
+    },
+    "vim-haskell-module-name": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1579488530,
+        "narHash": "sha256-UVoZqZU3EnkEiHWfR2yg8sHzh6KwA5ix8S19/4ZwXEk=",
+        "owner": "chkno",
+        "repo": "vim-haskell-module-name",
+        "rev": "f9f8e9f83a30b8f805b8fbc0079163e8193b289b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chkno",
+        "repo": "vim-haskell-module-name",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
