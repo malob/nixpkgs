@@ -40,7 +40,7 @@ jobs:
     - name: If scheduled, update sources
       if: ${{ github.event_name == 'schedule' && success() }}
       run: |
-        nix flake update
+        nix flake update --recreate-lock-file 
 
     - name: Build and switch to nix-darwin env
       run: |
