@@ -69,7 +69,9 @@ function M.augroup (t)
   vim.cmd('augroup END')
 end
 
----Commonly used symbols for easy access
+
+-- Other handy stuff -------------------------------------------------------------------------------
+
 M.symbols = {
   error = '',
   errorShape = '',

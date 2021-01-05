@@ -31,6 +31,8 @@
     lush-nvim.flake = false;
     moses-lua.url = "github:Yonaba/Moses";
     moses-lua.flake = false;
+    telescope-nvim.url = "github:nvim-telescope/telescope.nvim";
+    telescope-nvim.flake = false;
     vim-haskell-module-name.url = "github:chkno/vim-haskell-module-name";
     vim-haskell-module-name.flake = false;
 
@@ -56,11 +58,12 @@
           mySources = {
             fish-plugin-done = fish-plugin-done;
             fish-plugin-humanize-duration = fish-plugin-humanize-duration;
-            lush-nvim = lush-nvim;
             galaxyline-nvim = galaxyline-nvim;
             gitsigns-nvim = gitsigns-nvim;
+            lush-nvim = lush-nvim;
             moses-lua = moses-lua;
             neovim = neovim;
+            telescope-nvim = telescope-nvim;
             vim-haskell-module-name = vim-haskell-module-name;
           };
         })
