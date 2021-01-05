@@ -494,6 +494,7 @@ M.getParsedLushSpec = function ()
       GitTopDeleteSign    { GitDeleteSign },
       GitChangeDeleteSign { GitChangeDelete, gui = SignColumn.gui },
 
+
       -- vim-gitgutter
       -- https://github.com/airblade/vim-gitgutter
       GitGutterAdd                { GitAdd },
@@ -504,9 +505,59 @@ M.getParsedLushSpec = function ()
       GitGutterDeleteLineNr       { GitDelete, gui = CursorLineNr.gui },
       GitGutterChangeDeleteLineNr { GitChangeDelete, gui = CursorLineNr.gui },
 
+
       -- vim-which-key
       -- https://github.com/liuchengxu/vim-which-key
       WhichKeyFloating { NormalFloat },
+
+
+      -- telescope.nvim
+      -- https://github.com/nvim-telescope/telescope.nvim
+      -- Sets the highlight for selected items within the picker.
+      TelescopeSelection { gui = 'bold,italic' },
+      TelescopeSelectionCaret { fg = c.red, gui = 'bold' },
+      -- TelescopeMultiSelection { Type }
+
+      -- "Normal" in the floating windows created by telescope.
+      TelescopeNormal { Normal },
+
+      -- Border highlight groups.
+      TelescopeBorder { fg = c.main, gui = 'bold,italic' },
+      TelescopePromptBorder { TelescopeBorder, fg = c.blue },
+      TelescopeResultsBorder { TelescopeBorder },
+      TelescopePreviewBorder { TelescopeBorder },
+
+      -- Used for highlighting characters that you match.
+      TelescopeMatching { fg = c.red },
+
+      -- Used for the prompt prefix
+      TelescopePromptPrefix { fg = c.green, gui = 'bold' },
+
+      -- Used for highlighting the matched line inside Previewer.
+      -- Works only for (vim_buffer_ previewer)
+      TelescopePreviewLine { CursorLine },
+      TelescopePreviewMatch { Search },
+
+      -- Used for Picker specific Results highlighting
+      -- TelescopeResultsClass { Function },
+      -- TelescopeResultsConstant { Constant },
+      -- TelescopeResultsField { Function },
+      -- TelescopeResultsFunction { Function },
+      -- TelescopeResultsMethod { Method },
+      -- TelescopeResultsOperator { Operator },
+      -- TelescopeResultsStruct { Struct },
+      -- TelescopeResultsVariable { SpecialChar },
+
+      -- TelescopeResultsLineNr { LineNr },
+      -- TelescopeResultsIdentifier { Identifier },
+      -- TelescopeResultsNumber { Number },
+      -- TelescopeResultsComment { Comment },
+      -- TelescopeResultsSpecialComment { SpecialComment },
+
+      -- Used for git status Results highlighting
+      -- TelescopeResultsDiffChange { DiffChange },
+      -- TelescopeResultsDiffAdd { DiffAdd },
+      -- TelescopeResultsDiffDelete { DiffDelete },
 
       -- }}}
     }

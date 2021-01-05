@@ -31,8 +31,8 @@ local env = vim.env
 --   - Finish defining highlights for internal LSP.
 --   - Decide on whether I want to include a bunch of language specific highlights
 --   - Figure out what to do with `tree-sitter` highlights.
---   - Add more highlights for plugins I use, and other popular plugins.
 --   - Stretch
+--     - Add more highlights for plugins I use, and other popular plugins.
 --     - Abstract away specific color choices. Make is so that it's easy to supply custom colors.
 --     - Create monotone variant, where one base color is supplied, and all colors are generate
 --       based on transformations of that colors.
@@ -55,6 +55,7 @@ local env = vim.env
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
 --   - Play around with `tree-sitter`.
 --   - Look into replacing floaterm-vim with vim-toggleterm.lua.
+--   - Look into some keymaps defined with vim-which-key being slow to execute.
 
 -- }}}
 
