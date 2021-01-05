@@ -367,6 +367,15 @@ _{
 
 -- Filetype specific --------------------------------------------------------------------------- {{{
 
+-- nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = { enable = true },
+  incremental_selection = { enable = true },
+  indent = { enable = true },
+}
+
 -- Most filetypes
 -- vim-polyglot
 -- A solid language pack for Vim

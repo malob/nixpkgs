@@ -53,6 +53,7 @@ in
         myPlugins.moses-nvim
         myPlugins.vim-haskell-module-name
         nvim-lspconfig
+        nvim-treesitter
         nvim-web-devicons
         plenary-nvim # required for telescope-nvim and gitsigns.nvim
         popup-nvim # required for telescope-nvim
