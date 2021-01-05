@@ -39,8 +39,8 @@
     # Other sources
     comma.url = "github:Shopify/comma";
     comma.flake = false;
-    neovim.url = "github:neovim/neovim";
-    neovim.flake = false;
+    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, ... }@inputs:
@@ -55,6 +55,7 @@
             else
               nixos-stable.legacyPackages.${system};
           comma  = import comma { inherit pkgs; };
+          neovim-nightly = neovim.packages.${system}.neovim;
           mySources = {
             fish-plugin-done = fish-plugin-done;
             fish-plugin-humanize-duration = fish-plugin-humanize-duration;
@@ -62,7 +63,6 @@
             gitsigns-nvim = gitsigns-nvim;
             lush-nvim = lush-nvim;
             moses-lua = moses-lua;
-            neovim = neovim;
             telescope-nvim = telescope-nvim;
             vim-haskell-module-name = vim-haskell-module-name;
           };

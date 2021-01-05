@@ -30,7 +30,7 @@ let
 in
 {
   programs.neovim.enable = true;
-  programs.neovim.package = pkgs.mypkgs.neovim-nightly;
+  programs.neovim.package = pkgs.neovim-nightly;
 
   programs.neovim.configure = {
 

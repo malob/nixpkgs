@@ -68,6 +68,21 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1609246779,
+        "narHash": "sha256-eq6ZXE/VWo3EMC65jmIT6H/rrUc9UWOWVujkzav025k=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "08c7ad4a0844adc4a7f9f5bb3beae482e789afa4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "galaxyline-nvim": {
       "flake": false,
       "locked": {
@@ -153,16 +168,23 @@
       }
     },
     "neovim": {
-      "flake": false,
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1609773454,
-        "narHash": "sha256-0XsvlcbELzwnVyVhggBLw2DlxYXFzm0FIJIugRIMY8w=",
+        "dir": "contrib",
+        "lastModified": 1609878215,
+        "narHash": "sha256-1+ok9J98BR5dzYoWlfEGkAdZYgV+uC+carrjpGO2vuM=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "9223d1450d391b06cd59f8469c53291281899c9f",
+        "rev": "2ea3127697692b0b2c480d585ef6529e90a72b0e",
         "type": "github"
       },
       "original": {
+        "dir": "contrib",
         "owner": "neovim",
         "repo": "neovim",
         "type": "github"

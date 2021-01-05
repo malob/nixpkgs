@@ -26,15 +26,5 @@ self: super: {
         platforms = platforms.linux ++ platforms.darwin;
       };
     };
-
-    neovim-nightly = with self.pkgs; neovim-unwrapped.overrideAttrs (
-      attrs: {
-        pname = "neovim-nightly";
-        version = "master";
-        nativeBuildInputs = attrs.nativeBuildInputs
-        ++ [ tree-sitter ];
-        src = self.mySources.neovim;
-      }
-    );
   };
 }
