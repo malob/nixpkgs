@@ -112,6 +112,7 @@
     ".." = "cd ..";
     drb = "darwin-rebuild build --flake ~/.config/nixpkgs/";
     drs = "darwin-rebuild switch --flake ~/.config/nixpkgs/";
+    flakeup = "nix flake update --recreate-lock-file ~/.config/nixpkgs/";
     cat = "${bat}/bin/bat";
     du = "${du-dust}/bin/dust";
     g = "${gitAndTools.git}/bin/git";
