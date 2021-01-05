@@ -17,4 +17,4 @@
   * setting up a [Fish shell config](./home-manager/shells.nix), references the NeoSolarized colors from the overlay, provides a `toggle-colors` function that toggles an environment variable (`$term_colors`) between `light` and `dark`, and a `terminal-colors` function that is automatically called when `$term_colors` is changed that runs a series of commands to change the colors/themes used by Kitty, Fish, Neovim, Bat, and Delta.
   * On macOS there is also a service `launchd` user service, `setTermColors`, that changes `$term_colors` automatically to match the OS's setting.
 * A nice [shell prompt config](./home-manager/shells.nix) for Fish using [Starship](https://starship.rs).
-* A feature packed and slick looking Neovim config ([`init.vim`](./configs/nvim/init.vim), [`coc-settings.json`](./configs/nvim/coc-settings.json), [`neovim.nix`](./home-manager/neovim.nix)).
+* An experimental (but functional) slick Neovim 0.5.0 (nightly) config in Lua ([`init.lua`](./configs/nvim/lua/init.lua), [`neovim.nix`](./home-manager/neovim.nix)).
