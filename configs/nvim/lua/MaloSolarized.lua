@@ -15,22 +15,22 @@ local M = {}
 
 -- Setup core colors
 M.colors = {
-  darkBase     = hsl('#002b36'), -- base03
-  darkBaseHl   = hsl('#073642'), -- base02
-  darkestTone  = hsl('#586e75'), -- base01
-  darkTone     = hsl('#657b83'), -- base00
-  lightTone    = hsl('#839496'), -- base0
-  lightestTone = hsl('#93a1a1'), -- base1
-  lightBaseHl  = hsl('#eee8d5'), -- base2
-  lightBase    = hsl('#fdf6e3'), -- base3
-  yellow       = hsl('#b58900'),
-  orange       = hsl('#cb4b16'),
-  red          = hsl('#dc322f'),
-  magenta      = hsl('#d33682'),
-  violet       = hsl('#6c71c4'),
-  blue         = hsl('#268bd2'),
-  cyan         = hsl('#2aa198'),
-  green        = hsl('#859900'),
+  darkBase     = hsl '#002b36', -- base03
+  darkBaseHl   = hsl '#073642', -- base02
+  darkestTone  = hsl '#586e75', -- base01
+  darkTone     = hsl '#657b83', -- base00
+  lightTone    = hsl '#839496', -- base0
+  lightestTone = hsl '#93a1a1', -- base1
+  lightBaseHl  = hsl '#eee8d5', -- base2
+  lightBase    = hsl '#fdf6e3', -- base3
+  yellow       = hsl '#b58900',
+  orange       = hsl '#cb4b16',
+  red          = hsl '#dc322f',
+  magenta      = hsl '#d33682',
+  violet       = hsl '#6c71c4',
+  blue         = hsl '#268bd2',
+  cyan         = hsl '#2aa198',
+  green        = hsl '#859900',
 }
 
 -- Function to set/update colors that are dependant on `vim.o.background`
@@ -201,7 +201,8 @@ M.getParsedLushSpec = function ()
 
       -- Not active tab page label.
       -- exe "hi! TabLine"        .s:fmt_undr   .s:fg_base0  .s:bg_base02  .s:sp_base0
-      TabLine     { fg = c.main, bg = c.basehl, gui = 'underline', sp = c.main },
+      -- TabLine     { fg = c.main, bg = c.basehl, gui = 'underline', sp = c.main },
+      TabLine     { fg = c.main, bg = c.basehl }, -- change
 
       -- Where there are no labels.
       -- exe "hi! TabLineFill"    .s:fmt_undr   .s:fg_base0  .s:bg_base02  .s:sp_base0
@@ -482,25 +483,25 @@ M.getParsedLushSpec = function ()
       -- Plugins ------------------------------------------------------------------------------- {{{
 
       -- Custom groups used as base for Git related highlights
-      GitAdd { fg = c.green },
-      GitChange { fg = c.yellow },
-      GitDelete { fg = c.red },
-      GitTopDelete { GitDelete },
-      GitChangeDelete { fg = c.orange },
-      GitAddSign { GitAdd, gui = SignColumn.gui },
-      GitChangeSign { GitChange, gui = SignColumn.gui },
-      GitDeleteSign { GitDelete, gui = SignColumn.gui },
-      GitTopDeleteSign { GitDeleteSign },
+      GitAdd              { fg = c.green },
+      GitChange           { fg = c.yellow },
+      GitDelete           { fg = c.red },
+      GitTopDelete        { GitDelete },
+      GitChangeDelete     { fg = c.orange },
+      GitAddSign          { GitAdd, gui = SignColumn.gui },
+      GitChangeSign       { GitChange, gui = SignColumn.gui },
+      GitDeleteSign       { GitDelete, gui = SignColumn.gui },
+      GitTopDeleteSign    { GitDeleteSign },
       GitChangeDeleteSign { GitChangeDelete, gui = SignColumn.gui },
 
       -- vim-gitgutter
       -- https://github.com/airblade/vim-gitgutter
-      GitGutterAdd { GitAdd },
-      GitGutterChange { GitChange },
-      GitGutterDelete { GitDelete },
-      GitGutterAddLineNr { GitAdd, gui = CursorLineNr.gui },
-      GitGutterChangeLineNr { GitChange, gui = CursorLineNr.gui },
-      GitGutterDeleteLineNr { GitDelete, gui = CursorLineNr.gui },
+      GitGutterAdd                { GitAdd },
+      GitGutterChange             { GitChange },
+      GitGutterDelete             { GitDelete },
+      GitGutterAddLineNr          { GitAdd, gui = CursorLineNr.gui },
+      GitGutterChangeLineNr       { GitChange, gui = CursorLineNr.gui },
+      GitGutterDeleteLineNr       { GitDelete, gui = CursorLineNr.gui },
       GitGutterChangeDeleteLineNr { GitChangeDelete, gui = CursorLineNr.gui },
 
       -- vim-which-key
