@@ -232,22 +232,6 @@
         "type": "github"
       }
     },
-    "nvim-bufferline-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1609061415,
-        "narHash": "sha256-O8mRRtqwBsJ6YVqzU7T2iukl1mi5JTPQ9tqmCiIGEpU=",
-        "owner": "akinsho",
-        "repo": "nvim-bufferline.lua",
-        "rev": "a872f34fa53cea9a37f608b17804114add4df049",
-        "type": "github"
-      },
-      "original": {
-        "owner": "akinsho",
-        "repo": "nvim-bufferline.lua",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "comma": "comma",
@@ -264,7 +248,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
-        "nvim-bufferline-lua": "nvim-bufferline-lua",
         "vim-haskell-module-name": "vim-haskell-module-name"
       }
     },

@@ -18,10 +18,6 @@ let
       name = "moses-nvim";
       src = pkgs.linkFarm "moses-nvim" [ { name = "lua"; path = pkgs.mySources.moses-lua; } ];
     };
-    nvim-bufferline-lua = buildVimPluginFrom2Nix {
-      name = "nvim-bufferline-lua";
-      src = pkgs.mySources.nvim-bufferline-lua;
-    };
     vim-haskell-module-name = buildVimPluginFrom2Nix {
       name = "vim-haskell-module-name";
       src = pkgs.mySources.vim-haskell-module-name;
@@ -71,7 +67,7 @@ in
         completion-tabnine
         myPlugins.galaxyline-nvim
         myPlugins.gitsigns-nvim
-        myPlugins.nvim-bufferline-lua
+        barbar-nvim
         telescope-nvim
         vim-floaterm
         vim-pencil

@@ -31,8 +31,6 @@
     lush-nvim.flake = false;
     moses-lua.url = "github:Yonaba/Moses";
     moses-lua.flake = false;
-    nvim-bufferline-lua.url = "github:akinsho/nvim-bufferline.lua";
-    nvim-bufferline-lua.flake = false;
     vim-haskell-module-name.url = "github:chkno/vim-haskell-module-name";
     vim-haskell-module-name.flake = false;
 
@@ -63,7 +61,6 @@
             gitsigns-nvim = gitsigns-nvim;
             moses-lua = moses-lua;
             neovim = neovim;
-            nvim-bufferline-lua = nvim-bufferline-lua;
             vim-haskell-module-name = vim-haskell-module-name;
           };
         })

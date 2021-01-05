@@ -46,7 +46,7 @@ local env = vim.env
 --   - Not currently satisfied with sorting and what gets included when.
 --   - Add snippet support? Maybe with vim-vsnip?
 -- - Bufferline/tabline
---   - Figure out whether I want to keep using nvim-bufferline.lua.
+--   - Figure out whether I want to keep using barbar.nvim.
 --   - Find something better or tweak it util I have something I like.
 -- - List searching with telescope.nvim.
 --   - Improve workspace folder detection on my telescope.nvim extensions
@@ -107,20 +107,16 @@ o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end o
 -- Add personal hacks
 augroup { name = 'ColorschemeHacks', cmds = {
   { 'ColorScheme', '*', [[lua require'statusline'.setStatusLine()]] },
+  { 'ColorScheme', '*', [[lua require'nvim-web-devicons'.setup()]] },
 }}
 
 -- Set colorscheme
 cmd 'colorscheme MaloSolarized'
 
--- -- Tabline
--- -- nvim-bufferline.lua
--- -- https://github.com/akinsho/nvim-bufferline.lua
--- cmd 'packadd! nvim-bufferline-lua'
--- require'bufferline'.setup {
---   options = {
---     view = 'multiwindow',
---   }
--- }
+-- Tabline
+-- barbar.nvim
+-- https://github.com/romgrk/barbar.nvim
+ cmd 'packadd! barbar-nvim'
 
 -- Git signs
 -- gitsigns.nvim
