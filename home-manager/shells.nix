@@ -49,8 +49,8 @@
           end
 
           # If Neovim is running, use neovim-remote to sent command to toggle colors
-          if test (${nvr} --serverlist)
-            ${nvr} -s --nostart --servername (nvr --serverlist) -c "set background=$term_colors" &
+          for server in (${nvr} --serverlist)
+            ${nvr} -s --nostart --servername $server -c "set background=$term_colors" &
           end
 
           # Toggle colors that Bat and Delta use
