@@ -559,6 +559,13 @@ M.getParsedLushSpec = function ()
       -- TelescopeResultsDiffAdd { DiffAdd },
       -- TelescopeResultsDiffDelete { DiffDelete },
 
+
+      -- vim-floaterm
+      -- https://github.com/voldikss/vim-floaterm
+      Floaterm { Normal },
+      FloatermBorder { Floaterm, gui = 'bold,italic' },
+      FloatermNC { Floaterm },
+
       -- }}}
     }
   end)
