@@ -36,6 +36,13 @@
   # Shells #
   ##########
 
+  # Temporary fix for nix-darwin `programs.fish` module, to address upstream `nixpkgs` change where
+  # `pkgs.fish-foreign-env` is now `pkgs.fishPlugins.foreign-env`.
+  # Issue: https://github.com/LnL7/nix-darwin/issues/269
+  # PR: https://github.com/LnL7/nix-darwin/pull/270
+  disabledModules = [ "programs/fish.nix" ];
+  imports = [ ./modules/programs/fish.nix ];
+
   # Add shells installed by nix to /etc/shells file
   environment.shells = with pkgs; [
     bashInteractive
@@ -48,7 +55,7 @@
   # Needed to address bug where $PATH is not properly set for fish:
   # https://github.com/LnL7/nix-darwin/issues/122
   programs.fish.interactiveShellInit = ''
-    set -pg fish_function_path ${pkgs.fish-foreign-env}/share/fish-foreign-env/functions
+    set -pg fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
     fenv source ${config.system.build.setEnvironment}
   '';
   # Needed to ensure Fish is set as the default shell:
