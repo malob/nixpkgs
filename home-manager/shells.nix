@@ -111,7 +111,7 @@
     ":q" = "exit";
     ".." = "cd ..";
     drb = "darwin-rebuild build --flake ~/.config/nixpkgs/";
-    drs = "darwin-rebuild switch --flake ~/.config/nixpkgs/";
+    drs = "env TERM=xterm-256color darwin-rebuild switch --flake ~/.config/nixpkgs/"; # setting env due to: https://github.com/nix-community/home-manager/issues/423
     flakeup = "nix flake update --recreate-lock-file ~/.config/nixpkgs/";
     cat = "${bat}/bin/bat";
     du = "${du-dust}/bin/dust";
