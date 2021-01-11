@@ -178,6 +178,8 @@ keymaps { mode = 't', opts = { 'noremap' }, maps = {
 -- Plugin loaded on first used keybinding in WhichKey section
 g.floaterm_title       = 'Terminal ($1/$2)'
 g.floaterm_borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+g.floaterm_width       = 0.8
+g.floaterm_height      = 0.8
 
 function FloatTermKeymaps ()
   bufkeymaps { mode = '',  opts = { 'silent' }, maps = {

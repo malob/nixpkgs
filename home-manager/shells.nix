@@ -154,9 +154,10 @@
       alias nh "nvr -o"
       alias nv "nvr -O"
       alias nt "nvr --remote-tab"
-      alias n  "nvr "
+      alias n  "nvr"
       alias neovim 'command nvim'
       alias nvim "echo 'You\'re already in nvim. Consider using n, h, v, or t instead. Use \'neovim\' to force.'"
+      alias floaterm "${pkgs.vimPlugins.vim-floaterm}/share/vim-plugins/vim-floaterm/bin/floaterm"
     else
       alias n 'nvim'
     end
