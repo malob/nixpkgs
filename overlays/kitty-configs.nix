@@ -1,20 +1,19 @@
-# Used in home-manager Kitty terminal config: `../home-manager/configuration.nix`
-# Used in home-manager Fish shell config: `../home-manager/shells.nix`
+# Used in `home-manager` Kitty terminal config: `../home-manager/configuration.nix`
 self: super:
 let
   # Function to format Nix sets as Kitty config strings
   setToKittyConfig = with super.lib.generators;
     toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
 
-  # Funtion to write a Kitty configuration file into the store
+  # Function to write a Kitty configuration file into the store
   writeKittyConfigToStore = fileName: config:
     super.pkgs.writeTextDir "${fileName}" (setToKittyConfig config);
 
 in
 rec {
-  # Config for NeoSolarized dark colors
+  # Config for Solarized dark colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  my-kitty-dark-config = with self.neosolarized-colors; rec {
+  my-kitty-dark-config = with self.solarized-colors; rec {
     background = "#${base03}";
     foreground = "#${base0}";
 
@@ -30,9 +29,9 @@ rec {
     tab_bar_background = "#${base02}";
   };
 
-  # Config for NeoSolarized light colors
+  # Config for Solarized light colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  my-kitty-light-config = with self.neosolarized-colors; rec {
+  my-kitty-light-config = with self.solarized-colors; rec {
     background = "#${base3}";
     foreground = "#${base00}";
 
@@ -48,9 +47,9 @@ rec {
     tab_bar_background = "#${base2}";
   };
 
-  # General kitty config (colors omitted)
+  # General kitty config (colors that change based on background omitted)
   # https://sw.kovidgoyal.net/kitty/conf.html
-  my-kitty-config = with self.neosolarized-colors; rec {
+  my-kitty-config = with self.solarized-colors; rec {
     # Required to use `kitty @` commands
     allow_remote_control = "yes";
 

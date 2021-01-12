@@ -285,7 +285,8 @@ augroup { name = 'LSP', cmds = {
 }}
 
 -- Configure available LSPs
--- Note that all language servers aside from `sumneko_lua` are installed via Nix
+-- Note that all language servers aside from `sumneko_lua` are installed via Nix. See:
+-- `../../../home-manager/neovim.nix`.
 vim.cmd 'packadd! nvim-lspconfig'
 local lspconf = require 'lspconfig'
 
@@ -364,7 +365,6 @@ _{
   { 'LspDiagnosticsSignInformation', { text = s.info, texthl = 'LspDiagnosticsSignInformation' } },
   { 'LspDiagnosticsSignHint', { text = s.question, texthl = 'LspDiagnosticsSignHint' } },
 }:eachi(function(v) vim.fn.sign_define(unpack(v)) end)
-
 
 -- }}}
 

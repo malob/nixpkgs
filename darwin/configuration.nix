@@ -1,26 +1,18 @@
 { config, pkgs, lib, ... }:
 
 {
-  #######################
-  # Modules and Imports #
-  #######################
-
   imports = [
-    ./bootstrap.nix # setups up basic Nix/shell environment
+    # Minimal config of Nix related options and shells
+    ./bootstrap.nix
+
+    # Other nix-darwin configuration
+    ./homebrew.nix
+    ./defaults.nix
 
     # Personal modules
     ./modules/security/pam.nix # pending upstream, PR #228
     ./modules/homebrew.nix # pending upstream, PR #262
-
-    # Other nix-darwin configuration
-    ./homebrew.nix
-    ./defaults.nix # options for macOS defaults (uses a bunch of patched modules)
   ] ++ lib.filter lib.pathExists [ ./private.nix ];
-
-
-  ########################
-  # System configuration #
-  ########################
 
   # Networking
   networking.dns = [
@@ -28,7 +20,9 @@
     "8.8.8.8"
   ];
 
-  # GUI apps (home-manager currently has issues adding them to ~/Applications)
+  # Apps
+  # `home-manager` currently has issues adding them to `~/Applications`
+  # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
     kitty
     terminal-notifier
@@ -39,7 +33,6 @@
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs; [
     recursive
-    jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
@@ -48,28 +41,12 @@
   system.keyboard.remapCapsLockToEscape = true;
 
   # Add ability to used TouchID for sudo authentication (custom module)
+  # Upstream PR: https://github.com/LnL7/nix-darwin/pull/228
   security.pam.enableSudoTouchIdAuth = true;
   system.activationScripts.extraActivation.text = config.system.activationScripts.pam.text;
 
   # Lorri daemon
+  # https://github.com/target/lorri
+  # Used in conjuction with Direnv which is installed in `../home-manager/configuration.nix`.
   services.lorri.enable = true;
-
-  # Service to toggle term colors based on macOS
-  # `AppleInterfaceStyle` is not defined when OS is in light mode, it's equal to "Dark" if the OS is
-  # in dark mode.
-  # launchd.user.agents.setTermColors = {
-  #   path = [ pkgs.fish ];
-  #   script = ''
-  #     if defaults read -g AppleInterfaceStyle; then
-  #       fish -c 'set -U term_colors dark'
-  #     else
-  #       fish -c 'set -U term_colors light'
-  #     fi
-  #   '';
-  #   serviceConfig = {
-  #     RunAtLoad = true;
-  #     ProcessType = "Background";
-  #     StartInterval = 30;
-  #   };
-  # };
 }

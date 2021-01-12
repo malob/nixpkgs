@@ -1,11 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
-  #######
-  # Git #
-  #######
+  # Git
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.git.enable
-
   programs.git.enable = true;
 
   programs.git.package = pkgs.buildEnv {
@@ -13,10 +10,10 @@
     paths = with pkgs.gitAndTools; [
       git
       delta # better diff presentation
-      gh # GitHub CLI tool
-      hub # wrapper that augments git
     ];
   };
+
+  # Git config --------------------------------------------------------------------------------- {{{
 
   programs.git.aliases = {
     # Basic commands
@@ -55,6 +52,7 @@
     rhard2 = "reset HEAD^^ --hard";
 
     # Stash commands
+    sdr = "stash drop";
     spo = "stash pop";
     spu = "stash push";
     spua = "stash push --all";
@@ -71,15 +69,19 @@
   programs.git.userEmail = "mbourgon@gmail.com";
   programs.git.userName = "Malo Bourgon";
 
-  # Enhaced diffs
+  # Enhanced diffs
   programs.git.delta.enable = true;
+  # }}}
 
-  ##############
-  # GitHub CLI #
-  ##############
+  # GitHub CLI
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
-
   programs.gh.enable = true;
+
+  # `$GITHUB_TOKEN` which `gh` uses for authentication is set in `./private.nix`. `gh auth` can't
+  # be used since it tries to write to the config, which is in the store.
+  imports = lib.filter lib.pathExists [ ./private.nix ];
+
+  # GitHub CLI config -------------------------------------------------------------------------- {{{
 
   programs.gh.aliases = {
     rcl = "repo clone";
@@ -106,4 +108,6 @@
   };
 
   programs.gh.gitProtocol = "ssh";
+  # }}}
 }
+# vim: foldmethod=marker

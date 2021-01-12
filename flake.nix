@@ -18,7 +18,7 @@
     fish-done = { url = "github:franciscolourenco/done"; flake = false; };
     fish-humanize-duration = { url = "github:fishpkg/fish-humanize-duration"; flake = false; };
 
-    # Vim plugins
+    # Neovim plugins
     galaxyline-nvim = { url = "github:glepnir/galaxyline.nvim"; flake = false; };
     gitsigns-nvim = { url = "github:lewis6991/gitsigns.nvim"; flake = false; };
     lush-nvim = { url = "github:rktjmp/lush.nvim"; flake = false; };
@@ -57,9 +57,11 @@
         ./darwin/configuration.nix
       ];
 
-      homeManagerCommonModule = {
+      homeManagerCommonModule = { withOverlays ? false, system ? "x86_64-linux" }: {
         _module.args.sources = inputs;
-        imports = [ ./home-manager/configuration.nix ];
+        imports = [
+          ./home-manager/configuration.nix
+        ] ++ (if withOverlays then [ (overlaysModule system) ] else []);
       };
 
     in
@@ -87,7 +89,7 @@
               inputs.home-manager.darwinModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
-                home-manager.users.malo = homeManagerCommonModule;
+                home-manager.users.malo = homeManagerCommonModule {};
               }
             ];
           };
@@ -104,7 +106,7 @@
               inputs.home-manager.darwinModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
-                home-manager.users.runner = homeManagerCommonModule;
+                home-manager.users.runner = homeManagerCommonModule {};
               }
             ];
           };
@@ -117,8 +119,7 @@
           system = "x86_64-linux";
           homeDirectory = "/home/malo";
           username = "malo";
-          configuration = homeManagerCommonModule // {
-            imports = [ overlaysModule "x86_64-linux" ];
+          configuration = homeManagerCommonModule { withOverlays = true; } // {
             nixpkgs.config = import ./config.nix;
           };
         };

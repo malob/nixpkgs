@@ -1,9 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  #####################
-  # Nix configuration #
-  #####################
+  # Nix configuration ------------------------------------------------------------------------------
 
   nix.binaryCaches = [
     "https://cache.nixos.org/"
@@ -32,11 +30,9 @@
   services.nix-daemon.enable = true;
 
 
-  ##########
-  # Shells #
-  ##########
+  # Shells -----------------------------------------------------------------------------------------
 
-  # Temporary fix for nix-darwin `programs.fish` module, to address upstream `nixpkgs` change where
+  # Temporary fix for `programs.fish` module, to address upstream `nixpkgs` change where
   # `pkgs.fish-foreign-env` is now `pkgs.fishPlugins.foreign-env`.
   # Issue: https://github.com/LnL7/nix-darwin/issues/269
   # PR: https://github.com/LnL7/nix-darwin/pull/270
