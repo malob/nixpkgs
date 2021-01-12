@@ -44,7 +44,7 @@
     # have the same value for the variable.
     set-background-to-macOS.body = ''
       # Returns 'Dark' if in dark mode fails otherwise.
-      if defaults read -g AppleInterfaceStyle 2>&1 /dev/null
+      if defaults read -g AppleInterfaceStyle &>/dev/null
         set -U term_background dark
       else
         set -U term_background light
