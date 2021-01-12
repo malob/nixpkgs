@@ -36,7 +36,7 @@
         "type": "github"
       }
     },
-    "fish-plugin-done": {
+    "fish-done": {
       "flake": false,
       "locked": {
         "lastModified": 1605248195,
@@ -52,7 +52,7 @@
         "type": "github"
       }
     },
-    "fish-plugin-humanize-duration": {
+    "fish-humanize-duration": {
       "flake": false,
       "locked": {
         "lastModified": 1609877074,
@@ -258,8 +258,8 @@
       "inputs": {
         "comma": "comma",
         "darwin": "darwin",
-        "fish-plugin-done": "fish-plugin-done",
-        "fish-plugin-humanize-duration": "fish-plugin-humanize-duration",
+        "fish-done": "fish-done",
+        "fish-humanize-duration": "fish-humanize-duration",
         "galaxyline-nvim": "galaxyline-nvim",
         "gitsigns-nvim": "gitsigns-nvim",
         "home-manager": "home-manager",

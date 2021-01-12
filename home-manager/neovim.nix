@@ -1,57 +1,46 @@
-{ pkgs, ... }:
+{ pkgs, lib, sources, ... }:
 
 let
-  myPlugins = with pkgs.vimUtils // pkgs.mylib; {
-    galaxyline-nvim = buildVimPluginFrom2Nix {
-      name = "galaxyline-nvim";
-      src = pkgs.mySources.galaxyline-nvim;
+  # Functions to create Nix (neo)vim plugins that aren't currently in `nixpkgs`.
+  # Source for plugins are managed using Nix Flakes, and are made available via an overlay.
+  # See: ../flake.nix.
+  buildVimPluginFromFlakeSource = name:
+    pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = name;
+      src = sources.${name};
     };
-    gitsigns-nvim = buildVimPluginFrom2Nix {
-      name = "gitsigns-nvim";
-      src = pkgs.mySources.gitsigns-nvim;
+
+  buildNeovimPluginFromLuaPackage = name: src:
+    pkgs.vimUtils.buildVimPluginFrom2Nix {
+      name = name;
+      src = pkgs.linkFarm name [ { name = "lua"; path = src; } ];
     };
-    lush-nvim = buildVimPluginFrom2Nix {
-      name = "lush-nvim";
-      src = pkgs.mySources.lush-nvim;
-    };
-    moses-nvim = buildVimPluginFrom2Nix {
-      name = "moses-nvim";
-      src = pkgs.linkFarm "moses-nvim" [ { name = "lua"; path = pkgs.mySources.moses-lua; } ];
-    };
-    telescope-nvim = buildVimPluginFrom2Nix {
-      name = "telescope-nvim";
-      src = pkgs.mySources.telescope-nvim;
-    };
-    vim-haskell-module-name = buildVimPluginFrom2Nix {
-      name = "vim-haskell-module-name";
-      src = pkgs.mySources.vim-haskell-module-name;
-    };
-  };
 in
 {
   programs.neovim.enable = true;
+
+  # Use Neovim nightly (0.5.0) package provided by Nix Flake in Neovim repo, and made available via
+  # an overlay. See: ../flake.nix
   programs.neovim.package = pkgs.neovim-nightly;
 
   programs.neovim.configure = {
 
-    # Source config from out of nix store so that it's easy to edit on the fly
+    # Mininal init.vim config to load Lua config.
     customRC = ''
       " Add my configs to Neovim runtime path
       exe 'set rtp+=' . expand('~/.config/nixpkgs/configs/nvim')
+      " Load Neovim configuration from ~/.config/nixpkgs/configs/nvim/lua/init.lua
       lua require('init')
     '';
 
     packages.myVimPackage = with pkgs.vimPlugins; {
 
-      # loaded on launch
+      # Loaded on launch
       start = [
         agda-vim
         direnv-vim
         editorconfig-vim
         goyo-vim
-        myPlugins.lush-nvim
-        myPlugins.moses-nvim
-        myPlugins.vim-haskell-module-name
         nvim-lspconfig
         nvim-treesitter
         nvim-web-devicons
@@ -63,25 +52,31 @@ in
         vim-fugitive
         vim-polyglot
         vim-surround
+        (buildNeovimPluginFromLuaPackage "moses-nvim" sources.moses-lua)
+      ] ++ map buildVimPluginFromFlakeSource [
+        "lush-nvim"
+        "vim-haskell-module-name"
       ];
 
-      # manually loadable by calling `:packadd $plugin-name`
+      # Manually loadable by calling `:packadd $plugin-name`
       opt = [
         completion-buffers
         completion-nvim
         completion-tabnine
-        myPlugins.galaxyline-nvim
-        myPlugins.gitsigns-nvim
-        myPlugins.telescope-nvim
         barbar-nvim
         vim-floaterm
         vim-pencil
         vim-which-key
         zoomwintab-vim
+      ] ++ map buildVimPluginFromFlakeSource [
+        "galaxyline-nvim"
+        "gitsigns-nvim"
+        "telescope-nvim"
       ];
     };
   };
 
+  # Packages relevant to Neovim
   home.packages = with pkgs; [
     neovim-remote
     tabnine
