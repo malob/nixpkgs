@@ -28,102 +28,104 @@
 
     # Other sources
     comma = { url = "github:Shopify/comma"; flake = false; };
-    neovim = { url = "github:neovim/neovim?dir=contrib"; flake = false; };
+    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, ... }@inputs:
-    let
+  outputs = { self, darwin, home-manager, ... }@inputs: let
 
-      overlaysModule = system: { pkgs, ... }: {
-        nixpkgs.overlays = [
-          (
-            self: super: {
-              master = inputs.nixpkgs-master.legacyPackages.${system};
-              stable =
-                if pkgs.stdenv.isDarwin then
-                  inputs.nixpkgs-stable-darwin.legacyPackages.${system}
-                else
-                  inputs.nixos-stable.legacyPackages.${system};
-              comma = import inputs.comma { inherit pkgs; };
-              neovim-nightly = inputs.neovim.packages.${system}.neovim;
-            }
-          )
-        ] ++ map import ((import ./lsnix.nix) ./overlays);
-      };
+    # `nix-darwin`/`home-manager` module that adds an overlay from flakes inputs, as well as those
+    # defined in `./overlays`.
+    overlaysModule = with inputs; system: { pkgs, ... }: let
+      nixpkgs-stable = if pkgs.stdenv.isDarwin then nixpkgs-stable-darwin else nixos-stable;
+    in {
+      nixpkgs.overlays = [
+        (
+          self: super: {
+            master = nixpkgs-master.legacyPackages.${system};
+            stable = nixpkgs-stable.legacyPackages.${system};
+            comma = import comma { inherit pkgs; };
+            neovim-nightly = neovim.packages.${system}.neovim;
+          }
+        )
+      ] ++ map import ((import ./lsnix.nix) ./overlays);
+    };
 
-      nixDarwinCommonModules = [
-        { _module.args.inputs = inputs; }
-        (overlaysModule "x86_64-darwin")
-        ./darwin/configuration.nix
-      ];
+    # `home-manager` config used on Linux and on macOS when using `home-manager` as a `nix-darwin`
+    # module. The `homeManagerAsModule` argument is used to indicate whether `home-manager` is being
+    # used as a module inside `nix-darwin`. When it is not, additional configuration is required.
+    homeManagerCommonModule = { homeManagerAsModule ? true }: {
+      # Make flake inputs available as argument to `home-manager` modules.
+      _module.args.sources = inputs;
+      # Import bulk of configuration, and include overlays module if and additonal configuration if
+      # `home-manager` is being used on it's own on a Linux system. When using `home-manager` as a
+      # `nix-darwin` module, overlays are added to the `nix-darwin` config, which also makes them
+      # available in the `home-manager` configuration.
+      imports = [ ./home-manager/configuration.nix ] ++ (
+        if !homeManagerAsModule then [
+          (overlaysModule "x86_64-linux")
+          { nixpkgs.config = import ./config.nix; }
+        ] else []
+      );
+    };
 
-      homeManagerCommonModule = { withOverlays ? false, system ? "x86_64-linux" }: {
-        _module.args.sources = inputs;
-        imports = [
-          ./home-manager/configuration.nix
-        ] ++ (if withOverlays then [ (overlaysModule system) ] else []);
-      };
-
-    in
+    # Modules shared by most `nix-darwin` configurations.
+    nixDarwinCommonModules = { user }: [
+      # Add in overlays
+      (overlaysModule "x86_64-darwin")
+      # Bulk of configuration
+      ./darwin/configuration.nix
+      # Add `home-manager` as a module
+      home-manager.darwinModules.home-manager
+      # Misc settings and `home-manager` config
       {
+        # Make flake inputs available as argument to `nix-darwin` modules.
+        _module.args.inputs = inputs;
+        # `home-manager` configuration
+        users.users.${user}.home = "/Users/${user}";
+        home-manager.useGlobalPkgs = true;
+        home-manager.users.${user} = homeManagerCommonModule {};
+      }
+    ];
 
-        darwinConfigurations = {
+  in {
 
-          # Mininal configuration to bootstrap systems
-          bootstrap = inputs.darwin.lib.darwinSystem {
-            modules = [ ./darwin/bootstrap.nix ];
-          };
-
-          # My macOS main laptop config
-          MaloBookPro = inputs.darwin.lib.darwinSystem {
-            modules = nixDarwinCommonModules ++ [
-              {
-                users.users.malo.home = "/Users/malo";
-                networking.computerName = "Malo’s 💻";
-                networking.hostName = "MaloBookPro";
-                networking.knownNetworkServices = [
-                  "Wi-Fi"
-                  "USB 10/100/1000 LAN"
-                ];
-              }
-              inputs.home-manager.darwinModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.users.malo = homeManagerCommonModule {};
-              }
-            ];
-          };
-
-          # Config with small modifications needed/desired for CI with GitHub workflow
-          githubCI = inputs.darwin.lib.darwinSystem {
-            modules = nixDarwinCommonModules ++ [
-              (
-                { lib, ... }: {
-                  users.users.runner.home = "/Users/runner";
-                  homebrew.enable = lib.mkForce false;
-                }
-              )
-              inputs.home-manager.darwinModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.users.runner = homeManagerCommonModule {};
-              }
-            ];
-          };
-
-        };
-
-        # Config used on linux cloud VMs
-        # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
-        cloudVM = inputs.home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/malo";
-          username = "malo";
-          configuration = homeManagerCommonModule { withOverlays = true; } // {
-            nixpkgs.config = import ./config.nix;
-          };
-        };
-
+    darwinConfigurations = {
+      # Mininal configuration to bootstrap systems
+      bootstrap = darwin.lib.darwinSystem {
+        modules = [ ./darwin/bootstrap.nix ];
       };
 
+      # My macOS main laptop config
+      MaloBookPro = darwin.lib.darwinSystem {
+        modules = nixDarwinCommonModules { user = "malo"; } ++ [
+          {
+            networking.computerName = "Malo’s 💻";
+            networking.hostName = "MaloBookPro";
+            networking.knownNetworkServices = [
+              "Wi-Fi"
+              "USB 10/100/1000 LAN"
+            ];
+          }
+        ];
+      };
+
+      # Config with small modifications needed/desired for CI with GitHub workflow
+      githubCI = darwin.lib.darwinSystem {
+        modules = nixDarwinCommonModules { user = "runner"; } ++ [
+          ({ lib, ... }: { homebrew.enable = lib.mkForce false; })
+        ];
+      };
+    };
+
+    # Config used on linux cloud VMs
+    # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
+    cloudVM = home-manager.lib.homeManagerConfiguration {
+      system = "x86_64-linux";
+      homeDirectory = "/home/malo";
+      username = "malo";
+      configuration = homeManagerCommonModule { homeManagerAsModule = false; };
+    };
+
+  };
 }
