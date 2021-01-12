@@ -2,19 +2,33 @@
 
 ![Build Nix envs](https://github.com/malob/nixpkgs/workflows/Build%20Nix%20envs/badge.svg)
 
-## Notable Features
+This repo contains my Nix configs for macOS and Linux and by extension, configuration for most tools/programs I use, at least in the terminal.
 
-* Flakes!
-* A GitHub [workflow](./.github/workflows/ci.yml) that builds the `nix-darwin` config and updates a Cachix cache. Once a week it also tries to update channels/sources before building, and if successful, it commits the changes.
+I'm continuously tweaking/improving my setup, trying to find ways to make more of my configuration declarative, and I like experimenting with bleeding edge updates/features, so this repo sees a lot of changes. I do try to ensure that `master` always builds and doesn't have any bad bugs (at least in my workflow), and keep the code fairly well documented.
+
+Feel free to file an [issue](https://github.com/malob/nixpkgs/issues) or start a [discussion](https://github.com/malob/nixpkgs/discussions) if you find a bug, or think something is broken, or think I'm doing something in a dump/clumsy way and have a suggestion for a more elegant alternative, or try to crib something from my config but just can't get it working, or are looking at my config and think to yourself "does this guy know about X, cause I bet he'd be into it", or have some other type of feedback/comment. (Issues, are better for things that are actually issues, while discussions are better for ideas, questions, etc.)
+
+I make no promises that I'll respond quickly, or fix the bug (especially if I'm not experiencing it), or whatever, but you definitely shouldn't feel like you're imposing in any way, and I probably will respond within a few days.
+
+Below, I've highlighted stuff that I'm particularly happy with or think others might find helpful/useful.
+
+## Highlights
+
+In no particular order:
+
+* [Flakes](./flake.nix)!
+  * Outputs for [`nix-darwin`](https://github.com/LnL7/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module).
+  * Separate [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
+  * All external dependencies managed through flakes for easy updating.
+* A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the changes.
 * Some custom `nix-darwin` modules:
   * [`homebrew`](./darwin/modules/homebrew.nix) which manages packages/apps installed via Hombrew Bundle. See example usage in [`darwin/homebrew.nix`](./darwin/homebrew.nix). (Pending upstream PR [#262](https://github.com/LnL7/nix-darwin/pull/262).)
-  * [`security.pam`](./darwin/modules/security/pam.nix) which provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
+  * [`security.pam`](./darwin/modules/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
 * [Git config](home-manager/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
-* Unified colorscheme (based on colors from [NeoSolarized](https://github.com/overcache/NeoSolarized)) for [Kitty terminal](https://sw.kovidgoyal.net/kitty/#), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
-  * adding NeoSolarized colors to `pkgs` via an [overlay](./overlays/neosolarized-colors.nix);
-  * defining an [overlay](./overlays/kitty-configs.nix) for Kitty terminal configs that uses these colors to define a main config, as well as additional light and dark sub-configs (where Kitty's initial config is setup in [home-manager/configuration.nix](./home-manager/configuration.nix));
-  * using the NeoSolarized colorscheme in the Neovim config with `set t_Co=16` so all other plugins etc. source colors from terminal colors; and
-  * setting up a [Fish shell config](./home-manager/shells.nix), references the NeoSolarized colors from the overlay, provides a `toggle-colors` function that toggles an environment variable (`$term_colors`) between `light` and `dark`, and a `terminal-colors` function that is automatically called when `$term_colors` is changed that runs a series of commands to change the colors/themes used by Kitty, Fish, Neovim, Bat, and Delta.
-  * On macOS there is also a service `launchd` user service, `setTermColors`, that changes `$term_colors` automatically to match the OS's setting.
+* An WIP experimental (but functional) slick Neovim 0.5.0 (nightly) [config](.configs/nvim) in Lua. See also: [`neovim.nix`](./home-manager/neovim.nix)).
+* Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Kitty terminal](https://sw.kovidgoyal.net/kitty), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
+  * adding Solarized colors to `pkgs` via an [overlay](./overlays/solarized-colors.nix);
+  * defining an [overlay](./overlays/kitty-configs.nix) for Kitty terminal configs that uses these colors to define a main config, as well as additional light and dark sub-configs (where these configs are used in [home-manager/configuration.nix](./home-manager/configuration.nix));
+  * using a self-made WIP Solarized based [colorscheme](./configs/nvim/lua/MaloSolarized.lua) with Neovim; and
+  * a [Fish shell config](./home-manager/shells.nix), which provides a `toggle-background` function (and an alias `tb`) which toggles a universal environment variable (`$term_background`) between the values `"light"` and `"dark"`, along with a collection of Fish [functions](https://github.com/malob/nixpkgs/search?q=onVariable+%3D+%22term_background%22) which trigger automatically when `$term_background` changes.
 * A nice [shell prompt config](./home-manager/shells.nix) for Fish using [Starship](https://starship.rs).
-* An experimental (but functional) slick Neovim 0.5.0 (nightly) config in Lua ([`init.lua`](./configs/nvim/lua/init.lua), [`neovim.nix`](./home-manager/neovim.nix)).
