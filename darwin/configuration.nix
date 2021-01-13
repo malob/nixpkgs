@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -8,10 +8,6 @@
     # Other nix-darwin configuration
     ./homebrew.nix
     ./defaults.nix
-
-    # Personal modules
-    ./modules/security/pam.nix # pending upstream, PR #228
-    ./modules/homebrew.nix # pending upstream, PR #262
   ] ++ lib.filter lib.pathExists [ ./private.nix ];
 
   # Networking
@@ -41,9 +37,7 @@
   system.keyboard.remapCapsLockToEscape = true;
 
   # Add ability to used TouchID for sudo authentication (custom module)
-  # Upstream PR: https://github.com/LnL7/nix-darwin/pull/228
   security.pam.enableSudoTouchIdAuth = true;
-  system.activationScripts.extraActivation.text = config.system.activationScripts.pam.text;
 
   # Lorri daemon
   # https://github.com/target/lorri

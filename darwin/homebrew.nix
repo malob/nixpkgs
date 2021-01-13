@@ -1,10 +1,4 @@
-{ config, ... }:
-
 {
-  # Upstream PR: https://github.com/LnL7/nix-darwin/pull/262
-  system.activationScripts.extraUserActivation.text =
-    config.system.activationScripts.homebrew.text;
-
   homebrew.enable = true;
   homebrew.autoUpdate = true;
   homebrew.cleanup = "zap";

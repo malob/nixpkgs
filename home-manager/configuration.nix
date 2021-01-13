@@ -97,11 +97,11 @@
     haskellPackages.stack
     idris2
     jq
-    mypkgs.tickgit
     nodePackages.typescript
     nodejs
     (python3.withPackages (p: with p; [ mypy pylint yapf ]))
     s3cmd
+    tickgit
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix

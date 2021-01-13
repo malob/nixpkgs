@@ -14,10 +14,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Fish plugins
-    fish-done = { url = "github:franciscolourenco/done"; flake = false; };
-    fish-humanize-duration = { url = "github:fishpkg/fish-humanize-duration"; flake = false; };
-
     # Neovim plugins
     galaxyline-nvim = { url = "github:glepnir/galaxyline.nvim"; flake = false; };
     gitsigns-nvim = { url = "github:lewis6991/gitsigns.nvim"; flake = false; };
@@ -28,76 +24,95 @@
 
     # Other sources
     comma = { url = "github:Shopify/comma"; flake = false; };
+    fish-done = { url = "github:franciscolourenco/done"; flake = false; };
+    flake-utils.url = "github:numtide/flake-utils";
     neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, home-manager, ... }@inputs: let
+  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs: let
 
-    # `nix-darwin`/`home-manager` module that adds an overlay from flakes inputs, as well as those
-    # defined in `./overlays`.
-    overlaysModule = with inputs; system: { pkgs, ... }: let
-      nixpkgs-stable = if pkgs.stdenv.isDarwin then nixpkgs-stable-darwin else nixos-stable;
-    in {
-      nixpkgs.overlays = [
-        (
-          self: super: {
-            master = nixpkgs-master.legacyPackages.${system};
-            stable = nixpkgs-stable.legacyPackages.${system};
-            comma = import comma { inherit pkgs; };
-            neovim-nightly = neovim.packages.${system}.neovim;
-          }
-        )
-      ] ++ map import ((import ./lsnix.nix) ./overlays);
-    };
-
-    # `home-manager` config used on Linux and on macOS when using `home-manager` as a `nix-darwin`
-    # module. The `homeManagerAsModule` argument is used to indicate whether `home-manager` is being
-    # used as a module inside `nix-darwin`. When it is not, additional configuration is required.
-    homeManagerCommonModule = { homeManagerAsModule ? true }: {
-      # Make flake inputs available as argument to `home-manager` modules.
-      _module.args.sources = inputs;
-      # Import bulk of configuration, and include overlays module if and additonal configuration if
-      # `home-manager` is being used on it's own on a Linux system. When using `home-manager` as a
-      # `nix-darwin` module, overlays are added to the `nix-darwin` config, which also makes them
-      # available in the `home-manager` configuration.
-      imports = [ ./home-manager/configuration.nix ] ++ (
-        if !homeManagerAsModule then [
-          (overlaysModule "x86_64-linux")
-          { nixpkgs.config = import ./config.nix; }
-        ] else []
-      );
+    nixpkgsConfig = {
+      config = { allowUnfree = true; };
+      overlays = inputs.self.overlays;
     };
 
     # Modules shared by most `nix-darwin` configurations.
     nixDarwinCommonModules = { user }: [
-      # Add in overlays
-      (overlaysModule "x86_64-darwin")
-      # Bulk of configuration
+      # Personal modules
+      self.darwinModules.homebrew
+      self.darwinModules.security.pam
+      # Main `nix-darwin` config
       ./darwin/configuration.nix
-      # Add `home-manager` as a module
+      # `home-manager` config
       home-manager.darwinModules.home-manager
-      # Misc settings and `home-manager` config
       {
-        # Make flake inputs available as argument to `nix-darwin` modules.
-        _module.args.inputs = inputs;
-        # `home-manager` configuration
         users.users.${user}.home = "/Users/${user}";
         home-manager.useGlobalPkgs = true;
-        home-manager.users.${user} = homeManagerCommonModule {};
+        home-manager.users.${user} = import ./home-manager/configuration.nix;
+        nixpkgs = nixpkgsConfig;
       }
     ];
 
   in {
 
+    overlays = with inputs; [
+      (
+        final: prev: let
+          system = prev.stdenv.system;
+          nixpkgs-stable = if system == "x86_64-darwin" then nixpkgs-stable-darwin else nixos-stable;
+        in {
+          # Various nixpkgs channels
+          master = nixpkgs-master.legacyPackages.${system};
+          stable = nixpkgs-stable.legacyPackages.${system};
+
+          # Additional packages
+          comma = import comma { inherit (prev) pkgs; };
+          neovim-nightly = neovim.packages.${system}.neovim;
+
+          # Vim plugins
+          vimPlugins = with prev.vimUtils; prev.vimPlugins // prev.lib.genAttrs [
+            "galaxyline-nvim"
+            "lush-nvim"
+            "vim-haskell-module-name"
+            "gitsigns-nvim"
+            "telescope-nvim"
+          ] (name: buildVimPluginFrom2Nix { inherit name; src = inputs.${name}; }) // {
+            moses-nvim = buildVimPluginFrom2Nix {
+              name = "moses-nvim";
+              src = prev.linkFarm "moses-nvim" [ { name = "lua"; path = inputs.moses-lua; } ];
+            };
+          };
+
+          # Fish shell plugins
+          fishPlugins = prev.fishPlugins // {
+            done = prev.fishPlugins.buildFishPlugin {
+              pname = "done";
+              version = "HEAD";
+              src = inputs.fish-done;
+            };
+          };
+        }
+      )
+      # Other overlays that don't depend on flake inputs.
+    ] ++ map import ((import ./lsnix.nix) ./overlays);
+
+    # `nix-darwin` modules that are pending upstream
+    darwinModules = {
+      homebrew = import ./darwin/modules/homebrew.nix;
+      security.pam = import ./darwin/modules/security/pam.nix;
+    };
+
     darwinConfigurations = {
       # Mininal configuration to bootstrap systems
       bootstrap = darwin.lib.darwinSystem {
+        inputs = inputs;
         modules = [ ./darwin/bootstrap.nix ];
       };
 
       # My macOS main laptop config
       MaloBookPro = darwin.lib.darwinSystem {
+        inputs = inputs;
         modules = nixDarwinCommonModules { user = "malo"; } ++ [
           {
             networking.computerName = "Malo’s 💻";
@@ -124,8 +139,15 @@
       system = "x86_64-linux";
       homeDirectory = "/home/malo";
       username = "malo";
-      configuration = homeManagerCommonModule { homeManagerAsModule = false; };
+      configuration = {
+        imports = [ ./home-manager/configuration.nix ];
+        nixpkgs = nixpkgsConfig;
+      };
     };
 
-  };
+    # Add `nixpkgs` flake contents to outputs with overlays
+    inherit (nixpkgs) lib checks htmlDocs nixosModules;
+  } // flake-utils.lib.eachDefaultSystem (system: {
+      legacyPackages = import nixpkgs { inherit system; inherit (nixpkgsConfig) config overlays; };
+  });
 }

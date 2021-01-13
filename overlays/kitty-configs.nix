@@ -1,19 +1,19 @@
 # Used in `home-manager` Kitty terminal config: `../home-manager/configuration.nix`
-self: super:
+final: prev:
 let
   # Function to format Nix sets as Kitty config strings
-  setToKittyConfig = with super.lib.generators;
+  setToKittyConfig = with prev.lib.generators;
     toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
 
   # Function to write a Kitty configuration file into the store
   writeKittyConfigToStore = fileName: config:
-    super.pkgs.writeTextDir "${fileName}" (setToKittyConfig config);
+    prev.writeTextDir "${fileName}" (setToKittyConfig config);
 
 in
 rec {
   # Config for Solarized dark colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  my-kitty-dark-config = with self.solarized-colors; rec {
+  my-kitty-dark-config = with final.solarized-colors; rec {
     background = "#${base03}";
     foreground = "#${base0}";
 
@@ -31,7 +31,7 @@ rec {
 
   # Config for Solarized light colors
   # https://sw.kovidgoyal.net/kitty/conf.html
-  my-kitty-light-config = with self.solarized-colors; rec {
+  my-kitty-light-config = with final.solarized-colors; rec {
     background = "#${base3}";
     foreground = "#${base00}";
 
@@ -49,7 +49,7 @@ rec {
 
   # General kitty config (colors that change based on background omitted)
   # https://sw.kovidgoyal.net/kitty/conf.html
-  my-kitty-config = with self.solarized-colors; rec {
+  my-kitty-config = with final.solarized-colors; rec {
     # Required to use `kitty @` commands
     allow_remote_control = "yes";
 
@@ -113,7 +113,7 @@ rec {
   };
 
   # Write color configs to Nix store
-  my-kitty-colors = super.pkgs.symlinkJoin {
+  my-kitty-colors = prev.symlinkJoin {
     name = "my-kitty-colors";
     paths = [
       (writeKittyConfigToStore "dark-colors.conf" my-kitty-dark-config)

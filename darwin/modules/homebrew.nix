@@ -1,4 +1,5 @@
 # Created by: https://github.com/malob
+# Upstream PR: https://github.com/LnL7/nix-darwin/pull/262
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -180,7 +181,7 @@ in
       HOMEBREW_BUNDLE_NO_LOCK = "1";
     };
 
-    system.activationScripts.homebrew.text = mkIf cfg.enable ''
+    system.activationScripts.extraUserActivation.text = mkIf cfg.enable ''
       # Homebrew Bundle
       echo >&2 "Homebrew bundle..."
       if [ -f /usr/local/bin/brew ]; then

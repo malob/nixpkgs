@@ -19,9 +19,6 @@
     "@admin"
   ];
 
-  # Nixpkgs used config from user
-  nixpkgs.config = import ../config.nix;
-
   # Enable experimental version of nix with flakes support
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = "experimental-features = nix-command flakes";

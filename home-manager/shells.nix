@@ -1,29 +1,12 @@
-{ config, pkgs, lib, sources, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Fish Shell
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.fish.enable
   programs.fish.enable = true;
 
-  # Fish plugins ------------------------------------------------------------------------------- {{{
-
-  programs.fish.plugins = [
-    {
-      # Receive notifications when long processes finish
-      # https://github.com/franciscolourenco/done
-      name = "done";
-      src = sources.fish-done;
-    }
-    {
-      # Dependency of Done plugin
-      # https://github.com/fishpkg/fish-humanize-duration
-      name = "humanize-duration";
-      # We need to move the functions in a "functions" dir for `programs.fish.plugins` to pick it up
-      src = pkgs.linkFarm "humanize-duration"
-        [ { name = "functions"; path = sources.fish-humanize-duration; } ];
-    }
-  ];
-  # }}}
+  # Add Fish plugins
+  home.packages = [ pkgs.fishPlugins.done ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{
 

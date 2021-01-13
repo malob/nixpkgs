@@ -1,3 +1,4 @@
+# Upstream PR: https://github.com/LnL7/nix-darwin/pull/228
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -52,7 +53,7 @@ in
   };
 
   config = {
-    system.activationScripts.pam.text = ''
+    system.activationScripts.extraActivation.text = ''
       # PAM settings
       echo >&2 "setting up pam..."
       ${mkSudoTouchIdAuthScript cfg.enableSudoTouchIdAuth}

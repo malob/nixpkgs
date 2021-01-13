@@ -1,25 +1,8 @@
-{ config, pkgs, lib, sources, ... }:
+{ config, pkgs, lib, ... }:
 
-# Let-In --------------------------------------------------------------------------------------- {{{
 let
-  # Function to create Nix Neovim plugins derivations that aren't currently in `nixpkgs`. Source for
-  # plugins are managed using flakes, see `../flake.nix`.
-  buildVimPluginFromFlakeSource = name:
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
-      name = name;
-      src = sources.${name};
-    };
-
-  # Function to create Nix Neovim plugins from Lua pacakges.
-  buildNeovimPluginFromLuaPackage = name: src:
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
-      name = name;
-      src = pkgs.linkFarm name [ { name = "lua"; path = src; } ];
-    };
-
   nvr = "${pkgs.neovim-remote}/bin/nvr";
 in
-# }}}
 {
   # Neovim
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
@@ -43,13 +26,14 @@ in
     '';
 
     packages.myVimPackage = with pkgs.vimPlugins; {
-
       # Loaded on launch
       start = [
         agda-vim
         direnv-vim
         editorconfig-vim
         goyo-vim
+        lush-nvim
+        moses-nvim
         nvim-lspconfig
         nvim-treesitter
         nvim-web-devicons
@@ -59,28 +43,23 @@ in
         vim-commentary
         vim-eunuch
         vim-fugitive
+        vim-haskell-module-name
         vim-polyglot
         vim-surround
-        (buildNeovimPluginFromLuaPackage "moses-nvim" sources.moses-lua)
-      ] ++ map buildVimPluginFromFlakeSource [
-        "lush-nvim"
-        "vim-haskell-module-name"
       ];
-
       # Manually loadable by calling `:packadd $plugin-name`
       opt = [
+        barbar-nvim
         completion-buffers
         completion-nvim
         completion-tabnine
-        barbar-nvim
+        galaxyline-nvim
+        gitsigns-nvim
+        telescope-nvim
         vim-floaterm
         vim-pencil
         vim-which-key
         zoomwintab-vim
-      ] ++ map buildVimPluginFromFlakeSource [
-        "galaxyline-nvim"
-        "gitsigns-nvim"
-        "telescope-nvim"
       ];
     };
   };
