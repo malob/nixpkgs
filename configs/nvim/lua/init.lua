@@ -146,7 +146,7 @@ require'gitsigns'.setup {
 
 -- Functionality to keep terminal buffer PWD in sync with shell PWD.
 -- Using `nvr` the shell sends, e.g., `lua TermPwd['$fish_pid'] = '$PWD'; SetTermPwd()`.
--- See `home-manager/shells.nix` an an example using Fish Shell.
+-- See `../../../home/shells.nix` an an example using Fish Shell.
 TermPwd = {}
 function SetTermPwd ()
   local termPid = tostring(b.terminal_job_pid)
@@ -286,7 +286,7 @@ augroup { name = 'LSP', cmds = {
 
 -- Configure available LSPs
 -- Note that all language servers aside from `sumneko_lua` are installed via Nix. See:
--- `../../../home-manager/neovim.nix`.
+-- `../../../home/neovim.nix`.
 vim.cmd 'packadd! nvim-lspconfig'
 local lspconf = require 'lspconfig'
 

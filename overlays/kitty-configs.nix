@@ -1,4 +1,4 @@
-# Used in `home-manager` Kitty terminal config: `../home-manager/configuration.nix`
+# Used in `home-manager` Kitty terminal config: `../home/default.nix`
 final: prev:
 let
   # Function to format Nix sets as Kitty config strings

@@ -2,7 +2,7 @@ pkgs/ruby-gems/vendor
 pkgs/ruby-gems/.bundle
 pkgs/python-packages/requirements_frozen.txt
 
-darwin/private.nix
-home-manager/private.nix
+private.nix
+private.nix
 
 result

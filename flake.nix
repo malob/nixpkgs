@@ -49,7 +49,7 @@
       {
         users.users.${user}.home = "/Users/${user}";
         home-manager.useGlobalPkgs = true;
-        home-manager.users.${user} = import ./home-manager/configuration.nix;
+        home-manager.users.${user} = import ./home;
         nixpkgs = nixpkgsConfig;
       }
     ];
@@ -140,7 +140,7 @@
       homeDirectory = "/home/malo";
       username = "malo";
       configuration = {
-        imports = [ ./home-manager/configuration.nix ];
+        imports = [ ./home ];
         nixpkgs = nixpkgsConfig;
       };
     };
