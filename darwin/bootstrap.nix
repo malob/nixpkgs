@@ -29,13 +29,6 @@
 
   # Shells -----------------------------------------------------------------------------------------
 
-  # Temporary fix for `programs.fish` module, to address upstream `nixpkgs` change where
-  # `pkgs.fish-foreign-env` is now `pkgs.fishPlugins.foreign-env`.
-  # Issue: https://github.com/LnL7/nix-darwin/issues/269
-  # PR: https://github.com/LnL7/nix-darwin/pull/270
-  disabledModules = [ "programs/fish.nix" ];
-  imports = [ ./modules/programs/fish.nix ];
-
   # Add shells installed by nix to /etc/shells file
   environment.shells = with pkgs; [
     bashInteractive

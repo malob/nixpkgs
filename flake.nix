@@ -39,11 +39,12 @@
 
     # Modules shared by most `nix-darwin` configurations.
     nixDarwinCommonModules = { user }: [
-      # Personal modules
+      # Include extra `nix-darwin`
       self.darwinModules.homebrew
+      self.darwinModules.programs.fish
       self.darwinModules.security.pam
       # Main `nix-darwin` config
-      ./darwin/configuration.nix
+      ./darwin
       # `home-manager` config
       home-manager.darwinModules.home-manager
       {
@@ -97,9 +98,11 @@
       # Other overlays that don't depend on flake inputs.
     ] ++ map import ((import ./lsnix.nix) ./overlays);
 
-    # `nix-darwin` modules that are pending upstream
+    # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
+    # fixes.
     darwinModules = {
       homebrew = import ./darwin/modules/homebrew.nix;
+      programs.fish = import ./darwin/modules/programs/fish.nix;
       security.pam = import ./darwin/modules/security/pam.nix;
     };
 
@@ -107,7 +110,7 @@
       # Mininal configuration to bootstrap systems
       bootstrap = darwin.lib.darwinSystem {
         inputs = inputs;
-        modules = [ ./darwin/bootstrap.nix ];
+        modules = [ ./darwin/bootstrap.nix self.darwinModules.programs.fish ];
       };
 
       # My macOS main laptop config

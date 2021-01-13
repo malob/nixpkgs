@@ -1,3 +1,13 @@
+# Temporary fix for `programs.fish` module, to address upstream `nixpkgs` change where
+# `pkgs.fish-foreign-env` is now `pkgs.fishPlugins.foreign-env`.
+# Issue: https://github.com/LnL7/nix-darwin/issues/269
+# PR: https://github.com/LnL7/nix-darwin/pull/270
+#
+# The only changes are adding `disabledModules = [ "programs/fish.nix" ];` to disable the
+# current version in `nix-darwin`, and all occurences of:
+#   ${pkgs.fish-foreign-env}/share/fish-foreign-env/functions
+# are replaced with:
+#   ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -15,6 +25,7 @@ let
 in
 
 {
+  disabledModules = [ "programs/fish.nix" ];
 
   options = {
 
