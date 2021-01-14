@@ -27,7 +27,7 @@ In no particular order:
     * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. It includes the overlays from the flake by default. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the changes.
 * [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
-* An WIP experimental (but functional) slick Neovim 0.5.0 (nightly) [config](.configs/nvim) in Lua. See also: [`neovim.nix`](./home/neovim.nix)).
+* An WIP experimental (but functional) slick Neovim 0.5.0 (nightly) [config](./configs/nvim) in Lua. See also: [`neovim.nix`](./home/neovim.nix)).
 * Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Kitty terminal](https://sw.kovidgoyal.net/kitty), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * adding Solarized colors to `pkgs` via an [overlay](./overlays/solarized-colors.nix);
   * defining an [overlay](./overlays/kitty-configs.nix) for Kitty terminal configs that uses these colors to define a main config, as well as additional light and dark sub-configs (where these configs are used in [home/default.nix](./home/default.nix));
