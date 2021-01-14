@@ -18,11 +18,13 @@ In no particular order:
 
 * [Flakes](./flake.nix)!
   * All external dependencies managed through flakes for easy updating.
-  * Outputs for [`nix-darwin`](https://github.com/LnL7/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module).
-  * Separate [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
+  * Outputs for [`nix-darwin`](https://github.com/LnL7/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module) and a [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
   * `darwinModules` output for `nix-darwin` modules that are pending upstream:
     * [`homebrew`](./darwin/modules/homebrew.nix) which manages packages/apps installed via Hombrew Bundle. See example usage in [`darwin/homebrew.nix`](./darwin/homebrew.nix). (Pending upstream PR [#262](https://github.com/LnL7/nix-darwin/pull/262).)
     * [`security.pam`](./darwin/modules/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
+  * Support for non-flake compatible versions of Nix and legacy workflows through [`flake-compat`](https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix):
+    * [`default.nix`](./default.nix), allows traditional Nix commands like `nix-build` to operate on the flake inputs/outputs.
+    * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. It includes the overlays from the flake by default. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the changes.
 * [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
 * An WIP experimental (but functional) slick Neovim 0.5.0 (nightly) [config](.configs/nvim) in Lua. See also: [`neovim.nix`](./home/neovim.nix)).

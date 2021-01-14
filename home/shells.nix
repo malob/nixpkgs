@@ -80,6 +80,11 @@
     drs = "env TERM=xterm-256color darwin-rebuild switch --flake ~/.config/nixpkgs/";
     #       ^ using `env` due to: https://github.com/nix-community/home-manager/issues/423
     flakeup = "nix flake update --recreate-lock-file ~/.config/nixpkgs/";
+    nb = "nix build";
+    nd = "nix develop";
+    nf = "nix flake";
+    nr = "nix run";
+    ns = "nix search";
 
     # Other
     ".." = "cd ..";

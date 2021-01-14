@@ -25,6 +25,7 @@
     # Other sources
     comma = { url = "github:Shopify/comma"; flake = false; };
     fish-done = { url = "github:franciscolourenco/done"; flake = false; };
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
     neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
@@ -45,13 +46,16 @@
       self.darwinModules.security.pam
       # Main `nix-darwin` config
       ./darwin
-      # `home-manager` config
+      # `home-manager` module
       home-manager.darwinModules.home-manager
       {
+        nixpkgs = nixpkgsConfig;
+        # Hack to support legacy worklows that use `<nixpkgs>` etc.
+        nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+        # `home-manager` config
         users.users.${user}.home = "/Users/${user}";
         home-manager.useGlobalPkgs = true;
         home-manager.users.${user} = import ./home;
-        nixpkgs = nixpkgsConfig;
       }
     ];
 

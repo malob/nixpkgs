@@ -427,7 +427,7 @@ o.conceallevel=2
 -- https://github.com/reedes/vim-pencil
 g['pencil#wrapModeDefault'] = 'soft' -- default is 'hard'
 augroup { name = 'Pencil', cmds = {
-  { 'FileType', 'markdown,mkd,text', 'packadd! vim-pencil |call pencil#init() | setlocal spell' }
+  { 'FileType', 'markdown,mkd,text', 'packadd! vim-pencil | call pencil#init() | setlocal spell' }
 }}
 
 -- Goyo
