@@ -4,6 +4,7 @@
   # Import config broken out into files
   imports = [
     ./git.nix
+    ./kitty.nix
     ./neovim.nix
     ./shells.nix
   ] ++ lib.filter lib.pathExists [ ./private.nix ];
@@ -23,32 +24,6 @@
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
   programs.direnv.enable = true;
   programs.direnv.enableNixDirenvIntegration = true;
-
-  # Kitty terminal
-  # https://sw.kovidgoyal.net/kitty
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.kitty.enable
-  # Configuration options defined in overlays: `../overlays/kitty-configs.nix`
-  programs.kitty.enable = true;
-  programs.kitty.settings = pkgs.my-kitty-config // pkgs.my-kitty-light-config;
-  xdg.configFile."kitty/macos-launch-services-cmdline" = lib.mkIf pkgs.stdenv.isDarwin {
-    text = "--listen-on unix:/tmp/mykitty";
-  };
-  programs.fish.functions.set-term-colors = lib.mkIf config.programs.kitty.enable {
-    body = ''
-      # Check whether Fish is running inside a Kitty window, if it is change the colorscheme based
-      # on `$term_background`.
-      if test -n "$KITTY_WINDOW_ID"
-        kitty @ --to $KITTY_LISTEN_ON set-colors --all --configured \
-          ${pkgs.my-kitty-colors}/"$term_background"-colors.conf &
-      end
-    '';
-    onVariable = "term_background";
-  };
-  programs.fish.interactiveShellInit = lib.mkIf config.programs.kitty.enable ''
-    # Run function to set Kitty colors based on `$term_background`, and to register them so they are
-    # triggerd when the relevent event happens or variable changes.
-    set-term-colors
-  '';
 
   # Htop
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable

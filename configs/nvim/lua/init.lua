@@ -144,24 +144,9 @@ require'gitsigns'.setup {
 
 -- Terminal ------------------------------------------------------------------------------------ {{{
 
--- Functionality to keep terminal buffer PWD in sync with shell PWD.
--- Using `nvr` the shell sends, e.g., `lua TermPwd['$fish_pid'] = '$PWD'; SetTermPwd()`.
--- See `../../../home/shells.nix` an an example using Fish Shell.
-TermPwd = {}
-function SetTermPwd ()
-  local termPid = tostring(b.terminal_job_pid)
-  if bo.buftype == 'terminal' and TermPwd[termPid] ~= nil then
-    cmd('lchd ' .. TermPwd[termPid])
-    cmd('file term: ' .. TermPwd[termPid] .. ' [' .. termPid .. ']')
-  end
-end
-
--- Other terminal stuff
 augroup { name = 'NeovimTerm', cmds = {
   -- Set options for terminal buffers
   { 'TermOpen', '*', 'setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no' },
-  -- Make sure working directory of terminal buffer matches working directory of shell
-  { 'BufEnter', '*', 'lua SetTermPwd()' }
 }}
 
 -- Leader only used for this one case

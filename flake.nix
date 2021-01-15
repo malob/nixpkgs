@@ -1,5 +1,5 @@
 {
-  description = "Malo’s Nix System Configs";
+  description = "Malo’s Nix system configs, and some other useful stuff.";
 
   inputs = {
     # Package sets
@@ -31,14 +31,40 @@
     neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs: let
 
-    nixpkgsConfig = {
+  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
+  let
+    # Some building blocks --------------------------------------------------------------------- {{{
+
+    # Configuration for `nixpkgs` mostly used in personal configs.
+    nixpkgsConfig = with inputs; {
       config = { allowUnfree = true; };
-      overlays = inputs.self.overlays;
+      overlays = self.overlays ++ [
+        (
+          final: prev:
+          let
+            system = prev.stdenv.system;
+            nixpkgs-stable = if system == "x86_64-darwin" then nixpkgs-stable-darwin else nixos-stable;
+          in {
+            master = nixpkgs-master.legacyPackages.${system};
+            stable = nixpkgs-stable.legacyPackages.${system};
+          }
+        )
+      ];
     };
 
-    # Modules shared by most `nix-darwin` configurations.
+    # Personal configuration shared between `nix-darwin` and plain `home-manager` configs.
+    homeManagerCommonConfig = with self.homeManagerModules; {
+      imports = [
+        ./home
+        configs.git.aliases
+        configs.gh.aliases
+        programs.neovim.extras
+        programs.kitty.extras
+      ];
+    };
+
+    # Modules shared by most `nix-darwin` personal configurations.
     nixDarwinCommonModules = { user }: [
       # Include extra `nix-darwin`
       self.darwinModules.homebrew
@@ -55,38 +81,74 @@
         # `home-manager` config
         users.users.${user}.home = "/Users/${user}";
         home-manager.useGlobalPkgs = true;
-        home-manager.users.${user} = import ./home;
+        home-manager.users.${user} = homeManagerCommonConfig;
       }
     ];
-
+    # }}}
   in {
+
+    # Personal configuration ------------------------------------------------------------------- {{{
+
+    # My `nix-darwin` configs
+    darwinConfigurations = {
+      # Mininal configuration to bootstrap systems
+      bootstrap = darwin.lib.darwinSystem {
+        modules = [ ./darwin/bootstrap.nix self.darwinModules.programs.fish ];
+      };
+
+      # My macOS main laptop config
+      MaloBookPro = darwin.lib.darwinSystem {
+        modules = nixDarwinCommonModules { user = "malo"; } ++ [
+          {
+            networking.computerName = "Malo’s 💻";
+            networking.hostName = "MaloBookPro";
+            networking.knownNetworkServices = [
+              "Wi-Fi"
+              "USB 10/100/1000 LAN"
+            ];
+          }
+        ];
+      };
+
+      # Config with small modifications needed/desired for CI with GitHub workflow
+      githubCI = darwin.lib.darwinSystem {
+        modules = nixDarwinCommonModules { user = "runner"; } ++ [
+          ({ lib, ... }: { homebrew.enable = lib.mkForce false; })
+        ];
+      };
+    };
+
+    # Config I use with Linux cloud VMs
+    # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
+    cloudVM = home-manager.lib.homeManagerConfiguration {
+      system = "x86_64-linux";
+      homeDirectory = "/home/malo";
+      username = "malo";
+      configuration = {
+        imports = [ homeManagerCommonConfig ];
+        nixpkgs = nixpkgsConfig;
+      };
+    };
+    # }}}
+
+    # Outputs useful to others ----------------------------------------------------------------- {{{
 
     overlays = with inputs; [
       (
-        final: prev: let
-          system = prev.stdenv.system;
-          nixpkgs-stable = if system == "x86_64-darwin" then nixpkgs-stable-darwin else nixos-stable;
-        in {
-          # Various nixpkgs channels
-          master = nixpkgs-master.legacyPackages.${system};
-          stable = nixpkgs-stable.legacyPackages.${system};
-
-          # Additional packages
+        final: prev: {
+          # Some packages
           comma = import comma { inherit (prev) pkgs; };
-          neovim-nightly = neovim.packages.${system}.neovim;
+          neovim-nightly = neovim.packages.${prev.stdenv.system}.neovim;
 
           # Vim plugins
-          vimPlugins = with prev.vimUtils; prev.vimPlugins // prev.lib.genAttrs [
+          vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
             "galaxyline-nvim"
             "lush-nvim"
             "vim-haskell-module-name"
             "gitsigns-nvim"
             "telescope-nvim"
-          ] (name: buildVimPluginFrom2Nix { inherit name; src = inputs.${name}; }) // {
-            moses-nvim = buildVimPluginFrom2Nix {
-              name = "moses-nvim";
-              src = prev.linkFarm "moses-nvim" [ { name = "lua"; path = inputs.moses-lua; } ];
-            };
+          ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
+            moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
 
           # Fish shell plugins
@@ -110,51 +172,18 @@
       security.pam = import ./darwin/modules/security/pam.nix;
     };
 
-    darwinConfigurations = {
-      # Mininal configuration to bootstrap systems
-      bootstrap = darwin.lib.darwinSystem {
-        inputs = inputs;
-        modules = [ ./darwin/bootstrap.nix self.darwinModules.programs.fish ];
-      };
-
-      # My macOS main laptop config
-      MaloBookPro = darwin.lib.darwinSystem {
-        inputs = inputs;
-        modules = nixDarwinCommonModules { user = "malo"; } ++ [
-          {
-            networking.computerName = "Malo’s 💻";
-            networking.hostName = "MaloBookPro";
-            networking.knownNetworkServices = [
-              "Wi-Fi"
-              "USB 10/100/1000 LAN"
-            ];
-          }
-        ];
-      };
-
-      # Config with small modifications needed/desired for CI with GitHub workflow
-      githubCI = darwin.lib.darwinSystem {
-        modules = nixDarwinCommonModules { user = "runner"; } ++ [
-          ({ lib, ... }: { homebrew.enable = lib.mkForce false; })
-        ];
-      };
+    homeManagerModules = {
+      configs.git.aliases = import ./home/configs/git-aliases.nix;
+      configs.gh.aliases = import ./home/configs/gh-aliases.nix;
+      programs.neovim.extras = import ./home/modules/programs/neovim/extras.nix;
+      programs.kitty.extras = import ./home/modules/programs/kitty/extras.nix;
     };
+    # }}}
 
-    # Config used on linux cloud VMs
-    # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
-    cloudVM = home-manager.lib.homeManagerConfiguration {
-      system = "x86_64-linux";
-      homeDirectory = "/home/malo";
-      username = "malo";
-      configuration = {
-        imports = [ ./home ];
-        nixpkgs = nixpkgsConfig;
-      };
-    };
-
-    # Add `nixpkgs` flake contents to outputs with overlays
-    inherit (nixpkgs) lib checks htmlDocs nixosModules;
+    # Add re-export `nixpkgs` packages with overlays.
+    # This is handy in combination with `nix registry add my /Users/malo/.config/nixpkgs`
   } // flake-utils.lib.eachDefaultSystem (system: {
       legacyPackages = import nixpkgs { inherit system; inherit (nixpkgsConfig) config overlays; };
   });
 }
+# vim: foldmethod=marker

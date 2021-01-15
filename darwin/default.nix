@@ -23,7 +23,6 @@
     kitty
     terminal-notifier
   ];
-  programs.nix-index.enable = true;
 
   # Fonts
   fonts.enableFontDir = true;
@@ -36,7 +35,7 @@
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 
-  # Add ability to used TouchID for sudo authentication (custom module)
+  # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
   # Lorri daemon
