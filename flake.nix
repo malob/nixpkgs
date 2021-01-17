@@ -69,6 +69,7 @@
       # Include extra `nix-darwin`
       self.darwinModules.homebrew
       self.darwinModules.programs.fish
+      self.darwinModules.programs.nix-index
       self.darwinModules.security.pam
       # Main `nix-darwin` config
       ./darwin
@@ -169,6 +170,7 @@
     darwinModules = {
       homebrew = import ./darwin/modules/homebrew.nix;
       programs.fish = import ./darwin/modules/programs/fish.nix;
+      programs.nix-index = import ./darwin/modules/programs/nix-index.nix;
       security.pam = import ./darwin/modules/security/pam.nix;
     };
 

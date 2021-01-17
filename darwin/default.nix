@@ -23,6 +23,7 @@
     kitty
     terminal-notifier
   ];
+  programs.nix-index.enable = true;
 
   # Fonts
   fonts.enableFontDir = true;
