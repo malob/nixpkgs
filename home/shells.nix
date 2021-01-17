@@ -40,6 +40,13 @@
         # Toggle colors that Bat and Delta use
         set -xg BAT_THEME ansi-"$term_background"
 
+        # Use correct theme for `btm`
+        if test "$term_background" = light
+          alias btm "btm --color default-light"
+        else
+          alias btm "btm --color default"
+        end
+
         # Set color variables
         if test "$term_background" = light
           set emphasized_text  brgreen  # base01
