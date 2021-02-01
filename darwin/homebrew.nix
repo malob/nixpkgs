@@ -36,6 +36,7 @@
     "skype"
     "steam"
     "superhuman"
+    "tastyworks"
     "tor-browser"
     "transmission"
     "transmit"

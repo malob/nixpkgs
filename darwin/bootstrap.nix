@@ -38,6 +38,8 @@
 
   # Make Fish the default shell
   programs.fish.enable = true;
+  programs.fish.useBabelfish = true;
+  programs.fish.babelfishPackage = pkgs.master.babelfish;
   # Needed to address bug where $PATH is not properly set for fish:
   # https://github.com/LnL7/nix-darwin/issues/122
   programs.fish.interactiveShellInit = ''
