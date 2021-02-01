@@ -50,6 +50,7 @@ in
     galaxyline-nvim
     gitsigns-nvim
     telescope-nvim
+    telescope-z-nvim
     vim-floaterm
     vim-pencil
     vim-which-key

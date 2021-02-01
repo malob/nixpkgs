@@ -252,6 +252,8 @@ require'telescope'.setup {
   },
 }
 require'telescope'.load_extension 'builtin_extensions'
+cmd 'packadd! telescope-z-nvim'
+require'telescope'.load_extension 'z'
 
 --- }}}
 
@@ -575,6 +577,7 @@ whichKeyMap.s = {
   c = { ':Telescope commands', 'Vim commands' },
   C = { ':Telescope command_history', 'Vim command history' },
   l = { ':Telescope current_buffer_fuzzy_find', 'Buffer lines' },
+  z = { [[v:lua.require('telescope').extensions.z.list({'cmd': ['fish', '-c', 'zq -ls']})]], 'Z' },
   ['?'] = { ':Telescope help_tags', 'Vim help' },
 }
 

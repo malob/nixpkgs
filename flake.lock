@@ -287,6 +287,7 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
         "telescope-nvim": "telescope-nvim",
+        "telescope-z-nvim": "telescope-z-nvim",
         "vim-haskell-module-name": "vim-haskell-module-name"
       }
     },
@@ -303,6 +304,22 @@
       "original": {
         "owner": "nvim-telescope",
         "repo": "telescope.nvim",
+        "type": "github"
+      }
+    },
+    "telescope-z-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1611758418,
+        "narHash": "sha256-dZTPe9aM9unR6wT4mr9kBehxveh000vYy4q7acNM1MI=",
+        "owner": "nvim-telescope",
+        "repo": "telescope-z.nvim",
+        "rev": "fe0123a6b32a6e50967fbabb1f5783f0ff437f83",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-telescope",
+        "repo": "telescope-z.nvim",
         "type": "github"
       }
     },

@@ -20,6 +20,7 @@
     lush-nvim = { url = "github:rktjmp/lush.nvim"; flake = false; };
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
     telescope-nvim = { url = "github:nvim-telescope/telescope.nvim"; flake = false; };
+    telescope-z-nvim = { url = "github:nvim-telescope/telescope-z.nvim"; flake = false; };
     vim-haskell-module-name = { url = "github:chkno/vim-haskell-module-name"; flake = false; };
 
     # Other sources
@@ -148,6 +149,7 @@
             "vim-haskell-module-name"
             "gitsigns-nvim"
             "telescope-nvim"
+            "telescope-z-nvim"
           ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
