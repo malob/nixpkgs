@@ -94,7 +94,7 @@
     darwinConfigurations = {
       # Mininal configuration to bootstrap systems
       bootstrap = darwin.lib.darwinSystem {
-        modules = [ ./darwin/bootstrap.nix self.darwinModules.programs.fish ];
+        modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
       };
 
       # My macOS main laptop config
