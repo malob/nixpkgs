@@ -42,13 +42,14 @@
   programs.fish.babelfishPackage = pkgs.master.babelfish;
   # Needed to address bug where $PATH is not properly set for fish:
   # https://github.com/LnL7/nix-darwin/issues/122
-  programs.fish.interactiveShellInit = ''
-    set -pg fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
-    fenv source ${config.system.build.setEnvironment}
+  programs.fish.shellInit = ''
+    for p in (string split : ${config.environment.systemPath})
+      if not contains $p $fish_user_paths
+        set -g fish_user_paths $fish_user_paths $p
+      end
+    end
   '';
-  # Needed to ensure Fish is set as the default shell:
-  # https://github.com/LnL7/nix-darwin/issues/146
-  environment.variables.SHELL = "/run/current-system/sw/bin/fish";
+  environment.variables.SHELL = "${pkgs.fish}/bin/fish";
 
   # Install and setup ZSH to work with nix(-darwin) as well
   programs.zsh.enable = true;
