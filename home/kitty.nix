@@ -28,12 +28,9 @@ in
   # General config ----------------------------------------------------------------------------- {{{
 
   programs.kitty.settings = {
-    # Fonts
-    # Recursive: https://www.recursive.design
-    # "Duotone" pre-configured version which uses Linear for normal text and Casual for italic
-    # https://github.com/arrowtype/recursive/tree/main/fonts/ArrowType-Recursive-1.064/Recursive_Code
-    font_family = "Rec Mono Duotone";
-    font_features = "RecMono-Duotone +dlig +ss10";
+    # https://fsd.it/shop/fonts/pragmatapro/
+    font_family = "PragmataPro Mono Liga";
+    font_size = "14.0";
     adjust_line_height = "120%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
@@ -50,7 +47,11 @@ in
     tab_activity_symbol = "";
   };
 
-  programs.kitty.extras.useSymbolsFromNerdFont = "JetBrainsMono Nerd Font";
+  # Change the style of italic font variants
+  programs.kitty.extraConfig = ''
+    font_features PragmataProMonoLiga-Italic +ss09
+    font_features PragmataProMonoLiga-BoldItalic +ss10
+  '';
   # }}}
 
   # Colors config ------------------------------------------------------------------------------ {{{
