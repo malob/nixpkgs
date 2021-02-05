@@ -201,7 +201,7 @@ keymaps { mode = 'i', opts = { 'noremap', 'expr' }, maps = {
 }}
 
 -- How completions are sorted
-g.completion_sorting = 'none' -- possible value: "length", "alphabet", "none"
+g.completion_sorting = 'length' -- possible value: "length", "alphabet", "none"
 -- completion-nvim will loop through the list and assign priority from high to low
 g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy', 'all' }
 g.completion_matching_smart_case = 1
