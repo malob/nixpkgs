@@ -228,6 +228,8 @@ augroup { name = 'Completions', cmds = {
 -- List Searcher ------------------------------------------------------------------------------- {{{
 
 cmd 'packadd! telescope-nvim'
+cmd 'packadd! telescope-symbols-nvim'
+cmd 'packadd! telescope-z-nvim'
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local previewers = require 'telescope.previewers'
@@ -253,6 +255,7 @@ telescope.setup {
   },
 }
 telescope.load_extension 'builtin_extensions'
+telescope.load_extension 'z'
 
 --- }}}
 
@@ -576,6 +579,8 @@ whichKeyMap.s = {
   c = { ':Telescope commands'                  , 'Vim commands'           },
   C = { ':Telescope command_history'           , 'Vim command history'    },
   l = { ':Telescope current_buffer_fuzzy_find' , 'Buffer lines'           },
+  z = { [[luaeval("require'telescope'.extensions.z.list({cmd = {'fish', '-c', 'zq -ls'}})")]], 'Z' },
+  s = { [[luaeval("require('telescope.builtin').symbols(require('telescope.themes').get_dropdown({sources = {'emoji', 'math'}}))")]], 'Symbols' },
   ['?'] = { ':Telescope help_tags', 'Vim help' },
 }
 
