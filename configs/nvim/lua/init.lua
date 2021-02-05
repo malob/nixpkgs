@@ -168,11 +168,11 @@ g.floaterm_height      = 0.8
 
 function FloatTermKeymaps ()
   bufkeymaps { mode = '',  opts = { 'silent' }, maps = {
-    { '<Space>tn', ':FloatermNew<CR>' },
-    { '<Space>tl', ':FloatermNext<CR>' },
-    { '<Space>th', ':FloatermPrev<CR>' },
-    { '<Space>tq', ':FloatermKill<CR>' },
-    { '<ESC>',     ':FloatermToggle<CR>' },
+    { '<Space>tn' , ':FloatermNew<CR>'    },
+    { '<Space>tl' , ':FloatermNext<CR>'   },
+    { '<Space>th' , ':FloatermPrev<CR>'   },
+    { '<Space>tq' , ':FloatermKill<CR>'   },
+    { '<ESC>'     , ':FloatermToggle<CR>' },
   }}
 end
 
@@ -196,7 +196,7 @@ cmd 'packadd! completion-tabnine'
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu
 keymaps { mode = 'i', opts = { 'noremap', 'expr' }, maps = {
-  { '<Tab>'   , [[pumvisible() ? "\<C-n>" : "\<Tab>"]]  },
+  { '<Tab>'   , [[pumvisible() ? "\<C-n>" : "\<Tab>"]]   },
   { '<S-Tab>' , [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]] },
 }}
 
@@ -204,9 +204,9 @@ keymaps { mode = 'i', opts = { 'noremap', 'expr' }, maps = {
 g.completion_sorting = 'length' -- possible value: "length", "alphabet", "none"
 -- completion-nvim will loop through the list and assign priority from high to low
 g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy', 'all' }
-g.completion_matching_smart_case = 1
+g.completion_matching_smart_case    = 1
 g.completion_trigger_keyword_length = 3
-g.completion_trigger_on_delete = 1
+g.completion_trigger_on_delete      = 1
 
 g.completion_tabnine_max_num_results = 10
 g.completion_tabnine_sort_by_details = 1
@@ -228,9 +228,10 @@ augroup { name = 'Completions', cmds = {
 -- List Searcher ------------------------------------------------------------------------------- {{{
 
 cmd 'packadd! telescope-nvim'
+local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local previewers = require 'telescope.previewers'
-require'telescope'.setup {
+telescope.setup {
   defaults = {
     prompt_prefix = '❯',
     color_devicons = true,
@@ -251,9 +252,7 @@ require'telescope'.setup {
     },
   },
 }
-require'telescope'.load_extension 'builtin_extensions'
-cmd 'packadd! telescope-z-nvim'
-require'telescope'.load_extension 'z'
+telescope.load_extension 'builtin_extensions'
 
 --- }}}
 
@@ -414,7 +413,7 @@ o.conceallevel=2
 -- https://github.com/reedes/vim-pencil
 g['pencil#wrapModeDefault'] = 'soft' -- default is 'hard'
 augroup { name = 'Pencil', cmds = {
-  { 'FileType', 'markdown,mkd,text', 'packadd! vim-pencil | call pencil#init() | setlocal spell' }
+  { 'FileType', 'markdown,mkd,text', 'packadd vim-pencil | call pencil#init() | setlocal spell' }
 }}
 
 -- Goyo
@@ -462,122 +461,121 @@ whichKeyMap[' '] = { ':packadd vim-floaterm | FloatermToggle', 'Toggle floating 
 -- Tabs
 whichKeyMap.t = {
   name = '+Tabs',
-  n = { ':tabnew +term', 'New with terminal' },
-  o = { 'tabonly', 'Close all other' },
-  q = { 'tabclose', 'Close' },
-  l = { 'tabnext', 'Next' },
-  h = { 'tabprevious', 'Previous'},
+  n = { ':tabnew +term' , 'New with terminal' },
+  o = { 'tabonly'       , 'Close all other'   },
+  q = { 'tabclose'      , 'Close'             },
+  l = { 'tabnext'       , 'Next'              },
+  h = { 'tabprevious'   , 'Previous'          },
 }
 
 -- Windows/splits
-whichKeyMap['-'] = { ':new +term', 'New terminal below' }
-whichKeyMap['_'] = { ':botright new +term', 'New termimal below (full-width)' }
-whichKeyMap['\\'] = { ':vnew +term', 'New terminal right' }
-whichKeyMap['|'] = { ':botright vnew +term', 'New termimal right (full-height)' }
+whichKeyMap['-']  = { ':new +term'           , 'New terminal below'               }
+whichKeyMap['_']  = { ':botright new +term'  , 'New termimal below (full-width)'  }
+whichKeyMap['\\'] = { ':vnew +term'          , 'New terminal right'               }
+whichKeyMap['|']  = { ':botright vnew +term' , 'New termimal right (full-height)' }
 whichKeyMap.w = {
   name = '+Windows',
   -- Split creation
-  s = { 'split', 'Split below' },
-  v = { 'vslit', 'Split right' },
-  q = { 'q', 'Close' },
-  o = { 'only', 'Close all other' },
+  s = { 'split' , 'Split below'     },
+  v = { 'vslit' , 'Split right'     },
+  q = { 'q'     , 'Close'           },
+  o = { 'only'  , 'Close all other' },
   -- Navigation
-  k = { ':wincmd k', 'Go up' },
-  j = { ':wincmd j', 'Go down' },
-  h = { ':wincmd h', 'Go left' },
-  l = { ':wincmd l', 'Go right' },
-  w = { ':wincmd w', 'Go down/right' },
-  W = { ':wincmd W', 'Go up/left' },
-  t = { ':wincmd t', 'Go top-left' },
-  b = { ':wincmd b', 'Go bottom-right' },
-  p = { ':wincmd p', 'Go to previous' },
+  k = { ':wincmd k' , 'Go up'           },
+  j = { ':wincmd j' , 'Go down'         },
+  h = { ':wincmd h' , 'Go left'         },
+  l = { ':wincmd l' , 'Go right'        },
+  w = { ':wincmd w' , 'Go down/right'   },
+  W = { ':wincmd W' , 'Go up/left'      },
+  t = { ':wincmd t' , 'Go top-left'     },
+  b = { ':wincmd b' , 'Go bottom-right' },
+  p = { ':wincmd p' , 'Go to previous'  },
   -- Movement
-  K = { ':wincmd k', 'Move to top' },
-  J = { ':wincmd J', 'Move to bottom' },
-  H = { ':wincmd H', 'Move to left'},
-  L = { ':wincmd L', 'Move to right' },
-  T = { ':wincmd T', 'Move to new tab' },
-  r = { ':wincmd r', 'Rotate clockwise' },
-  R = { ':wincmd R', 'Rotate counter-clockwise' },
+  K = { ':wincmd k' , 'Move to top'              },
+  J = { ':wincmd J' , 'Move to bottom'           },
+  H = { ':wincmd H' , 'Move to left'             },
+  L = { ':wincmd L' , 'Move to right'            },
+  T = { ':wincmd T' , 'Move to new tab'          },
+  r = { ':wincmd r' , 'Rotate clockwise'         },
+  R = { ':wincmd R' , 'Rotate counter-clockwise' },
   z = { ':packadd zoomwintab-vim | ZoomWinTabToggle', 'Toggle zoom' },
   -- Resize
-  ['='] = { ':wincmd =', 'All equal size' },
-  ['-'] = { ':resize -5', 'Decrease height' },
-  ['+'] = { ':resize +5', 'Increase height' },
-  ['<'] = { '<C-w>5<', 'Decrease width' },
-  ['>'] = { '<C-w>5>', 'Increase width' },
-  ['|'] = { ':vertical resize 106', 'Full line-lenght' },
+  ['='] = { ':wincmd ='            , 'All equal size'   },
+  ['-'] = { ':resize -5'           , 'Decrease height'  },
+  ['+'] = { ':resize +5'           , 'Increase height'  },
+  ['<'] = { '<C-w>5<'              , 'Decrease width'   },
+  ['>'] = { '<C-w>5>'              , 'Increase width'   },
+  ['|'] = { ':vertical resize 106' , 'Full line-lenght' },
 }
 
 -- Git
 whichKeyMap.g = {
   name = '+Git',
   -- vim-fugitive
-  b = { 'Gblame', 'Blame' },
-  s = { 'Gstatus', 'Status' },
+  b = { 'Gblame'  , 'Blame'  },
+  s = { 'Gstatus' , 'Status' },
   d = {
     name = '+Diff',
-    s = { 'Ghdiffsplit', 'Split horizontal' },
-    v = { 'Gvdiffsplit', 'Split vertical' }
+    s = { 'Ghdiffsplit' , 'Split horizontal' },
+    v = { 'Gvdiffsplit' , 'Split vertical'   },
   },
   -- gitsigns.nvim
   h = {
     name = '+Hunks',
-    s = { [[luaeval("require'gitsigns'.stage_hunk()")]], 'Stage' },
-    u = { [[luaeval("require'gitsigns'.undo_stage_hunk()")]], 'Undo stage' },
-    r = { [[luaeval("require'gitsigns'.reset_hunk()")]], 'Reset' },
-    n = { [[luaeval("require'gitsigns'.next_hunk()")]], 'Go to next' },
-    N = { [[luaeval("require'gitsigns'.prev_hunk()")]], 'Go to prev' },
+    s = { "v:lua.require('gitsigns').stage_hunk()"      , 'Stage'      },
+    u = { "v:lua.require('gitsigns').undo_stage_hunk()" , 'Undo stage' },
+    r = { "v:lua.require('gitsigns').reset_hunk()"      , 'Reset'      },
+    n = { "v:lua.require('gitsigns').next_hunk()"       , 'Go to next' },
+    N = { "v:lua.require('gitsigns').prev_hunk()"       , 'Go to prev' },
   },
   -- telescope.nvim lists
   l = {
     name = '+Lists',
-    s = { ':Telescope git_status', 'Status' },
-    c = { ':Telescope git_commits', 'Commits' },
-    C = { ':Telescope git_commits', 'Buffer commits' },
-    b = { ':Telescope git_branchs', 'Branches' },
+    s = { ':Telescope git_status'  , 'Status'         },
+    c = { ':Telescope git_commits' , 'Commits'        },
+    C = { ':Telescope git_commits' , 'Buffer commits' },
+    b = { ':Telescope git_branchs' , 'Branches'       },
   },
   -- Other
-  v = { ':!gh repo view --web', 'View on GitHub' },
+  v = { ':!gh repo view --web' , 'View on GitHub' },
 }
 
 -- Language server
 whichKeyMap.l = {
   name = '+LSP',
-  h = { [[luaeval('vim.lsp.buf.hover()')]], 'Hover' },
-  d = { [[luaeval('vim.lsp.buf.definition()')]], 'Jump to definition' },
-  D = { [[luaeval('vim.lsp.buf.declaration()')]], 'Jump to declaration' },
-  a = { [[luaeval('vim.lsp.buf.code_action()')]], 'Code action' },
-  f = { [[luaeval('vim.lsp.buf.formatting()')]], 'Format' },
-  r = { [[luaeval('vim.lsp.buf.rename()')]], 'Rename' },
-  t = { [[luaeval('vim.lsp.buf.type_definition()')]], 'Jump to type definition' },
-  n = { [[luaeval('vim.lsp.diagnostic.goto_next()')]], 'Jump to next diagnostic' },
-  N = { [[luaeval('vim.lsp.diagnostic.goto_prev()')]], 'Jump to prev diagnostic' },
+  h = { 'v:lua.vim.lsp.buf.hover()'            , 'Hover'                   },
+  d = { 'v:lua.vim.lsp.buf.definition()'       , 'Jump to definition'      },
+  D = { 'v:lua.vim.lsp.buf.declaration()'      , 'Jump to declaration'     },
+  a = { 'v:lua.vim.lsp.buf.code_action()'      , 'Code action'             },
+  f = { 'v:lua.vim.lsp.buf.formatting()'       , 'Format'                  },
+  r = { 'v:lua.vim.lsp.buf.rename()'           , 'Rename'                  },
+  t = { 'v:lua.vim.lsp.buf.type_definition()'  , 'Jump to type definition' },
+  n = { 'v:lua.vim.lsp.diagnostic.goto_next()' , 'Jump to next diagnostic' },
+  N = { 'v:lua.vim.lsp.diagnostic.goto_prev()' , 'Jump to prev diagnostic' },
   l = {
     name = '+Lists',
-    a = { ':Telescope lsp_code_actions', 'Code actions' },
-    s = { ':Telescope lsp_document_symbols', 'Documents symbols' },
-    S = { ':Telescope lsp_workspace_symbols', 'Workspace symbols' },
-    r = { ':Telescope lsp_references', 'References' },
+    a = { ':Telescope lsp_code_actions'      , 'Code actions'      },
+    s = { ':Telescope lsp_document_symbols'  , 'Documents symbols' },
+    S = { ':Telescope lsp_workspace_symbols' , 'Workspace symbols' },
+    r = { ':Telescope lsp_references'        , 'References'        },
   },
 }
 
 -- Seaching with telescope.nvim
 whichKeyMap.s = {
   name = '+Search',
-  f = { ':Telescope find_files_workspace', 'Files in workspace' },
-  F = { ':Telescope find_files', 'Files in cwd' },
-  g = { ':Telescope live_grep_workspace', 'Grep in workspace' },
-  G = { ':Telescope live_grep', 'Grep in cwd' },
-  w = { ':Telescope grep_string_workspace', 'Grep word in workspace' },
-  W = { ':Telescope grep_string', 'Grep word in cwd' },
-  b = { ':Telescope buffers', 'Vim buffers' },
-  t = { ':Telescope filetypes', 'Vim filetypes' },
-  y = { ':Telescope registers', 'Vim yank registers' },
-  c = { ':Telescope commands', 'Vim commands' },
-  C = { ':Telescope command_history', 'Vim command history' },
-  l = { ':Telescope current_buffer_fuzzy_find', 'Buffer lines' },
-  z = { [[v:lua.require('telescope').extensions.z.list({'cmd': ['fish', '-c', 'zq -ls']})]], 'Z' },
+  f = { ':Telescope find_files_workspace'      , 'Files in workspace'     },
+  F = { ':Telescope find_files'                , 'Files in cwd'           },
+  g = { ':Telescope live_grep_workspace'       , 'Grep in workspace'      },
+  G = { ':Telescope live_grep'                 , 'Grep in cwd'            },
+  w = { ':Telescope grep_string_workspace'     , 'Grep word in workspace' },
+  W = { ':Telescope grep_string'               , 'Grep word in cwd'       },
+  b = { ':Telescope buffers'                   , 'Vim buffers'            },
+  t = { ':Telescope filetypes'                 , 'Vim filetypes'          },
+  y = { ':Telescope registers'                 , 'Vim yank registers'     },
+  c = { ':Telescope commands'                  , 'Vim commands'           },
+  C = { ':Telescope command_history'           , 'Vim command history'    },
+  l = { ':Telescope current_buffer_fuzzy_find' , 'Buffer lines'           },
   ['?'] = { ':Telescope help_tags', 'Vim help' },
 }
 
