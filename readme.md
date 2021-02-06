@@ -22,6 +22,12 @@ In no particular order:
   * `darwinModules` output for `nix-darwin` modules that are pending upstream:
     * [`homebrew`](./darwin/modules/homebrew.nix) which manages packages/apps installed via Hombrew Bundle. See example usage in [`darwin/homebrew.nix`](./darwin/homebrew.nix). (Pending upstream PR [#262](https://github.com/LnL7/nix-darwin/pull/262).)
     * [`security.pam`](./darwin/modules/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
+    * [`programs.nix-index`](./darwin/modules/programs/nix-index.nix) that augments `nix-darwins`'s `programs.nix-index` module with a command not found handler for Fish. (Pending upstream PR [#272](https://github.com/LnL7/nix-darwin/pull/272).)
+  * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration:
+    * [`programs.neovim.extras`](./home/modules/programs/neovim/extras.nix) that provides `termBufferAutoChangeDir`, and `nvrAliases` options.
+    * [`programs.kitty.extras`](./home/modules/programs/kitty/extras.nix) that provides a `colors` option to configure a light and dark colorscheme and an easy way to switch between them, and a `useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
+    * [`configs.git.aliases`](./home/configs/git-aliases.nix)
+    * [`configs.gh.aliases`](./home/configs/gh-aliases.nix)
   * Support for non-flake compatible versions of Nix and legacy workflows through [`flake-compat`](https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix):
     * [`default.nix`](./default.nix), allows traditional Nix commands like `nix-build` to operate on the flake inputs/outputs.
     * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. It includes the overlays from the flake by default. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
