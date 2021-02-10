@@ -12,7 +12,7 @@ local _ = require 'moses'
 local M = {}
 
 function M.setStatusLine ()
-  local c = require'MaloSolarized'.colors
+  local c = _.map(require'MaloSolarized'.colors, function(v) return v.hex end)
 
   local buffer_not_empty = function()
     if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
