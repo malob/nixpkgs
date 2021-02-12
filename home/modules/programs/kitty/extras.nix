@@ -114,7 +114,10 @@ in {
 
     programs.kitty.settings = optionalAttrs cfg.colors.enable (
 
-      cfg.colors.common // cfg.colors.${cfg.colors.default} // { allow_remote_control = "yes"; }
+      cfg.colors.common // cfg.colors.${cfg.colors.default} // {
+        allow_remote_control = "yes";
+        listen_on = "unix:/tmp/mykitty";
+      }
 
     ) // optionalAttrs (cfg.useSymbolsFromNerdFont != "") {
 

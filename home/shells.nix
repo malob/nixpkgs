@@ -109,9 +109,7 @@
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
   programs.fish.shellInit = ''
     set -U fish_term24bit 1
-
-    # Set `$term_background` based on whether macOS is in light or dark mode.
-    set-background-to-macOS
+    ${lib.optionalString pkgs.stdenv.isDarwin "set-background-to-macOS"}
   '';
 
   programs.fish.interactiveShellInit = ''

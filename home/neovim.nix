@@ -88,6 +88,7 @@ in
   home.packages = with pkgs; [
     neovim-remote
     tabnine
+    gcc # needed for tree-sitter
 
     # Language servers
     # See `../configs/nvim/lua/init.lua` for configuration.
@@ -98,7 +99,7 @@ in
     nodePackages.vscode-json-languageserver
     nodePackages.yaml-language-server
     rnix-lsp
-  ];
+  ] ++ lib.optional (!stdenv.isDarwin) sumneko-lua-language-server;
   # }}}
 }
 # vim: foldmethod=marker
