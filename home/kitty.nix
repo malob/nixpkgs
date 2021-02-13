@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 # Let-In --------------------------------------------------------------------------------------- {{{
 let
+  inherit (lib) mkIf;
   backgroundDependantColors = colors: with colors; {
     background = "#${base}";
     foreground = "#${main}";
@@ -18,7 +19,7 @@ let
     inactive_tab_background = "#${strong}";
   };
 in
-# }}}
+  # }}}
 {
   # Kitty terminal
   # https://sw.kovidgoyal.net/kitty/conf.html
@@ -41,7 +42,7 @@ in
     # Tab bar
     tab_bar_edge = "top";
     tab_bar_style = "powerline";
-    tab_title_template = ''Tab {index}: {title}'';
+    tab_title_template = "Tab {index}: {title}";
     active_tab_font_style = "bold";
     inactive_tab_font_style = "normal";
     tab_activity_symbol = "";
@@ -97,13 +98,11 @@ in
     light = backgroundDependantColors solarized.light;
   };
 
-  programs.fish.functions.set-term-colors = lib.mkIf config.programs.kitty.enable {
-    body = ''
-      term-background $term_background
-    '';
+  programs.fish.functions.set-term-colors = {
+    body = "term-background $term_background";
     onVariable = "term_background";
   };
-  programs.fish.interactiveShellInit = lib.mkIf config.programs.kitty.enable ''
+  programs.fish.interactiveShellInit = ''
     # Set term colors based on value of `$term_backdround` when shell starts up.
     set-term-colors
   '';

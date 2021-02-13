@@ -31,6 +31,7 @@
     "keybase"
     "launchbar"
     "linear-linear"
+    "parallels"
     "protonvpn"
     "signal"
     "skype"

@@ -37,9 +37,6 @@
     # Sets Fish Shell to light or dark colorscheme based on `$term_background`.
     set-shell-colors = {
       body = ''
-        # Toggle colors that Bat and Delta use
-        set -xg BAT_THEME ansi-"$term_background"
-
         # Use correct theme for `btm`
         if test "$term_background" = light
           alias btm "btm --color default-light"
@@ -142,7 +139,7 @@
 
   programs.starship.settings = {
     # See docs here: https://starship.rs/config/
-    # See ./configs/starship-symbols.nix for symbols configuration
+    # Symbols config configured in Flake.
 
     battery.display.threshold = 25; # display battery information if charge is <= 25%
     directory.fish_style_pwd_dir_length = 1; # turn on fish directory truncation

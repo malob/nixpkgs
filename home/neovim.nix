@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
+  inherit (lib) mkIf;
   nvr = "${pkgs.neovim-remote}/bin/nvr";
 in
 {
@@ -16,12 +17,9 @@ in
 
   # Minimal init.vim config to load Lua config. Nix and Home Manager don't currently support
   # `init.lua`.
-  programs.neovim.extraConfig = ''
-    " Add my configs to Neovim runtime path
-    exe 'set rtp+=' . expand('~/.config/nixpkgs/configs/nvim')
-    " Load Neovim configuration from ~/.config/nixpkgs/configs/nvim/lua/init.lua
-    lua require('init')
-  '';
+  xdg.configFile."nvim/lua".source = ../configs/nvim/lua;
+  xdg.configFile."nvim/colors".source = ../configs/nvim/colors;
+  programs.neovim.extraConfig = "lua require('init')";
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     agda-vim
@@ -65,7 +63,7 @@ in
   programs.neovim.extras.termBufferAutoChangeDir = true;
   programs.neovim.extras.nvrAliases.enable = true;
 
-  programs.fish.functions.set-nvim-background = lib.mkIf config.programs.neovim.enable {
+  programs.fish.functions.set-nvim-background = mkIf config.programs.neovim.enable {
     # See `./shells.nix` for more on how this is used.
     body = ''
       # Set `background` of all running Neovim instances base on `$term_background`.
@@ -76,7 +74,7 @@ in
     onVariable = "term_background";
   };
 
-  programs.fish.interactiveShellInit = lib.mkIf config.programs.neovim.enable ''
+  programs.fish.interactiveShellInit = mkIf config.programs.neovim.enable ''
     # Run Neovim related functions on init for their effects, and to register them so they are
     # triggered when the relevant event happens or variable changes.
     set-nvim-background
@@ -85,7 +83,7 @@ in
 
   # Required packages -------------------------------------------------------------------------- {{{
 
-  home.packages = with pkgs; [
+  programs.neovim.extraPackages = with pkgs; [
     neovim-remote
     tabnine
     gcc # needed for tree-sitter

@@ -31,6 +31,8 @@
     flake-utils.url = "github:numtide/flake-utils";
     neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
+    prefmanager.url = "github:malob/prefmanager";
+    prefmanager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
 
@@ -142,6 +144,7 @@
           # Some packages
           comma = import comma { inherit (prev) pkgs; };
           neovim-nightly = neovim.packages.${prev.stdenv.system}.neovim;
+          prefmanager = prefmanager.defaultPackage.${prev.stdenv.system};
 
           # Vim plugins
           vimPlugins = prev.vimPlugins // prev.lib.genAttrs [

@@ -18,6 +18,15 @@
   programs.bat.config = {
     style = "plain";
   };
+  # See `./shells.nix` for more on how this is used.
+  programs.fish.functions.set-bat-colors = {
+    body = ''set -xg BAT_THEME ansi-"$term_background"'';
+    onVariable = "term_background";
+  };
+  programs.fish.interactiveShellInit = ''
+    # Set `bat` colors based on value of `$term_backdround` when shell starts up.
+    set-bat-colors
+  '';
 
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
@@ -88,7 +97,7 @@
 
   ] ++ lib.optionals stdenv.isDarwin [
     m-cli # useful macOS CLI commands
-    # mypkgs.prefmanager # tool for working with macOS defaults
+    prefmanager # tool for working with macOS defaults
   ];
   # }}}
 

@@ -209,7 +209,6 @@ g.completion_trigger_keyword_length = 3
 g.completion_trigger_on_delete      = 1
 
 g.completion_tabnine_max_num_results = 10
-g.completion_tabnine_sort_by_details = 1
 
 -- Specify which completiions are available
 g.completion_chain_complete_list = {
