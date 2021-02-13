@@ -8,7 +8,7 @@ let inherit (lib) mkDefault; in
     battery.discharging_symbol = mkDefault "";
     battery.unknown_symbol = mkDefault "";
     battery.empty_symbol = mkDefault "";
-    cmake.symbol = mkDefault "喝 ";
+    cmake.symbol = mkDefault "△ ";
     conda.symbol = mkDefault " ";
     crystal.symbol = mkDefault " ";
     dart.symbol = mkDefault " ";
@@ -20,7 +20,7 @@ let inherit (lib) mkDefault; in
     erlang.symbol = mkDefault " ";
     gcloud.symbol = mkDefault " ";
     git_branch.symbol = mkDefault " ";
-    git_commit.tag_symbol = mkDefault "笠 ";
+    git_commit.tag_symbol = mkDefault " ";
     git_status.format = mkDefault "([$all_status$ahead_behind]($style) )";
     git_status.conflicted = mkDefault " ";
     git_status.ahead = mkDefault " ";
@@ -37,14 +37,14 @@ let inherit (lib) mkDefault; in
     hg_branch.symbol = mkDefault " ";
     java.symbol = mkDefault " ";
     julia.symbol = mkDefault " ";
-    kotlin.symbol = mkDefault "洞";
+    kotlin.symbol = mkDefault " ";
     kubernetes.symbol = mkDefault "☸ ";
     lua.symbol = mkDefault " ";
     memory_usage.symbol = mkDefault " ";
     nim.symbol = mkDefault " ";
     nix_shell.symbol = mkDefault " ";
     nodejs.symbol = mkDefault " ";
-    openstack.symbol = mkDefault "麗 ";
+    openstack.symbol = mkDefault " ";
     package.symbol = mkDefault " ";
     perl.symbol = mkDefault " ";
     php.symbol = mkDefault " ";
@@ -54,7 +54,7 @@ let inherit (lib) mkDefault; in
     rust.symbol = mkDefault " ";
     shlvl.symbol = mkDefault " ";
     status.symbol = mkDefault " ";
-    status.not_executable_symbol = mkDefault "ﰸ ";
+    status.not_executable_symbol = mkDefault " ";
     status.not_found_symbol = mkDefault " ";
     status.sigint_symbol = mkDefault " ";
     status.signal_symbol = mkDefault " ";
