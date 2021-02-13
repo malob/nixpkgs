@@ -61,6 +61,7 @@
         ./home
         configs.git.aliases
         configs.gh.aliases
+        configs.starship.symbols
         programs.neovim.extras
         programs.kitty.extras
       ];
@@ -179,6 +180,7 @@
     homeManagerModules = {
       configs.git.aliases = import ./home/configs/git-aliases.nix;
       configs.gh.aliases = import ./home/configs/gh-aliases.nix;
+      configs.starship.symbols = import ./home/configs/starship-symbols.nix;
       programs.neovim.extras = import ./home/modules/programs/neovim/extras.nix;
       programs.kitty.extras = import ./home/modules/programs/kitty/extras.nix;
     };

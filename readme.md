@@ -28,6 +28,7 @@ In no particular order:
     * [`programs.kitty.extras`](./home/modules/programs/kitty/extras.nix) that provides a `colors` option to configure a light and dark colorscheme and an easy way to switch between them, and a `useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
     * [`configs.git.aliases`](./home/configs/git-aliases.nix)
     * [`configs.gh.aliases`](./home/configs/gh-aliases.nix)
+    * [`configs.startship.symbols`](./home/configs/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
   * Support for non-flake compatible versions of Nix and legacy workflows through [`flake-compat`](https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix):
     * [`default.nix`](./default.nix), allows traditional Nix commands like `nix-build` to operate on the flake inputs/outputs.
     * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. It includes the overlays from the flake by default. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
@@ -39,4 +40,4 @@ In no particular order:
   * defining an [overlay](./overlays/kitty-configs.nix) for Kitty terminal configs that uses these colors to define a main config, as well as additional light and dark sub-configs (where these configs are used in [home/default.nix](./home/default.nix));
   * using a self-made WIP Solarized based [colorscheme](./configs/nvim/lua/MaloSolarized.lua) with Neovim; and
   * a [Fish shell config](./home/shells.nix), which provides a `toggle-background` function (and an alias `tb`) which toggles a universal environment variable (`$term_background`) between the values `"light"` and `"dark"`, along with a collection of Fish [functions](https://github.com/malob/nixpkgs/search?q=onVariable+%3D+%22term_background%22) which trigger automatically when `$term_background` changes.
-* A nice [shell prompt config](./home/shells.nix) for Fish using [Starship](https://starship.rs).
+* A nice [shell prompt config](./home/shells.nix) for Fish using .
