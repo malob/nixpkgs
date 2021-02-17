@@ -72,7 +72,6 @@
     # Modules shared by most `nix-darwin` personal configurations.
     nixDarwinCommonModules = { user }: [
       # Include extra `nix-darwin`
-      self.darwinModules.homebrew
       self.darwinModules.programs.nix-index
       self.darwinModules.security.pam
       # Main `nix-darwin` config
@@ -175,7 +174,6 @@
     # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
     # fixes.
     darwinModules = {
-      homebrew = import ./darwin/modules/homebrew.nix;
       programs.nix-index = import ./darwin/modules/programs/nix-index.nix;
       security.pam = import ./darwin/modules/security/pam.nix;
     };
