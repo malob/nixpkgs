@@ -18,6 +18,7 @@
   nix.trustedUsers = [
     "@admin"
   ];
+  users.nix.configureBuildUsers = true;
 
   # Enable experimental version of nix with flakes support
   nix.package = pkgs.nixFlakes;

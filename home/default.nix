@@ -66,6 +66,7 @@
     procs # fancy version of `ps`
     ripgrep # better version of `grep`
     tealdeer # rust implementation of `tldr`
+    stable.thefuck
     unrar # extract RAR archives
     wget
     xz # extract XZ archives
