@@ -24,15 +24,13 @@
     "displaycal"
     "firefox"
     "google-chrome"
-    "google-drive-file-stream"
+    "google-drive"
     "gpg-suite"
     "hammerspoon"
     "hey"
-    "honer"
     "i1profiler"
     "keybase"
     "launchbar"
-    "linear-linear"
     "parallels"
     "protonvpn"
     "signal"
@@ -44,8 +42,6 @@
     "transmission"
     "transmit"
     "typinator"
-    "virtualbox"
-    "virtualbox-extension-pack"
     "visual-studio-code-insiders"
     "vlc"
     "yubico-authenticator"
@@ -56,6 +52,7 @@
   homebrew.masApps = {
     "1Blocker" = 1107421413;
     "1Password" = 1333542190;
+    "Accelerate for Safari" = 1459809092;
     DaisyDisk = 411643860;
     "Dark Mode for Safari" = 1397180934;
     Deliveries = 924726344;
@@ -73,6 +70,7 @@
     "Things 3" = 904280696;
     "Type Fu" = 509818877;
     Ulysses = 1225570693;
+    Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
     Xcode = 497799835;
   };
