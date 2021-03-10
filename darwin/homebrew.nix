@@ -21,6 +21,7 @@
     "audio-hijack"
     "balenaetcher"
     "camo-studio"
+    "cloudflare-warp"
     "displaycal"
     "firefox"
     "google-chrome"
