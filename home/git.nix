@@ -22,10 +22,5 @@
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
   # Aliases config imported in flake.
   programs.gh.enable = true;
-
-  # `$GITHUB_TOKEN` which `gh` uses for authentication is set in `./private.nix`. `gh auth` can't
-  # be used since it tries to write to the config, which is in the store.
-  imports = lib.filter lib.pathExists [ ./private.nix ];
-
   programs.gh.gitProtocol = "ssh";
 }

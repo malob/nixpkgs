@@ -8,7 +8,7 @@
     # Other nix-darwin configuration
     ./homebrew.nix
     ./defaults.nix
-  ] ++ lib.filter lib.pathExists [ ./private.nix ];
+  ];
 
   # Networking
   networking.dns = [

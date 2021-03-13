@@ -7,7 +7,7 @@
     ./kitty.nix
     ./neovim.nix
     ./shells.nix
-  ] ++ lib.filter lib.pathExists [ ./private.nix ];
+  ];
 
   # Packages with coinfiguration --------------------------------------------------------------- {{{
 
