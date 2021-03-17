@@ -189,7 +189,8 @@ M.getParsedLushSpec = function ()
 
       -- Status line of current window.
       -- exe "hi! StatusLine"     .s:fmt_none   .s:fg_base1  .s:bg_base02 .s:fmt_revbb
-      StatusLine   { fg = c.strong, bg = c.basehl, gui = 'reverse,bold' },
+      -- StatusLine   { fg = c.strong, bg = c.basehl, gui = 'reverse,bold' },
+      StatusLine   { fg = c.main, bg = c.basehl }, --change
 
       -- Status lines of not-current windows. Note: if this is equal to "StatusLine" Vim will use
       -- "^^^" in the status line of the current window.
@@ -566,6 +567,13 @@ M.getParsedLushSpec = function ()
       FloatermBorder { Floaterm, gui = 'bold,italic' },
       FloatermNC { Floaterm },
 
+      -- StatusLine
+      StatusLineItalic { StatusLine, gui = 'italic' },
+      StatusLineBold { StatusLine, gui = 'bold' },
+      StatusLineGreen { StatusLine, fg = c.green },
+      StatusLineYellow { StatusLine, fg = c.yellow },
+      StatusLineRed { StatusLine, fg = c.red },
+      StatusLineGreenSection { fg = c.lightBase, bg = c.green },
       -- }}}
     }
   end)

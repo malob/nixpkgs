@@ -4,121 +4,83 @@
 vim.cmd 'packadd! galaxyline-nvim'
 local gl = require 'galaxyline'
 local gls = gl.section
+local condition = require 'galaxyline.condition'
 
 local s =  require 'utils'.symbols
 local _ = require 'moses'
-
 -- Module
 local M = {}
 
 function M.setStatusLine ()
   local c = _.map(require'MaloSolarized'.colors, function(v) return v.hex end)
 
-  local buffer_not_empty = function()
-    if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
-      return true
-    end
-    return false
-  end
-
-  local checkwidth = function()
-    local squeeze_width  = vim.fn.winwidth(0) / 2
-    if squeeze_width > 40 then
-      return true
-    end
-    return false
-  end
-
   gls.left = {
     {
-      FirstElement = {
-        provider = _.constant(s.sepRoundLeft),
-        highlight = { c.green, c.base }
-      }
-    },
-    {
-      ViMode = {
+      Mode = {
         provider = function()
           local alias = {
-            c = '  ' .. s.term .. ' ',
-            i = '  ' .. s.pencil .. ' ',
-            n = '  ' .. s.vim .. ' ',
-            t = '  ' .. s.term .. ' ',
-            v = '  ' .. s.ibar .. ' ',
-            V = '  ' .. s.ibar .. ' ',
-            [''] = s.ibar .. ' ',
+            c = s.term,
+            i = s.pencil,
+            n = s.vim,
+            t = s.term,
+            v = s.ibar,
+            V = s.ibar,
+            [''] = s.ibar,
           }
-          return alias[vim.fn.mode()]
+          return '  ' .. alias[vim.fn.mode()] .. ' '
         end,
+        highlight = 'StatusLineGreenSection',
         separator = s.sepRoundRight .. ' ',
-        separator_highlight = { c.green , c.basehl },
-        highlight = { c.lightBase, c.green, 'bold' },
+        separator_highlight = 'StatusLineGreen',
       }
     },
     {
       FileIcon = {
-        provider = 'FileIcon',
-        condition = buffer_not_empty,
-        highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color , c.basehl },
+        provider = function ()
+          vim.cmd('hi GalaxyFileIcon guifg='..require'galaxyline.provider_fileinfo'.get_file_icon_color()..' guibg='..c.basehl)
+          return require'galaxyline.provider_fileinfo'.get_file_icon()
+        end,
+        condition = condition.buffer_not_empty,
+        highlight = {},
       }
     },
     {
       FileName = {
-        provider = { 'FileName', 'FileSize' },
-        condition = buffer_not_empty,
-        highlight = { c.gray, c.basehl, 'italic' }
-      }
-    },
-    {
-      GitStart = {
-        provider = _.constant(s.sepRoundLeft),
-        condition = require('galaxyline.provider_vcs').check_git_workspace,
-        highlight = { c.base, c.basehl }
+        provider = 'FileName',
+        condition = condition.buffer_not_empty,
+        highlight = 'StatusLineItalic',
       }
     },
     {
       GitBranch = {
         provider = 'GitBranch',
-        condition = buffer_not_empty,
+        condition = condition.buffer_not_empty,
         icon = '  ' .. s.gitBranch .. ' ',
-        highlight = { c.main , c.base, 'bold' },
+        highlight = 'StatusLineBold',
       }
     },
     {
       DiffAdd = {
         provider = 'DiffAdd',
-        condition = checkwidth,
+        condition = condition.hide_in_width,
         icon = ' ',
-        highlight = { c.green , c.base },
+        highlight = 'StatusLineGreen',
       }
     },
     {
       DiffModified = {
         provider = 'DiffModified',
-        condition = checkwidth,
+        condition = condition.hide_in_width,
         icon = ' ',
-        highlight = { c.yellow , c.base },
+        highlight = 'StatusLineYellow',
       }
     },
     {
       DiffRemove = {
         provider = 'DiffRemove',
-        condition = checkwidth,
+        condition = condition.hide_in_width,
         icon = ' ',
-        highlight = { c.red, c.base },
-      }
-    },
-    {
-      GitEnd = {
-        provider = _.constant(s.sepRoundRight),
-        condition = require('galaxyline.provider_vcs').check_git_workspace,
-        highlight = { c.base, c.basehl }
-      }
-    },
-    {
-      LeftEnd = {
-        provider = _.constant(' '),
-        highlight = { c.basehl, c.basehl }
+        highlight = 'StatusLineRed',
       }
     },
   }
@@ -128,28 +90,28 @@ function M.setStatusLine ()
       DiagnosticError = {
         provider = 'DiagnosticError',
         icon = ' ' .. s.errorShape .. ' ',
-        highlight = { c.red , c.basehl }
+        highlight = 'StatusLineRed',
       }
     },
     {
       DiagnosticWarn = {
         provider = 'DiagnosticWarn',
         icon = '  ' .. s.warningShape .. ' ',
-        highlight = { c.yellow, c.basehl },
+        highlight = 'StatusLineYellow',
       }
     },
     {
       DiagnosticInfo = {
         provider = 'DiagnosticInfo',
         icon = '  ' .. s.infoShape .. ' ',
-        highlight = { c.main, c.basehl },
+        highlight = 'StatusLine',
       }
     },
     {
       DiagnosticHint = {
         provider = 'DiagnosticHint',
         icon = '  ' .. s.questionShape .. ' ',
-        highlight = { c.main, c.basehl },
+        highlight = 'StatusLine',
       }
     },
     {
@@ -157,65 +119,36 @@ function M.setStatusLine ()
         provider = 'LineColumn',
         separator = ' ' .. s.sepRoundLeft,
         icon = ' ',
-        separator_highlight = { c.green , c.basehl },
-        highlight = { c.lightBase , c.green },
+        separator_highlight = 'StatusLineGreen',
+        highlight = 'StatusLineGreenSection',
       }
     },
     {
       PerCent = {
         provider = 'LinePercent',
         separator = ' ',
-        separator_highlight = { c.darkBase, c.green },
-        highlight = { c.lightBase , c.green },
+        separator_highlight = 'StatusLineGreenSection',
+        highlight = 'StatusLineGreenSection',
       }
     },
     {
       ScrollBar = {
         provider = 'ScrollBar',
-        highlight = { c.lightBase , c.green },
+        highlight = 'StatusLineGreenSection',
       }
     },
-    {
-      LastElement = {
-        provider = _.constant(s.sepRoundRight),
-        highlight = { c.green , c.base }
-      }
-    }
   }
 
   gls.short_line_left = {
     {
-      ShortFirstElement = {
-        provider = _.constant(s.sepRoundLeft),
-        highlight = { c.basehl , c.base }
-      }
-    },
-    {
       ShortFileIcon = {
-        provider = 'FileIcon',
-        condition = buffer_not_empty,
-        highlight = { c.main , c.basehl },
+        provider = { 'FileIcon', 'FileName' },
+        -- condition = condition.buffer_not_empty,
+        highlight = 'StatusLine',
       }
     },
-    {
-      ShortFileName = {
-        provider = { 'FileName', 'FileSize' },
-        condition = buffer_not_empty,
-        highlight = { c.main, c.basehl }
-      }
-    }
   }
 
-  gls.short_line_right = {
-    {
-      ShortLastElement = {
-        provider = _.constant(s.sepRoundRight),
-        highlight = { c.basehl, c.base }
-      }
-    }
-  }
-
-  gl.init_colorscheme()
 end
 
 return M
