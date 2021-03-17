@@ -3,3 +3,4 @@
 " https://github.com/rktjmp/lush.nvim
 let g:colors_name = 'MaloSolarized'
 lua require'lush'(require'MaloSolarized'.getParsedLushSpec())
+lua if pcall(require, 'nvim-web-devicons') then require'nvim-web-devicons'.setup() end

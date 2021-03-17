@@ -108,7 +108,6 @@ o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end o
 -- Add personal hacks
 augroup { name = 'ColorschemeHacks', cmds = {
   { 'ColorScheme', '*', [[lua require'statusline'.setStatusLine()]] },
-  { 'ColorScheme', '*', [[lua require'nvim-web-devicons'.setup()]] },
 }}
 
 -- Set colorscheme
