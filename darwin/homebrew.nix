@@ -32,8 +32,10 @@
     "i1profiler"
     "keybase"
     "launchbar"
+    "nvidia-geforce-now"
     "parallels"
     "protonvpn"
+    "raindropio"
     "signal"
     "skype"
     "steam"
@@ -66,6 +68,7 @@
     Patterns = 429449079;
     Pixelmator = 407963104;
     "Pixelmator Pro" = 1289583905;
+    "Save to Raindrop.io" = 1549370672;
     Slack = 803453959;
     SiteSucker = 442168834;
     "Things 3" = 904280696;
