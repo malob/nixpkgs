@@ -16,7 +16,6 @@
 
     # Neovim plugins
     galaxyline-nvim = { url = "github:glepnir/galaxyline.nvim"; flake = false; };
-    gitsigns-nvim = { url = "github:lewis6991/gitsigns.nvim"; flake = false; };
     lush-nvim = { url = "github:rktjmp/lush.nvim"; flake = false; };
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
     telescope-nvim = { url = "github:nvim-telescope/telescope.nvim"; flake = false; };
@@ -150,7 +149,6 @@
             "galaxyline-nvim"
             "lush-nvim"
             "vim-haskell-module-name"
-            "gitsigns-nvim"
             "telescope-nvim"
             "telescope-symbols-nvim"
             "telescope-z-nvim"

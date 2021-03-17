@@ -87,6 +87,7 @@ in
     neovim-remote
     tabnine
     gcc # needed for tree-sitter
+    tree-sitter
 
     # Language servers
     # See `../configs/nvim/lua/init.lua` for configuration.

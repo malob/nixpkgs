@@ -63,7 +63,7 @@
     mosh # wrapper for `ssh` that better and not dropping connections
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
-    procs # fancy version of `ps`
+    stable.procs # fancy version of `ps`
     ripgrep # better version of `grep`
     tealdeer # rust implementation of `tldr`
     stable.thefuck

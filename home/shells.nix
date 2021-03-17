@@ -98,7 +98,7 @@
     la = "ll -a";
     ll = "ls -l --time-style long-iso --icons";
     ls = "${exa}/bin/exa";
-    ps = "${procs}/bin/procs";
+    ps = "${stable.procs}/bin/procs";
     tb = "toggle-background";
   };
 
