@@ -36,50 +36,50 @@ function M.setStatusLine ()
     },
     {
       FileIcon = {
+        condition = condition.buffer_not_empty,
         provider = function ()
           vim.cmd('hi GalaxyFileIcon guifg='..require'galaxyline.provider_fileinfo'.get_file_icon_color()..' guibg='..c.basehl)
-          return require'galaxyline.provider_fileinfo'.get_file_icon()
+          return require'galaxyline.provider_fileinfo'.get_file_icon() .. ' '
         end,
-        condition = condition.buffer_not_empty,
         highlight = {},
       }
     },
     {
       FileName = {
-        provider = 'FileName',
         condition = condition.buffer_not_empty,
+        provider = 'FileName',
         highlight = 'StatusLineItalic',
       }
     },
     {
       GitBranch = {
-        provider = 'GitBranch',
         condition = condition.buffer_not_empty,
         icon = '  ' .. s.gitBranch .. ' ',
+        provider = 'GitBranch',
         highlight = 'StatusLineBold',
       }
     },
     {
       DiffAdd = {
-        provider = 'DiffAdd',
         condition = condition.hide_in_width,
         icon = ' ',
+        provider = 'DiffAdd',
         highlight = 'StatusLineGreen',
       }
     },
     {
       DiffModified = {
-        provider = 'DiffModified',
         condition = condition.hide_in_width,
         icon = ' ',
+        provider = 'DiffModified',
         highlight = 'StatusLineYellow',
       }
     },
     {
       DiffRemove = {
-        provider = 'DiffRemove',
         condition = condition.hide_in_width,
         icon = ' ',
+        provider = 'DiffRemove',
         highlight = 'StatusLineRed',
       }
     },
@@ -87,53 +87,58 @@ function M.setStatusLine ()
 
   gls.right = {
     {
+      LspClient = {
+        condition = condition.check_active_lsp,
+        provider = { 'GetLspClient', _.constant(' ') },
+        highlight = 'StatusLine',
+      }
+    },
+    {
       DiagnosticError = {
-        provider = 'DiagnosticError',
+        condition = condition.check_active_lsp,
         icon = ' ' .. s.errorShape .. ' ',
+        provider = 'DiagnosticError',
         highlight = 'StatusLineRed',
       }
     },
     {
       DiagnosticWarn = {
-        provider = 'DiagnosticWarn',
+        condition = condition.check_active_lsp,
         icon = '  ' .. s.warningShape .. ' ',
+        provider = 'DiagnosticWarn',
         highlight = 'StatusLineYellow',
       }
     },
     {
       DiagnosticInfo = {
-        provider = 'DiagnosticInfo',
+        condition = condition.check_active_lsp,
         icon = '  ' .. s.infoShape .. ' ',
+        provider = 'DiagnosticInfo',
         highlight = 'StatusLine',
       }
     },
     {
       DiagnosticHint = {
-        provider = 'DiagnosticHint',
+        condition = condition.check_active_lsp,
         icon = '  ' .. s.questionShape .. ' ',
+        provider = 'DiagnosticHint',
         highlight = 'StatusLine',
       }
     },
     {
       LineInfo = {
-        provider = 'LineColumn',
         separator = ' ' .. s.sepRoundLeft,
-        icon = ' ',
         separator_highlight = 'StatusLineGreen',
+        icon = ' ',
+        provider = 'LineColumn',
         highlight = 'StatusLineGreenSection',
       }
     },
     {
-      PerCent = {
-        provider = 'LinePercent',
+      Position = {
         separator = ' ',
         separator_highlight = 'StatusLineGreenSection',
-        highlight = 'StatusLineGreenSection',
-      }
-    },
-    {
-      ScrollBar = {
-        provider = 'ScrollBar',
+        provider = { 'LinePercent', 'ScrollBar' },
         highlight = 'StatusLineGreenSection',
       }
     },
@@ -142,8 +147,7 @@ function M.setStatusLine ()
   gls.short_line_left = {
     {
       ShortFileIcon = {
-        provider = { 'FileIcon', 'FileName' },
-        -- condition = condition.buffer_not_empty,
+        provider = { _.constant('  '), 'FileIcon', _.constant(' '), 'FileName' },
         highlight = 'StatusLine',
       }
     },
