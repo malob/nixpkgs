@@ -28,6 +28,7 @@ in
     goyo-vim
     lush-nvim
     moses-nvim
+    nvim-bufferline-lua
     nvim-lspconfig
     nvim-treesitter
     nvim-web-devicons
@@ -41,7 +42,6 @@ in
     vim-polyglot
     vim-surround
   ] ++ map (p: { plugin = p; optional = true; }) [
-    barbar-nvim
     completion-buffers
     completion-nvim
     completion-tabnine

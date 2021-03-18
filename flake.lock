@@ -299,6 +299,22 @@
         "type": "github"
       }
     },
+    "nvim-bufferline-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1615489575,
+        "narHash": "sha256-iPhrD9tLmWflsMOcbTxvwJCrqiIoKhlCsb6Eg3Stbig=",
+        "owner": "akinsho",
+        "repo": "nvim-bufferline.lua",
+        "rev": "6f104eab57f0c7f1241e4ba0da12c9d1362f589f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "nvim-bufferline.lua",
+        "type": "github"
+      }
+    },
     "plist-source": {
       "flake": false,
       "locked": {
@@ -356,6 +372,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
+        "nvim-bufferline-lua": "nvim-bufferline-lua",
         "prefmanager": "prefmanager",
         "telescope-nvim": "telescope-nvim",
         "telescope-symbols-nvim": "telescope-symbols-nvim",

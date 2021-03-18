@@ -574,6 +574,41 @@ M.getParsedLushSpec = function ()
       StatusLineYellow { StatusLine, fg = c.yellow },
       StatusLineRed { StatusLine, fg = c.red },
       StatusLineGreenSection { fg = c.lightBase, bg = c.green },
+
+      -- nvim-bufferline-lua
+      -- https://github.com/akinsho/nvim-bufferline.lua
+      BufferLineFill           { Normal },
+      BufferLineBackground     { BufferLineFill, fg = Comment.fg },
+      BufferLineBufferVisible  { BufferLineBackground, bg = StatusLine.bg },
+      BufferLineBufferSelected { BufferLineBufferVisible, fg = c.strong, gui = 'bold,italic' },
+
+      BufferLineModified         { BufferLineBackground , fg = c.yellow },
+      BufferLineModifiedVisible  { BufferLineBufferVisible, fg = c.yellow },
+      BufferLineModifiedSelected { BufferLineBufferSelected, fg = c.yellow },
+
+      BufferLineDuplicate         { },
+      BufferLineDuplicateSelected { },
+      BufferLineDuplicateVisible  { },
+
+      BufferLineSeparator         { BufferLineFill, fg = BufferLineFill.bg },
+      BufferLineSeparatorVisible  { BufferLineSeparator, bg = BufferLineBufferVisible.bg },
+      BufferLineSeparatorSelected { BufferLineSeparatorVisible },
+      BufferLineIndicatorSelected { BufferLineBufferVisible, fg = c.green },
+
+      BufferLinePick         { fg = c.cyan, bg = BufferLineBackground.bg, gui = 'bold,italic' },
+      BufferLinePickVisible  { BufferLinePick, bg = BufferLineBufferVisible.bg },
+      BufferLinePickSelected { BufferLinePick, bg = BufferLineBufferSelected.bg },
+
+      BufferLineWarning         { BufferLineBackground, fg = LspDiagnosticsDefaultWarning.fg },
+      BufferLineWarningVisible  { BufferLineBufferVisible, fg = LspDiagnosticsDefaultWarning.fg },
+      BufferLineWarningSelected { BufferLineBufferSelected, fg = LspDiagnosticsDefaultWarning.fg },
+      BufferLineError           { BufferLineBackground, fg = LspDiagnosticsDefaultError.fg },
+      BufferLineErrorVisible    { BufferLineBufferVisible, fg = LspDiagnosticsDefaultError.fg },
+      BufferLineErrorSelected   { BufferLineBufferSelected, fg = LspDiagnosticsDefaultError.fg },
+
+      BufferLineTab         { BufferLineBackground },
+      BufferLineTabSelected { BufferLineBufferSelected, gui = 'bold' },
+      BufferLineTabClose    { BufferLineBackground },
       -- }}}
     }
   end)

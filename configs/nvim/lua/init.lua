@@ -46,7 +46,7 @@ local env = vim.env
 --   - Not currently satisfied with sorting and what gets included when.
 --   - Add snippet support? Maybe with vim-vsnip?
 -- - Bufferline/tabline
---   - Figure out whether I want to keep using barbar.nvim.
+--   - Figure out whether I want to keep using nvim-bufferline.lua.
 --   - Find something better or tweak it util I have something I like.
 -- - List searching with telescope.nvim.
 --   - Improve workspace folder detection on my telescope.nvim extensions
@@ -114,9 +114,21 @@ augroup { name = 'ColorschemeHacks', cmds = {
 cmd 'colorscheme MaloSolarized'
 
 -- Tabline
--- barbar.nvim
--- https://github.com/romgrk/barbar.nvim
- cmd 'packadd! barbar-nvim'
+-- nvim-bufferline.lua
+-- https://github.com/akinsho/nvim-bufferline.lua
+require'bufferline'.setup {
+  options = {
+    view = 'multiwindow',
+    separator_style = 'slant',
+    diagnostics = 'nvim_lsp',
+    diagnostics_indicator = function(_, level)
+      local icon = level:match('error') and s.errorShape or s.warningShape
+      return ' ' .. icon
+    end,
+  },
+}
+-- Colors are taken care of directly in colorscheme
+cmd 'au! BufferlineColors ColorScheme'
 
 -- Git signs
 -- gitsigns.nvim
@@ -542,6 +554,7 @@ whichKeyMap.g = {
     r = { "v:lua.require('gitsigns').reset_hunk()"      , 'Reset'      },
     n = { "v:lua.require('gitsigns').next_hunk()"       , 'Go to next' },
     N = { "v:lua.require('gitsigns').prev_hunk()"       , 'Go to prev' },
+    p = { "v:lua.require('gitsigns').preview_hunk()"    , 'Preview'    },
   },
   -- telescope.nvim lists
   l = {

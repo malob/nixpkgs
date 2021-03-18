@@ -18,6 +18,7 @@
     galaxyline-nvim = { url = "github:glepnir/galaxyline.nvim"; flake = false; };
     lush-nvim = { url = "github:rktjmp/lush.nvim"; flake = false; };
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
+    nvim-bufferline-lua = { url = "github:akinsho/nvim-bufferline.lua"; flake = false; };
     telescope-nvim = { url = "github:nvim-telescope/telescope.nvim"; flake = false; };
     telescope-symbols-nvim = { url = "github:nvim-telescope/telescope-symbols.nvim"; flake = false; };
     telescope-z-nvim = { url = "github:nvim-telescope/telescope-z.nvim"; flake = false; };
@@ -148,10 +149,11 @@
           vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
             "galaxyline-nvim"
             "lush-nvim"
-            "vim-haskell-module-name"
+            "nvim-bufferline-lua"
             "telescope-nvim"
             "telescope-symbols-nvim"
             "telescope-z-nvim"
+            "vim-haskell-module-name"
           ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
