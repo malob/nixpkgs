@@ -503,10 +503,10 @@ whichKeyMap['|']  = { ':botright vnew +term' , 'New termimal right (full-height)
 whichKeyMap.w = {
   name = '+Windows',
   -- Split creation
-  s = { 'split' , 'Split below'     },
-  v = { 'vslit' , 'Split right'     },
-  q = { 'q'     , 'Close'           },
-  o = { 'only'  , 'Close all other' },
+  s = { 'split'  , 'Split below'     },
+  v = { 'vsplit' , 'Split right'     },
+  q = { 'q'      , 'Close'           },
+  o = { 'only'   , 'Close all other' },
   -- Navigation
   k = { ':wincmd k' , 'Go up'           },
   j = { ':wincmd j' , 'Go down'         },

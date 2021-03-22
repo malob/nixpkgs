@@ -9,7 +9,7 @@
     ./shells.nix
   ];
 
-  # Packages with coinfiguration --------------------------------------------------------------- {{{
+  # Packages with configuration --------------------------------------------------------------- {{{
 
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
