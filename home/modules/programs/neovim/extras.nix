@@ -118,6 +118,19 @@ in
         '';
       };
     };
+
+    luaPackages = mkOption {
+      type = with types; listOf package;
+      default = [];
+      example = [ pkgs.luajitPackages.busted pkgs.luajitPackages.luafilesystem ];
+      description = ''
+        Lua packages to make available in Neovim Lua environment.
+
+        Note that you cannot use this option if you are using
+        <option>programs.neovim.configure</option>, use <option>programs.neovim.extraConfig</option>
+        and <option>programs.neovim.plugins</option> instead.
+      '';
+    };
   };
 
   config = mkIf config.programs.neovim.enable {
@@ -156,5 +169,16 @@ in
 
     programs.fish.interactiveShellInit = mkIf
       (cfg.termBufferAutoChangeDir || cfg.nvrAliases.enable) shellConfig;
+
+    programs.neovim.plugins = lib.singleton (
+      pkgs.vimUtils.buildVimPluginFrom2Nix {
+        name = "lua-env";
+        src = pkgs.linkFarm "neovim-lua-env" (
+          lib.forEach cfg.luaPackages (
+            p: { name = "lua"; path = "${p}/lib/lua/${p.lua.luaversion}"; }
+          )
+        );
+      }
+    );
   };
 }
