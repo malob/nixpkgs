@@ -7,7 +7,7 @@ let
     foreground = "#${main}";
 
     # Cursor
-    cursor = "#${main}";
+    cursor = "#${blue}";
     cursor_text_color = "#${base}";
 
     # Selection

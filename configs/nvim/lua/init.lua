@@ -4,7 +4,7 @@
 local utils = require 'utils'
 local augroup = utils.augroup
 local keymap = utils.keymap
-local bufkeymap = utils.bufkeymap
+-- local bufkeymap = utils.bufkeymap
 local keymaps = utils.keymaps
 local bufkeymaps = utils.bufkeymaps
 local s = utils.symbols
@@ -13,8 +13,8 @@ local _ = require 'moses'
 -- Add some aliases for Neovim Lua API
 local o = vim.o
 local wo = vim.wo
-local b = vim.b
-local bo = vim.bo
+-- local b = vim.b
+-- local bo = vim.bo
 local g = vim.g
 local cmd = vim.cmd
 local env = vim.env
@@ -99,19 +99,20 @@ augroup { name = 'VimBasics', cmds = {
 o.termguicolors   = true
 o.showmode        = false -- don't show -- INSERT -- etc.
 wo.colorcolumn    = '100' -- show column boarder
-wo.cursorline     = true  -- highlight current line
 wo.number         = true  -- display numberline
 wo.relativenumber = true  -- relative line numbers
 wo.signcolumn     = 'yes' -- always have signcolumn open to avoid thing shifting around all the time
 o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end of file, and other stuff
 
--- Add personal hacks
-augroup { name = 'ColorschemeHacks', cmds = {
-  { 'ColorScheme', '*', [[lua require'statusline'.setStatusLine()]] },
-}}
-
 -- Set colorscheme
-cmd 'colorscheme MaloSolarized'
+require'malo-theme'.extraLushSpecs = {
+  'lush_theme.malo.nvim-bufferline-lua',
+  'lush_theme.malo.statusline',
+  'lush_theme.malo.telescope-nvim',
+}
+cmd 'colorscheme malo'
+
+require 'statusline'
 
 -- Tabline
 -- nvim-bufferline.lua
@@ -136,11 +137,11 @@ cmd 'au! BufferlineColors ColorScheme'
 cmd 'packadd! gitsigns-nvim'
 require'gitsigns'.setup {
   signs = {
-    add          = { hl = 'GitAddSign'          , text = '┃' , numhl='' },
-    change       = { hl = 'GitChangeSign'       , text = '┃' , numhl='' },
-    delete       = { hl = 'GitDeleteSign'       , text = '_' , numhl='' },
-    topdelete    = { hl = 'GitDeleteSign'       , text = '‾' , numhl='' },
-    changedelete = { hl = 'GitChangeDeleteSign' , text = '≃' , numhl='' },
+    add          = { hl = 'AddText'          , text = '┃' , numhl='' },
+    change       = { hl = 'ChangeText'       , text = '┃' , numhl='' },
+    delete       = { hl = 'DeleteText'       , text = '_' , numhl='' },
+    topdelete    = { hl = 'DeleteText'       , text = '‾' , numhl='' },
+    changedelete = { hl = 'ChangeDeleteText' , text = '≃' , numhl='' },
   },
   numhl = false,
   keymaps = {},
@@ -150,7 +151,6 @@ require'gitsigns'.setup {
   sign_priority = 6,
   status_formatter = nil, -- Use default
 }
-
 -- }}}
 
 -- Terminal ------------------------------------------------------------------------------------ {{{
@@ -245,11 +245,13 @@ local actions = require 'telescope.actions'
 local previewers = require 'telescope.previewers'
 telescope.setup {
   defaults = {
-    prompt_prefix = '❯',
+    prompt_prefix = '❯ ',
+    selection_caret = '❯ ',
     color_devicons = true,
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new,
+    winblend = 10,
     mappings = {
       n = {
         ['<CR>'] = actions.select_default + actions.center,
