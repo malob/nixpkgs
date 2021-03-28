@@ -167,11 +167,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1616318638,
-        "narHash": "sha256-E6ABXtzw6bHmrIirB1sJL6S2MEa3sfcvRLzRa92frCo=",
+        "lastModified": 1616815633,
+        "narHash": "sha256-U9DO04sb+8Qy13EJckxOJIxT2Vlc/8i089XkfBnXH0M=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ddcd476603dfd3388b1dc8234fa9d550156a51f5",
+        "rev": "7b30fc99227e6c7c331a01a9fb87599e4cd8cee1",
         "type": "github"
       },
       "original": {
@@ -183,11 +183,11 @@
     "lush-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1616482233,
-        "narHash": "sha256-0F4JDCAypDX5DCBDWWMOw875ysFH7XsC/mbg2LUT7No=",
+        "lastModified": 1616561302,
+        "narHash": "sha256-D/fnS7ZWbWPie4/swFZtgnwFxjQ+M/aQn9jqBhooTrk=",
         "owner": "rktjmp",
         "repo": "lush.nvim",
-        "rev": "1018f8ce806841faf96fd3f179a26fd25a8b444c",
+        "rev": "02b79d4db6f61b23849b28f988e4f15683cdb4ee",
         "type": "github"
       },
       "original": {
@@ -221,11 +221,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1616517501,
-        "narHash": "sha256-RYjN5H5To3ngXxBITvSdju4YyKAE38VADbvLI5Iud0M=",
+        "lastModified": 1616888586,
+        "narHash": "sha256-Sgw2HTLe/k7rkdf2A3tXu9AyyUBAFoxMM8lLLN+E5gY=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "9f5c8226bba43b6c9ae253e6b94b41d9d140a626",
+        "rev": "2b663c061b8a1fa173ff23901734356bc96758bd",
         "type": "github"
       },
       "original": {
@@ -237,11 +237,11 @@
     },
     "nixos-stable": {
       "locked": {
-        "lastModified": 1616396939,
-        "narHash": "sha256-equJ4b8vLMvV1eDX82SzUur5CKclQtL9nBsNUFbDMxo=",
+        "lastModified": 1616701903,
+        "narHash": "sha256-zYjmZqdfetp6XNbJcznCGGR8YkjcZ45c3Zy+Q0GrhMw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f8929dce13e729357f31d5b2950cbb097744bed7",
+        "rev": "34f85de51bbc74595e63b22ee089adbb31f7c7a2",
         "type": "github"
       },
       "original": {
@@ -253,11 +253,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1616259034,
-        "narHash": "sha256-WlMIiGIXJm7J+jemzd+ksoun6znWmabCZNz76szV158=",
+        "lastModified": 1616670887,
+        "narHash": "sha256-wn+l9qJfR5sj5Gq4DheJHAcBDfOs9K2p9seW2f35xzs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4e0d3868c679da20108db402785f924daa1a7fb5",
+        "rev": "c0e881852006b132236cbf0301bd1939bb50867e",
         "type": "github"
       },
       "original": {
@@ -269,11 +269,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1616541032,
-        "narHash": "sha256-spfAolm7AP1c3QWcpplRS1mZmuaWCwpyC6iIQnA1pUY=",
+        "lastModified": 1616891080,
+        "narHash": "sha256-+oz+G+QPzH17FSPz3BLVfRCZMdkWyy0EdXAmXXRqhYw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cce199a3e09b75256eca999e0371c4e4811dab49",
+        "rev": "3a498ff0f257024fb17067ce4ab9d7b00b50230e",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     },
     "nixpkgs-stable-darwin": {
       "locked": {
-        "lastModified": 1616305499,
-        "narHash": "sha256-WArUDrAuqq9jNLNJI0hBClleALaCysA40WBbQHQlqLg=",
+        "lastModified": 1616628936,
+        "narHash": "sha256-AlrgEUkhV4nulv35iNV7iRIcssqvbjNg8+mf5B6SM2Q=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9b8530e3721fc008bacac61b6c50a29712ee2f2f",
+        "rev": "d395190b24b27a65588f4539c423d9807ad8d4e7",
         "type": "github"
       },
       "original": {
@@ -302,11 +302,11 @@
     "nvim-bufferline-lua": {
       "flake": false,
       "locked": {
-        "lastModified": 1616419550,
-        "narHash": "sha256-I6rICvtUdueyWaCdIF+BndpiUguh2BxrqYulXhFFrpU=",
+        "lastModified": 1616769045,
+        "narHash": "sha256-dUFr/Gcw3OFgmK+Beagrz9z1uTcVnCODB04piqIvJE0=",
         "owner": "akinsho",
         "repo": "nvim-bufferline.lua",
-        "rev": "437aa7cacc8eb6b7840e298f55666f4a6dea20e7",
+        "rev": "e6953ebd37d79c8656cde6fae5ecf5aeb2483f47",
         "type": "github"
       },
       "original": {
