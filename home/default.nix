@@ -102,6 +102,22 @@
   ];
   # }}}
 
+  # Misc configuration files --------------------------------------------------------------------{{{
+
+  # https://docs.haskellstack.org/en/stable/yaml_configuration/#non-project-specific-config
+  home.file.".stack/config.yaml".text = lib.generators.toYAML {} {
+    templates = {
+      scm-init = "git";
+      params = {
+        author-name = config.programs.git.userName;
+        author-email = config.programs.git.userEmail;
+        github-username = "malob";
+      };
+    };
+    nix.enable = true;
+  };
+  # }}}
+
   # This value determines the Home Manager release that your configuration is compatible with. This
   # helps avoid breakage when a new Home Manager release introduces backwards incompatible changes.
   #
