@@ -9,7 +9,7 @@
     nixos-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
     # Environment/system management
-    darwin.url = "github:hardselius/nix-darwin";
+    darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
