@@ -31,7 +31,10 @@
 
   # Fonts
   fonts.enableFontDir = true;
-  fonts.fonts = [ pkgs.recursive ];
+  fonts.fonts = with pkgs; [
+     recursive
+     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+   ];
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;

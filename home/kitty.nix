@@ -53,6 +53,8 @@ in
     font_features PragmataProMonoLiga-Italic +ss06
     font_features PragmataProMonoLiga-BoldItalic +ss07
   '';
+
+  programs.kitty.extras.useSymbolsFromNerdFont = "JetBrainsMono Nerd Font";
   # }}}
 
   # Colors config ------------------------------------------------------------------------------ {{{
