@@ -123,8 +123,11 @@ require'bufferline'.setup {
     separator_style = 'slant',
     diagnostics = 'nvim_lsp',
     diagnostics_indicator = function(_, level)
-      local icon = level:match('error') and s.errorShape or s.warningShape
-      return ' ' .. icon
+      return ' ' .. (
+        (level:match('error') and s.errorShape) or
+        (level:match('warning') and s.warningShape) or
+        s.infoShape
+      )
     end,
   },
 }
