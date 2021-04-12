@@ -52,6 +52,9 @@
           in {
             master = nixpkgs-master.legacyPackages.${system};
             stable = nixpkgs-stable.legacyPackages.${system};
+
+            # Temporaray overides for packages we use that are currently broken on `unstable`
+            thefuck = final.stable.thefuck;
           }
         )
       ];
