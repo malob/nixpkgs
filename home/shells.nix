@@ -44,6 +44,9 @@
           alias btm "btm --color default"
         end
 
+        # Set LS_COLORS
+        set -xg LS_COLORS (${pkgs.vivid}/bin/vivid generate solarized-$term_background)
+
         # Set color variables
         if test "$term_background" = light
           set emphasized_text  brgreen  # base01
