@@ -85,7 +85,6 @@ in
 
   programs.neovim.extraPackages = with pkgs; [
     neovim-remote
-    tabnine
     gcc # needed for tree-sitter
     tree-sitter
 
