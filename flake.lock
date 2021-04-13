@@ -144,22 +144,6 @@
         "type": "github"
       }
     },
-    "galaxyline-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1618039015,
-        "narHash": "sha256-QKhveSq5JJJPOhhFeiME4padtAepnlWYviJRy1R+/TA=",
-        "owner": "glepnir",
-        "repo": "galaxyline.nvim",
-        "rev": "cbf64bd4869c810b92f6450ed8763456c489be87",
-        "type": "github"
-      },
-      "original": {
-        "owner": "glepnir",
-        "repo": "galaxyline.nvim",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -299,22 +283,6 @@
         "type": "github"
       }
     },
-    "nvim-bufferline-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1617798735,
-        "narHash": "sha256-dborAY/p6eAWcQ7bgV1FalMMOFxb2Q0s+lNege7wq3s=",
-        "owner": "akinsho",
-        "repo": "nvim-bufferline.lua",
-        "rev": "224f2627c471f319626fc7c1ab85f9d7d91bb98a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "akinsho",
-        "repo": "nvim-bufferline.lua",
-        "type": "github"
-      }
-    },
     "plist-source": {
       "flake": false,
       "locked": {
@@ -363,7 +331,6 @@
         "fish-done": "fish-done",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "galaxyline-nvim": "galaxyline-nvim",
         "home-manager": "home-manager",
         "lush-nvim": "lush-nvim",
         "moses-lua": "moses-lua",
@@ -372,28 +339,10 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
-        "nvim-bufferline-lua": "nvim-bufferline-lua",
         "prefmanager": "prefmanager",
-        "telescope-nvim": "telescope-nvim",
         "telescope-symbols-nvim": "telescope-symbols-nvim",
         "telescope-z-nvim": "telescope-z-nvim",
         "vim-haskell-module-name": "vim-haskell-module-name"
-      }
-    },
-    "telescope-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1617989590,
-        "narHash": "sha256-LyuxiETGD1dEkYGO8Prak0X8rF9vV39133xkiO3ph0A=",
-        "owner": "nvim-telescope",
-        "repo": "telescope.nvim",
-        "rev": "5bd6f5ca9828ea02f2c54d616ad65c72a5cdd7fb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-telescope",
-        "repo": "telescope.nvim",
-        "type": "github"
       }
     },
     "telescope-symbols-nvim": {

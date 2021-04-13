@@ -15,11 +15,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Neovim plugins
-    galaxyline-nvim = { url = "github:glepnir/galaxyline.nvim"; flake = false; };
     lush-nvim = { url = "github:rktjmp/lush.nvim"; flake = false; };
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
-    nvim-bufferline-lua = { url = "github:akinsho/nvim-bufferline.lua"; flake = false; };
-    telescope-nvim = { url = "github:nvim-telescope/telescope.nvim"; flake = false; };
     telescope-symbols-nvim = { url = "github:nvim-telescope/telescope-symbols.nvim"; flake = false; };
     telescope-z-nvim = { url = "github:nvim-telescope/telescope-z.nvim"; flake = false; };
     vim-haskell-module-name = { url = "github:chkno/vim-haskell-module-name"; flake = false; };
@@ -150,10 +147,7 @@
 
           # Vim plugins
           vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
-            "galaxyline-nvim"
             "lush-nvim"
-            "nvim-bufferline-lua"
-            "telescope-nvim"
             "telescope-symbols-nvim"
             "telescope-z-nvim"
             "vim-haskell-module-name"
