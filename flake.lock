@@ -164,22 +164,6 @@
         "type": "github"
       }
     },
-    "lush-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1618111038,
-        "narHash": "sha256-kR8v+ZG/iUImhYllyhK6Cf3TtaOd7lsRmFQ5ISA6Bsw=",
-        "owner": "rktjmp",
-        "repo": "lush.nvim",
-        "rev": "3db21525382fa158fba22e2a5d033d6afdbc763a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rktjmp",
-        "repo": "lush.nvim",
-        "type": "github"
-      }
-    },
     "moses-lua": {
       "flake": false,
       "locked": {
@@ -237,11 +221,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1617984351,
-        "narHash": "sha256-mo/tmR1sVmQ+4uziIAZpdNnr9AG0NAAo9Md3tucf73k=",
+        "lastModified": 1618499499,
+        "narHash": "sha256-2DFWiEnI7JcgM3qKMTGEcq0VrsyutaYMDOCbCF7dDiA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "842f900e73c7ce985218cc4f455e34d1d56475c1",
+        "rev": "5268ee2ebacbc73875be42d71e60c2b5c1b5a1c7",
         "type": "github"
       },
       "original": {
@@ -332,65 +316,13 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "lush-nvim": "lush-nvim",
         "moses-lua": "moses-lua",
         "neovim": "neovim",
         "nixos-stable": "nixos-stable",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable-darwin": "nixpkgs-stable-darwin",
-        "prefmanager": "prefmanager",
-        "telescope-symbols-nvim": "telescope-symbols-nvim",
-        "telescope-z-nvim": "telescope-z-nvim",
-        "vim-haskell-module-name": "vim-haskell-module-name"
-      }
-    },
-    "telescope-symbols-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1612442783,
-        "narHash": "sha256-qQJ/RfWn7HpfrIhF804vcTxMrmr8ZLxyhPJwZuFnRG0=",
-        "owner": "nvim-telescope",
-        "repo": "telescope-symbols.nvim",
-        "rev": "5139fdf31fdffdac75209362409d62d2b6033a20",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-telescope",
-        "repo": "telescope-symbols.nvim",
-        "type": "github"
-      }
-    },
-    "telescope-z-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1615333025,
-        "narHash": "sha256-8MhDiKPAiwar12kAKmFhLRTU7Dg+3xAeiRgA5wJZwwc=",
-        "owner": "nvim-telescope",
-        "repo": "telescope-z.nvim",
-        "rev": "c14b6335f42bdda5100f135f18632bf6421c5f0e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-telescope",
-        "repo": "telescope-z.nvim",
-        "type": "github"
-      }
-    },
-    "vim-haskell-module-name": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1579488530,
-        "narHash": "sha256-UVoZqZU3EnkEiHWfR2yg8sHzh6KwA5ix8S19/4ZwXEk=",
-        "owner": "chkno",
-        "repo": "vim-haskell-module-name",
-        "rev": "f9f8e9f83a30b8f805b8fbc0079163e8193b289b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chkno",
-        "repo": "vim-haskell-module-name",
-        "type": "github"
+        "prefmanager": "prefmanager"
       }
     }
   },

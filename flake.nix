@@ -14,18 +14,12 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Neovim plugins
-    lush-nvim = { url = "github:rktjmp/lush.nvim"; flake = false; };
-    moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
-    telescope-symbols-nvim = { url = "github:nvim-telescope/telescope-symbols.nvim"; flake = false; };
-    telescope-z-nvim = { url = "github:nvim-telescope/telescope-z.nvim"; flake = false; };
-    vim-haskell-module-name = { url = "github:chkno/vim-haskell-module-name"; flake = false; };
-
     # Other sources
     comma = { url = "github:Shopify/comma"; flake = false; };
     fish-done = { url = "github:franciscolourenco/done"; flake = false; };
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
+    moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
     neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     prefmanager.url = "github:malob/prefmanager";
@@ -146,12 +140,7 @@
           prefmanager = prefmanager.defaultPackage.${prev.stdenv.system};
 
           # Vim plugins
-          vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
-            "lush-nvim"
-            "telescope-symbols-nvim"
-            "telescope-z-nvim"
-            "vim-haskell-module-name"
-          ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
+          vimPlugins = prev.vimPlugins // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
 
