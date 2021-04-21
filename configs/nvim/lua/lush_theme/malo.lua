@@ -6,6 +6,7 @@ local c = require'malo-theme'.colors
 
 -- Function to set/update colors that are dependant on `vim.o.background`
 local function choose(dark, light) return vim.o.background == 'dark' and dark or light end
+local function highlight(c) return vim.o.background == 'dark' and c.lightness(20) or c.lightness(80) end
 
 return require'lush'(function()
   return {
@@ -62,6 +63,14 @@ return require'lush'(function()
     FadedFg     { fg = FadedBg.bg },
     MutedFg     { fg = MutedBg.bg },
     StrongFg    { fg = StrongBg.bg },
+    YellowHlBg  { bg = highlight(c.yellow) },
+    OrangeHlBg  { bg = highlight(c.orange) },
+    RedHlBg     { bg = highlight(c.red) },
+    MagentaHlBg { bg = highlight(c.magenta) },
+    VioletHlBg  { bg = highlight(c.violet) },
+    BlueHlBg    { bg = highlight(c.blue) },
+    CyanHlBg    { bg = highlight(c.cyan) },
+    GreenHlBg   { bg = highlight(c.green) },
 
     -- Misc
     AddText          { GreenFg },
@@ -161,10 +170,10 @@ return require'lush'(function()
 
     -- Last search pattern highlighting (see 'hlsearch').
     -- Also used for similar items that need to stand out.
-    Search    { bg = c.yellow.lighten(70) },
+    Search    { YellowHlBg },
 
     -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
-    IncSearch { bg = c.orange.lighten(70) },
+    IncSearch { OrangeHlBg },
 
     -- |:substitute| replacement text highlighting
     -- Sustitute { },
@@ -172,7 +181,7 @@ return require'lush'(function()
     -- Selections ----------------------------------------------------------------------------------
 
     -- Visual mode selection
-    Visual    { bg = BlueBg.bg.lighten(70)  },
+    Visual    { BlueHlBg  },
 
     -- Visual mode selection when vim is "Not Owning the Selection".
     VisualNOS { Normal, gui = 'reverse'  },
