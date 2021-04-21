@@ -3,6 +3,7 @@
 let
   inherit (lib) mkIf;
   nvr = "${pkgs.neovim-remote}/bin/nvr";
+  withPluginDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
 in
 {
   # Neovim
@@ -28,12 +29,9 @@ in
     goyo-vim
     lush-nvim
     moses-nvim
-    nvim-bufferline-lua
+    (withPluginDeps nvim-bufferline-lua [ nvim-web-devicons ])
     nvim-lspconfig
     nvim-treesitter
-    nvim-web-devicons
-    plenary-nvim # required for telescope-nvim and gitsigns.nvim
-    popup-nvim # required for telescope-nvim
     tabular
     vim-commentary
     vim-eunuch
@@ -45,9 +43,9 @@ in
     completion-buffers
     completion-nvim
     completion-tabnine
-    galaxyline-nvim
-    gitsigns-nvim
-    telescope-nvim
+    (withPluginDeps galaxyline-nvim [ nvim-web-devicons ])
+    (withPluginDeps gitsigns-nvim [ plenary-nvim ])
+    (withPluginDeps telescope-nvim [ nvim-web-devicons plenary-nvim popup-nvim ])
     telescope-symbols-nvim
     telescope-z-nvim
     vim-floaterm
@@ -85,8 +83,8 @@ in
 
   programs.neovim.extraPackages = with pkgs; [
     neovim-remote
-    gcc # needed for tree-sitter
-    tree-sitter
+    gcc # needed for nvim-treesitter
+    tree-sitter # needed for nvim-treesitter
 
     # Language servers
     # See `../configs/nvim/lua/init.lua` for configuration.
