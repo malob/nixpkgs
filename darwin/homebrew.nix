@@ -52,11 +52,13 @@
     "yubico-yubikey-personalization-gui"
   ];
 
+  # Commented apps suffer continual update issue:
+  # https://github.com/malob/nixpkgs/issues/9
   homebrew.masApps = {
-    "1Blocker" = 1107421413;
+    # "1Blocker" = 1365531024;
     "1Password" = 1333542190;
     "Accelerate for Safari" = 1459809092;
-    DaisyDisk = 411643860;
+    # DaisyDisk = 411643860;
     "Dark Mode for Safari" = 1397180934;
     Deliveries = 924726344;
     Fantastical = 975937182;
