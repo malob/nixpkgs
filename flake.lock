@@ -51,22 +51,6 @@
         "type": "github"
       }
     },
-    "fish-done": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1618251766,
-        "narHash": "sha256-NFysKzRZgDXXZW/sUlZNu7ZpMCKwbjAhIfspSK3UqCY=",
-        "owner": "franciscolourenco",
-        "repo": "done",
-        "rev": "8fd2bc5c95a93b65452281459a167f1bbfb58990",
-        "type": "github"
-      },
-      "original": {
-        "owner": "franciscolourenco",
-        "repo": "done",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -221,11 +205,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1618587490,
-        "narHash": "sha256-NnTlWVB7S8j1YXvzLMs6EUPWnYgw6Lz2IP24VGH0fTQ=",
+        "lastModified": 1619105186,
+        "narHash": "sha256-n/+A1JUMhJjs2eQAcWFrC9FRNENWaiLr+q9NKSd1EQU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f0efbe21f9ae1e17d1aca922708f1bdef605039d",
+        "rev": "cd0ffd3f5fad719586a9b2d06b1faa603da6ba8d",
         "type": "github"
       },
       "original": {
@@ -312,7 +296,6 @@
       "inputs": {
         "comma": "comma",
         "darwin": "darwin",
-        "fish-done": "fish-done",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
