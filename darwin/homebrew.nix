@@ -44,10 +44,8 @@
     "tor-browser"
     "transmission"
     "transmit"
-    "typinator"
-    "visual-studio-code-insiders"
+    "visual-studio-code"
     "vlc"
-    "yubico-authenticator"
     "yubico-yubikey-manager"
     "yubico-yubikey-personalization-gui"
   ];
@@ -81,5 +79,6 @@
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
     Xcode = 497799835;
+    "Yubico Authenticator" = 1497506650;
   };
 }
