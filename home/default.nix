@@ -98,6 +98,7 @@
     nodePackages.node2nix
 
   ] ++ lib.optionals stdenv.isDarwin [
+    cocoapods
     m-cli # useful macOS CLI commands
     prefmanager # tool for working with macOS defaults
   ];

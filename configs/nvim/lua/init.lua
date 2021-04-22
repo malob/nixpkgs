@@ -299,6 +299,7 @@ lspconf.ccls.setup {}
 lspconf.hls.setup {}
 lspconf.jsonls.setup {}
 lspconf.rnix.setup {}
+lspconf.sourcekit.setup {}
 
 -- Fix for `nvim-lspconfig` no longer handling installing language servers
 local system_name
