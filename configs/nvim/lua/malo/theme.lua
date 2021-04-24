@@ -2,7 +2,7 @@
 -- usable with alternate colors.
 -- Still early days, with lots of work needed
 -- https://github.com/rktjmp/lush.nvim
-local lush = require'lush'
+local lush = require 'lush'
 local hsl = lush.hsl
 local _ = require 'moses'
 

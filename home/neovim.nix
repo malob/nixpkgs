@@ -3,8 +3,26 @@
 let
   inherit (lib) mkIf;
   nvr = "${pkgs.neovim-remote}/bin/nvr";
-  withPluginDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
+
+  pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
+
+  nonVSCodePluginWithConfig = plugin: {
+    plugin = plugin;
+    optional = true;
+    config = ''
+      if !exists('g:vscode')
+        lua require 'malo.${plugin.pname}'
+      endif
+    '';
+  };
+
+  nonVSCodePlugin = plugin: {
+    plugin = plugin;
+    optional = true;
+    config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
+  };
 in
+
 {
   # Neovim
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
@@ -23,35 +41,38 @@ in
   programs.neovim.extraConfig = "lua require('init')";
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
-    agda-vim
-    direnv-vim
-    editorconfig-vim
-    goyo-vim
     lush-nvim
     moses-nvim
-    (withPluginDeps nvim-bufferline-lua [ nvim-web-devicons ])
-    nvim-lspconfig
-    nvim-treesitter
     tabular
     vim-commentary
     vim-eunuch
-    vim-fugitive
     vim-haskell-module-name
-    vim-polyglot
     vim-surround
   ] ++ map (p: { plugin = p; optional = true; }) [
     completion-buffers
-    completion-nvim
     completion-tabnine
-    (withPluginDeps galaxyline-nvim [ nvim-web-devicons ])
-    (withPluginDeps gitsigns-nvim [ plenary-nvim ])
-    (withPluginDeps telescope-nvim [ nvim-web-devicons plenary-nvim popup-nvim ])
     telescope-symbols-nvim
     telescope-z-nvim
-    vim-floaterm
-    vim-pencil
     vim-which-key
     zoomwintab-vim
+  ] ++ map nonVSCodePlugin [
+    agda-vim
+    direnv-vim
+    goyo-vim
+    vim-fugitive
+  ] ++ map nonVSCodePluginWithConfig [
+    editorconfig-vim
+    completion-nvim
+    (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
+    (pluginWithDeps gitsigns-nvim [ plenary-nvim ])
+    lspsaga-nvim
+    (pluginWithDeps nvim-bufferline-lua [ nvim-web-devicons ])
+    nvim-lspconfig
+    nvim-treesitter
+    (pluginWithDeps telescope-nvim [ nvim-web-devicons plenary-nvim popup-nvim ])
+    vim-floaterm
+    vim-pencil
+    vim-polyglot
   ];
   # }}}
 

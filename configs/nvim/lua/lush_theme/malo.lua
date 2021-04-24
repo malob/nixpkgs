@@ -2,7 +2,7 @@
 -- usable with alternate colors.
 -- Still early days, with lots of work needed
 -- https://github.com/rktjmp/lush.nvim
-local c = require'malo-theme'.colors
+local c = require'malo.theme'.colors
 
 -- Function to set/update colors that are dependant on `vim.o.background`
 local function choose(dark, light) return vim.o.background == 'dark' and dark or light end

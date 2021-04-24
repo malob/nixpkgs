@@ -5,4 +5,4 @@
 let g:colors_name = 'malo'
 
 " Load colorscheme
-lua require'malo-theme'.loadColorscheme()
+lua require'malo.theme'.loadColorscheme()

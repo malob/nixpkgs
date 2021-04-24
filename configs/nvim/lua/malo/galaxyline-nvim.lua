@@ -1,11 +1,12 @@
+local s = require 'malo.utils'.symbols
+local _ = require 'moses'
+
 -- galaxyline.nvim
 -- https://github.com/glepnir/galaxyline.nvim
-vim.cmd 'packadd! galaxyline-nvim'
+vim.cmd 'packadd galaxyline-nvim'
+
 local gl = require 'galaxyline'
 local condition = require 'galaxyline.condition'
-
-local s = require 'utils'.symbols
-local _ = require 'moses'
 
 gl.short_line_list = { 'floaterm' }
 
