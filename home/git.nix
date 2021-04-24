@@ -11,6 +11,11 @@
     diff.colorMoved = "default";
     pull.rebase = true;
   };
+
+  programs.git.ignores = [
+    ".DS_Store"
+  ];
+
   programs.git.userEmail = "mbourgon@gmail.com";
   programs.git.userName = "Malo Bourgon";
 
