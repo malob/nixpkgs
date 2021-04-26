@@ -64,12 +64,12 @@ in
     editorconfig-vim
     completion-nvim
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
-    (pluginWithDeps gitsigns-nvim [ plenary-nvim ])
+    gitsigns-nvim
     lspsaga-nvim
     (pluginWithDeps nvim-bufferline-lua [ nvim-web-devicons ])
     nvim-lspconfig
     nvim-treesitter
-    (pluginWithDeps telescope-nvim [ nvim-web-devicons plenary-nvim popup-nvim ])
+    (pluginWithDeps telescope-nvim [ nvim-web-devicons ])
     vim-floaterm
     vim-pencil
     vim-polyglot
