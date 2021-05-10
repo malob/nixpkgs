@@ -19,7 +19,7 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
-    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim.url = "github:neovim/neovim/4be0e92db01a502863ac4bb26dd0fee16d833145?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs";
