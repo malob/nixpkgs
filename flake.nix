@@ -71,7 +71,7 @@
       ./darwin
       # `home-manager` module
       home-manager.darwinModules.home-manager
-      {
+      ( { config, lib, ... }: {
         nixpkgs = nixpkgsConfig;
         # Hack to support legacy worklows that use `<nixpkgs>` etc.
         nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
@@ -79,7 +79,11 @@
         users.users.${user}.home = "/Users/${user}";
         home-manager.useGlobalPkgs = true;
         home-manager.users.${user} = homeManagerCommonConfig;
-      }
+
+        environment.variables.SSH_AUTH_SOCK = lib.mkIf
+          (lib.any (x: x == "secretive") config.homebrew.casks)
+          "/Users/${user}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
+      })
     ];
     # }}}
   in {
