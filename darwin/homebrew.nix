@@ -23,7 +23,7 @@
     "1Password" = 1333542190;
     "Accelerate for Safari" = 1459809092;
     "Apple Configurator 2" = 1037126344;
-    # DaisyDisk = 411643860;
+    DaisyDisk = 411643860;
     "Dark Mode for Safari" = 1397180934;
     Deliveries = 290986013;
     Fantastical = 975937182;
@@ -41,6 +41,7 @@
     Slack = 803453959;
     SiteSucker = 442168834;
     "Things 3" = 904280696;
+    TripMode = 1513400665;
     Ulysses = 1225570693;
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
@@ -70,8 +71,11 @@
     "launchbar"
     "nvidia-geforce-now"
     "parallels"
+    "paletro"
     "protonvpn"
     "raindropio"
+    "raycast"
+    "secretive"
     "signal"
     "skype"
     "steam"
