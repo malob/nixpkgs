@@ -45,6 +45,7 @@
 
             # Temporaray overides for packages we use that are currently broken on `unstable`
             thefuck = final.stable.thefuck;
+            neovim-remote = final.stable.neovim-remote;
           }
         )
       ];
