@@ -5,8 +5,8 @@
     # Package sets
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-20.09-darwin";
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-20.09";
+    nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
 
     # Environment/system management
     darwin.url = "github:LnL7/nix-darwin";
@@ -19,7 +19,7 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
-    neovim.url = "github:neovim/neovim/4be0e92db01a502863ac4bb26dd0fee16d833145?dir=contrib";
+    neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,8 +44,8 @@
             stable = nixpkgs-stable.legacyPackages.${system};
 
             # Temporaray overides for packages we use that are currently broken on `unstable`
-            thefuck = final.stable.thefuck;
-            neovim-remote = final.stable.neovim-remote;
+            neovim-remote = prev.neovim-remote.overrideAttrs (old: { doInstallCheck = false; });
+            thefuck = prev.thefuck.overrideAttrs (old: { doInstallCheck = false; });
           }
         )
       ];

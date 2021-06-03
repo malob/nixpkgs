@@ -72,6 +72,7 @@
     "nvidia-geforce-now"
     "parallels"
     "paletro"
+    "plover"
     "protonvpn"
     "raindropio"
     "raycast"

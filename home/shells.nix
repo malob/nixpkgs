@@ -101,7 +101,7 @@
     la = "ll -a";
     ll = "ls -l --time-style long-iso --icons";
     ls = "${exa}/bin/exa";
-    ps = "${stable.procs}/bin/procs";
+    ps = "${procs}/bin/procs";
     tb = "toggle-background";
   };
 
@@ -113,7 +113,7 @@
 
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
-    ${pkgs.stable.thefuck}/bin/thefuck --alias | source
+    ${pkgs.thefuck}/bin/thefuck --alias | source
 
     # Run function to set colors that are dependant on `$term_background` and to register them so
     # they are triggerd when the relevent event happens or variable changes.
