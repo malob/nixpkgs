@@ -3,9 +3,9 @@
 
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
     nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
 
     # Environment/system management
@@ -38,14 +38,17 @@
           final: prev:
           let
             system = prev.stdenv.system;
-            nixpkgs-stable = if system == "x86_64-darwin" then nixpkgs-stable-darwin else nixos-stable;
           in {
             master = nixpkgs-master.legacyPackages.${system};
-            stable = nixpkgs-stable.legacyPackages.${system};
+            unstable = nixpkgs-unstable.legacyPackages.${system};
 
             # Temporaray overides for packages we use that are currently broken on `unstable`
             neovim-remote = prev.neovim-remote.overrideAttrs (old: { doInstallCheck = false; });
             thefuck = prev.thefuck.overrideAttrs (old: { doInstallCheck = false; });
+
+            # Packages I want on the bleeding edge
+            fish = final.unstable.fish;
+            kitty = final.unstable.kitty;
           }
         )
       ];
