@@ -63,26 +63,27 @@
     };
 
     # Modules shared by most `nix-darwin` personal configurations.
-    nixDarwinCommonModules = { user }: [
+    nixDarwinCommonModules = [
       # Include extra `nix-darwin`
       self.darwinModules.programs.nix-index
       self.darwinModules.security.pam
+      self.darwinModules.users
       # Main `nix-darwin` config
       ./darwin
       # `home-manager` module
       home-manager.darwinModules.home-manager
-      ( { config, lib, ... }: {
+      ( { config, lib, ... }: let inherit (config.users) primaryUser; in {
         nixpkgs = nixpkgsConfig;
         # Hack to support legacy worklows that use `<nixpkgs>` etc.
         nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
         # `home-manager` config
-        users.users.${user}.home = "/Users/${user}";
+        users.users.${primaryUser}.home = "/Users/${primaryUser}";
         home-manager.useGlobalPkgs = true;
-        home-manager.users.${user} = homeManagerCommonConfig;
+        home-manager.users.${primaryUser} = homeManagerCommonConfig;
 
         environment.variables.SSH_AUTH_SOCK = lib.mkIf
           (lib.any (x: x == "secretive") config.homebrew.casks)
-          "/Users/${user}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
+          "/Users/${primaryUser}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
       })
     ];
     # }}}
@@ -99,8 +100,9 @@
 
       # My macOS main laptop config
       MaloBookPro = darwin.lib.darwinSystem {
-        modules = nixDarwinCommonModules { user = "malo"; } ++ [
+        modules = nixDarwinCommonModules ++ [
           {
+            users.primaryUser = "malo";
             networking.computerName = "Malo’s 💻";
             networking.hostName = "MaloBookPro";
             networking.knownNetworkServices = [
@@ -113,8 +115,11 @@
 
       # Config with small modifications needed/desired for CI with GitHub workflow
       githubCI = darwin.lib.darwinSystem {
-        modules = nixDarwinCommonModules { user = "runner"; } ++ [
-          ({ lib, ... }: { homebrew.enable = lib.mkForce false; })
+        modules = nixDarwinCommonModules ++ [
+          ({ lib, ... }: {
+            users.primaryUser = "runner";
+            homebrew.enable = lib.mkForce false;
+          })
         ];
       };
     };
@@ -161,6 +166,7 @@
     darwinModules = {
       programs.nix-index = import ./modules/darwin/programs/nix-index.nix;
       security.pam = import ./modules/darwin/security/pam.nix;
+      users = import ./modules/darwin/users.nix;
     };
 
     homeManagerModules = {
