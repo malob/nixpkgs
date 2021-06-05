@@ -42,10 +42,6 @@
             master = nixpkgs-master.legacyPackages.${system};
             unstable = nixpkgs-unstable.legacyPackages.${system};
 
-            # Temporaray overides for packages we use that are currently broken on `unstable`
-            neovim-remote = prev.neovim-remote.overrideAttrs (old: { doInstallCheck = false; });
-            thefuck = prev.thefuck.overrideAttrs (old: { doInstallCheck = false; });
-
             # Packages I want on the bleeding edge
             fish = final.unstable.fish;
             kitty = final.unstable.kitty;
@@ -151,6 +147,10 @@
           vimPlugins = prev.vimPlugins // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
+
+          # Fixes for packages that don't build for some reason.
+          neovim-remote = prev.neovim-remote.overrideAttrs (old: { doInstallCheck = false; });
+          thefuck = prev.thefuck.overrideAttrs (old: { doInstallCheck = false; });
         }
       )
       # Other overlays that don't depend on flake inputs.
