@@ -98,7 +98,7 @@ in
   ];
 
   # Configuration related to casks
-  environment.variables.SSH_AUTH_SOCK = mkIfCaskPresent "secrative"
+  environment.variables.SSH_AUTH_SOCK = mkIfCaskPresent "secretive"
      "/Users/${config.users.primaryUser}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
