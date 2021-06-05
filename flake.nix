@@ -80,10 +80,6 @@
         users.users.${primaryUser}.home = "/Users/${primaryUser}";
         home-manager.useGlobalPkgs = true;
         home-manager.users.${primaryUser} = homeManagerCommonConfig;
-
-        environment.variables.SSH_AUTH_SOCK = lib.mkIf
-          (lib.any (x: x == "secretive") config.homebrew.casks)
-          "/Users/${primaryUser}/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh";
       })
     ];
     # }}}
