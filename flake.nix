@@ -35,12 +35,9 @@
       config = { allowUnfree = true; };
       overlays = self.overlays ++ [
         (
-          final: prev:
-          let
-            system = prev.stdenv.system;
-          in {
-            master = import nixpkgs-master { inherit system config; };
-            unstable = import nixpkgs-unstable { inherit system config; };
+          final: prev: {
+            master = import nixpkgs-master { inherit (prev) system; inherit config; };
+            unstable = import nixpkgs-unstable { inherit (prev) system; inherit config; };
 
             # Packages I want on the bleeding edge
             fish = final.unstable.fish;
@@ -141,8 +138,8 @@
         final: prev: {
           # Some packages
           comma = import comma { inherit (prev) pkgs; };
-          neovim-nightly = neovim.packages.${prev.stdenv.system}.neovim;
-          prefmanager = prefmanager.defaultPackage.${prev.stdenv.system};
+          neovim-nightly = neovim.packages.${prev.system}.neovim;
+          prefmanager = prefmanager.defaultPackage.${prev.system};
 
           # Vim plugins
           vimPlugins = prev.vimPlugins // {
