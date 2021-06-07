@@ -31,7 +31,7 @@
     # Some building blocks --------------------------------------------------------------------- {{{
 
     # Configuration for `nixpkgs` mostly used in personal configs.
-    nixpkgsConfig = with inputs; {
+    nixpkgsConfig = with inputs; rec {
       config = { allowUnfree = true; };
       overlays = self.overlays ++ [
         (
@@ -39,8 +39,8 @@
           let
             system = prev.stdenv.system;
           in {
-            master = nixpkgs-master.legacyPackages.${system};
-            unstable = nixpkgs-unstable.legacyPackages.${system};
+            master = import nixpkgs-master { inherit system config; };
+            unstable = import nixpkgs-unstable { inherit system config; };
 
             # Packages I want on the bleeding edge
             fish = final.unstable.fish;
