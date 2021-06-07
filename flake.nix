@@ -42,6 +42,8 @@
             # Packages I want on the bleeding edge
             fish = final.unstable.fish;
             kitty = final.unstable.kitty;
+            nixUnstable = final.unstable.nixUnstable;
+            vimPlugins = prev.vimPlugins // final.unstable.vimPlugins;
           }
         )
       ];
