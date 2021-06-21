@@ -11,7 +11,7 @@
     # Environment/system management
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-21.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Other sources
@@ -20,7 +20,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
     neovim.url = "github:neovim/neovim?dir=contrib";
-    neovim.inputs.nixpkgs.follows = "nixpkgs";
+    neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs";
   };
