@@ -28,10 +28,6 @@ in
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
   programs.neovim.enable = true;
 
-  # Use Neovim nightly (0.5.0) package provided by Nix Flake in Neovim repo, and made available via
-  # an overlay, see `../flake.nix`.
-  programs.neovim.package = pkgs.neovim-nightly;
-
   # Config and plugins ------------------------------------------------------------------------- {{{
 
   # Minimal init.vim config to load Lua config. Nix and Home Manager don't currently support
