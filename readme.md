@@ -25,7 +25,7 @@ In no particular order:
   * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration:
     * [`programs.neovim.extras`](./modules/home/programs/neovim/extras.nix) that provides `termBufferAutoChangeDir`, and `nvrAliases` options.
     * [`programs.kitty.extras`](./modules/home/programs/kitty/extras.nix) that provides a,
-      * `colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them, and
+      * `colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them; and
       * `useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
     * [`configs.git.aliases`](./home/configs/git-aliases.nix)
     * [`configs.gh.aliases`](./home/configs/gh-aliases.nix)
@@ -35,7 +35,7 @@ In no particular order:
     * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. It includes the overlays from the flake by default. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the changes.
 * [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
-* A WIP experimental (but functional) slick Neovim 0.5.0 (nightly) [config](./configs/nvim) in Lua. See also: [`neovim.nix`](./home/neovim.nix)).
+* A WIP experimental (but functional) slick Neovim 0.5.0 [config](./configs/nvim) in Lua (some bugs need to be fixed now that 0.5 has been officially released). See also: [`neovim.nix`](./home/neovim.nix).
 * Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Kitty terminal](https://sw.kovidgoyal.net/kitty), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * adding Solarized colors to `pkgs` via an [overlay](./overlays/colors.nix);
   * using my `programs.kitty.extras` `home-manager` module (see above);
