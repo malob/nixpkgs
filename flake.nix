@@ -41,6 +41,7 @@
 
             # Packages I want on the bleeding edge
             fish = final.unstable.fish;
+            fishPlugins = final.unstable.fishPlugins;
             kitty = final.unstable.kitty;
             neovim = final.unstable.neovim;
             neovim-unwrapped = final.unstable.neovim-unwrapped;
@@ -151,7 +152,6 @@
           };
 
           # Fixes for packages that don't build for some reason.
-          neovim-remote = prev.neovim-remote.overrideAttrs (old: { doInstallCheck = false; });
           thefuck = prev.thefuck.overrideAttrs (old: { doInstallCheck = false; });
         }
       )
