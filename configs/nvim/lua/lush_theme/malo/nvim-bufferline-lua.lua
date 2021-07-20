@@ -14,6 +14,10 @@ return require'lush'(function()
     BufferLineBufferVisible  { BufferLineBackground, bg = t.StatusLine.bg },
     BufferLineBufferSelected { BufferLineBufferVisible, fg = t.StrongFg.fg, gui = 'bold,italic' },
 
+    BufferLineCloseButton         { BufferLineBackground },
+    BufferLineCloseButtonVisible  { BufferLineBufferVisible },
+    BufferLineCloseButtonSelected { BufferLineBufferSelected },
+
     BufferLineModified         { BufferLineBackground , fg = t.ChangeText.fg },
     BufferLineModifiedVisible  { BufferLineBufferVisible, fg = t.ChangeText.fg },
     BufferLineModifiedSelected { BufferLineBufferSelected, fg = t.ChangeText.fg },

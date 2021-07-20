@@ -4,7 +4,8 @@ local s = require'malo.utils'.symbols
 -- nvim-bufferline.lua
 -- https://github.com/akinsho/nvim-bufferline.lua
 vim.cmd 'packadd nvim-bufferline-lua'
-require'bufferline'.setup {
+
+require'bufferline.config'.set {
   options = {
     view = 'multiwindow',
     separator_style = 'slant',
@@ -18,5 +19,6 @@ require'bufferline'.setup {
     end,
   },
 }
--- Colors are taken care of directly in colorscheme
+-- Colors are taken care of directly in colorscheme, this hack is needed for that.
+require'bufferline'.__load()
 vim.cmd 'au! BufferlineColors ColorScheme'
