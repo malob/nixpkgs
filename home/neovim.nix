@@ -49,7 +49,7 @@ in
     completion-tabnine
     telescope-symbols-nvim
     telescope-z-nvim
-    vim-which-key
+    which-key-nvim
     zoomwintab-vim
   ] ++ map nonVSCodePlugin [
     agda-vim
