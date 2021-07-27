@@ -45,8 +45,6 @@ in
     vim-haskell-module-name
     vim-surround
   ] ++ map (p: { plugin = p; optional = true; }) [
-    completion-buffers
-    completion-tabnine
     telescope-symbols-nvim
     telescope-z-nvim
     which-key-nvim
@@ -56,15 +54,14 @@ in
     direnv-vim
     goyo-vim
     vim-fugitive
-    nvim-lspinstall
   ] ++ map nonVSCodePluginWithConfig [
     editorconfig-vim
-    completion-nvim
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
     gitsigns-nvim
     lspsaga-nvim
     (pluginWithDeps nvim-bufferline-lua [ nvim-web-devicons ])
-    nvim-lspconfig
+    (pluginWithDeps nvim-compe [ compe-tabnine ])
+    (pluginWithDeps nvim-lspconfig [ nvim-lspinstall ])
     nvim-treesitter
     (pluginWithDeps telescope-nvim [ nvim-web-devicons ])
     vim-floaterm

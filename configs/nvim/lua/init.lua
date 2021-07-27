@@ -31,17 +31,12 @@ local env = vim.env
 --   - See if there's an easy way to show show Git sections when in terminal buffer.
 --   - Revamp conditions for when segments are displayed
 --   - A bunch of other small tweaks.
--- - Improve completions
---   - Try `compe-nvim`?
---   - Not currently satisfied with sorting and what gets included when.
---   - Add snippet support? Maybe with vim-vsnip?
 -- - List searching with telescope.nvim.
 --   - Improve workspace folder detection on my telescope.nvim extensions
 -- - Other
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
 --   - Play around with `tree-sitter`.
 --   - Look into replacing floaterm-vim with vim-toggleterm.lua.
---   - Look into some keymaps defined with vim-which-key being slow to execute.
 
 
 -- Basic Vim Config --------------------------------------------------------------------------------
