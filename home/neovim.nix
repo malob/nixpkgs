@@ -58,6 +58,7 @@ in
     editorconfig-vim
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
     gitsigns-nvim
+    indent-blankline-nvim
     lspsaga-nvim
     (pluginWithDeps nvim-bufferline-lua [ nvim-web-devicons ])
     (pluginWithDeps nvim-compe [ compe-tabnine ])
