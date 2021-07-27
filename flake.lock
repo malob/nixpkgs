@@ -252,6 +252,22 @@
         "type": "github"
       }
     },
+    "nvim-lspinstall": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1626375214,
+        "narHash": "sha256-5iA9sKRltPmGiQcX8HOx+vJpqHMijn9bAeBoOCi89GY=",
+        "owner": "kabouzeid",
+        "repo": "nvim-lspinstall",
+        "rev": "6752b31295bf410d8768f7f3bac15e6f1f5b8fbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kabouzeid",
+        "repo": "nvim-lspinstall",
+        "type": "github"
+      }
+    },
     "plist-source": {
       "flake": false,
       "locked": {
@@ -306,6 +322,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nvim-lspinstall": "nvim-lspinstall",
         "prefmanager": "prefmanager"
       }
     }

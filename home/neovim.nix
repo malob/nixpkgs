@@ -56,6 +56,7 @@ in
     direnv-vim
     goyo-vim
     vim-fugitive
+    nvim-lspinstall
   ] ++ map nonVSCodePluginWithConfig [
     editorconfig-vim
     completion-nvim

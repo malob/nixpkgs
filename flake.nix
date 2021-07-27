@@ -21,6 +21,7 @@
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
     neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nvim-lspinstall = { url = "github:kabouzeid/nvim-lspinstall"; flake = false; };
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -147,7 +148,9 @@
           prefmanager = prefmanager.defaultPackage.${prev.system};
 
           # Vim plugins
-          vimPlugins = prev.vimPlugins // {
+          vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
+            "nvim-lspinstall"
+           ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
 
