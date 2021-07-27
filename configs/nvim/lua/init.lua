@@ -121,8 +121,11 @@ keymaps { mode = 't', opts = { 'noremap' }, maps = {
 -- Define all `<Space>` prefixed keymaps with which-key.nvim
 -- https://github.com/folke/which-key.nvim
 cmd 'packadd which-key-nvim'
-cmd 'packadd! gitsigns-nvim' -- need for some mappings
+cmd 'packadd! gitsigns-nvim' -- needed for some mappings
 local wk = require 'which-key'
+wk.setup { plugins = { spelling = { enabled = true } } }
+
+-- Spaced prefiexd in Normal mode
 wk.register ({
   [' '] = { '<Cmd>packadd vim-floaterm | FloatermToggle<CR>', 'Toggle floating terminal' },
 
@@ -180,8 +183,8 @@ wk.register ({
   g = {
     name = '+Git',
     -- vim-fugitive
-    b = { '<Cmd>Gblame<CR>'  , 'Blame'  },
-    s = { '<Cmd>Git<CR>' , 'Status' },
+    b = { '<Cmd>Gblame<CR>' , 'Blame'  },
+    s = { '<Cmd>Git<CR>'    , 'Status' },
     d = {
       name = '+Diff',
       s = { '<Cmd>Ghdiffsplit<CR>' , 'Split horizontal' },
@@ -264,4 +267,12 @@ wk.register ({
     ['?'] = { '<Cmd>Telescope help_tags<CR>', 'Vim help' },
   }
 
+}, { prefix = ' ' })
+
+-- Spaced prefiexd in mode Visual mode
+wk.register ({
+  l = {
+    name = '+LSP',
+    a = { ':<C-U>Lspsaga range_code_action<CR>' , 'Code action (range)' , mode = 'v' },
+  },
 }, { prefix = ' ' })
