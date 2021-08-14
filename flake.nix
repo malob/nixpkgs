@@ -150,7 +150,7 @@
           # Vim plugins
           vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
             "nvim-lspinstall"
-           ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
+          ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
 
