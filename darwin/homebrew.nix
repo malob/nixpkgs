@@ -75,6 +75,7 @@ in
     "i1profiler"
     "keybase"
     "nvidia-geforce-now"
+    "obsidian"
     "parallels"
     "plover"
     "protonvpn"
