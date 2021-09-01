@@ -1,5 +1,5 @@
--- Custom highlights for nvim-bufferline.lua
--- https://github.com/akinsho/nvim-bufferline.lua
+-- Custom highlights for bufferline.nvim
+-- https://github.com/akinsho/bufferline.nvim
 --
 -- nvim-bufferline.lua isn't setup to manage it's highlights in this way, but the way they provide
 -- does not work well with colorschemes that have dynamic colors, like colors that change based on

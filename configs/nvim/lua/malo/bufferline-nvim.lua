@@ -1,9 +1,9 @@
 local s = require'malo.utils'.symbols
 
 -- Tabline
--- nvim-bufferline.lua
--- https://github.com/akinsho/nvim-bufferline.lua
-vim.cmd 'packadd nvim-bufferline-lua'
+-- bufferline.nvim
+-- https://github.com/akinsho/bufferline.nvim
+vim.cmd 'packadd bufferline-nvim'
 
 require'bufferline.config'.set {
   options = {

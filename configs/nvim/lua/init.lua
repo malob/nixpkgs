@@ -87,7 +87,7 @@ o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end o
 
 -- Set colorscheme
 require'malo.theme'.extraLushSpecs = {
-  'lush_theme.malo.nvim-bufferline-lua',
+  'lush_theme.malo.bufferline-nvim',
   'lush_theme.malo.statusline',
   'lush_theme.malo.telescope-nvim',
 }
