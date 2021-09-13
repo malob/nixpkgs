@@ -115,8 +115,8 @@ keymaps { mode = 't', opts = { 'noremap' }, maps = {
 
 -- Define all `<Space>` prefixed keymaps with which-key.nvim
 -- https://github.com/folke/which-key.nvim
-cmd 'packadd which-key-nvim'
-cmd 'packadd! gitsigns-nvim' -- needed for some mappings
+cmd 'packadd which-key.nvim'
+cmd 'packadd! gitsigns.nvim' -- needed for some mappings
 local wk = require 'which-key'
 wk.setup { plugins = { spelling = { enabled = true } } }
 
@@ -164,7 +164,7 @@ wk.register ({
     T = { '<Cmd>wincmd T<CR>' , 'Move to new tab'          },
     r = { '<Cmd>wincmd r<CR>' , 'Rotate clockwise'         },
     R = { '<Cmd>wincmd R<CR>' , 'Rotate counter-clockwise' },
-    z = { '<Cmd>packadd zoomwintab-vim | ZoomWinTabToggle<CR>', 'Toggle zoom' },
+    z = { '<Cmd>packadd zoomwintab.vim | ZoomWinTabToggle<CR>', 'Toggle zoom' },
     -- Resize
     ['='] = { '<Cmd>wincmd =<CR>'            , 'All equal size'   },
     ['-'] = { '<Cmd>resize -5<CR>'           , 'Decrease height'  },

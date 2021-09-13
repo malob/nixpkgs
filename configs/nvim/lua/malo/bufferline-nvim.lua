@@ -3,7 +3,7 @@ local s = require'malo.utils'.symbols
 -- Tabline
 -- bufferline.nvim
 -- https://github.com/akinsho/bufferline.nvim
-vim.cmd 'packadd bufferline-nvim'
+vim.cmd 'packadd bufferline.nvim'
 
 require'bufferline.config'.set {
   options = {

@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) getName mkIf;
+  inherit (config.lib.file) mkOutOfStoreSymlink;
+  nixConfigDir = "${config.home.homeDirectory}/.config/nixpkgs";
+
   nvr = "${pkgs.neovim-remote}/bin/nvr";
 
   pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
@@ -11,7 +14,7 @@ let
     optional = true;
     config = ''
       if !exists('g:vscode')
-        lua require 'malo.${plugin.pname}'
+        lua require('malo.' .. string.gsub('${plugin.pname}', '%.', '-'))
       endif
     '';
   };
@@ -32,8 +35,8 @@ in
 
   # Minimal init.vim config to load Lua config. Nix and Home Manager don't currently support
   # `init.lua`.
-  xdg.configFile."nvim/lua".source = ../configs/nvim/lua;
-  xdg.configFile."nvim/colors".source = ../configs/nvim/colors;
+  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/lua";
+  xdg.configFile."nvim/colors".source = mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/colors";
   programs.neovim.extraConfig = "lua require('init')";
 
   programs.neovim.plugins = with pkgs.vimPlugins; [

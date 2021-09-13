@@ -3,7 +3,7 @@ local _ = require 'moses'
 
 -- galaxyline.nvim
 -- https://github.com/glepnir/galaxyline.nvim
-vim.cmd 'packadd galaxyline-nvim'
+vim.cmd 'packadd galaxyline.nvim'
 
 local gl = require 'galaxyline'
 local condition = require 'galaxyline.condition'
