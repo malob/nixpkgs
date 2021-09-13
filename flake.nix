@@ -41,14 +41,15 @@
             unstable = import nixpkgs-unstable { inherit (prev) system; inherit config; };
 
             # Packages I want on the bleeding edge
-            fish = final.unstable.fish;
-            fishPlugins = final.unstable.fishPlugins;
-            kitty = final.unstable.kitty;
-            neovim = final.unstable.neovim;
-            neovim-unwrapped = final.unstable.neovim-unwrapped;
-            nixUnstable = final.unstable.nixUnstable;
             vimPlugins = prev.vimPlugins // final.unstable.vimPlugins;
-          }
+          } // nixpkgs.lib.genAttrs [
+            "fish"
+            "fishPlugins"
+            "kitty"
+            "neovim"
+            "neovim-unwrapped"
+            "nixUnstable"
+          ] (p: final.unstable.${p})
         )
       ];
     };
