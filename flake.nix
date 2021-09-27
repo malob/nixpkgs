@@ -95,11 +95,13 @@
     darwinConfigurations = {
       # Mininal configuration to bootstrap systems
       bootstrap = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
         modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
       };
 
       # My macOS main laptop config
       MaloBookPro = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
         modules = nixDarwinCommonModules ++ [
           {
             users.primaryUser = "malo";
@@ -115,6 +117,7 @@
 
       # Config with small modifications needed/desired for CI with GitHub workflow
       githubCI = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
         modules = nixDarwinCommonModules ++ [
           ({ lib, ... }: {
             users.primaryUser = "runner";
