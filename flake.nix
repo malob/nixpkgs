@@ -19,11 +19,9 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
     moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
-    neovim.url = "github:neovim/neovim?dir=contrib";
-    neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nvim-lspinstall = { url = "github:kabouzeid/nvim-lspinstall"; flake = false; };
     prefmanager.url = "github:malob/prefmanager";
-    prefmanager.inputs.nixpkgs.follows = "nixpkgs";
+    prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
 
@@ -31,27 +29,54 @@
   let
     # Some building blocks --------------------------------------------------------------------- {{{
 
+    inherit (darwin.lib) darwinSystem;
+    inherit (nixpkgs.lib) makeOverridable optionalAttrs singleton;
+
     # Configuration for `nixpkgs` mostly used in personal configs.
     nixpkgsConfig = with inputs; rec {
       config = { allowUnfree = true; };
-      overlays = self.overlays ++ [
-        (
-          final: prev: {
-            master = import nixpkgs-master { inherit (prev) system; inherit config; };
-            unstable = import nixpkgs-unstable { inherit (prev) system; inherit config; };
+      overlays = self.overlays ++ singleton (
+        final: prev: ({
 
-            # Packages I want on the bleeding edge
-            vimPlugins = prev.vimPlugins // final.unstable.vimPlugins;
-          } // nixpkgs.lib.genAttrs [
-            "fish"
-            "fishPlugins"
-            "kitty"
-            "neovim"
-            "neovim-unwrapped"
-            "nixUnstable"
-          ] (p: final.unstable.${p})
-        )
-      ];
+          master = import nixpkgs-master { inherit (prev) system; inherit config; };
+          unstable = import nixpkgs-unstable {
+            inherit (prev) system;
+            inherit config;
+            # Needed to get stuff like `vimPlugins` from `unstable` to use latest version
+            overlays = [ (_: _: { tabnine = final.master.tabnine; }) ];
+          };
+
+          # Packages I want on the bleeding edge
+          vimPlugins = prev.vimPlugins // final.unstable.vimPlugins;
+
+          inherit (final.unstable)
+            fish
+            fishPlugins
+            haskell
+            haskellPackages
+            kitty
+            neovim
+            neovim-unwrapped
+            nixUnstable;
+
+        # Packages which don't build on Apple Silicon yet
+        } // optionalAttrs (prev.system == "aarch64-darwin") {
+
+          master-x86 = import nixpkgs-master { system = "x86_64-darwin"; inherit config; };
+          nixpkgs-x86= import nixpkgs { system = "x86_64-darwin";  inherit config;};
+          unstable-x86 = import nixpkgs-unstable { system = "x86_64-darwin"; inherit config; };
+
+          inherit (final.nixpkgs-x86)
+            google-cloud-sdk
+            idris2
+            mosh
+            niv
+            nix-index;
+
+          inherit (final.unstable-x86) kitty;
+
+        })
+      );
     };
 
     # Personal configuration shared between `nix-darwin` and plain `home-manager` configs.
@@ -76,15 +101,20 @@
       ./darwin
       # `home-manager` module
       home-manager.darwinModules.home-manager
-      ( { config, lib, ... }: let inherit (config.users) primaryUser; in {
-        nixpkgs = nixpkgsConfig;
-        # Hack to support legacy worklows that use `<nixpkgs>` etc.
-        nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
-        # `home-manager` config
-        users.users.${primaryUser}.home = "/Users/${primaryUser}";
-        home-manager.useGlobalPkgs = true;
-        home-manager.users.${primaryUser} = homeManagerCommonConfig;
-      })
+      (
+        { config, lib, pkgs, ... }:
+        let
+          inherit (config.users) primaryUser;
+        in {
+          nixpkgs = nixpkgsConfig;
+          # Hack to support legacy worklows that use `<nixpkgs>` etc.
+          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+          # `home-manager` config
+          users.users.${primaryUser}.home = "/Users/${primaryUser}";
+          home-manager.useGlobalPkgs = true;
+          home-manager.users.${primaryUser} = homeManagerCommonConfig;
+        }
+      )
     ];
     # }}}
   in {
@@ -92,15 +122,16 @@
     # Personal configuration ------------------------------------------------------------------- {{{
 
     # My `nix-darwin` configs
-    darwinConfigurations = {
-      # Mininal configuration to bootstrap systems
-      bootstrap = darwin.lib.darwinSystem {
+    darwinConfigurations = rec {
+      # Mininal configurations to bootstrap systems
+      bootstrap-x86 = makeOverridable darwinSystem {
         system = "x86_64-darwin";
         modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
       };
+      bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
-      # My macOS main laptop config
-      MaloBookPro = darwin.lib.darwinSystem {
+      # My old Intel macOS laptop config
+      MaloBookPro = darwinSystem {
         system = "x86_64-darwin";
         modules = nixDarwinCommonModules ++ [
           {
@@ -115,8 +146,24 @@
         ];
       };
 
+      # My new Apple Silicon macOS laptop config
+      MaloBookProM1 = darwinSystem {
+        system = "aarch64-darwin";
+        modules = nixDarwinCommonModules ++ [
+          {
+            users.primaryUser = "malo";
+            networking.computerName = "Malo’s M1 💻";
+            networking.hostName = "MaloBookProM1";
+            networking.knownNetworkServices = [
+              "Wi-Fi"
+              "USB 10/100/1000 LAN"
+            ];
+          }
+        ];
+      };
+
       # Config with small modifications needed/desired for CI with GitHub workflow
-      githubCI = darwin.lib.darwinSystem {
+      githubCI = darwinSystem {
         system = "x86_64-darwin";
         modules = nixDarwinCommonModules ++ [
           ({ lib, ... }: {
@@ -148,7 +195,6 @@
         final: prev: {
           # Some packages
           comma = import comma { inherit (prev) pkgs; };
-          neovim-nightly = neovim.packages.${prev.system}.neovim;
           prefmanager = prefmanager.defaultPackage.${prev.system};
 
           # Vim plugins

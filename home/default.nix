@@ -74,10 +74,9 @@
     xz # extract XZ archives
 
     # Dev stuff
-    (agda.withPackages (p: [ p.standard-library ]))
+    # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
     google-cloud-sdk
-    haskell-language-server
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.hpack
@@ -87,7 +86,6 @@
     jq
     nodePackages.typescript
     nodejs
-    (python3.withPackages (p: with p; [ mypy pylint yapf ]))
     s3cmd
     tickgit
 

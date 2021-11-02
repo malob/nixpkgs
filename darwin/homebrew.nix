@@ -1,11 +1,17 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   mkIfCaskPresent = cask: lib.mkIf (lib.any (x: x == cask) config.homebrew.casks);
+  brewBinPrefix = if pkgs.system == "aarch64-darwin" then "/opt/homebrew/bin" else "/usr/local/bin";
 in
 
 {
+  environment.shellInit = ''
+    eval "$(${brewBinPrefix}/brew shellenv)"
+  '';
+
   homebrew.enable = true;
+  homebrew.brewPrefix = brewBinPrefix;
   homebrew.autoUpdate = true;
   homebrew.cleanup = "zap";
   homebrew.global.brewfile = true;
@@ -61,10 +67,8 @@ in
   # If an app isn't available in the Mac App Store, or the version in the App Store has
   # limitiations, e.g., Transmit, install the Homebrew Cask.
   homebrew.casks = [
-    "atom"
     "amethyst"
     "arq"
-    "audio-hijack"
     "balenaetcher"
     "camo-studio"
     "cleanmymac"
@@ -76,7 +80,6 @@ in
     "google-drive"
     "gpg-suite"
     "hammerspoon"
-    "hey"
     "keybase"
     "nvidia-geforce-now"
     "obsidian"
@@ -104,7 +107,7 @@ in
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
-  homebrew.brews = [
+  homebrew.brews = lib.mkIf (pkgs.system == "x86_64-darwin") [
     "swift-format"
     "swiftlint"
   ];

@@ -51,8 +51,8 @@ jobs:
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
         # Build and switch to bootstrap config
-        nix build .#darwinConfigurations.bootstrap.system
-        ./result/sw/bin/darwin-rebuild switch --flake .#bootstrap
+        nix build .#darwinConfigurations.bootstrap-x86.system
+        ./result/sw/bin/darwin-rebuild switch --flake .#bootstrap-x86
         # Build and switch to full config
         /run/current-system/sw/bin/fish -c 'darwin-rebuild switch --flake .#githubCI'
 
