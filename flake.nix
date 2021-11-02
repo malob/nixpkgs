@@ -113,6 +113,8 @@
           users.users.${primaryUser}.home = "/Users/${primaryUser}";
           home-manager.useGlobalPkgs = true;
           home-manager.users.${primaryUser} = homeManagerCommonConfig;
+          # Add a registry entry for this flake
+          nix.registry.my.flake = self;
         }
       )
     ];
