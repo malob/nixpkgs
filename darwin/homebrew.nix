@@ -10,6 +10,17 @@ in
     eval "$(${brewBinPrefix}/brew shellenv)"
   '';
 
+  # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
+  programs.fish.interactiveShellInit = ''
+    if test -d (brew --prefix)"/share/fish/completions"
+      set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
+    end
+
+    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
+      set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+    end
+  '';
+
   homebrew.enable = true;
   homebrew.brewPrefix = brewBinPrefix;
   homebrew.autoUpdate = true;
