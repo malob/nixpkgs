@@ -3,6 +3,7 @@
 {
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling" = "3.0";
+    AppleInterfaceStyleSwitchesAutomatically = true;
     AppleMeasurementUnits = "Centimeters";
     AppleMetricUnits = 1;
     AppleShowScrollBars = "Automatic";
@@ -10,8 +11,9 @@
     InitialKeyRepeat = 15;
     KeyRepeat = 2;
     NSAutomaticCapitalizationEnabled = false;
+    NSAutomaticDashSubstitutionEnabled = false;
     NSAutomaticPeriodSubstitutionEnabled = false;
-    _HIHideMenuBar = true;
+    _HIHideMenuBar = false;
   };
 
   # Firewall
