@@ -214,6 +214,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-with-patched-kitty": {
+      "locked": {
+        "lastModified": 1636082961,
+        "narHash": "sha256-h646VnpsJesA4AkyvBOwrIDjZOLWFRIOVj0+o80CVE0=",
+        "owner": "azuwis",
+        "repo": "nixpkgs",
+        "rev": "ca18f9b3ed76d93e385dfad67170084a322b6f49",
+        "type": "github"
+      },
+      "original": {
+        "owner": "azuwis",
+        "ref": "kitty",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nvim-lspinstall": {
       "flake": false,
       "locked": {
@@ -283,6 +299,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-with-patched-kitty": "nixpkgs-with-patched-kitty",
         "nvim-lspinstall": "nvim-lspinstall",
         "prefmanager": "prefmanager"
       }

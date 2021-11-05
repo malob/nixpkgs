@@ -7,6 +7,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixpkgs-with-patched-kitty.url = "github:azuwis/nixpkgs/kitty";
 
     # Environment/system management
     darwin.url = "github:LnL7/nix-darwin";
@@ -73,7 +74,7 @@
             niv
             nix-index;
 
-          inherit (final.unstable-x86) kitty;
+          inherit (inputs.nixpkgs-with-patched-kitty.legacyPackages.aarch64-darwin) kitty;
 
         })
       );
