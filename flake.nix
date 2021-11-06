@@ -3,17 +3,17 @@
 
   inputs = {
     # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
     nixpkgs-with-patched-kitty.url = "github:azuwis/nixpkgs/kitty";
 
     # Environment/system management
     darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-21.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Other sources
     comma = { url = "github:Shopify/comma"; flake = false; };
@@ -26,56 +26,24 @@
   };
 
 
-  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }@inputs:
+  outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
   let
     # Some building blocks --------------------------------------------------------------------- {{{
 
     inherit (darwin.lib) darwinSystem;
-    inherit (nixpkgs.lib) makeOverridable optionalAttrs singleton;
+    inherit (inputs.nixpkgs-unstable.lib) makeOverridable optionalAttrs singleton;
 
     # Configuration for `nixpkgs` mostly used in personal configs.
-    nixpkgsConfig = with inputs; rec {
+    nixpkgsConfig = rec {
       config = { allowUnfree = true; };
       overlays = self.overlays ++ singleton (
-        final: prev: ({
-
-          master = import nixpkgs-master { inherit (prev) system; inherit config; };
-          unstable = import nixpkgs-unstable {
-            inherit (prev) system;
-            inherit config;
-            # Needed to get stuff like `vimPlugins` from `unstable` to use latest version
-            overlays = [ (_: _: { tabnine = final.master.tabnine; }) ];
-          };
-
-          # Packages I want on the bleeding edge
-          vimPlugins = prev.vimPlugins // final.unstable.vimPlugins;
-
-          inherit (final.unstable)
-            fish
-            fishPlugins
-            haskell
-            haskellPackages
-            kitty
-            neovim
-            neovim-unwrapped
-            nixUnstable;
-
-        # Packages which don't build on Apple Silicon yet
-        } // optionalAttrs (prev.system == "aarch64-darwin") {
-
-          master-x86 = import nixpkgs-master { system = "x86_64-darwin"; inherit config; };
-          nixpkgs-x86= import nixpkgs { system = "x86_64-darwin";  inherit config;};
-          unstable-x86 = import nixpkgs-unstable { system = "x86_64-darwin"; inherit config; };
-
-          inherit (final.nixpkgs-x86)
-            google-cloud-sdk
+        # Sub in x86 version of packages that don't build on Apple Silicon yet
+        final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          inherit (final.pkgs-x86)
             idris2
-            mosh
+            nix-index
             niv
-            nix-index;
-
-          inherit (inputs.nixpkgs-with-patched-kitty.legacyPackages.aarch64-darwin) kitty;
-
+          ;
         })
       );
     };
@@ -181,7 +149,7 @@
     # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
     cloudVM = home-manager.lib.homeManagerConfiguration {
       system = "x86_64-linux";
-      stateVersion = "21.05";
+      stateVersion = "21.11";
       homeDirectory = "/home/malo";
       username = "malo";
       configuration = {
@@ -195,21 +163,33 @@
 
     overlays = with inputs; [
       (
-        final: prev: {
-          # Some packages
+        final: prev: ({
+          # Add access to other versions of `nixpkgs`
+          pkgs-master = import inputs.nixpkgs-master { inherit (prev.stdenv) system; inherit (nixpkgsConfig) config; };
+          pkgs-stable = import inputs.nixpkgs-stable { inherit (prev.stdenv) system; inherit (nixpkgsConfig) config; };
+
+          # Until https://github.com/NixOS/nixpkgs/pull/144651 lands on unstable branch
+          inherit (final.pkgs-master) thefuck;
+
+          # Some extra packages
           comma = import comma { inherit (prev) pkgs; };
           prefmanager = prefmanager.defaultPackage.${prev.system};
 
-          # Vim plugins
+          # Some extra Vim plugins
           vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
             "nvim-lspinstall"
           ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
             moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
           };
 
-          # Fixes for packages that don't build for some reason.
-          thefuck = prev.thefuck.overrideAttrs (old: { doInstallCheck = false; });
-        }
+        } // optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          # Add access to x86 packages system is running Apple Silicon
+          pkgs-x86 = import inputs.nixpkgs-unstable { system = "x86_64-darwin"; inherit (nixpkgsConfig) config; };
+
+          # Get Apple Silicon version of `kitty`
+          # TODO: Remove when https://github.com/NixOS/nixpkgs/pull/137512 lands
+          inherit (inputs.nixpkgs-with-patched-kitty.legacyPackages.aarch64-darwin) kitty;
+        })
       )
       # Other overlays that don't depend on flake inputs.
     ] ++ map import ((import ./lsnix.nix) ./overlays);
@@ -234,7 +214,7 @@
     # Add re-export `nixpkgs` packages with overlays.
     # This is handy in combination with `nix registry add my /Users/malo/.config/nixpkgs`
   } // flake-utils.lib.eachDefaultSystem (system: {
-      legacyPackages = import nixpkgs { inherit system; inherit (nixpkgsConfig) config overlays; };
+      legacyPackages = import inputs.nixpkgs-unstable { inherit system; inherit (nixpkgsConfig) config overlays; };
   });
 }
 # vim: foldmethod=marker
