@@ -116,6 +116,9 @@
     };
     nix.enable = true;
   };
+
+  # Stop `parallel` from displaying citation warning
+  home.file.".parallel/will-cite".text = "";
   # }}}
 
   # This value determines the Home Manager release that your configuration is compatible with. This
