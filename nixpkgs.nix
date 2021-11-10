@@ -3,4 +3,4 @@
   config ? {},
   overlays ? (import ./default.nix).overlays
 }:
-  import (import ./default.nix).inputs.nixpkgs { inherit system config overlays;  }
+  import (import ./default.nix).inputs.nixpkgs-unstable { inherit system config overlays;  }
