@@ -31,12 +31,12 @@
     # Some building blocks --------------------------------------------------------------------- {{{
 
     inherit (darwin.lib) darwinSystem;
-    inherit (inputs.nixpkgs-unstable.lib) makeOverridable optionalAttrs singleton;
+    inherit (inputs.nixpkgs-unstable.lib) attrValues makeOverridable optionalAttrs singleton;
 
-    # Configuration for `nixpkgs` mostly used in personal configs.
-    nixpkgsConfig = rec {
+    # Configuration for `nixpkgs`
+    nixpkgsConfig = {
       config = { allowUnfree = true; };
-      overlays = self.overlays ++ singleton (
+      overlays = attrValues self.overlays ++ singleton (
         # Sub in x86 version of packages that don't build on Apple Silicon yet
         final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
           inherit (final.pkgs-x86)
@@ -161,38 +161,69 @@
 
     # Outputs useful to others ----------------------------------------------------------------- {{{
 
-    overlays = with inputs; [
-      (
-        final: prev: ({
-          # Add access to other versions of `nixpkgs`
-          pkgs-master = import inputs.nixpkgs-master { inherit (prev.stdenv) system; inherit (nixpkgsConfig) config; };
-          pkgs-stable = import inputs.nixpkgs-stable { inherit (prev.stdenv) system; inherit (nixpkgsConfig) config; };
+      overlays = {
+        # Overlays to add different versions `nixpkgs` into package set
+        pkgs-master = final: prev: {
+          pkgs-master = import inputs.nixpkgs-master {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config; };
+        };
+        pkgs-stable = final: prev: {
+          pkgs-stable = import inputs.nixpkgs-stable {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config; };
+        };
+        pkgs-unstable = final: prev: {
+          pkgs-unstable = import inputs.nixpkgs-unstable {
+            inherit (prev.stdenv) system;
+            inherit (nixpkgsConfig) config; };
+        };
 
-          # Until https://github.com/NixOS/nixpkgs/pull/144651 lands on unstable branch
-          inherit (final.pkgs-master) thefuck;
+        # Overlays to add various packages into package set
+        comma = final: prev: {
+          comma = import inputs.comma { inherit (prev) pkgs; };
+        };
+        prefmanager = final: prev: {
+          prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
+        };
 
-          # Some extra packages
-          comma = import comma { inherit (prev) pkgs; };
-          prefmanager = prefmanager.defaultPackage.${prev.system};
+        # Overlay that adds various additional utility functions to `vimUtils`
+        vimUtils = import ./overlays/vimUtils.nix;
 
-          # Some extra Vim plugins
-          vimPlugins = prev.vimPlugins // prev.lib.genAttrs [
-            "nvim-lspinstall"
-          ] (final.lib.buildVimPluginFromFlakeInput inputs) // {
-            moses-nvim = final.lib.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
+        # Overlay that adds some additional Neovim plugins
+        vimPlugins = final: prev:
+        let
+          inherit (self.overlays.vimUtils final prev) vimUtils;
+        in
+          {
+            vimPlugins = prev.vimPlugins.extend(super: self:
+              (vimUtils.buildVimPluginsFromFlakeInputs inputs [
+                "nvim-lspinstall"
+              ]) // {
+                moses-nvim = vimUtils.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
+              }
+            );
           };
 
-        } // optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+        # Overlay useful on Macs with Apple Silicon
+        apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
           # Add access to x86 packages system is running Apple Silicon
-          pkgs-x86 = import inputs.nixpkgs-unstable { system = "x86_64-darwin"; inherit (nixpkgsConfig) config; };
+          pkgs-x86 = import inputs.nixpkgs-unstable {
+            system = "x86_64-darwin";
+            inherit (nixpkgsConfig) config;
+          };
 
           # Get Apple Silicon version of `kitty`
           # TODO: Remove when https://github.com/NixOS/nixpkgs/pull/137512 lands
           inherit (inputs.nixpkgs-with-patched-kitty.legacyPackages.aarch64-darwin) kitty;
-        })
-      )
-      # Other overlays that don't depend on flake inputs.
-    ] ++ map import ((import ./lsnix.nix) ./overlays);
+        };
+
+        # Overlay to add some additional python packages
+        pythonPackages = import ./overlays/python.nix;
+
+        # Overlay that adds `lib.colors` to reference colors elsewhere in system configs
+        colors = import ./overlays/colors.nix;
+      };
 
     # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
     # fixes.
