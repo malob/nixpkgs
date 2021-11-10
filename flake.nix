@@ -3,25 +3,25 @@
 
   inputs = {
     # Package sets
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
-    nixpkgs-with-patched-kitty.url = "github:azuwis/nixpkgs/kitty";
+    nixpkgs-master.url = github:NixOS/nixpkgs/master;
+    nixpkgs-stable.url = github:NixOS/nixpkgs/nixpkgs-21.05-darwin;
+    nixpkgs-unstable.url = github:NixOS/nixpkgs/nixpkgs-unstable;
+    nixos-stable.url = github:NixOS/nixpkgs/nixos-21.05;
+    nixpkgs-with-patched-kitty.url = github:azuwis/nixpkgs/kitty;
 
     # Environment/system management
-    darwin.url = "github:LnL7/nix-darwin";
+    darwin.url = github:LnL7/nix-darwin;
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Other sources
-    comma = { url = "github:Shopify/comma"; flake = false; };
-    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
-    flake-utils.url = "github:numtide/flake-utils";
-    moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
-    nvim-lspinstall = { url = "github:kabouzeid/nvim-lspinstall"; flake = false; };
-    prefmanager.url = "github:malob/prefmanager";
+    comma = { url = github:Shopify/comma; flake = false; };
+    flake-compat = { url = github:edolstra/flake-compat; flake = false; };
+    flake-utils.url = github:numtide/flake-utils;
+    moses-lua = { url = github:Yonaba/Moses; flake = false; };
+    nvim-lspinstall = { url = github:kabouzeid/nvim-lspinstall; flake = false; };
+    prefmanager.url = github:malob/prefmanager;
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
