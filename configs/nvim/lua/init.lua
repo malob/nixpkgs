@@ -46,6 +46,7 @@ o.linebreak  = true -- soft wraps on words not individual chars
 o.mouse      = 'a'  -- enable mouse support in all modes
 o.updatetime = 300
 o.autochdir  = true
+o.exrc       = true -- allow project specific config in .nvimrc or .exrc files
 
 -- Search and replace
 o.ignorecase = true      -- make searches with lower case characters case insensative
