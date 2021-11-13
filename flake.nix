@@ -251,7 +251,12 @@
     } // flake-utils.lib.eachDefaultSystem (system: {
       legacyPackages = import inputs.nixpkgs-unstable {
         inherit system;
-        inherit (nixpkgsConfig) config overlays;
+        inherit (nixpkgsConfig) config;
+        overlays = with self.overlays; [
+          pkgs-master
+          pkgs-stable
+          apple-silicon
+        ];
       };
     });
 }

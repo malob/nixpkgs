@@ -1,6 +1,6 @@
 {
   system ? builtins.currentSystem,
   config ? {},
-  overlays ? (import ./default.nix).overlays
+  overlays ? [],
 }:
   import (import ./default.nix).inputs.nixpkgs-unstable { inherit system config overlays;  }
