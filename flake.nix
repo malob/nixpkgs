@@ -48,23 +48,12 @@
       };
 
       # Personal configuration shared between `nix-darwin` and plain `home-manager` configs.
-      homeManagerCommonConfig = with self.homeManagerModules; {
-        imports = [
-          ./home
-          configs.git.aliases
-          configs.gh.aliases
-          configs.starship.symbols
-          programs.neovim.extras
-          programs.kitty.extras
-        ];
+      homeManagerCommonConfig = {
+        imports = attrValues self.homeManagerModules ++ singleton ./home;
       };
 
       # Modules shared by most `nix-darwin` personal configurations.
-      nixDarwinCommonModules = [
-        # Include extra `nix-darwin`
-        self.darwinModules.programs.nix-index
-        self.darwinModules.security.pam
-        self.darwinModules.users
+      nixDarwinCommonModules = attrValues self.darwinModules ++ [
         # Main `nix-darwin` config
         ./darwin
         # `home-manager` module
@@ -232,17 +221,17 @@
       # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
       # fixes.
       darwinModules = {
-        programs.nix-index = import ./modules/darwin/programs/nix-index.nix;
-        security.pam = import ./modules/darwin/security/pam.nix;
+        programs-nix-index = import ./modules/darwin/programs/nix-index.nix;
+        security-pam = import ./modules/darwin/security/pam.nix;
         users = import ./modules/darwin/users.nix;
       };
 
       homeManagerModules = {
-        configs.git.aliases = import ./home/configs/git-aliases.nix;
-        configs.gh.aliases = import ./home/configs/gh-aliases.nix;
-        configs.starship.symbols = import ./home/configs/starship-symbols.nix;
-        programs.neovim.extras = import ./modules/home/programs/neovim/extras.nix;
-        programs.kitty.extras = import ./modules/home/programs/kitty/extras.nix;
+        configs-git-aliases = import ./home/configs/git-aliases.nix;
+        configs-gh-aliases = import ./home/configs/gh-aliases.nix;
+        configs-starship-symbols = import ./home/configs/starship-symbols.nix;
+        programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
+        programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
       };
       # }}}
 
