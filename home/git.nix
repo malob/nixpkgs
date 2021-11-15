@@ -27,5 +27,5 @@
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
   # Aliases config imported in flake.
   programs.gh.enable = true;
-  programs.gh.gitProtocol = "ssh";
+  programs.gh.settings.git_protocol = "ssh";
 }

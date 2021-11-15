@@ -1,5 +1,5 @@
 {
-  programs.gh.aliases = {
+  programs.gh.settings.aliases = {
     rcl = "repo clone";
     rcr = "repo create";
     rfk = "repo fork --clone --remote";
