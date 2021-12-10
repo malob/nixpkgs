@@ -65,7 +65,7 @@ in
     lspsaga-nvim
     (pluginWithDeps bufferline-nvim [ nvim-web-devicons ])
     (pluginWithDeps nvim-compe [ compe-tabnine ])
-    (pluginWithDeps nvim-lspconfig [ nvim-lspinstall ])
+    nvim-lspconfig
     nvim-treesitter
     (pluginWithDeps telescope-nvim [ nvim-web-devicons ])
     vim-floaterm
@@ -107,14 +107,15 @@ in
 
     # Language servers
     # See `../configs/nvim/lua/init.lua` for configuration.
-    ccls
+    # ccls
     nodePackages.bash-language-server
     nodePackages.typescript-language-server
     nodePackages.vim-language-server
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     rnix-lsp
-  ] ++ lib.optional (!stdenv.isDarwin) sumneko-lua-language-server;
+    sumneko-lua-language-server
+  ];
   # }}}
 }
 # vim: foldmethod=marker

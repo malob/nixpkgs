@@ -4,9 +4,9 @@
   inputs = {
     # Package sets
     nixpkgs-master.url = github:NixOS/nixpkgs/master;
-    nixpkgs-stable.url = github:NixOS/nixpkgs/nixpkgs-21.05-darwin;
+    nixpkgs-stable.url = github:NixOS/nixpkgs/nixpkgs-21.11-darwin;
     nixpkgs-unstable.url = github:NixOS/nixpkgs/nixpkgs-unstable;
-    nixos-stable.url = github:NixOS/nixpkgs/nixos-21.05;
+    nixos-stable.url = github:NixOS/nixpkgs/nixos-21.11;
     nixpkgs-with-patched-kitty.url = github:azuwis/nixpkgs/kitty;
 
     # Environment/system management
@@ -19,12 +19,11 @@
     comma = { url = github:Shopify/comma; flake = false; };
     flake-compat = { url = github:edolstra/flake-compat; flake = false; };
     flake-utils.url = github:numtide/flake-utils;
+    lspsaga-nvim = { url = github:tami5/lspsaga.nvim; flake = false; };
     moses-lua = { url = github:Yonaba/Moses; flake = false; };
-    nvim-lspinstall = { url = github:kabouzeid/nvim-lspinstall; flake = false; };
     prefmanager.url = github:malob/prefmanager;
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
-
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
     let
@@ -48,8 +47,12 @@
       };
 
       # Personal configuration shared between `nix-darwin` and plain `home-manager` configs.
+      homeManagerStateVersion = "22.05";
       homeManagerCommonConfig = {
-        imports = attrValues self.homeManagerModules ++ singleton ./home;
+        imports = attrValues self.homeManagerModules ++ [
+          ./home
+          { home.stateVersion = homeManagerStateVersion; }
+        ];
       };
 
       # Modules shared by most `nix-darwin` personal configurations.
@@ -139,7 +142,7 @@
       # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
       cloudVM = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
-        stateVersion = "21.11";
+        stateVersion = homeManagerStateVersion;
         homeDirectory = "/home/malo";
         username = "malo";
         configuration = {
@@ -191,7 +194,7 @@
           {
             vimPlugins = prev.vimPlugins.extend (super: self:
               (vimUtils.buildVimPluginsFromFlakeInputs inputs [
-                "nvim-lspinstall"
+                "lspsaga-nvim"
               ]) // {
                 moses-nvim = vimUtils.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
               }

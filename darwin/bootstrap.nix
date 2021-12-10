@@ -16,8 +16,8 @@
   ];
   users.nix.configureBuildUsers = true;
 
-  # Enable experimental version of nix with flakes support
-  nix.package = pkgs.nixUnstable;
+  # Enable experimental nix command and flakes
+  # nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
     auto-optimise-store = true
     experimental-features = nix-command flakes

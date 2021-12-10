@@ -15,12 +15,10 @@ lspconf.jsonls.setup {}
 lspconf.rnix.setup {}
 lspconf.sourcekit.setup {}
 
--- Installed via nvim-lspinstall (not in nixpkgs yet for macOS).
-require'lspinstall'.setup()
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
-lspconf.lua.setup {
+lspconf.sumneko_lua.setup {
   settings = {
     Lua = {
       runtime = {

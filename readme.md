@@ -20,25 +20,26 @@ In no particular order:
   * All external dependencies managed through flakes for easy updating.
   * Outputs for [`nix-darwin`](https://github.com/LnL7/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module) and a [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
   * `darwinModules` output for `nix-darwin` modules that are pending upstream:
-    * [`security.pam`](./modules/darwin/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
-    * [`programs.nix-index`](./modules/darwin/programs/nix-index.nix) that augments `nix-darwins`'s `programs.nix-index` module with a command not found handler for Fish. (Pending upstream PR [#272](https://github.com/LnL7/nix-darwin/pull/272).)
+    * [`security-pam`](./modules/darwin/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
+    * [`programs-nix-index`](./modules/darwin/programs/nix-index.nix) that augments `nix-darwins`'s `programs.nix-index` module with a command not found handler for Fish. (Pending upstream PR [#272](https://github.com/LnL7/nix-darwin/pull/272).)
   * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration:
-    * [`programs.neovim.extras`](./modules/home/programs/neovim/extras.nix) that provides `termBufferAutoChangeDir`, and `nvrAliases` options.
-    * [`programs.kitty.extras`](./modules/home/programs/kitty/extras.nix) that provides a,
+    * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `termBufferAutoChangeDir`, and `nvrAliases` options.
+    * [`programs-kitty-extras`](./modules/home/programs/kitty/extras.nix) that provides a,
       * `colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them; and
       * `useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
-    * [`configs.git.aliases`](./home/configs/git-aliases.nix)
-    * [`configs.gh.aliases`](./home/configs/gh-aliases.nix)
-    * [`configs.startship.symbols`](./home/configs/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
+    * [`configs-git-aliases`](./home/configs/git-aliases.nix)
+    * [`configs-gh-aliases`](./home/configs/gh-aliases.nix)
+    * [`configs-startship-symbols`](./home/configs/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
   * Support for non-flake compatible versions of Nix and legacy workflows through [`flake-compat`](https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix):
     * [`default.nix`](./default.nix), allows traditional Nix commands like `nix-build` to operate on the flake inputs/outputs.
-    * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. It includes the overlays from the flake by default. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
+    * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
+* Support for Macs with Apple Silicon including ability to easily overlay in x86 version of packages, when they don't build on arm. Search `pkgs-x86` in [`flake.nix`](./flake.nix) and see `nix.extraOptions` in [`darwin/bootstrap.nix`](./darwin/bootstrap.nix) for details.
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the changes.
 * [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
-* A WIP experimental (but functional) slick Neovim 0.5.0 [config](./configs/nvim) in Lua (some bugs need to be fixed now that 0.5 has been officially released). See also: [`neovim.nix`](./home/neovim.nix).
+* A slick Neovim 0.6 [config](./configs/nvim) in Lua (some bugs probably exist due to recent update to 0.6). See also: [`neovim.nix`](./home/neovim.nix).
 * Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Kitty terminal](https://sw.kovidgoyal.net/kitty), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * adding Solarized colors to `pkgs` via an [overlay](./overlays/colors.nix);
-  * using my `programs.kitty.extras` `home-manager` module (see above);
-  * using a self-made WIP Solarized based [colorscheme](./configs/nvim/lua/MaloSolarized.lua) with Neovim; and
+  * using my `programs-kitty-extras` `home-manager` module (see above);
+  * using a self-made WIP Solarized based [colorscheme](./configs/nvim/lua/malo/theme.lua) with Neovim; and
   * a [Fish shell config](./home/shells.nix), which provides a `toggle-background` function (and an alias `tb`) which toggles a universal environment variable (`$term_background`) between the values `"light"` and `"dark"`, along with a collection of Fish [functions](https://github.com/malob/nixpkgs/search?q=onVariable+%3D+%22term_background%22) which trigger automatically when `$term_background` changes.
 * A nice [shell prompt config](./home/shells.nix) for Fish using Starship.
