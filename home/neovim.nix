@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) getName mkIf;
+  inherit (lib) getName mkIf optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   nixConfigDir = "${config.home.homeDirectory}/.config/nixpkgs";
 
@@ -114,8 +114,7 @@ in
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     rnix-lsp
-    sumneko-lua-language-server
-  ];
+  ] ++ optional (pkgs.stdenv.system != "x86_64-darwin") sumneko-lua-language-server;
   # }}}
 }
 # vim: foldmethod=marker
