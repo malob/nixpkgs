@@ -219,6 +219,8 @@
 
         # Overlay that adds `lib.colors` to reference colors elsewhere in system configs
         colors = import ./overlays/colors.nix;
+
+        signalbackup-tools = import ./overlays/signalbackup-tools.nix;
       };
 
       # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
@@ -248,6 +250,7 @@
           pkgs-master
           pkgs-stable
           apple-silicon
+          signalbackup-tools
         ];
       };
     });
