@@ -35,6 +35,7 @@ in
     "homebrew/cask-versions"
     "homebrew/core"
     "homebrew/services"
+    "nrlquaker/createzap"
   ];
 
   # Prefer installing application from the Mac App Store
@@ -90,6 +91,7 @@ in
     "hammerspoon"
     "keybase"
     "nvidia-geforce-now"
+    "obsbot-tinycam"
     "obsidian"
     "parallels"
     "protonvpn"
