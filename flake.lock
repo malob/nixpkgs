@@ -183,11 +183,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1642295303,
-        "narHash": "sha256-dLTvYsjXE/19siD0VAKgJJMcbGHvFR25hTFFOy0JUck=",
+        "lastModified": 1642445124,
+        "narHash": "sha256-ys8lLZnLc5Lkynnzf3PYZGk2UtvkJrwA/y0FiJPDMxI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ca55d9bfba8b9ff29b713835458f718753eb7ea4",
+        "rev": "59a07c683a2f8b167793a551fdbe33a1c248c20b",
         "type": "github"
       },
       "original": {
@@ -225,22 +225,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-with-patched-kitty": {
-      "locked": {
-        "lastModified": 1636854515,
-        "narHash": "sha256-DZZ248EerIpCApF/5YQ080QZiT1v3QAxLQXs7zFib+A=",
-        "owner": "azuwis",
-        "repo": "nixpkgs",
-        "rev": "9816857458874b4e0a9560f9296b3a6a341d3810",
-        "type": "github"
-      },
-      "original": {
-        "owner": "azuwis",
-        "ref": "kitty",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -299,7 +283,6 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixpkgs-with-patched-kitty": "nixpkgs-with-patched-kitty",
         "prefmanager": "prefmanager"
       }
     }
