@@ -2,12 +2,11 @@
 
 let
   mkIfCaskPresent = cask: lib.mkIf (lib.any (x: x == cask) config.homebrew.casks);
-  brewBinPrefix = if pkgs.system == "aarch64-darwin" then "/opt/homebrew/bin" else "/usr/local/bin";
 in
 
 {
   environment.shellInit = ''
-    eval "$(${brewBinPrefix}/brew shellenv)"
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
 
   # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
@@ -22,7 +21,6 @@ in
   '';
 
   homebrew.enable = true;
-  homebrew.brewPrefix = brewBinPrefix;
   homebrew.autoUpdate = true;
   homebrew.cleanup = "zap";
   homebrew.global.brewfile = true;
