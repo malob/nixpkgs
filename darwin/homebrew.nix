@@ -45,7 +45,7 @@ in
   # Commented apps suffer continual update issue:
   # https://github.com/malob/nixpkgs/issues/9
   homebrew.masApps = {
-    "1Blocker" = 1365531024;
+    # "1Blocker" = 1365531024;
     "1Password" = 1333542190;
     "Accelerate for Safari" = 1459809092;
     # "Apple Configurator 2" = 1037126344;
@@ -121,7 +121,7 @@ in
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
-  homebrew.brews = lib.mkIf (pkgs.system == "x86_64-darwin") [
+  homebrew.brews = [
     "swift-format"
     "swiftlint"
   ];
