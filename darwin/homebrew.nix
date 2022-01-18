@@ -1,22 +1,26 @@
 { config, lib, pkgs, ... }:
 
 let
-  mkIfCaskPresent = cask: lib.mkIf (lib.any (x: x == cask) config.homebrew.casks);
+  inherit (lib) mkIf;
+  mkIfCaskPresent = cask: mkIf (lib.any (x: x == cask) config.homebrew.casks);
+  brewEnabled = config.homebrew.enable;
 in
 
 {
-  environment.shellInit = ''
+  environment.shellInit = mkIf brewEnabled ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
 
   # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
-  programs.fish.interactiveShellInit = ''
+  # For some reason if the Fish completions are added at the end of `fish_complete_path` they don't
+  # seem to work, but they do work if added at the start.
+  programs.fish.interactiveShellInit = mkIf brewEnabled ''
     if test -d (brew --prefix)"/share/fish/completions"
-      set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/completions
+      set -p fish_complete_path (brew --prefix)/share/fish/completions
     end
 
     if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-      set -gx fish_complete_path $fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+      set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
     end
   '';
 
@@ -89,6 +93,8 @@ in
     "hammerspoon"
     "keybase"
     "nvidia-geforce-now"
+    # TODO: uncomment once version with Monterey support is available
+    # "obsbot-me-tool"
     "obsbot-tinycam"
     "obsidian"
     "parallels"
