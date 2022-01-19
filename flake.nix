@@ -15,7 +15,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Other sources
-    comma = { url = github:Shopify/comma; flake = false; };
     flake-compat = { url = github:edolstra/flake-compat; flake = false; };
     flake-utils.url = github:numtide/flake-utils;
     lspsaga-nvim = { url = github:tami5/lspsaga.nvim; flake = false; };
@@ -174,10 +173,6 @@
           };
         };
 
-        # Overlays to add various packages into package set
-        comma = final: prev: {
-          comma = import inputs.comma { inherit (prev) pkgs; };
-        };
         prefmanager = final: prev: {
           prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
         };
