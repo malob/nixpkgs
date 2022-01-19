@@ -209,7 +209,7 @@
           };
 
           # TODO: remove when version 0.24.1 gets merged into `nixkpgs-unstable`
-          inherit (final.pkgs-master) kitty;
+          inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system}) kitty;
         };
 
         # Overlay to add some additional python packages
@@ -218,7 +218,10 @@
         # Overlay that adds `lib.colors` to reference colors elsewhere in system configs
         colors = import ./overlays/colors.nix;
 
-        signalbackup-tools = import ./overlays/signalbackup-tools.nix;
+        # TODO: remove when package lands in nixpkgs-unstable
+        signalbackup-tools = final: prev: {
+          inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system}) signalbackup-tools;
+        };
       };
 
       # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
