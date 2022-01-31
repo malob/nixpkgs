@@ -117,22 +117,6 @@
         "type": "github"
       }
     },
-    "lspsaga-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1642587861,
-        "narHash": "sha256-ZagFCLiARX8YmGXIa9T7kwYGsggoZBCOAHD0OC8a4RI=",
-        "owner": "tami5",
-        "repo": "lspsaga.nvim",
-        "rev": "9968d7378a4bb3c13445bb6fd7937f3e757bfa0d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tami5",
-        "repo": "lspsaga.nvim",
-        "type": "github"
-      }
-    },
     "moses-lua": {
       "flake": false,
       "locked": {
@@ -167,11 +151,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1643504365,
-        "narHash": "sha256-X3WFfgLuNbZnpp1ZQdmmIyDykfLcd89uYz55qCSr/s8=",
+        "lastModified": 1643665481,
+        "narHash": "sha256-UcATdjTVsVEcYiJv633+bzkAnMNuZTwTvmeKqvbQSoQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "454006f6fd7c1c8c186d2cfa7de584f427607833",
+        "rev": "67cc0b103ab45ca2babb97d96e26d50dd0061644",
         "type": "github"
       },
       "original": {
@@ -260,7 +244,6 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "lspsaga-nvim": "lspsaga-nvim",
         "moses-lua": "moses-lua",
         "nixos-stable": "nixos-stable",
         "nixpkgs-master": "nixpkgs-master",

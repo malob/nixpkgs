@@ -4,7 +4,7 @@ local s = utils.symbols
 -- lspsaga.nvim (fork)
 -- A light-weight lsp plugin based on neovim built-in lsp with highly a performant UI.
 -- https://github.com/tami5/lspsaga.nvim
-vim.cmd 'packadd lspsaga-nvim'
+vim.cmd 'packadd lspsaga.nvim'
 
 require'lspsaga'.init_lsp_saga {
   use_saga_diagnostic_sign = true,

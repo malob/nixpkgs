@@ -17,7 +17,6 @@
     # Other sources
     flake-compat = { url = github:edolstra/flake-compat; flake = false; };
     flake-utils.url = github:numtide/flake-utils;
-    lspsaga-nvim = { url = github:tami5/lspsaga.nvim; flake = false; };
     moses-lua = { url = github:Yonaba/Moses; flake = false; };
     prefmanager.url = github:malob/prefmanager;
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -187,9 +186,11 @@
           {
             vimPlugins = prev.vimPlugins.extend (super: self:
               (vimUtils.buildVimPluginsFromFlakeInputs inputs [
-                "lspsaga-nvim"
+                # Add plugins here
               ]) // {
                 moses-nvim = vimUtils.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
+                # TODO: Remove when tami5's version hits nixpkgs-unstable.
+                lspsaga-nvim = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system}.vimPlugins.lspsaga-nvim;
               }
             );
           };
