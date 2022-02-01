@@ -1,8 +1,8 @@
 local s = require 'malo.utils'.symbols
 local _ = require 'moses'
 
--- galaxyline.nvim
--- https://github.com/glepnir/galaxyline.nvim
+-- galaxyline.nvim (fork)
+-- https://github.com/NTBBloodbath/galaxyline.nvim
 vim.cmd 'packadd galaxyline.nvim'
 
 local gl = require 'galaxyline'
@@ -34,8 +34,8 @@ gl.section.left = {
     FileIcon = {
       condition = condition.buffer_not_empty,
       provider = function ()
-        vim.cmd('hi GalaxyFileIcon guifg='..require'galaxyline.provider_fileinfo'.get_file_icon_color()..' guibg='..require'lush_theme.malo'.StatusLine.bg.hex)
-        return require'galaxyline.provider_fileinfo'.get_file_icon() .. ' '
+        vim.cmd('hi GalaxyFileIcon guifg='..require'galaxyline.providers.fileinfo'.get_file_icon_color()..' guibg='..require'lush_theme.malo'.StatusLine.bg.hex)
+        return require'galaxyline.providers.fileinfo'.get_file_icon() .. ' '
       end,
       highlight = {},
     }

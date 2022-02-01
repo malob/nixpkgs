@@ -189,8 +189,10 @@
                 # Add plugins here
               ]) // {
                 moses-nvim = vimUtils.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
-                # TODO: Remove when tami5's version hits nixpkgs-unstable.
-                lspsaga-nvim = inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system}.vimPlugins.lspsaga-nvim;
+                # TODO: Remove when the plugins hit `nixpkgs-unstable`
+                inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system}.vimPlugins)
+                  galaxyline-nvim
+                  lspsaga-nvim;
               }
             );
           };
