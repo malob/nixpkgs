@@ -89,30 +89,14 @@
         };
         bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
 
-        # My old Intel macOS laptop config
+        # My Apple Silicon macOS laptop config
         MaloBookPro = darwinSystem {
-          system = "x86_64-darwin";
+          system = "aarch64-darwin";
           modules = nixDarwinCommonModules ++ [
             {
               users.primaryUser = "malo";
               networking.computerName = "Malo’s 💻";
               networking.hostName = "MaloBookPro";
-              networking.knownNetworkServices = [
-                "Wi-Fi"
-                "USB 10/100/1000 LAN"
-              ];
-            }
-          ];
-        };
-
-        # My new Apple Silicon macOS laptop config
-        MaloBookProM1 = darwinSystem {
-          system = "aarch64-darwin";
-          modules = nixDarwinCommonModules ++ [
-            {
-              users.primaryUser = "malo";
-              networking.computerName = "Malo’s M1 💻";
-              networking.hostName = "MaloBookProM1";
               networking.knownNetworkServices = [
                 "Wi-Fi"
                 "USB 10/100/1000 LAN"
