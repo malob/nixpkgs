@@ -201,6 +201,12 @@
           };
         };
 
+        # Overlay to include node packages listed in `./pkgs/node-packages/package.json`
+        # Run `nix run my#nodePackages.node2nix -- -14` to update packages.
+        nodePackages = final: prev: {
+          nodePackages = prev.nodePackages // import ./pkgs/node-packages { pkgs = prev; };
+        };
+
         # Overlay to add some additional python packages
         pythonPackages = import ./overlays/python.nix;
 
@@ -235,6 +241,7 @@
           pkgs-master
           pkgs-stable
           apple-silicon
+          nodePackages
         ];
       };
     });
