@@ -108,7 +108,7 @@ in
 
     # Language servers
     # See `../configs/nvim/lua/init.lua` for configuration.
-    # ccls
+    ccls
     nodePackages.bash-language-server
     nodePackages.typescript-language-server
     nodePackages.vim-language-server

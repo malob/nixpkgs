@@ -50,7 +50,7 @@
   home.packages = with pkgs; [
     # Some basics
     abduco # lightweight session management
-    # bandwhich # display current network utilization by process
+    bandwhich # display current network utilization by process
     bottom # fancy version of `top` with ASCII graphs
     browsh # in terminal browser
     coreutils
