@@ -54,6 +54,7 @@ in
     zoomwintab-vim
   ] ++ map nonVSCodePlugin [
     agda-vim
+    copilot-vim
     direnv-vim
     goyo-vim
     vim-fugitive
