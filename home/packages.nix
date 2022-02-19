@@ -1,16 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  # Import config broken out into files
-  imports = [
-    ./git.nix
-    ./kitty.nix
-    ./neovim.nix
-    ./shells.nix
-  ];
-
-  # Packages with configuration --------------------------------------------------------------- {{{
-
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable
@@ -18,15 +8,6 @@
   programs.bat.config = {
     style = "plain";
   };
-  # See `./shells.nix` for more on how this is used.
-  programs.fish.functions.set-bat-colors = {
-    body = ''set -xg BAT_THEME "Solarized ($term_background)"'';
-    onVariable = "term_background";
-  };
-  programs.fish.interactiveShellInit = ''
-    # Set `bat` colors based on value of `$term_backdround` when shell starts up.
-    set-bat-colors
-  '';
 
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
@@ -43,9 +24,6 @@
   # https://github.com/ajeetdsouza/zoxide
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
-  # }}}
-
-  # Other packages ----------------------------------------------------------------------------- {{{
 
   home.packages = with pkgs; [
     # Some basics
@@ -98,25 +76,4 @@
     m-cli # useful macOS CLI commands
     prefmanager # tool for working with macOS defaults
   ];
-  # }}}
-
-  # Misc configuration files --------------------------------------------------------------------{{{
-
-  # https://docs.haskellstack.org/en/stable/yaml_configuration/#non-project-specific-config
-  home.file.".stack/config.yaml".text = lib.generators.toYAML {} {
-    templates = {
-      scm-init = "git";
-      params = {
-        author-name = config.programs.git.userName;
-        author-email = config.programs.git.userEmail;
-        github-username = "malob";
-      };
-    };
-    nix.enable = true;
-  };
-
-  # Stop `parallel` from displaying citation warning
-  home.file.".parallel/will-cite".text = "";
-  # }}}
 }
-# vim: foldmethod=marker

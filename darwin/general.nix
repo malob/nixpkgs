@@ -1,15 +1,6 @@
-{ pkgs, lib, ... }:
+{ lib, pkgs, ... }:
 
 {
-  imports = [
-    # Minimal config of Nix related options and shells
-    ./bootstrap.nix
-
-    # Other nix-darwin configuration
-    ./homebrew.nix
-    ./defaults.nix
-  ];
-
   # Networking
   networking.dns = [
     "1.1.1.1"

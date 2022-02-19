@@ -44,16 +44,13 @@
       # Personal configuration shared between `nix-darwin` and plain `home-manager` configs.
       homeManagerStateVersion = "22.05";
       homeManagerCommonConfig = {
-        imports = attrValues self.homeManagerModules ++ [
-          ./home
-          { home.stateVersion = homeManagerStateVersion; }
-        ];
+        imports = attrValues self.homeManagerModules ++ singleton {
+          home.stateVersion = homeManagerStateVersion;
+        };
       };
 
       # Modules shared by most `nix-darwin` personal configurations.
       nixDarwinCommonModules = attrValues self.darwinModules ++ [
-        # Main `nix-darwin` config
-        ./darwin
         # `home-manager` module
         home-manager.darwinModules.home-manager
         (
@@ -78,7 +75,7 @@
     in
     {
 
-      # Personal configuration ----------------------------------------------------------------- {{{
+      # System outputs ------------------------------------------------------------------------- {{{
 
       # My `nix-darwin` configs
       darwinConfigurations = rec {
@@ -131,7 +128,7 @@
       };
       # }}}
 
-      # Outputs useful to others --------------------------------------------------------------- {{{
+      # Non-system outputs --------------------------------------------------------------------- {{{
 
       overlays = {
         # Overlays to add different versions `nixpkgs` into package set
@@ -198,18 +195,33 @@
         colors = import ./overlays/colors.nix;
       };
 
-      # My `nix-darwin` modules that are pending upstream, or patched versions waiting on upstream
-      # fixes.
       darwinModules = {
+        # My configurations
+        malo-bootstrap = import ./darwin/bootstrap.nix;
+        malo-defaults = import ./darwin/defaults.nix;
+        malo-general = import ./darwin/general.nix;
+        malo-homebrew = import ./darwin/homebrew.nix;
+
+        # Modules I've created
         programs-nix-index = import ./modules/darwin/programs/nix-index.nix;
         security-pam = import ./modules/darwin/security/pam.nix;
         users = import ./modules/darwin/users.nix;
       };
 
       homeManagerModules = {
-        configs-git-aliases = import ./home/configs/git-aliases.nix;
-        configs-gh-aliases = import ./home/configs/gh-aliases.nix;
-        configs-starship-symbols = import ./home/configs/starship-symbols.nix;
+        # My configurations
+        malo-config-files = import ./home/config-files.nix;
+        malo-fish = import ./home/fish.nix;
+        malo-git = import ./home/git.nix;
+        malo-git-aliases = import ./home/git-aliases.nix;
+        malo-gh-aliases = import ./home/gh-aliases.nix;
+        malo-kitty = import ./home/kitty.nix;
+        malo-neovim = import ./home/neovim.nix;
+        malo-packages = import ./home/packages.nix;
+        malo-starship = import ./home/starship.nix;
+        malo-starship-symbols = import ./home/starship-symbols.nix;
+
+        # Modules I've created
         programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
         programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
       };

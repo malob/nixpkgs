@@ -1,11 +1,9 @@
 { config, pkgs, lib, ... }:
-
+# Let-In ----------------------------------------------------------------------------------------{{{
 let
   inherit (lib) getName mkIf optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   nixConfigDir = "${config.home.homeDirectory}/.config/nixpkgs";
-
-  nvr = "${pkgs.neovim-remote}/bin/nvr";
 
   pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
 
@@ -25,7 +23,7 @@ let
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };
 in
-
+# }}}
 {
   # Neovim
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
@@ -73,30 +71,10 @@ in
     vim-pencil
     vim-polyglot
   ];
-  # }}}
 
-  # Shell related ------------------------------------------------------------------------------ {{{
-
-  # From personal addon module `./modules/programs/neovim/extras.nix`
+  # From personal addon module `../modules/home/programs/neovim/extras.nix`
   programs.neovim.extras.termBufferAutoChangeDir = true;
   programs.neovim.extras.nvrAliases.enable = true;
-
-  programs.fish.functions.set-nvim-background = mkIf config.programs.neovim.enable {
-    # See `./shells.nix` for more on how this is used.
-    body = ''
-      # Set `background` of all running Neovim instances base on `$term_background`.
-      for server in (${nvr} --serverlist)
-        ${nvr} -s --nostart --servername $server -c "set background=$term_background" &
-      end
-    '';
-    onVariable = "term_background";
-  };
-
-  programs.fish.interactiveShellInit = mkIf config.programs.neovim.enable ''
-    # Run Neovim related functions on init for their effects, and to register them so they are
-    # triggered when the relevant event happens or variable changes.
-    set-nvim-background
-  '';
   # }}}
 
   # Required packages -------------------------------------------------------------------------- {{{
@@ -107,7 +85,7 @@ in
     tree-sitter # needed for nvim-treesitter
 
     # Language servers
-    # See `../configs/nvim/lua/init.lua` for configuration.
+    # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` for configuration.
     ccls
     nodePackages.bash-language-server
     nodePackages.typescript-language-server

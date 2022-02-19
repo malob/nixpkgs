@@ -19,7 +19,7 @@ let
     inactive_tab_background = "#${strong}";
   };
 in
-  # }}}
+# }}}
 {
   # Kitty terminal
   # https://sw.kovidgoyal.net/kitty/conf.html

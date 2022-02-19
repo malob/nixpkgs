@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling" = "3.0";
