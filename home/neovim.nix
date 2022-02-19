@@ -3,7 +3,7 @@
 let
   inherit (lib) getName mkIf optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
-  nixConfigDir = "${config.home.homeDirectory}/.config/nixpkgs";
+  inherit (config.home.user-info) nixConfigDirectory;
 
   pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
 
@@ -33,8 +33,8 @@ in
 
   # Minimal init.vim config to load Lua config. Nix and Home Manager don't currently support
   # `init.lua`.
-  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/lua";
-  xdg.configFile."nvim/colors".source = mkOutOfStoreSymlink "${nixConfigDir}/configs/nvim/colors";
+  xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/lua";
+  xdg.configFile."nvim/colors".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
   programs.neovim.extraConfig = "lua require('init')";
 
   programs.neovim.plugins = with pkgs.vimPlugins; [

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   # Git
@@ -16,8 +16,8 @@
     ".DS_Store"
   ];
 
-  programs.git.userEmail = "mbourgon@gmail.com";
-  programs.git.userName = "Malo Bourgon";
+  programs.git.userEmail = config.home.user-info.email;
+  programs.git.userName = config.home.user-info.fullName;
 
   # Enhanced diffs
   programs.git.delta.enable = true;

@@ -2,6 +2,7 @@
 
 let
   inherit (lib) elem optionalString;
+  inherit (config.home.user-info) nixConfigDirectory;
 in
 
 {
@@ -99,9 +100,9 @@ in
   # Aliases
   programs.fish.shellAliases = with pkgs; {
     # Nix related
-    drb = "darwin-rebuild build --flake ~/.config/nixpkgs/";
-    drs = "darwin-rebuild switch --flake ~/.config/nixpkgs/";
-    flakeup = "nix flake update --recreate-lock-file ~/.config/nixpkgs/";
+    drb = "darwin-rebuild build --flake ${nixConfigDirectory}";
+    drs = "darwin-rebuild switch --flake ${nixConfigDirectory}";
+    flakeup = "nix flake update ${nixConfigDirectory}";
     nb = "nix build";
     nd = "nix develop";
     nf = "nix flake";

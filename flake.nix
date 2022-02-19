@@ -41,12 +41,13 @@
         );
       };
 
-      # Personal configuration shared between `nix-darwin` and plain `home-manager` configs.
       homeManagerStateVersion = "22.05";
-      homeManagerCommonConfig = {
-        imports = attrValues self.homeManagerModules ++ singleton {
-          home.stateVersion = homeManagerStateVersion;
-        };
+
+      primaryUserInfo = {
+        username = "malo";
+        fullName = "Malo Bourgon";
+        email = "mbourgon@gmail.com";
+        nixConfigDirectory = "/Users/malo/.config/nixpkgs";
       };
 
       # Modules shared by most `nix-darwin` personal configurations.
@@ -61,11 +62,15 @@
           {
             nixpkgs = nixpkgsConfig;
             # Hack to support legacy worklows that use `<nixpkgs>` etc.
-            nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+            nix.nixPath = { nixpkgs = "${primaryUser.nixConfigDirectory}/nixpkgs.nix"; };
             # `home-manager` config
-            users.users.${primaryUser}.home = "/Users/${primaryUser}";
+            users.users.${primaryUser.username}.home = "/Users/${primaryUser.username}";
             home-manager.useGlobalPkgs = true;
-            home-manager.users.${primaryUser} = homeManagerCommonConfig;
+            home-manager.users.${primaryUser.username} = {
+              imports = attrValues self.homeManagerModules;
+              home.stateVersion = homeManagerStateVersion;
+              home.user-info = config.users.primaryUser;
+            };
             # Add a registry entry for this flake
             nix.registry.my.flake = self;
           }
@@ -91,7 +96,7 @@
           system = "aarch64-darwin";
           modules = nixDarwinCommonModules ++ [
             {
-              users.primaryUser = "malo";
+              users.primaryUser = primaryUserInfo;
               networking.computerName = "Malo’s 💻";
               networking.hostName = "MaloBookPro";
               networking.knownNetworkServices = [
@@ -107,7 +112,10 @@
           system = "x86_64-darwin";
           modules = nixDarwinCommonModules ++ [
             ({ lib, ... }: {
-              users.primaryUser = "runner";
+              users.primaryUser = primaryUserInfo // {
+                username = "runner";
+                nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
+              };
               homebrew.enable = lib.mkForce false;
             })
           ];
@@ -122,7 +130,9 @@
         homeDirectory = "/home/malo";
         username = "malo";
         configuration = {
-          imports = [ homeManagerCommonConfig ];
+          imports = attrValues self.homeManagerModules ++ singleton {
+            home.user-info = primaryUserInfo;
+          };
           nixpkgs = nixpkgsConfig;
         };
       };
@@ -205,7 +215,7 @@
         # Modules I've created
         programs-nix-index = import ./modules/darwin/programs/nix-index.nix;
         security-pam = import ./modules/darwin/security/pam.nix;
-        users = import ./modules/darwin/users.nix;
+        users-primaryUser = import ./modules/darwin/users.nix;
       };
 
       homeManagerModules = {
@@ -224,6 +234,10 @@
         # Modules I've created
         programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
         programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
+        home-user-info = { lib, ... }: {
+          options.home.user-info =
+            (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
+        };
       };
       # }}}
 
