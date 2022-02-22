@@ -36,7 +36,8 @@
           # Sub in x86 version of packages that don't build on Apple Silicon yet
           final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             inherit (final.pkgs-x86)
-              idris2;
+              idris2
+              starship; # TODO: remove when https://github.com/NixOS/nixpkgs/issues/160876 is fixed.
           })
         );
       };
