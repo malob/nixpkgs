@@ -93,8 +93,7 @@ in
     "hammerspoon"
     "keybase"
     "nvidia-geforce-now"
-    # TODO: uncomment once version with Monterey support is available
-    # "obsbot-me-tool"
+    "obsbot-me-tool"
     "obsbot-tinycam"
     "obsidian"
     "parallels"
