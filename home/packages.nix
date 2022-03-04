@@ -69,7 +69,9 @@
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
     niv # easy dependency management for nix projects
+    nix-tree # interactively browse dependency graphs of Nix derivations
     nodePackages.node2nix
+    statix # lints and suggestions for the Nix programming language
 
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods

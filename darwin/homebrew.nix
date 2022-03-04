@@ -84,6 +84,7 @@ in
     "camo-studio"
     "cleanmymac"
     "cloudflare-warp"
+    "element"
     "etrecheckpro"
     "discord"
     "firefox"
