@@ -98,6 +98,7 @@ in
     "obsbot-tinycam"
     "obsidian"
     "parallels"
+    "postman"
     "protonvpn"
     "raindropio"
     "raycast"
