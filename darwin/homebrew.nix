@@ -46,7 +46,7 @@ in
   # https://github.com/malob/nixpkgs/issues/9
   homebrew.masApps = {
     # "1Blocker" = 1365531024;
-    "1Password" = 1333542190;
+    # "1Password" = 1333542190;
     "Accelerate for Safari" = 1459809092;
     # "Apple Configurator 2" = 1037126344;
     DaisyDisk = 411643860;
@@ -78,6 +78,8 @@ in
   # If an app isn't available in the Mac App Store, or the version in the App Store has
   # limitiations, e.g., Transmit, install the Homebrew Cask.
   homebrew.casks = [
+    "1password-beta"
+    "1password-cli"
     "amethyst"
     "arq"
     "balenaetcher"
