@@ -47,6 +47,7 @@ in
   homebrew.masApps = {
     # "1Blocker" = 1365531024;
     # "1Password" = 1333542190;
+    "1Password for Safari" = 1569813296;
     "Accelerate for Safari" = 1459809092;
     # "Apple Configurator 2" = 1037126344;
     DaisyDisk = 411643860;
