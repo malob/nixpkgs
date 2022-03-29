@@ -70,6 +70,8 @@
     comma # run software from without installing it
     niv # easy dependency management for nix projects
     nix-tree # interactively browse dependency graphs of Nix derivations
+    nix-update # swiss-knife for updating nix packages
+    nixpkgs-review # review pull-requests on nixpkgs
     nodePackages.node2nix
     statix # lints and suggestions for the Nix programming language
 
