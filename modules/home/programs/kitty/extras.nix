@@ -36,6 +36,8 @@ let
     ${term-background}/bin/term-background dark
   '';
 
+  socket = "unix:/tmp/mykitty";
+
 in {
 
   options.programs.kitty.extras = {
@@ -116,7 +118,7 @@ in {
 
       cfg.colors.common // cfg.colors.${cfg.colors.default} // {
         allow_remote_control = "yes";
-        listen_on = "unix:/tmp/mykitty";
+        listen_on = socket;
       }
 
     ) // optionalAttrs (cfg.useSymbolsFromNerdFont != "") {
@@ -126,8 +128,9 @@ in {
 
     };
 
-    xdg.configFile."kitty/macos-launch-services-cmdline" =
-      mkIf (pkgs.stdenv.isDarwin && cfg.colors.enable) { text = "--listen-on unix:/tmp/mykitty"; };
+    programs.kitty.darwinLaunchOptions = [
+      "--listen-on ${socket}"
+    ];
 
   };
 
