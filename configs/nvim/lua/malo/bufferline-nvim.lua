@@ -19,6 +19,3 @@ require'bufferline.config'.set {
     end,
   },
 }
--- Colors are taken care of directly in colorscheme, this hack is needed for that.
-require'bufferline'.__load()
-vim.cmd 'au! BufferlineColors ColorScheme'

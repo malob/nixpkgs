@@ -41,7 +41,7 @@
     mosh # wrapper for `ssh` that better and not dropping connections
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
-    python3Packages.shell-functools # a collection of functional programming tools for the shell
+    # python3Packages.shell-functools # a collection of functional programming tools for the shell
     procs # fancy version of `ps`
     ripgrep # better version of `grep`
     tealdeer # rust implementation of `tldr`

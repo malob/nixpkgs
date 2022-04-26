@@ -20,6 +20,8 @@
     moses-lua = { url = github:Yonaba/Moses; flake = false; };
     prefmanager.url = github:malob/prefmanager;
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    prefmanager.inputs.flake-compat.follows = "flake-compat";
+    prefmanager.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -36,8 +38,7 @@
           # Sub in x86 version of packages that don't build on Apple Silicon yet
           final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             inherit (final.pkgs-x86)
-              idris2
-              starship; # TODO: remove when https://github.com/NixOS/nixpkgs/issues/160876 is fixed.
+              idris2;
           })
         );
       };
@@ -148,8 +149,6 @@
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
-          # TODO: remove when https://github.com/NixOS/nixpkgs/pull/166661 hits `nixpkgs-unstable`.
-          inherit (final.pkgs-master) kitty;
         };
         pkgs-stable = final: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
@@ -165,7 +164,7 @@
         };
 
         prefmanager = final: prev: {
-          prefmanager = inputs.prefmanager.defaultPackage.${prev.stdenv.system};
+          prefmanager = inputs.prefmanager.packages.${prev.stdenv.system}.default;
         };
 
         # Overlay that adds various additional utility functions to `vimUtils`
