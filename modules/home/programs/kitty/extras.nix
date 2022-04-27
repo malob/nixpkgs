@@ -128,7 +128,7 @@ in {
 
     };
 
-    programs.kitty.darwinLaunchOptions = [
+    programs.kitty.darwinLaunchOptions = mkIf pkgs.stdenv.isDarwin [
       "--listen-on ${socket}"
     ];
 
