@@ -13,7 +13,7 @@ require'gitsigns'.setup {
   },
   numhl = false,
   keymaps = {},
-  watch_index = {
+  watch_gitdir = {
     interval = 1000
   },
   sign_priority = 6,

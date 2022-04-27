@@ -64,7 +64,8 @@
           {
             nixpkgs = nixpkgsConfig;
             # Hack to support legacy worklows that use `<nixpkgs>` etc.
-            nix.nixPath = { nixpkgs = "${primaryUser.nixConfigDirectory}/nixpkgs.nix"; };
+            # nix.nixPath = { nixpkgs = "${primaryUser.nixConfigDirectory}/nixpkgs.nix"; };
+            nix.nixPath = { nixpkgs = "${inputs.nixpkgs-unstable}"; };
             # `home-manager` config
             users.users.${primaryUser.username}.home = "/Users/${primaryUser.username}";
             home-manager.useGlobalPkgs = true;
