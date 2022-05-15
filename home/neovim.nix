@@ -64,6 +64,7 @@ in
     lspsaga-nvim
     (pluginWithDeps bufferline-nvim [ nvim-web-devicons ])
     (pluginWithDeps nvim-compe [ compe-tabnine ])
+    null-ls-nvim
     nvim-lspconfig
     nvim-treesitter
     (pluginWithDeps telescope-nvim [ nvim-web-devicons ])
@@ -87,12 +88,15 @@ in
     # Language servers
     # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` for configuration.
     ccls
+    deadnix
     nodePackages.bash-language-server
     nodePackages.typescript-language-server
     nodePackages.vim-language-server
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     rnix-lsp
+    shellcheck
+    statix
   ] ++ optional (pkgs.stdenv.system != "x86_64-darwin") sumneko-lua-language-server;
   # }}}
 }
