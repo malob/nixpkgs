@@ -82,6 +82,7 @@ in
     "1password-beta"
     "1password-cli"
     "amethyst"
+    "anki"
     "arq"
     "balenaetcher"
     "camo-studio"
