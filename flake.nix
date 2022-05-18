@@ -3,22 +3,22 @@
 
   inputs = {
     # Package sets
-    nixpkgs-master.url = github:NixOS/nixpkgs/master;
-    nixpkgs-stable.url = github:NixOS/nixpkgs/nixpkgs-21.11-darwin;
-    nixpkgs-unstable.url = github:NixOS/nixpkgs/nixpkgs-unstable;
-    nixos-stable.url = github:NixOS/nixpkgs/nixos-21.11;
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
 
     # Environment/system management
-    darwin.url = github:LnL7/nix-darwin;
+    darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.url = github:nix-community/home-manager;
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # Other sources
-    flake-compat = { url = github:edolstra/flake-compat; flake = false; };
-    flake-utils.url = github:numtide/flake-utils;
-    moses-lua = { url = github:Yonaba/Moses; flake = false; };
-    prefmanager.url = github:malob/prefmanager;
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
+    flake-utils.url = "github:numtide/flake-utils";
+    moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
+    prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     prefmanager.inputs.flake-compat.follows = "flake-compat";
     prefmanager.inputs.flake-utils.follows = "flake-utils";
@@ -57,7 +57,7 @@
         # `home-manager` module
         home-manager.darwinModules.home-manager
         (
-          { config, lib, pkgs, ... }:
+          { config, ... }:
           let
             inherit (config.users) primaryUser;
           in
@@ -145,26 +145,26 @@
 
       overlays = {
         # Overlays to add different versions `nixpkgs` into package set
-        pkgs-master = final: prev: {
+        pkgs-master = _: prev: {
           pkgs-master = import inputs.nixpkgs-master {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
         };
-        pkgs-stable = final: prev: {
+        pkgs-stable = _: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
         };
-        pkgs-unstable = final: prev: {
+        pkgs-unstable = _: prev: {
           pkgs-unstable = import inputs.nixpkgs-unstable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
         };
 
-        prefmanager = final: prev: {
+        prefmanager = _: prev: {
           prefmanager = inputs.prefmanager.packages.${prev.stdenv.system}.default;
         };
 
@@ -177,7 +177,7 @@
             inherit (self.overlays.vimUtils final prev) vimUtils;
           in
           {
-            vimPlugins = prev.vimPlugins.extend (super: self:
+            vimPlugins = prev.vimPlugins.extend (_: _:
               (vimUtils.buildVimPluginsFromFlakeInputs inputs [
                 # Add plugins here
               ]) // {
@@ -187,7 +187,7 @@
           };
 
         # Overlay useful on Macs with Apple Silicon
-        apple-silicon = final: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+        apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
           # Add access to x86 packages system is running Apple Silicon
           pkgs-x86 = import inputs.nixpkgs-unstable {
             system = "x86_64-darwin";
@@ -197,12 +197,9 @@
 
         # Overlay to include node packages listed in `./pkgs/node-packages/package.json`
         # Run `nix run my#nodePackages.node2nix -- -14` to update packages.
-        nodePackages = final: prev: {
+        nodePackages = _: prev: {
           nodePackages = prev.nodePackages // import ./pkgs/node-packages { pkgs = prev; };
         };
-
-        # Overlay to add some additional python packages
-        pythonPackages = import ./overlays/python.nix;
 
         # Overlay that adds `lib.colors` to reference colors elsewhere in system configs
         colors = import ./overlays/colors.nix;

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 {
   # https://docs.haskellstack.org/en/stable/yaml_configuration/#non-project-specific-config

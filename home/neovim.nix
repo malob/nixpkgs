@@ -1,14 +1,14 @@
 { config, pkgs, lib, ... }:
 # Let-In ----------------------------------------------------------------------------------------{{{
 let
-  inherit (lib) getName mkIf optional;
+  inherit (lib) optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
 
   pluginWithDeps = plugin: deps: plugin.overrideAttrs (_: { dependencies = deps; });
 
   nonVSCodePluginWithConfig = plugin: {
-    plugin = plugin;
+    inherit plugin;
     optional = true;
     config = ''
       if !exists('g:vscode')
@@ -18,7 +18,7 @@ let
   };
 
   nonVSCodePlugin = plugin: {
-    plugin = plugin;
+    inherit plugin;
     optional = true;
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };

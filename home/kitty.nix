@@ -1,7 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 # Let-In --------------------------------------------------------------------------------------- {{{
 let
-  inherit (lib) mkIf;
   backgroundDependantColors = colors: with colors; {
     background = "#${base}";
     foreground = "#${main}";
