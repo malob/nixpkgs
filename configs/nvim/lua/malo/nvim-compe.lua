@@ -1,4 +1,4 @@
-local utils = require 'malo.utils'
+local keymaps = require'malo.utils'.keymaps
 
 -- nvim-compe
 -- https://github.com/hrsh7th/nvim-compe
@@ -9,9 +9,9 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.shortmess   = vim.o.shortmess .. 'c' -- don't show extra message when using completion
 
 -- Use <Tab> and <S-Tab> to navigate through popup menu, <CR> to confirm.
-utils.keymaps { mode = 'i', opts = { 'noremap', 'expr' }, maps = {
-  { '<Tab>'   , [[pumvisible() ? "\<C-n>" : "\<Tab>"]]   },
-  { '<S-Tab>' , [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]] },
+keymaps { modes = 'i', opts = { noremap = true, expr = true }, maps = {
+  { '<Tab>'   , function() return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>'   end },
+  { '<S-Tab>' , function() return vim.fn.pumvisible() == 1 and '<C-p>' or '<S-Tab>' end },
   { '<CR>'    , [[compe#confirm('<CR>')]] },
 }}
 

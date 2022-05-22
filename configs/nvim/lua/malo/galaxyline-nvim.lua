@@ -1,5 +1,6 @@
-local s = require 'malo.utils'.symbols
-local _ = require 'moses'
+local utils = require 'malo.utils'
+local const = utils.const
+local s = utils.symbols
 
 -- galaxyline.nvim (fork)
 -- https://github.com/NTBBloodbath/galaxyline.nvim
@@ -85,7 +86,7 @@ gl.section.right = {
   {
     LspClient = {
       condition = condition.check_active_lsp,
-      provider = { 'GetLspClient', _.constant(' ') },
+      provider = { 'GetLspClient', const(' ') },
       highlight = 'StatusLineLspClient',
     }
   },
@@ -143,7 +144,7 @@ gl.section.right = {
 gl.section.short_line_left = {
   {
     ShortStatusLine = {
-      provider = { _.constant('  '), 'FileIcon', _.constant(' '), 'FileName' },
+      provider = { const('  '), 'FileIcon', const(' '), 'FileName' },
       highlight = 'StatusLineSortStatusLine',
     }
   },

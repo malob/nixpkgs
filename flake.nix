@@ -17,7 +17,6 @@
     # Other sources
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
-    moses-lua = { url = "github:Yonaba/Moses"; flake = false; };
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     prefmanager.inputs.flake-compat.follows = "flake-compat";
@@ -178,11 +177,9 @@
           in
           {
             vimPlugins = prev.vimPlugins.extend (_: _:
-              (vimUtils.buildVimPluginsFromFlakeInputs inputs [
+              vimUtils.buildVimPluginsFromFlakeInputs inputs [
                 # Add plugins here
-              ]) // {
-                moses-nvim = vimUtils.buildNeovimLuaPackagePluginFromFlakeInput inputs "moses-lua";
-              }
+              ]
             );
           };
 

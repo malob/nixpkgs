@@ -37,9 +37,10 @@ in
   xdg.configFile."nvim/colors".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
   programs.neovim.extraConfig = "lua require('init')";
 
+  programs.neovim.extraLuaPackages = [ pkgs.lua51Packages.penlight ];
+
   programs.neovim.plugins = with pkgs.vimPlugins; [
     lush-nvim
-    moses-nvim
     tabular
     vim-commentary
     vim-eunuch
@@ -85,8 +86,9 @@ in
     gcc # needed for nvim-treesitter
     tree-sitter # needed for nvim-treesitter
 
-    # Language servers
-    # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` for configuration.
+    # Language servers, linters, etc.
+    # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
+    # `../configs/nvim/lua/malo/null-ls-nvim.lua` for configuration.
     ccls
     deadnix
     nodePackages.bash-language-server
@@ -94,6 +96,7 @@ in
     nodePackages.vim-language-server
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
+    proselint
     rnix-lsp
     shellcheck
     statix

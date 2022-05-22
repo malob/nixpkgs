@@ -1,18 +1,12 @@
--- Add my personal helpers
 local utils = require 'malo.utils'
 local augroup = utils.augroup
-local keymap = utils.keymap
 local keymaps = utils.keymaps
-local bufkeymaps = utils.bufkeymaps
-local s = utils.symbols
-local _ = require 'moses'
 
 -- Add some aliases for Neovim Lua API
 local o = vim.o
 local wo = vim.wo
 local g = vim.g
 local cmd = vim.cmd
-local env = vim.env
 
 -- TODO --------------------------------------------------------------------------------------------
 
@@ -64,13 +58,22 @@ o.splitright = true -- open vertical splits to the right instead of the left wit
 
 -- Some basic autocommands
 if g.vscode == nil then
-  augroup { name = 'VimBasics', cmds = {
-    -- Check if file has changed on disk, if it has and buffer has no changes, reload it
-    { 'BufEnter,FocusGained,CursorHold,CursorHoldI', '*', 'checktime' },
-    -- Remove trailing whitespace before write
-    { 'BufWritePre', '*', [[%s/\s\+$//e]] },
-    -- Highlight yanked text
-    { 'TextYankPost', '*', [[silent! lua vim.highlight.on_yank {higroup='Search', timeout=150}]] },
+  augroup { name = 'MaloVimBasics', cmds = {
+    {{ 'BufEnter', 'FocusGained', 'CursorHold', 'CursorHoldI' }, {
+      pattern = '*',
+      desc = 'Check if file has changed on disk, if it has and buffer has no changes, reload it.',
+      command = 'checktime',
+    }},
+    { 'BufWritePre' , {
+      pattern = '*',
+      desc = 'Remove trailing whitespace before write.',
+      command = [[%s/\s\+$//e]],
+    }},
+    { 'TextYankPost', {
+      pattern = '*',
+      desc = 'Highlight yanked text.',
+      callback = function() vim.highlight.on_yank { higroup='Search', timeout=150 } end,
+    }},
   }}
 end
 
@@ -97,20 +100,20 @@ cmd 'colorscheme malo'
 
 -- Terminal ----------------------------------------------------------------------------------------
 
-augroup { name = 'NeovimTerm', cmds = {
-  -- Set options for terminal buffers
-  { 'TermOpen', '*', 'setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no' },
+augroup { name = 'MaloNeovimTerm', cmds = {
+  { 'TermOpen', {
+    pattern = '*',
+    desc = 'Set options for terminal buffers.',
+    command = 'setlocal nonumber | setlocal norelativenumber | setlocal signcolumn=no',
+  }},
 }}
 
--- Leader only used for this one case
-g.mapleader = '`'
-keymaps { mode = 't', opts = { 'noremap' }, maps = {
+keymaps { modes = 't', opts = { silent = true }, maps = {
   -- Enter normal mode in terminal using `<ESC>` like everywhere else.
   { '<ESC>', [[<C-\><C-n>]] },
   -- Sometimes you want to send `<ESC>` to the terminal though.
-  { '<leader><ESC>', '<ESC>' },
+  { ' <ESC>', '<ESC>' },
 }}
-
 
 -- WhichKey maps -----------------------------------------------------------------------------------
 

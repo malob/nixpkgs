@@ -46,5 +46,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 utils.augroup { name = 'LSP', cmds = {
-  { 'CursorHold', '*', "lua require'lspsaga.diagnostic'.show_line_diagnostics()" }
+  { 'CursorHold', {
+    pattern = '*',
+    desc = 'Show LSP diagnostics in popups on cursor hold',
+    command = "lua require'lspsaga.diagnostic'.show_line_diagnostics()",
+  }}
 }}

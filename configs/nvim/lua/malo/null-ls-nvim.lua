@@ -11,6 +11,9 @@ null_ls.setup {
     -- Shell scripts
     code_actions.shellcheck,
     diagnostics.shellcheck,
+    -- Markdown
+    code_actions.proselint,
+    diagnostics.proselint,
     -- Nix
     diagnostics.deadnix,
     diagnostics.statix,

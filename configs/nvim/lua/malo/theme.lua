@@ -4,7 +4,7 @@
 -- https://github.com/rktjmp/lush.nvim
 local lush = require 'lush'
 local hsl = lush.hsl
-local _ = require 'moses'
+local seq = require 'pl.seq'
 
 local M = {}
 
@@ -40,12 +40,12 @@ M.loadColorscheme = function ()
   -- We need to unload all Lush specs so that the specs are regenerated whenever the colorscheme is
   -- reapplied.
   package.loaded['lush_theme.malo'] = nil
-  _.eachi(M.extraLushSpecs, function(v) package.loaded[v] = nil end)
+  seq(M.extraLushSpecs):foreach(function(v) package.loaded[v] = nil end)
 
   -- Merge the main colorscheme spec with any additional specs that were provided.
   local finalSpec = lush.merge {
     require 'lush_theme.malo',
-    lush.merge(_.mapi(M.extraLushSpecs, require))
+    lush.merge(seq(M.extraLushSpecs):map(require):copy())
   }
 
   -- Apply colorscheme
