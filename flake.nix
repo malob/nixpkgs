@@ -4,9 +4,9 @@
   inputs = {
     # Package sets
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
 
     # Environment/system management
     darwin.url = "github:LnL7/nix-darwin";
@@ -144,11 +144,15 @@
 
       overlays = {
         # Overlays to add different versions `nixpkgs` into package set
-        pkgs-master = _: prev: {
+        pkgs-master = final: prev: {
           pkgs-master = import inputs.nixpkgs-master {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
+          # TODO: Remove when version 0.25.1 hits `nixpkgs-unstable`
+          kitty = final.pkgs-master.kitty.overrideAttrs(_: {
+            doInstallCheck = false;
+          });
         };
         pkgs-stable = _: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
