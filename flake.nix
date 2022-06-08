@@ -13,6 +13,8 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.inputs.flake-compat.follows = "flake-compat";
+    home-manager.inputs.utils.follows = "flake-utils";
 
     # Other sources
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
@@ -42,7 +44,7 @@
         );
       };
 
-      homeManagerStateVersion = "22.05";
+      homeManagerStateVersion = "22.11";
 
       primaryUserInfo = {
         username = "malo";
@@ -125,8 +127,9 @@
       };
 
       # Config I use with Linux cloud VMs
-      # Build and activate with `nix build .#cloudVM.activationPackage; ./result/activate`
-      cloudVM = home-manager.lib.homeManagerConfiguration {
+      # Build and activate on new system with:
+      # `nix build .#homeConfigurations.malo.activationPackage; ./result/activate`
+      homeConfigurations.malo = home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         stateVersion = homeManagerStateVersion;
         homeDirectory = "/home/malo";
@@ -144,15 +147,11 @@
 
       overlays = {
         # Overlays to add different versions `nixpkgs` into package set
-        pkgs-master = final: prev: {
+        pkgs-master = _: prev: {
           pkgs-master = import inputs.nixpkgs-master {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
-          # TODO: Remove when version 0.25.1 hits `nixpkgs-unstable`
-          kitty = final.pkgs-master.kitty.overrideAttrs(_: {
-            doInstallCheck = false;
-          });
         };
         pkgs-stable = _: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
