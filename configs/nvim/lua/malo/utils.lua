@@ -17,7 +17,7 @@ local M = {}
 
 function M.spread(f) return function(t) f(unpack(t)) end end
 
-function M.const(f) return f end
+function M.const(f) return function() return f end end
 
 function M.keymaps(t)
   seq(t.maps):foreach( M.spread(bind(vim.keymap.set, t.modes, _1, _2, t.opts)) )
