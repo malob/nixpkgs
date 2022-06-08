@@ -58,13 +58,13 @@ in
     goyo-vim
     vim-fugitive
   ] ++ map nonVSCodePluginWithConfig [
+    coq_nvim
     editorconfig-vim
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
     gitsigns-nvim
     indent-blankline-nvim
     lspsaga-nvim
     (pluginWithDeps bufferline-nvim [ nvim-web-devicons ])
-    (pluginWithDeps nvim-compe [ compe-tabnine ])
     null-ls-nvim
     nvim-lspconfig
     nvim-treesitter
