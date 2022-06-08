@@ -14,3 +14,7 @@ vim.g.coq_settings = {
 }
 
 vim.cmd 'packadd coq_nvim'
+
+require 'coq_3p' {
+  { src = 'copilot', short_name = 'COP', accept_key = '<c-f>' }
+}

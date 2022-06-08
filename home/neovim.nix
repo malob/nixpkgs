@@ -58,7 +58,7 @@ in
     goyo-vim
     vim-fugitive
   ] ++ map nonVSCodePluginWithConfig [
-    coq_nvim
+    (pluginWithDeps coq_nvim [ coq-artifacts coq-thirdparty ])
     editorconfig-vim
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
     gitsigns-nvim
