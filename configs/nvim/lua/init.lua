@@ -126,7 +126,7 @@ wk.setup { plugins = { spelling = { enabled = true } } }
 
 -- Spaced prefiexd in Normal mode
 wk.register ({
-  [' '] = { '<Cmd>packadd vim-floaterm | FloatermToggle<CR>', 'Toggle floating terminal' },
+  [' '] = { '<Cmd>exe v:count1 . "ToggleTerm"<CR>', 'Toggle floating terminal' },
 
   -- Tabs
   t = {

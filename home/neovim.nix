@@ -69,7 +69,7 @@ in
     nvim-lspconfig
     nvim-treesitter
     (pluginWithDeps telescope-nvim [ nvim-web-devicons ])
-    vim-floaterm
+    toggleterm-nvim
     vim-pencil
     vim-polyglot
   ];
