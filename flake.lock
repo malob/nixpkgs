@@ -200,6 +200,22 @@
         "type": "gitlab"
       }
     },
+    "nvim-lastplace": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634327854,
+        "narHash": "sha256-MPA1NpqOoKoYu2VaE0Jr4Ct3WZLKH9ER6x5smjWAUhM=",
+        "owner": "ethanholz",
+        "repo": "nvim-lastplace",
+        "rev": "30fe710d4417cc67950bbce6b2ec2ac0ff430e12",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ethanholz",
+        "repo": "nvim-lastplace",
+        "type": "github"
+      }
+    },
     "plist-source": {
       "flake": false,
       "locked": {
@@ -255,6 +271,7 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nvim-lastplace": "nvim-lastplace",
         "prefmanager": "prefmanager"
       }
     }

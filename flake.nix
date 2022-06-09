@@ -23,6 +23,7 @@
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     prefmanager.inputs.flake-compat.follows = "flake-compat";
     prefmanager.inputs.flake-utils.follows = "flake-utils";
+    nvim-lastplace = { url = "github:ethanholz/nvim-lastplace"; flake = false; };
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -186,7 +187,7 @@
           {
             vimPlugins = prev.vimPlugins.extend (_: _:
               vimUtils.buildVimPluginsFromFlakeInputs inputs [
-                # Add plugins here
+                "nvim-lastplace"
               ]
             );
           };
