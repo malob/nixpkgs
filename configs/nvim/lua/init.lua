@@ -262,7 +262,7 @@ wk.register ({
       t = { '<Cmd>Telescope filetypes<CR>'       , 'Filetypes'       },
     },
     s = { function() require'telescope.builtin'.symbols(require'telescope.themes'.get_dropdown({sources = {'emoji', 'math'}})) end, 'Symbols' },
-    z = { function() require'telescope'.extensions.z.list({cmd = {'fish', '-c', 'zq -ls'}}) end, 'Z' },
+    z = { '<Cmd>Telescope zoxide list<CR>', 'Z' },
     ['?'] = { '<Cmd>Telescope help_tags<CR>', 'Vim help' },
   }
 

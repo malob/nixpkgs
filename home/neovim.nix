@@ -47,8 +47,6 @@ in
     vim-haskell-module-name
     vim-surround
   ] ++ map (p: { plugin = p; optional = true; }) [
-    telescope-symbols-nvim
-    telescope-z-nvim
     which-key-nvim
     zoomwintab-vim
   ] ++ map nonVSCodePlugin [
@@ -69,7 +67,13 @@ in
     nvim-lastplace
     nvim-lspconfig
     nvim-treesitter
-    (pluginWithDeps telescope-nvim [ nvim-web-devicons ])
+    (pluginWithDeps telescope-nvim [
+      nvim-web-devicons
+      telescope-file-browser-nvim
+      telescope-fzf-native-nvim
+      telescope-symbols-nvim
+      telescope-zoxide
+    ])
     toggleterm-nvim
     vim-pencil
     vim-polyglot
