@@ -23,7 +23,6 @@
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     prefmanager.inputs.flake-compat.follows = "flake-compat";
     prefmanager.inputs.flake-utils.follows = "flake-utils";
-    nvim-lastplace = { url = "github:ethanholz/nvim-lastplace"; flake = false; };
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -36,13 +35,19 @@
       # Configuration for `nixpkgs`
       nixpkgsConfig = {
         config = { allowUnfree = true; };
-        overlays = attrValues self.overlays ++ singleton (
+        overlays = attrValues self.overlays ++ [
           # Sub in x86 version of packages that don't build on Apple Silicon yet
-          final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          (final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             inherit (final.pkgs-x86)
               idris2;
+          }))
+          (final: prev: {
+            # TODO: remove when `nvim-lastplace` lands in `nixpkgs-unstable`
+            vimPlugins = prev.vimPlugins.extend (_: _: {
+              inherit (final.pkgs-master.vimPlugins) nvim-lastplace;
+            });
           })
-        );
+        ];
       };
 
       homeManagerStateVersion = "22.11";
@@ -188,7 +193,7 @@
           {
             vimPlugins = prev.vimPlugins.extend (_: _:
               vimUtils.buildVimPluginsFromFlakeInputs inputs [
-                "nvim-lastplace"
+                # Add flake input name here
               ]
             );
           };
