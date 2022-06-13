@@ -71,6 +71,7 @@
             # `home-manager` config
             users.users.${primaryUser.username}.home = "/Users/${primaryUser.username}";
             home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
             home-manager.users.${primaryUser.username} = {
               imports = attrValues self.homeManagerModules;
               home.stateVersion = homeManagerStateVersion;
