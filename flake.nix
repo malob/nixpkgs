@@ -41,12 +41,10 @@
             inherit (final.pkgs-x86)
               idris2;
           }))
-          (final: prev: {
-            # TODO: remove when `nvim-lastplace` lands in `nixpkgs-unstable`
-            vimPlugins = prev.vimPlugins.extend (_: _: {
-              inherit (final.pkgs-master.vimPlugins) nvim-lastplace;
-            });
-          })
+          (final: _: {
+            # TODO: Remove when `stack` builds again on `nixpkgs-unstable`
+            inherit (final.pkgs-master) stack;
+           })
         ];
       };
 
