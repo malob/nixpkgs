@@ -66,7 +66,7 @@ in
     null-ls-nvim
     nvim-lastplace
     nvim-lspconfig
-    nvim-treesitter
+    (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
     (pluginWithDeps telescope-nvim [
       nvim-web-devicons
       telescope-file-browser-nvim
@@ -88,8 +88,6 @@ in
 
   programs.neovim.extraPackages = with pkgs; [
     neovim-remote
-    gcc # needed for nvim-treesitter
-    tree-sitter # needed for nvim-treesitter
 
     # Language servers, linters, etc.
     # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
