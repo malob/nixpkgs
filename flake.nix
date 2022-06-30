@@ -141,22 +141,19 @@
       # Config I use with Linux cloud VMs
       # Build and activate on new system with:
       # `nix build .#homeConfigurations.malo.activationPackage; ./result/activate`
-      homeConfigurations.malo = home-manager.lib.homeManagerConfiguration rec {
-        inherit (primaryUserInfo) username;
-        system = "x86_64-linux";
-        stateVersion = homeManagerStateVersion;
-        homeDirectory = "/home/${username}";
+      homeConfigurations.malo = home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs-unstable {
-          inherit system;
+          system = "x86_64-linux";
           inherit (nixpkgsConfig) config overlays;
         };
-        configuration = {
-          imports = attrValues self.homeManagerModules ++ singleton {
-            home.user-info = primaryUserInfo // {
-              nixConfigDirectory = "${homeDirectory}/.config/nixpkgs";
-            };
+        modules = attrValues self.homeManagerModules ++ singleton ({ config, ...}: {
+          home.username = config.home.user-info.username;
+          home.homeDirectory = "/home/${config.home.username}";
+          home.stateVersion = homeManagerStateVersion;
+          home.user-info = primaryUserInfo // {
+            nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
-        };
+        });
       };
       # }}}
 
