@@ -12,8 +12,6 @@
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.inputs.flake-compat.follows = "flake-compat";
     home-manager.inputs.utils.follows = "flake-utils";
 
     # Other sources
@@ -34,16 +32,25 @@
 
       # Configuration for `nixpkgs`
       nixpkgsConfig = {
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+          # TODO: Remove when `python3Packages.pyopenssl` issues are resolved
+          # https://github.com/NixOS/nixpkgs/issues/175875
+          allowBroken = true;
+        };
         overlays = attrValues self.overlays ++ [
           # Sub in x86 version of packages that don't build on Apple Silicon yet
           (final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             inherit (final.pkgs-x86)
               idris2;
           }))
-          (final: _: {
+          (final: prev: {
             # TODO: Remove when `stack` builds again on `nixpkgs-unstable`
             inherit (final.pkgs-master) stack;
+            # TODO: Remove when `kitty` is building again on the binary cache
+            kitty = prev.kitty.overrideAttrs (_: {
+              doInstallCheck = false;
+            });
            })
         ];
       };
