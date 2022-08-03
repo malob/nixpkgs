@@ -21,11 +21,12 @@
   programs.nix-index.enable = true;
 
   # Fonts
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
-     recursive
-     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-   ];
+  # TODO: Re-enable once https://github.com/LnL7/nix-darwin/issues/485 is resolved
+  # fonts.fontDir.enable = true;
+  # fonts.fonts = with pkgs; [
+  #    recursive
+  #    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  #  ];
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;

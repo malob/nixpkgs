@@ -72,7 +72,8 @@ in
     # Ulysses = 1225570693;
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
-    Xcode = 497799835;
+    # TODO: Re-enable once macOS Ventura officially launches
+    # Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
   };
 
