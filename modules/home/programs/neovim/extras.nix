@@ -11,11 +11,11 @@ let
 
   '' + optionalString cfg.termBufferAutoChangeDir ''
     # If shell is running in a Neovim terminal buffer, set the PWD of the buffer to `$PWD`.
-    if test -n "$NVIM_LISTEN_ADDRESS"; nvim-sync-term-buffer-pwd; end
+    if test -n "$NVIM"; nvim-sync-term-buffer-pwd; end
 
   '' + optionalString cfg.nvrAliases.enable ''
     # Neovim Remote aliases
-    if test -n "$NVIM_LISTEN_ADDRESS"
+    if test -n "$NVIM"
       alias ${edit} "${nvr}"
       alias ${split} "${nvr} -o"
       alias ${vsplit} "${nvr} -O"
@@ -136,7 +136,7 @@ in
   config = mkIf config.programs.neovim.enable {
     programs.fish.functions.nvim-sync-term-buffer-pwd = mkIf cfg.termBufferAutoChangeDir {
       body = ''
-        if test -n "$NVIM_LISTEN_ADDRESS"
+        if test -n "$NVIM"
           ${nvr} -c "let g:term_buffer_pwds.$fish_pid = '$PWD' | call Set_term_buffer_pwd() "
         end
       '';
