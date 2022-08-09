@@ -103,7 +103,8 @@ in
     rnix-lsp
     shellcheck
     statix
-  ] ++ optional (pkgs.stdenv.system != "x86_64-darwin") sumneko-lua-language-server;
+    sumneko-lua-language-server
+  ];
   # }}}
 }
 # vim: foldmethod=marker
