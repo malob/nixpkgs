@@ -45,8 +45,6 @@
               idris2;
           }))
           (final: prev: {
-            # TODO: Remove when `stack` builds again on `nixpkgs-unstable`
-            inherit (final.pkgs-master) stack;
             # TODO: Remove when `kitty` is building again on the binary cache
             kitty = prev.kitty.overrideAttrs (_: {
               doInstallCheck = false;
