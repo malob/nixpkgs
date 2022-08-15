@@ -20,7 +20,9 @@ let
   nonVSCodePlugin = plugin: {
     inherit plugin;
     optional = true;
-    config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
+    config = ''
+      if !exists('g:vscode') | packadd ${plugin.pname} | endif
+    '';
   };
 in
 # }}}
