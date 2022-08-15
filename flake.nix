@@ -34,9 +34,6 @@
       nixpkgsConfig = {
         config = {
           allowUnfree = true;
-          # TODO: Remove when `python3Packages.pyopenssl` issues are resolved
-          # https://github.com/NixOS/nixpkgs/issues/175875
-          allowBroken = true;
         };
         overlays = attrValues self.overlays ++ [
           # Sub in x86 version of packages that don't build on Apple Silicon yet
@@ -44,12 +41,6 @@
             inherit (final.pkgs-x86)
               idris2;
           }))
-          (final: prev: {
-            # TODO: Remove when `kitty` is building again on the binary cache
-            kitty = prev.kitty.overrideAttrs (_: {
-              doInstallCheck = false;
-            });
-           })
         ];
       };
 
