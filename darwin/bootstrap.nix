@@ -3,29 +3,32 @@
 {
   # Nix configuration ------------------------------------------------------------------------------
 
-  nix.binaryCaches = [
-    "https://cache.nixos.org/"
-    "https://malo.cachix.org"
-  ];
-  nix.binaryCachePublicKeys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo="
-  ];
-  nix.trustedUsers = [
-    "@admin"
-  ];
-  users.nix.configureBuildUsers = true;
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos.org/"
+      "https://malo.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo="
+    ];
 
-  # Enable experimental nix command and flakes
-  # nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-    auto-optimise-store = true
-    experimental-features = nix-command flakes
-    keep-outputs = true
-    keep-derivations = true
-  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-    extra-platforms = x86_64-darwin aarch64-darwin
-  '';
+    trusted-users = [ "@admin" ];
+
+    auto-optimise-store = true;
+
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    keep-outputs = true;
+    keep-derivations = true;
+
+    extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
+  };
+
+  nix.configureBuildUsers = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
