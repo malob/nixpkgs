@@ -57,7 +57,6 @@ in
     # "Gemini 2" = 1090488118;
     # "iMazing Profile Editor" = 1487860882;
     Keynote = 409183694;
-    "LG Screen Manager" = 1142051783;
     # MindNode = 1289197285;
     Numbers = 409203825;
     Pages = 409201541;
