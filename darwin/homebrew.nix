@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkIf;
-  mkIfCaskPresent = cask: mkIf (lib.any (x: x == cask) config.homebrew.casks);
+  mkIfCaskPresent = cask: mkIf (lib.any (x: x.name == cask) config.homebrew.casks);
   brewEnabled = config.homebrew.enable;
 in
 
@@ -25,10 +25,8 @@ in
   '';
 
   homebrew.enable = true;
-  homebrew.autoUpdate = true;
-  homebrew.cleanup = "zap";
+  homebrew.onActivation.cleanup = "zap";
   homebrew.global.brewfile = true;
-  homebrew.global.noLock = true;
 
   homebrew.taps = [
     "homebrew/cask"
