@@ -12,6 +12,7 @@ lspconf.bashls.setup {}
 lspconf.ccls.setup {}
 lspconf.hls.setup {}
 lspconf.jsonls.setup {}
+lspconf.pyright.setup {}
 lspconf.rnix.setup {}
 lspconf.sourcekit.setup {}
 

@@ -94,17 +94,36 @@ in
     # Language servers, linters, etc.
     # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
     # `../configs/nvim/lua/malo/null-ls-nvim.lua` for configuration.
+
+    # C/C++/Objective-C
     ccls
-    deadnix
+
+    # Bash
     nodePackages.bash-language-server
+    shellcheck
+
+    # Javascript/Typescript
     nodePackages.typescript-language-server
+
+    # Nix
+    deadnix
+    statix
+    rnix-lsp
+
+    # Python
+    black
+    isort
+    pylint
+    pyright
+    python3Packages.vulture
+
+    # Vim
     nodePackages.vim-language-server
+
+    #Other
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     proselint
-    rnix-lsp
-    shellcheck
-    statix
     sumneko-lua-language-server
   ];
   # }}}
