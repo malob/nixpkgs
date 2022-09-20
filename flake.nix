@@ -214,7 +214,6 @@
 
         # Modules I've created
         programs-nix-index = import ./modules/darwin/programs/nix-index.nix;
-        security-pam = import ./modules/darwin/security/pam.nix;
         users-primaryUser = import ./modules/darwin/users.nix;
       };
 

@@ -112,10 +112,9 @@ in
 
     # Python
     black
-    isort
-    pylint
+    # isort
+    # pylint
     pyright
-    python3Packages.vulture
 
     # Vim
     nodePackages.vim-language-server
