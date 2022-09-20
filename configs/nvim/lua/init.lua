@@ -205,7 +205,7 @@ wk.register ({
       s = { '<Cmd>Telescope git_status<CR>'  , 'Status'         },
       c = { '<Cmd>Telescope git_commits<CR>' , 'Commits'        },
       C = { '<Cmd>Telescope git_commits<CR>' , 'Buffer commits' },
-      b = { '<Cmd>Telescope git_branches<CR>' , 'Branches'       },
+      b = { '<Cmd>Telescope git_branches<CR>' , 'Branches'      },
     },
     -- Other
     v = { '<Cmd>!gh repo view --web<CR>' , 'View on GitHub' },
@@ -214,15 +214,15 @@ wk.register ({
   -- Language server
   l = {
     name = '+LSP',
-    h = { '<Cmd>Lspsaga hover_doc<CR>'            , 'Hover'                   },
-    d = { vim.lsp.buf.definition                  , 'Jump to definition'      },
-    D = { vim.lsp.buf.declaration                 , 'Jump to declaration'     },
-    a = { '<Cmd>Lspsaga code_action<CR>'          , 'Code action'             },
-    f = { vim.lsp.buf.formatting                  , 'Format'                  },
-    r = { '<Cmd>Lspsaga rename<CR>'               , 'Rename'                  },
-    t = { vim.lsp.buf.type_definition             , 'Jump to type definition' },
-    n = { '<Cmd>Lspsaga diagnostic_jump_next<CR>' , 'Jump to next diagnostic' },
-    N = { '<Cmd>Lspsaga diagnostic_jump_prev<CR>' , 'Jump to prev diagnostic' },
+    h = { '<Cmd>Lspsaga hover_doc<CR>'   , 'Hover'                   },
+    d = { vim.lsp.buf.definition         , 'Jump to definition'      },
+    D = { vim.lsp.buf.declaration        , 'Jump to declaration'     },
+    a = { '<Cmd>Lspsaga code_action<CR>' , 'Code action'             },
+    f = { vim.lsp.buf.formatting         , 'Format'                  },
+    r = { '<Cmd>Lspsaga rename<CR>'      , 'Rename'                  },
+    t = { vim.lsp.buf.type_definition    , 'Jump to type definition' },
+    n = { function() vim.diagnostic.goto_next({float = false}) end, 'Jump to next diagnostic' },
+    N = { function() vim.diagnostic.goto_prev({float = false}) end, 'Jump to next diagnostic' },
     l = {
       name = '+Lists',
       a = { '<Cmd>Telescope lsp_code_actions<CR>'       , 'Code actions'         },

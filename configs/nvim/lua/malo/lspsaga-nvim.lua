@@ -13,6 +13,7 @@ require'lspsaga'.init_lsp_saga {
   infor_sign = s.info,
   hint_sign = s.question,
   diagnostic_header_icon = '  ',
+  use_diagnostic_virtual_text = false,
   code_action_icon = ' ',
   code_action_prompt = {
     enable = true,
@@ -36,19 +37,3 @@ require'lspsaga'.init_lsp_saga {
   -- border_style = "round" -- "single" "double" "round" "plus"
   rename_prompt_prefix = '❯',
 }
-
--- Show LSP diagnostics in popups on cursor hold, not in virtual text
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    signs = true,
-    update_in_insert = false,
-  }
-)
-utils.augroup { name = 'LSP', cmds = {
-  { 'CursorHold', {
-    pattern = '*',
-    desc = 'Show LSP diagnostics in popups on cursor hold',
-    command = "lua require'lspsaga.diagnostic'.show_line_diagnostics()",
-  }}
-}}

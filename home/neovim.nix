@@ -63,6 +63,7 @@ in
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
     gitsigns-nvim
     indent-blankline-nvim
+    lsp_lines-nvim
     lspsaga-nvim
     (pluginWithDeps bufferline-nvim [ nvim-web-devicons ])
     null-ls-nvim

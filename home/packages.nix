@@ -61,7 +61,7 @@
     idris2
     jq
     nodePackages.typescript
-    nodejs
+    nodejs-16_x
     s3cmd
 
     # Useful nix related tools
