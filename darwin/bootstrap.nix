@@ -22,9 +22,6 @@
       "flakes"
     ];
 
-    keep-outputs = true;
-    keep-derivations = true;
-
     extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin" "aarch64-darwin" ];
   };
 
