@@ -57,12 +57,12 @@
     haskellPackages.hoogle
     haskellPackages.hpack
     haskellPackages.implicit-hie
-    haskellPackages.stack
     idris2
     jq
     nodePackages.typescript
     nodejs-16_x
     s3cmd
+    stack
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
