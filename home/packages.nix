@@ -57,7 +57,7 @@
     haskellPackages.hoogle
     haskellPackages.hpack
     haskellPackages.implicit-hie
-    idris2
+    # idris2
     jq
     nodePackages.typescript
     nodejs-16_x
