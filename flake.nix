@@ -135,7 +135,7 @@
           system = "x86_64-linux";
           inherit (nixpkgsConfig) config overlays;
         };
-        modules = attrValues self.homeManagerModules ++ singleton ({ config, ...}: {
+        modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
           home.username = config.home.user-info.username;
           home.homeDirectory = "/home/${config.home.username}";
           home.stateVersion = homeManagerStateVersion;
@@ -242,19 +242,35 @@
       };
       # }}}
 
+    } // flake-utils.lib.eachDefaultSystem (system: {
       # Add re-export `nixpkgs` packages with overlays.
       # This is handy in combination with `nix registry add my /Users/malo/.config/nixpkgs`
-    } // flake-utils.lib.eachDefaultSystem (system: {
       legacyPackages = import inputs.nixpkgs-unstable {
         inherit system;
         inherit (nixpkgsConfig) config;
-        overlays = with self.overlays; [
-          pkgs-master
-          pkgs-stable
-          apple-silicon
-          nodePackages
-        ];
+        overlays = attrValues {
+          inherit (self.overlays)
+            pkgs-master
+            pkgs-stable
+            apple-silicon
+            nodePackages;
+          };
       };
+
+      # Shell environments for development
+      devShells =
+        let
+          pkgs = self.legacyPackages.${system};
+        in
+        {
+          python = pkgs.mkShell {
+            name = "python310";
+            inputsFrom = attrValues {
+              inherit (pkgs.pkgs-master.python310Packages) black isort;
+              inherit (pkgs) poetry python310 pyright;
+            };
+          };
+        };
     });
 }
 # vim: foldmethod=marker
