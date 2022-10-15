@@ -11,18 +11,18 @@ let
     inherit plugin;
     optional = true;
     config = ''
-      if !exists('g:vscode')
-        lua require('malo.' .. string.gsub('${plugin.pname}', '%.', '-'))
-      endif
+      if vim.g.vscode == nil then
+        require 'malo.${builtins.replaceStrings ["."] ["-"] plugin.pname}'
+      end
     '';
+    type = "lua";
   };
 
   nonVSCodePlugin = plugin: {
     inherit plugin;
     optional = true;
-    config = ''
-      if !exists('g:vscode') | packadd ${plugin.pname} | endif
-    '';
+    config = ''if vim.g.vscode == nil then vim.cmd 'packadd ${plugin.pname}' end'';
+    type = "lua";
   };
 in
 # }}}
@@ -33,13 +33,12 @@ in
 
   # Config and plugins ------------------------------------------------------------------------- {{{
 
-  # Minimal init.vim config to load Lua config. Nix and Home Manager don't currently support
-  # `init.lua`.
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/lua";
   xdg.configFile."nvim/colors".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
   programs.neovim.extraConfig = "lua require('init')";
 
-  programs.neovim.extraLuaPackages = [ pkgs.lua51Packages.penlight ];
+  programs.neovim.withNodeJs = true; # required for `copilot-vim`
+  programs.neovim.extraLuaPackages = [ pkgs.lua51Packages.penlight ]; # referenced in my config
 
   programs.neovim.plugins = with pkgs.vimPlugins; [
     lush-nvim

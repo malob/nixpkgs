@@ -90,12 +90,14 @@ wo.signcolumn     = 'yes' -- always have signcolumn open to avoid thing shifting
 o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end of file, other stuff
 
 -- Set colorscheme
-require'malo.theme'.extraLushSpecs = {
-  'lush_theme.malo.bufferline-nvim',
-  'lush_theme.malo.statusline',
-  'lush_theme.malo.telescope-nvim',
-}
-cmd 'colorscheme malo'
+if g.vscode == nil then
+  require'malo.theme'.extraLushSpecs = {
+    'lush_theme.malo.bufferline-nvim',
+    'lush_theme.malo.statusline',
+    'lush_theme.malo.telescope-nvim',
+  }
+  cmd 'colorscheme malo'
+end
 
 
 -- Terminal ----------------------------------------------------------------------------------------
