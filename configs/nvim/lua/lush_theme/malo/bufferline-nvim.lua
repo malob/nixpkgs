@@ -7,12 +7,25 @@
 -- needs to be added: `vim.cmd 'au! BufferlineColors ColorScheme'`.
 local t = require'lush_theme.malo'
 
+---@diagnostic disable: undefined-global
 return require'lush'(function()
   return {
     BufferLineFill           { t.Normal },
     BufferLineBackground     { BufferLineFill, fg = t.Comment.fg },
-    BufferLineBufferVisible  { BufferLineBackground, bg = t.StatusLine.bg },
-    BufferLineBufferSelected { BufferLineBufferVisible, fg = t.StrongFg.fg, gui = 'bold,italic' },
+
+    BufferLineBuffer         { BufferLineBackground },
+    BufferLineBufferVisible  { BufferLineBuffer, bg = t.StatusLine.bg },
+    BufferLineBufferSelected { BufferLineBufferVisible, fg = t.StrongFg.fg, gui = 'bold,italic,underline', sp = t.BlueFg.fg },
+
+    BufferLineSeparator         { BufferLineFill, fg = BufferLineFill.bg },
+    BufferLineSeparatorVisible  { BufferLineSeparator, bg = BufferLineBufferVisible.bg },
+    BufferLineSeparatorSelected { BufferLineSeparatorVisible, gui = 'underline', sp = BufferLineBufferSelected.sp },
+
+    BufferLineTab         { BufferLineBackground },
+    BufferLineTabSelected { BufferLineBufferSelected, gui = 'bold,underline' },
+    BufferLineTabClose    { BufferLineBackground },
+    BufferLineTabSeparator { BufferLineSeparator },
+    BufferLineTabSeparatorSelected { BufferLineSeparatorSelected, gui = 'reverse' },
 
     BufferLineCloseButton         { BufferLineBackground },
     BufferLineCloseButtonVisible  { BufferLineBufferVisible },
@@ -23,13 +36,8 @@ return require'lush'(function()
     BufferLineModifiedSelected { BufferLineBufferSelected, fg = t.ChangeText.fg },
 
     BufferLineDuplicate         { BufferLineBackground },
-    BufferLineDuplicateSelected { BufferLineBufferVisible },
-    BufferLineDuplicateVisible  { BufferLineBufferSelected },
-
-    BufferLineSeparator         { BufferLineFill, fg = BufferLineFill.bg },
-    BufferLineSeparatorVisible  { BufferLineSeparator, bg = BufferLineBufferVisible.bg },
-    BufferLineSeparatorSelected { BufferLineSeparatorVisible },
-    BufferLineIndicatorSelected { BufferLineBufferVisible, fg = GreenFg.fg },
+    BufferLineDuplicateVisible  { BufferLineBufferVisible },
+    BufferLineDuplicateSelected { BufferLineBufferVisible, gui = 'underline', sp = BufferLineBufferSelected.sp },
 
     BufferLinePick         { t.CyanFg, bg = BufferLineBackground.bg, gui = 'bold,italic' },
     BufferLinePickVisible  { BufferLinePick, bg = BufferLineBufferVisible.bg },
@@ -42,26 +50,39 @@ return require'lush'(function()
     BufferLineError                   { BufferLineDiagnostic },
     BufferLineErrorVisible            { BufferLineDiagnosticVisible },
     BufferLineErrorSelected           { BufferLineDiagnosticSelected },
-    BufferLineErrorDiagnostic         { BufferLineDiagnostic, fg = t.ErrorText.fg },
-    BufferLineErrorDiagnosticVisible  { BufferLineDiagnosticVisible, fg = t.ErrorText.fg },
-    BufferLineErrorDiagnosticSelected { BufferLineDiagnosticSelected, fg = t.ErrorText.fg },
+    BufferLineErrorDiagnostic         { BufferLineError, fg = t.ErrorText.fg },
+    BufferLineErrorDiagnosticVisible  { BufferLineErrorVisible, fg = t.ErrorText.fg },
+    BufferLineErrorDiagnosticSelected { BufferLineErrorSelected, fg = t.ErrorText.fg },
 
     BufferLineWarning                   { BufferLineDiagnostic },
     BufferLineWarningVisible            { BufferLineDiagnosticVisible },
     BufferLineWarningSelected           { BufferLineDiagnosticSelected },
-    BufferLineWarningDiagnostic         { BufferLineDiagnostic, fg = t.WarningText.fg },
-    BufferLineWarningDiagnosticVisible  { BufferLineDiagnosticVisible, fg = t.WarningText.fg },
-    BufferLineWarningDiagnosticSelected { BufferLineDiagnosticSelected, fg = t.WarningText.fg },
+    BufferLineWarningDiagnostic         { BufferLineWarning, fg = t.WarningText.fg },
+    BufferLineWarningDiagnosticVisible  { BufferLineWarningVisible, fg = t.WarningText.fg },
+    BufferLineWarningDiagnosticSelected { BufferLineWarningSelected, fg = t.WarningText.fg },
 
     BufferLineInfo                   { BufferLineDiagnostic },
     BufferLineInfoVisible            { BufferLineDiagnosticVisible },
     BufferLineInfoSelected           { BufferLineDiagnosticSelected },
-    BufferLineInfoDiagnostic         { BufferLineDiagnostic },
-    BufferLineInfoDiagnosticVisible  { BufferLineDiagnosticVisible },
-    BufferLineInfoDiagnosticSelected { BufferLineDiagnosticSelected },
+    BufferLineInfoDiagnostic         { BufferLineInfo, fg = t.InfoText.fg },
+    BufferLineInfoDiagnosticVisible  { BufferLineInfoVisible, fg = t.InfoText.fg },
+    BufferLineInfoDiagnosticSelected { BufferLineInfoSelected, fg = t.InfoText.fg },
 
-    BufferLineTab         { BufferLineBackground },
-    BufferLineTabSelected { BufferLineBufferSelected, gui = 'bold' },
-    BufferLineTabClose    { BufferLineBackground },
+    BufferLineHint                   { BufferLineDiagnostic },
+    BufferLineHintVisible            { BufferLineDiagnosticVisible },
+    BufferLineHintSelected           { BufferLineDiagnosticSelected },
+    BufferLineHintDiagnostic         { BufferLineHint, fg = t.HintText.fg },
+    BufferLineHintDiagnosticVisible  { BufferLineHintVisible, fg = t.HintText.fg },
+    BufferLineHintDiagnosticSelected { BufferLineHintSelected, fg = t.HintText.fg },
+
+    -- Not currently implemented
+    -- BufferLineIndicatorVisible
+    -- BufferLineIndicatorSelected
+    -- BufferLineGroupLabel
+    -- BufferLineGroupSeparator
+    -- BufferLineNumbers
+    -- BufferLineNumbersSelected
+    -- BufferLineNumbersVisible
+    -- BufferLineOffsetSeparator
   }
 end)

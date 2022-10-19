@@ -79,6 +79,8 @@ return require'lush'(function()
     ChangeDeleteText { OrangeFg },
     ErrorText        { RedFg },
     WarningText      { YellowFg },
+    InfoText         { MutedFg },
+    HintText         { BlueFg },
     -- }}}
 
     -- Basic Highlights ------------------------------------------------------------------------ {{{
@@ -368,12 +370,12 @@ return require'lush'(function()
     -- LspDiagnosticsFloatingWarning    { }, -- used for "Warning" diagnostic messages in the diagnostics float
     -- LspDiagnosticsSignWarning        { }, -- used for "Warning" diagnostic signs in sign column
 
-    LspDiagnosticsDefaultInformation     { Comment },
+    LspDiagnosticsDefaultInformation     { InfoText },
     -- LspDiagnosticsVirtualTextInformation { }, -- used for "Information" diagnostic virtual text.
     -- LspDiagnosticsFloatingInformation    { }, -- used for "Information" diagnostic messages in the diagnostics float
     -- LspDiagnosticsSignInformation        { }, -- used for "Information" signs in sign column
 
-    LspDiagnosticsDefaultHint     { Comment },
+    LspDiagnosticsDefaultHint     { HintText },
     -- LspDiagnosticsVirtualTextHint { }, -- used for "Hint" diagnostic virtual text.
     -- LspDiagnosticsFloatingHint    { }, -- used for "Hint" diagnostic messages in the diagnostics float
     -- LspDiagnosticsSignHint        { }, -- used for "Hint" diagnostic signs in sign column

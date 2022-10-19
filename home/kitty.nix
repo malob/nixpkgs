@@ -32,6 +32,8 @@
   programs.kitty.extraConfig = ''
     font_features PragmataProMonoLiga-Italic +ss06
     font_features PragmataProMonoLiga-BoldItalic +ss07
+    modify_font underline_thickness 400%
+    modify_font underline_position 2
   '';
 
   programs.kitty.extras.useSymbolsFromNerdFont = "JetBrainsMono Nerd Font";
