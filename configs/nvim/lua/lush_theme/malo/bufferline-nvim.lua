@@ -13,37 +13,37 @@ return require'lush'(function()
     BufferLineFill           { t.Normal },
     BufferLineBackground     { BufferLineFill, fg = t.Comment.fg },
 
-    BufferLineBuffer         { BufferLineBackground },
+    BufferLineBuffer         { BufferLineBackground, sp = t.BlueFg.fg },
     BufferLineBufferVisible  { BufferLineBuffer, bg = t.StatusLine.bg },
-    BufferLineBufferSelected { BufferLineBufferVisible, fg = t.StrongFg.fg, gui = 'bold,italic,underline', sp = t.BlueFg.fg },
+    BufferLineBufferSelected { BufferLineBufferVisible, fg = t.StrongFg.fg, gui = 'bold,italic,underline' },
 
-    BufferLineSeparator         { BufferLineFill, fg = BufferLineFill.bg },
+    BufferLineSeparator         { BufferLineBuffer, fg = BufferLineFill.bg },
     BufferLineSeparatorVisible  { BufferLineSeparator, bg = BufferLineBufferVisible.bg },
-    BufferLineSeparatorSelected { BufferLineSeparatorVisible, gui = 'underline', sp = BufferLineBufferSelected.sp },
+    BufferLineSeparatorSelected { BufferLineSeparatorVisible, gui = 'underline' },
 
-    BufferLineTab         { BufferLineBackground },
-    BufferLineTabSelected { BufferLineBufferSelected, gui = 'bold,underline' },
-    BufferLineTabClose    { BufferLineBackground },
-    BufferLineTabSeparator { BufferLineSeparator },
+    BufferLineTab                  { BufferLineBuffer },
+    BufferLineTabSelected          { BufferLineBufferSelected, gui = 'bold,underline' },
+    BufferLineTabClose             { BufferLineTab },
+    BufferLineTabSeparator         { BufferLineSeparator },
     BufferLineTabSeparatorSelected { BufferLineSeparatorSelected, gui = 'reverse' },
 
-    BufferLineCloseButton         { BufferLineBackground },
+    BufferLineCloseButton         { BufferLineBuffer },
     BufferLineCloseButtonVisible  { BufferLineBufferVisible },
     BufferLineCloseButtonSelected { BufferLineBufferSelected },
 
-    BufferLineModified         { BufferLineBackground , fg = t.ChangeText.fg },
+    BufferLineModified         { BufferLineBuffer , fg = t.ChangeText.fg },
     BufferLineModifiedVisible  { BufferLineBufferVisible, fg = t.ChangeText.fg },
     BufferLineModifiedSelected { BufferLineBufferSelected, fg = t.ChangeText.fg },
 
-    BufferLineDuplicate         { BufferLineBackground },
+    BufferLineDuplicate         { BufferLineBuffer },
     BufferLineDuplicateVisible  { BufferLineBufferVisible },
-    BufferLineDuplicateSelected { BufferLineBufferVisible, gui = 'underline', sp = BufferLineBufferSelected.sp },
+    BufferLineDuplicateSelected { BufferLineBufferVisible, gui = 'underline' },
 
-    BufferLinePick         { t.CyanFg, bg = BufferLineBackground.bg, gui = 'bold,italic' },
+    BufferLinePick         { BufferLineBuffer, fg = t.CyanFg.fg, gui = 'bold',  },
     BufferLinePickVisible  { BufferLinePick, bg = BufferLineBufferVisible.bg },
-    BufferLinePickSelected { BufferLinePick, bg = BufferLineBufferSelected.bg },
+    BufferLinePickSelected { BufferLinePick, bg = BufferLineBufferSelected.bg, gui = 'bold,underline' },
 
-    BufferLineDiagnostic         { BufferLineBackground },
+    BufferLineDiagnostic         { BufferLineBuffer },
     BufferLineDiagnosticVisible  { BufferLineBufferVisible },
     BufferLineDiagnosticSelected { BufferLineBufferSelected },
 
@@ -74,6 +74,8 @@ return require'lush'(function()
     BufferLineHintDiagnostic         { BufferLineHint, fg = t.HintText.fg },
     BufferLineHintDiagnosticVisible  { BufferLineHintVisible, fg = t.HintText.fg },
     BufferLineHintDiagnosticSelected { BufferLineHintSelected, fg = t.HintText.fg },
+
+    BufferLineRightCustomAreaText1 { BufferLineBuffer },
 
     -- Not currently implemented
     -- BufferLineIndicatorVisible

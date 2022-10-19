@@ -18,6 +18,7 @@ require'bufferline'.setup {
         s.infoShape
       )
     end,
+    custom_areas = { right = function() return { { text = ' ' .. os.date('%H:%M') } } end }
   },
   -- Highlights or mostly defined in `../lush_theme/malo/bufferline-nvim.lua` but the following is
   -- required to get icon highlights to display correctly, since `bufferline.nvim` generates them
