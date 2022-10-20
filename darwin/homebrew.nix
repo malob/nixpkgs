@@ -54,6 +54,7 @@ in
     "Save to Raindrop.io" = 1549370672;
     Slack = 803453959;
     "Swift Playgrounds" = 1496833156;
+    "Tailscale" = 1475387142;
     "Things 3" = 904280696;
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
