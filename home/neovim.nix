@@ -127,7 +127,7 @@ in
 
     # Completions
     { use = copilot-vim; }
-    { use = coq_nvim; deps = [ coq-artifacts coq-thirdparty ]; config = requireConf coq_nvim; }
+    { use = coq_nvim; opt = true; deps = [ coq-artifacts coq-thirdparty ]; config = requireConf coq_nvim; }
 
     # Language servers, linters, etc.
     {
