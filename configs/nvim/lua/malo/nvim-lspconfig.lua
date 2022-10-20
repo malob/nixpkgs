@@ -7,6 +7,18 @@
 local foreach = require 'pl.tablex'.foreach
 local augroup = require 'malo.utils'.augroup
 
+
+require 'lua-dev'.setup {
+  override = function(root_dir, library)
+    if require 'neodev.util'.has_file(root_dir, "~/.config/nixpkgs/configs/nvim") then
+      library.enabled = true
+      library.runtime = true
+      library.types = true
+      library.plugins = true
+    end
+  end
+}
+
 local lspconf = require 'lspconfig'
 
 local function on_attach(client, bufnr)
@@ -39,20 +51,6 @@ local servers_config = {
   sumneko_lua = {
     settings = {
       Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { 'vim' },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-          maxPreload = 5000,
-          preloadFileSize = 1000,
-        },
         telemetry = {
           enable = false,
         },

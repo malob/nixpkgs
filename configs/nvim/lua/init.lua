@@ -30,7 +30,6 @@ local cmd = vim.cmd
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
 --   - Play around with `tree-sitter`.
 
-
 -- Basic Vim Config --------------------------------------------------------------------------------
 
 o.scrolloff  = 10   -- start scrolling when cursor is within 5 lines of the ledge

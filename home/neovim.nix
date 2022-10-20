@@ -137,7 +137,7 @@ in
         vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
     }
     { use = null-ls-nvim; config = requireConf null-ls-nvim; }
-    { use = nvim-lspconfig; config = requireConf nvim-lspconfig; }
+    { use = nvim-lspconfig; deps = [ lua-dev-nvim ]; config = requireConf nvim-lspconfig; }
 
     # Language support/utilities
     { use = agda-vim; ft = [ "agda" ]; }
