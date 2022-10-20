@@ -1,7 +1,9 @@
 -- Highlights for telescope.nvim
--- https://github.com/akinsho/nvim-bufferline.lua
+-- https://github.com/nvim-telescope/telescope.nvim
+-- See `../../malo/telescope-nvim.lua` for related configuration.
 local t = require'lush_theme.malo'
 
+---@diagnostic disable: undefined-global
 return require'lush'(function()
   return {
     TelescopeNormal { t.Normal },

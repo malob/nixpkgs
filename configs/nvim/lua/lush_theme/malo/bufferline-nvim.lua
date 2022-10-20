@@ -1,23 +1,19 @@
 -- Custom highlights for bufferline.nvim
 -- https://github.com/akinsho/bufferline.nvim
---
--- nvim-bufferline.lua isn't setup to manage it's highlights in this way, but the way they provide
--- does not work well with colorschemes that have dynamic colors, like colors that change based on
--- `vim.o.background`'s value. In order to be able to define the hightlights directly, the following
--- needs to be added: `vim.cmd 'au! BufferlineColors ColorScheme'`.
+-- See `../../malo/bufferline-nvim.lua` for related configuration.
 local t = require'lush_theme.malo'
 
 ---@diagnostic disable: undefined-global
 return require'lush'(function()
   return {
-    BufferLineFill           { t.Normal },
+    BufferLineFill           { t.TabLineFill , sp = t.BlueFg.fg },
     BufferLineBackground     { BufferLineFill, fg = t.Comment.fg },
 
-    BufferLineBuffer         { BufferLineBackground, sp = t.BlueFg.fg },
+    BufferLineBuffer         { BufferLineBackground },
     BufferLineBufferVisible  { BufferLineBuffer, bg = t.StatusLine.bg },
     BufferLineBufferSelected { BufferLineBufferVisible, fg = t.StrongFg.fg, gui = 'bold,italic,underline' },
 
-    BufferLineSeparator         { BufferLineBuffer, fg = BufferLineFill.bg },
+    BufferLineSeparator         { BufferLineFill },
     BufferLineSeparatorVisible  { BufferLineSeparator, bg = BufferLineBufferVisible.bg },
     BufferLineSeparatorSelected { BufferLineSeparatorVisible, gui = 'underline' },
 

@@ -1,6 +1,7 @@
 -- Highlights used with statusline defined in `../../statusline.lua`.
 local t = require'lush_theme.malo'
 
+---@diagnostic disable: undefined-global
 return require'lush'(function()
   return {
     StatusLineMode    { t.GreenBg, fg = t.LightBaseFg.fg },

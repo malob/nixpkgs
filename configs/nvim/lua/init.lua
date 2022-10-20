@@ -13,7 +13,6 @@ local cmd = vim.cmd
 -- - Flesh out custom colorscheme
 --   - Revisit Pmenu highlights:
 --   - Experiment with `Diff` highlights to look more like `delta`'s output.
---   - Set `g:terminal_color` values.
 --   - Decide on whether I want to include a bunch of language specific highlights
 --   - Figure out what to do with `tree-sitter` highlights.
 --   - Stretch
@@ -30,7 +29,6 @@ local cmd = vim.cmd
 -- - Other
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
 --   - Play around with `tree-sitter`.
---   - Look into replacing floaterm-vim with vim-toggleterm.lua.
 
 
 -- Basic Vim Config --------------------------------------------------------------------------------
@@ -82,11 +80,13 @@ end
 
 -- Set UI related options
 o.termguicolors   = true
-o.showmode        = false -- don't show -- INSERT -- etc.
-wo.colorcolumn    = '100' -- show column boarder
-wo.number         = true  -- display numberline
-wo.relativenumber = true  -- relative line numbers
-wo.signcolumn     = 'yes' -- always have signcolumn open to avoid thing shifting around all the time
+o.showmode        = false    -- don't show -- INSERT -- etc.
+wo.colorcolumn    = '100'    -- show column boarder
+wo.number         = true     -- display numberline
+wo.relativenumber = true     -- relative line numbers
+wo.cursorline     = true     -- highlight current line
+wo.cursorlineopt  = 'number' -- only highlight the number of the cursorline
+wo.signcolumn     = 'yes'    -- always have signcolumn open to avoid thing shifting around all the time
 o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end of file, other stuff
 
 -- Set colorscheme
