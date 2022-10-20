@@ -1,11 +1,11 @@
 local s = require'malo.utils'.symbols
-
 -- Tabline
 -- bufferline.nvim
 -- https://github.com/akinsho/bufferline.nvim
 vim.cmd 'packadd bufferline.nvim'
 
-require'bufferline'.setup {
+require 'scope'.setup()
+require 'bufferline'.setup {
   options = {
     themable = true,
     -- view = 'multiwindow',

@@ -105,7 +105,11 @@ in
   # Add plugins using my `packer` function.
   programs.neovim.plugins = with pkgs.vimPlugins; map packer [
     # Apperance, interface, UI, etc.
-    { use = bufferline-nvim; deps = [ nvim-web-devicons ]; config = requireConf bufferline-nvim; }
+    {
+      use = bufferline-nvim;
+      deps = [ nvim-web-devicons scope-nvim ];
+      config = requireConf bufferline-nvim;
+    }
     { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
     { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
     { use = goyo-vim; }
@@ -136,6 +140,7 @@ in
         require'lsp_lines'.setup()
         vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
     }
+    { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
     { use = null-ls-nvim; config = requireConf null-ls-nvim; }
     { use = nvim-lspconfig; deps = [ lua-dev-nvim ]; config = requireConf nvim-lspconfig; }
 
