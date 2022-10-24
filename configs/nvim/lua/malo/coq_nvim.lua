@@ -1,7 +1,6 @@
-local keymaps = require'malo.utils'.keymaps
-
 -- coq_nvim
 -- https://github.com/ms-jpq/coq_nvim
+
 vim.g.coq_settings = {
   auto_start = 'shut-up',
   xdg = true,
@@ -9,8 +8,19 @@ vim.g.coq_settings = {
   clients = {
     tabnine = {
       enabled = true,
-    }
-  }
+    },
+  },
+  display = {
+    preview = {
+      border = 'shadow',
+    },
+  },
+  limits = {
+    completion_auto_timeout = 0.5,
+  },
+  match = {
+    max_results = 100,
+  },
 }
 
 vim.cmd 'packadd coq_nvim'
