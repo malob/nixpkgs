@@ -186,8 +186,7 @@
               vimUtils.buildVimPluginsFromFlakeInputs inputs [
                 # Add flake input name here
               ] // {
-                # TODO: remove when plugin lands on `nixpkgs-unstable`.
-                inherit (prev.pkgs-master.vimPlugins) scope-nvim;
+                # Add plugins here
               }
             );
           };

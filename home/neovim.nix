@@ -142,7 +142,7 @@ in
     }
     { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
     { use = null-ls-nvim; config = requireConf null-ls-nvim; }
-    { use = nvim-lspconfig; deps = [ lua-dev-nvim ]; config = requireConf nvim-lspconfig; }
+    { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
 
     # Language support/utilities
     { use = agda-vim; ft = [ "agda" ]; }

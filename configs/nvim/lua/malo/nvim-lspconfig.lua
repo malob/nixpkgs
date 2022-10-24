@@ -7,8 +7,8 @@
 local foreach = require 'pl.tablex'.foreach
 local augroup = require 'malo.utils'.augroup
 
-
-require 'lua-dev'.setup {
+-- Configures `sumneko_lua` properly for Neovim config editing when it makes sense.
+require 'neodev'.setup {
   override = function(root_dir, library)
     if require 'neodev.util'.has_file(root_dir, "~/.config/nixpkgs/configs/nvim") then
       library.enabled = true
@@ -22,7 +22,6 @@ require 'lua-dev'.setup {
 local lspconf = require 'lspconfig'
 
 local function on_attach(client, bufnr)
-  print(vim.inspect(client.server_capabilities))
   if client.server_capabilities.documentHighlightProvider then
     augroup { name = 'MaloLspDocumentHighlights' .. bufnr, cmds = {
       {{ 'CursorHold', 'CursorHoldI' }, {
@@ -93,8 +92,10 @@ local servers_config = {
   },
 }
 
+local coq = require 'coq'
+
 foreach(servers_config, function(v, k)
-  lspconf[k].setup(require'coq'.lsp_ensure_capabilities(
+  lspconf[k].setup(coq.lsp_ensure_capabilities(
    vim.tbl_extend('error', v, { on_attach = on_attach })
   ))
 end)
