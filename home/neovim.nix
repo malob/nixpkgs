@@ -176,6 +176,8 @@ in
   # From personal addon module `../modules/home/programs/neovim/extras.nix`
   programs.neovim.extras.termBufferAutoChangeDir = true;
   programs.neovim.extras.nvrAliases.enable = true;
+  programs.neovim.extras.defaultEditor = true;
+
   # }}}
 
   # Required packages -------------------------------------------------------------------------- {{{
