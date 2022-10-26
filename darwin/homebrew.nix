@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkIf;
-  mkIfCaskPresent = cask: mkIf (lib.any (x: x.name == cask) config.homebrew.casks);
+  caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
   brewEnabled = config.homebrew.enable;
 in
 
@@ -103,8 +103,16 @@ in
   ];
 
   # Configuration related to casks
-  environment.variables.SSH_AUTH_SOCK = mkIfCaskPresent "1password-cli"
-    "/Users/${config.users.primaryUser.username}/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+  home-manager.users.${config.users.primaryUser.username}.programs.ssh =
+    mkIf (caskPresent "1password-cli" && config ? home-manager) {
+      enable = true;
+      extraConfig = ''
+        # Only set `IdentityAgent` not connected remotely via SSH.
+        # This allows using agent forwarding when connecting remotely.
+        Match host * exec "test -z $SSH_TTY"
+          IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+      '';
+    };
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
