@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   # Bat, a substitute for cat.
@@ -25,58 +25,69 @@
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
 
-  home.packages = with pkgs; [
+  home.packages = lib.attrValues ({
     # Some basics
-    abduco # lightweight session management
-    bandwhich # display current network utilization by process
-    bottom # fancy version of `top` with ASCII graphs
-    browsh # in terminal browser
-    coreutils
-    curl
-    du-dust # fancy version of `du`
-    exa # fancy version of `ls`
-    fd # fancy version of `find`
-    htop # fancy version of `top`
-    hyperfine # benchmarking tool
-    mosh # wrapper for `ssh` that better and not dropping connections
-    nodePackages.speed-test # nice speed-test tool
-    parallel # runs commands in parallel
-    # python3Packages.shell-functools # a collection of functional programming tools for the shell
-    ripgrep # better version of `grep`
-    tealdeer # rust implementation of `tldr`
-    thefuck
-    unrar # extract RAR archives
-    wget
-    xz # extract XZ archives
+    inherit (pkgs)
+      abduco # lightweight session management
+      bandwhich # display current network utilization by process
+      bottom # fancy version of `top` with ASCII graphs
+      browsh # in terminal browser
+      coreutils
+      curl
+      du-dust # fancy version of `du`
+      exa # fancy version of `ls`
+      fd # fancy version of `find`
+      htop # fancy version of `top`
+      hyperfine # benchmarking tool
+      mosh # wrapper for `ssh` that better and not dropping connections
+      parallel # runs commands in parallel
+      ripgrep # better version of `grep`
+      tealdeer # rust implementation of `tldr`
+      thefuck
+      unrar # extract RAR archives
+      wget
+      xz # extract XZ archives
+    ;
 
     # Dev stuff
-    # (agda.withPackages (p: [ p.standard-library ]))
-    cloc # source code line counter
-    google-cloud-sdk
-    haskellPackages.cabal-install
-    haskellPackages.hoogle
-    haskellPackages.hpack
-    haskellPackages.implicit-hie
-    # idris2
-    jq
-    nodePackages.typescript
-    nodejs-16_x
-    s3cmd
-    stack
+    inherit (pkgs)
+      # (agda.withPackages (p: [ p.standard-library ]))
+      cloc # source code line counter
+      google-cloud-sdk
+      # idris2
+      jq
+      nodejs
+      s3cmd
+      stack
+    ;
+    inherit (pkgs.haskellPackages)
+      cabal-install
+      hoogle
+      hpack
+      implicit-hie
+    ;
+    inherit (pkgs.nodePackages)
+      typescript
+    ;
 
     # Useful nix related tools
-    cachix # adding/managing alternative binary caches hosted by Cachix
-    comma # run software from without installing it
-    niv # easy dependency management for nix projects
-    nix-tree # interactively browse dependency graphs of Nix derivations
-    nix-update # swiss-knife for updating nix packages
-    nixpkgs-review # review pull-requests on nixpkgs
-    nodePackages.node2nix
-    statix # lints and suggestions for the Nix programming language
+    inherit (pkgs)
+      cachix # adding/managing alternative binary caches hosted by Cachix
+      comma # run software from without installing it
+      niv # easy dependency management for nix projects
+      nix-output-monitor # get additional information while building packages
+      nix-tree # interactively browse dependency graphs of Nix derivations
+      nix-update # swiss-knife for updating nix packages
+      nixpkgs-review # review pull-requests on nixpkgs
+      node2nix # generate Nix expressions to build NPM packages
+      statix # lints and suggestions for the Nix programming language
+    ;
 
-  ] ++ lib.optionals stdenv.isDarwin [
-    cocoapods
-    m-cli # useful macOS CLI commands
-    prefmanager # tool for working with macOS defaults
-  ];
+  } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    inherit (pkgs)
+      cocoapods
+      m-cli # useful macOS CLI commands
+      prefmanager # tool for working with macOS defaults
+    ;
+  });
 }
