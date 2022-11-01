@@ -51,7 +51,7 @@ let
       (
         concatStringsSep "\n"
           (
-            [ "\n-- ${use.pname}" ]
+            [ "\n-- ${use.pname or use.name}" ]
             ++ optional (setup != "") setup
 
             # If the plugin isn't always loaded at startup
@@ -145,7 +145,7 @@ in
     { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
 
     # Language support/utilities
-    { use = agda-vim; ft = [ "agda" ]; }
+    { use = cornelis; setup = "vim.g.cornelis_use_global_binary = 1"; }
     {
       use = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
       config = requireConf nvim-treesitter;
@@ -208,6 +208,8 @@ in
     nodePackages.vim-language-server
 
     #Other
+    (agda.withPackages (p: [ p.standard-library ]))
+    cornelis
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     proselint

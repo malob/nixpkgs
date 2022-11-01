@@ -15,6 +15,10 @@
     home-manager.inputs.utils.follows = "flake-utils";
 
     # Other sources
+    cornelis.url = "github:malob/cornelis/improve-flake";
+    cornelis.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    cornelis.inputs.flake-compat.follows = "flake-compat";
+    cornelis.inputs.flake-utils.follows = "flake-utils";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
     prefmanager.url = "github:malob/prefmanager";
@@ -35,10 +39,11 @@
         config = {
           allowUnfree = true;
         };
-        overlays = attrValues self.overlays ++ [
+        overlays = attrValues (self.overlays // inputs.cornelis.overlays) ++ [
           # Sub in x86 version of packages that don't build on Apple Silicon yet
           (final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             inherit (final.pkgs-x86)
+              agda
               idris2;
           }))
         ];
@@ -169,8 +174,8 @@
           };
         };
 
-        prefmanager = _: prev: {
-          prefmanager = inputs.prefmanager.packages.${prev.stdenv.system}.default;
+       prefmanager = _: prev: {
+           inherit (inputs.prefmanager.packages.${prev.stdenv.system}) prefmanager;
         };
 
         # Overlay that adds various additional utility functions to `vimUtils`
@@ -187,6 +192,7 @@
                 # Add flake input name here
               ] // {
                 # Add plugins here
+                inherit (inputs.cornelis.packages.${prev.stdenv.system}) cornelis-vim;
               }
             );
           };

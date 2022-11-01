@@ -1,5 +1,32 @@
 {
   "nodes": {
+    "cornelis": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1667261109,
+        "narHash": "sha256-en26yZ9JnZf1C0Pr3N3Z0okA8jsIKMpDwuI43RVlNOQ=",
+        "owner": "malob",
+        "repo": "cornelis",
+        "rev": "5f6b7b9f751aceb3fe285325e2c756d3eaff4a40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "malob",
+        "ref": "improve-flake",
+        "repo": "cornelis",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -224,6 +251,7 @@
     },
     "root": {
       "inputs": {
+        "cornelis": "cornelis",
         "darwin": "darwin",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
