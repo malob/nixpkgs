@@ -80,7 +80,7 @@ in
     "gpg-suite"
     "hammerspoon"
     "keybase"
-    # "loopback" -- TODO: re-enable when macOS 13 version ships
+    "loopback"
     "nvidia-geforce-now"
     "obsbot-me-tool"
     "obsbot-tinycam"
