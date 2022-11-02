@@ -145,7 +145,13 @@ in
     { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
 
     # Language support/utilities
-    { use = cornelis; setup = "vim.g.cornelis_use_global_binary = 1"; }
+    {
+      use = cornelis;
+      setup = ''
+        vim.g.cornelis_use_global_binary = 1
+        vim.g.cornelis_agda_prefix = '\\'
+      '';
+    }
     {
       use = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
       config = requireConf nvim-treesitter;

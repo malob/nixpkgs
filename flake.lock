@@ -13,16 +13,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1667261109,
-        "narHash": "sha256-en26yZ9JnZf1C0Pr3N3Z0okA8jsIKMpDwuI43RVlNOQ=",
-        "owner": "malob",
+        "lastModified": 1667341613,
+        "narHash": "sha256-5TObcooV3dn0AQT8rGgwnRH7TFLVDlfnj+6IYUdSVac=",
+        "owner": "isovector",
         "repo": "cornelis",
-        "rev": "5f6b7b9f751aceb3fe285325e2c756d3eaff4a40",
+        "rev": "6a8e8867a2fb0ba98915c6f5778dc3fe365e14d8",
         "type": "github"
       },
       "original": {
-        "owner": "malob",
-        "ref": "improve-flake",
+        "owner": "isovector",
         "repo": "cornelis",
         "type": "github"
       }

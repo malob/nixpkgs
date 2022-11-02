@@ -15,7 +15,7 @@
     home-manager.inputs.utils.follows = "flake-utils";
 
     # Other sources
-    cornelis.url = "github:malob/cornelis/improve-flake";
+    cornelis.url = "github:isovector/cornelis";
     cornelis.inputs.nixpkgs.follows = "nixpkgs-unstable";
     cornelis.inputs.flake-compat.follows = "flake-compat";
     cornelis.inputs.flake-utils.follows = "flake-utils";
