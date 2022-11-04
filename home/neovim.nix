@@ -153,7 +153,7 @@ in
       '';
     }
     {
-      use = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+      use = nvim-treesitter.withAllGrammars;
       config = requireConf nvim-treesitter;
     }
     { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
@@ -161,7 +161,7 @@ in
 
     # Editor behavior
     { use = comment-nvim; config = "require'comment'.setup()"; }
-    { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
+    # { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
     { use = tabular; vscode = true; }
     { use = vim-surround; vscode = true; }
     { use = nvim-lastplace; config = "require'nvim-lastplace'.setup()"; }
