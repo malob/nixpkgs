@@ -219,7 +219,7 @@ wk.register ({
     d = { vim.lsp.buf.definition         , 'Jump to definition'      },
     D = { vim.lsp.buf.declaration        , 'Jump to declaration'     },
     a = { '<Cmd>Lspsaga code_action<CR>' , 'Code action'             },
-    f = { vim.lsp.buf.formatting         , 'Format'                  },
+    f = { vim.lsp.buf.format             , 'Format'                  },
     r = { '<Cmd>Lspsaga rename<CR>'      , 'Rename'                  },
     t = { vim.lsp.buf.type_definition    , 'Jump to type definition' },
     n = { function() vim.diagnostic.goto_next({float = false}) end, 'Jump to next diagnostic' },
