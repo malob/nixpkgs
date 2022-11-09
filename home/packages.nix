@@ -51,7 +51,6 @@
 
     # Dev stuff
     inherit (pkgs)
-      # (agda.withPackages (p: [ p.standard-library ]))
       cloc # source code line counter
       google-cloud-sdk
       # idris2
@@ -59,6 +58,7 @@
       nodejs
       s3cmd
       stack
+      typescript
     ;
     inherit (pkgs.haskellPackages)
       cabal-install
@@ -66,9 +66,7 @@
       hpack
       implicit-hie
     ;
-    inherit (pkgs.nodePackages)
-      typescript
-    ;
+    agda = pkgs.agda.withPackages (ps: [ ps.standard-library ]);
 
     # Useful nix related tools
     inherit (pkgs)
