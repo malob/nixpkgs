@@ -208,7 +208,8 @@ in
     # Nix
     deadnix
     statix
-    rnix-lsp
+    nil
+    nixpkgs-fmt
 
     # Vim
     nodePackages.vim-language-server

@@ -43,8 +43,18 @@ local servers_config = {
   ccls = {},
   hls = {},
   jsonls = {},
+
+  nil_ls = {
+    settings ={
+      ['nil'] = {
+        formatting = {
+          command = { 'nixpkgs-fmt' },
+        },
+      },
+    },
+  },
+
   pyright = {},
-  rnix = {},
   sourcekit = {},
 
   sumneko_lua = {
