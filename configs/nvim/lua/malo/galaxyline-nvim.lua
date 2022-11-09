@@ -19,6 +19,7 @@ gl.section.left = {
           c = s.term,
           i = s.pencil,
           n = s.vim,
+          R = '',
           t = s.term,
           v = s.ibar,
           V = s.ibar,
