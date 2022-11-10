@@ -1,10 +1,5 @@
 -- telescope.nvim
 -- https://github.com/nvim-telescope/telescope.nvim
-vim.cmd 'packadd telescope.nvim'
-vim.cmd 'packadd telescope-file-browser.nvim'
-vim.cmd 'packadd telescope-fzf-native.nvim'
-vim.cmd 'packadd telescope-symbols.nvim'
-vim.cmd 'packadd telescope-zoxide'
 
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
@@ -42,6 +37,7 @@ telescope.setup {
 telescope.load_extension 'builtin_extensions'
 telescope.load_extension 'file_browser'
 telescope.load_extension 'fzf'
+telescope.load_extension 'hoogle'
 telescope.load_extension 'zoxide'
 
 require'telescope._extensions.zoxide.config'.setup {

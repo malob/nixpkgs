@@ -122,6 +122,7 @@ in
         nvim-web-devicons
         telescope-file-browser-nvim
         telescope-fzf-native-nvim
+        telescope_hoogle
         telescope-symbols-nvim
         telescope-zoxide
       ];
