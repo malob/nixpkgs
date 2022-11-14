@@ -157,7 +157,7 @@ in
       use = nvim-treesitter.withAllGrammars;
       config = requireConf nvim-treesitter;
     }
-    { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
+    { use = vim-haskell-module-name; vscode = true; }
     { use = vim-polyglot; config = requireConf vim-polyglot; }
 
     # Editor behavior
