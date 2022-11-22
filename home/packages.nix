@@ -70,8 +70,7 @@
 
     # Useful nix related tools
     inherit (pkgs)
-      # TODO: renenable when it's building again on `nixpkgs-unstable`.
-      # cachix # adding/managing alternative binary caches hosted by Cachix
+      cachix # adding/managing alternative binary caches hosted by Cachix
       comma # run software from without installing it
       niv # easy dependency management for nix projects
       nix-output-monitor # get additional information while building packages
