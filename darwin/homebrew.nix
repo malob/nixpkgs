@@ -25,6 +25,7 @@ in
   '';
 
   homebrew.enable = true;
+  homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.cleanup = "zap";
   homebrew.global.brewfile = true;
 
@@ -47,6 +48,7 @@ in
     Deliveries = 290986013;
     Fantastical = 975937182;
     Keynote = 409183694;
+    "Notion Web Clipper" = 1559269364;
     Numbers = 409203825;
     Pages = 409201541;
     Patterns = 429449079;
@@ -81,6 +83,7 @@ in
     "hammerspoon"
     "keybase"
     "loopback"
+    "notion"
     "nvidia-geforce-now"
     "obsbot-me-tool"
     "obsbot-tinycam"
