@@ -20,6 +20,12 @@
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
 
+  # SSH
+  # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
+  # Some options also set in `../darwin/homebrew.nix`.
+  programs.ssh.enable = true;
+  programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
+
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
@@ -45,6 +51,7 @@
       tealdeer # rust implementation of `tldr`
       thefuck
       unrar # extract RAR archives
+      upterm # secure terminal sharing
       wget
       xz # extract XZ archives
     ;
