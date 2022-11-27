@@ -29,10 +29,7 @@
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
     let
-      # Some building blocks ------------------------------------------------------------------- {{{
-
-      inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs-unstable.lib) attrValues makeOverridable optionalAttrs singleton;
+      inherit (self.lib) attrValues makeOverridable optionalAttrs singleton;
 
       # Configuration for `nixpkgs`
       nixpkgsConfig = {
@@ -49,87 +46,52 @@
         ];
       };
 
-      homeManagerStateVersion = "22.11";
-
-      primaryUserInfo = {
+      defaultPrimaryUser = {
         username = "malo";
         fullName = "Malo Bourgon";
         email = "mbourgon@gmail.com";
         nixConfigDirectory = "/Users/malo/.config/nixpkgs";
       };
-
-      # Modules shared by most `nix-darwin` personal configurations.
-      nixDarwinCommonModules = attrValues self.darwinModules ++ [
-        # `home-manager` module
-        home-manager.darwinModules.home-manager
-        (
-          { config, ... }:
-          let
-            inherit (config.users) primaryUser;
-          in
-          {
-            nixpkgs = nixpkgsConfig;
-            # Hack to support legacy worklows that use `<nixpkgs>` etc.
-            # nix.nixPath = { nixpkgs = "${primaryUser.nixConfigDirectory}/nixpkgs.nix"; };
-            nix.nixPath = { nixpkgs = "${inputs.nixpkgs-unstable}"; };
-            # `home-manager` config
-            users.users.${primaryUser.username}.home = "/Users/${primaryUser.username}";
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${primaryUser.username} = {
-              imports = attrValues self.homeManagerModules;
-              home.stateVersion = homeManagerStateVersion;
-              home.user-info = config.users.primaryUser;
-            };
-            # Add a registry entry for this flake
-            nix.registry.my.flake = self;
-          }
-        )
-      ];
-      # }}}
     in
     {
 
       # System outputs ------------------------------------------------------------------------- {{{
 
-      # My `nix-darwin` configs
-      darwinConfigurations = rec {
-        # Mininal configurations to bootstrap systems
-        bootstrap-x86 = makeOverridable darwinSystem {
-          system = "x86_64-darwin";
-          modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
-        };
-        bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
+      lib = inputs.nixpkgs-unstable.lib.extend (_: _: {
+        mkDarwinSystem = import ./lib/mkDarwinSystem.nix inputs;
+      });
 
-        # My Apple Silicon macOS laptop config
-        MaloBookPro = darwinSystem {
-          system = "aarch64-darwin";
-          modules = nixDarwinCommonModules ++ [
-            {
-              users.primaryUser = primaryUserInfo;
-              networking.computerName = "Malo’s 💻";
-              networking.hostName = "MaloBookPro";
-              networking.knownNetworkServices = [
-                "Wi-Fi"
-                "USB 10/100/1000 LAN"
-              ];
-            }
-          ];
-        };
+      # Mininal macOS configurations to bootstrap systems
+      darwinConfigurations.bootstrap-x86 = makeOverridable darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
+      };
+      darwinConfigurations.bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
+        system = "aarch64-darwin";
+      };
 
-        # Config with small modifications needed/desired for CI with GitHub workflow
-        githubCI = darwinSystem {
-          system = "x86_64-darwin";
-          modules = nixDarwinCommonModules ++ [
-            ({ lib, ... }: {
-              users.primaryUser = primaryUserInfo // {
-                username = "runner";
-                nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
-              };
-              homebrew.enable = lib.mkForce false;
-            })
+      # My Apple Silicon macOS laptop config
+      darwinConfigurations.MaloBookPro = makeOverridable self.lib.mkDarwinSystem {
+        inherit (defaultPrimaryUser) username fullName email nixConfigDirectory;
+        modules = attrValues self.darwinModules ++ singleton {
+          nixpkgs = nixpkgsConfig;
+          networking.computerName = "Malo’s 💻";
+          networking.hostName = "MaloBookPro";
+          networking.knownNetworkServices = [
+            "Wi-Fi"
+            "USB 10/100/1000 LAN"
           ];
+          nix.registry.my.flake = inputs.self;
         };
+        homeModules = attrValues self.homeManagerModules;
+      };
+
+      # Config with small modifications needed/desired for CI with GitHub workflow
+      darwinConfigurations.githubCI = self.darwinConfigurations.MaloBookPro.override {
+        system = "x86_64-darwin";
+        username = "runner";
+        nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
+        extraModules = singleton { homebrew.enable = self.lib.mkForce false; };
       };
 
       # Config I use with Linux cloud VMs
@@ -143,8 +105,8 @@
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
           home.username = config.home.user-info.username;
           home.homeDirectory = "/home/${config.home.username}";
-          home.stateVersion = homeManagerStateVersion;
-          home.user-info = primaryUserInfo // {
+          home.stateVersion = "22.11";
+          home.user-info = defaultPrimaryUser // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
         });
@@ -174,8 +136,8 @@
           };
         };
 
-       prefmanager = _: prev: {
-           inherit (inputs.prefmanager.packages.${prev.stdenv.system}) prefmanager;
+        prefmanager = _: prev: {
+          inherit (inputs.prefmanager.packages.${prev.stdenv.system}) prefmanager;
         };
 
         # Overlay that adds various additional utility functions to `vimUtils`
@@ -261,8 +223,9 @@
             pkgs-master
             pkgs-stable
             apple-silicon
-            nodePackages;
-          };
+            nodePackages
+            ;
+        };
       };
 
       # Shell environments for development
