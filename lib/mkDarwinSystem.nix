@@ -3,13 +3,22 @@ inputs:
 { username
 , fullName
 , email
-, nixConfigDirectory
+, nixConfigDirectory # directory on the system where this flake is located
 , system ? "aarch64-darwin"
+
+# `nix-darwin` modules to include
 , modules ? [ ]
+# Additional `nix-darwin` modules to include, useful when reusing a configuration with
+# `lib.makeOverridable`.
 , extraModules ? [ ]
+
+# Value for `home-manager`'s `home.stateVersion` option.
+, homeStateVersion
+# `home-manager` modules to include
 , homeModules ? [ ]
+# Additional `home-manager` modules to include, useful when reusing a configuration with
+# `lib.makeOverridable`.
 , extraHomeModules ? [ ]
-, homeStateVersion ? "22.11"
 }:
 
 inputs.darwin.lib.darwinSystem {
@@ -19,7 +28,7 @@ inputs.darwin.lib.darwinSystem {
     ({ config, ... }: {
       users.primaryUser = { inherit username fullName email nixConfigDirectory; };
 
-      # Hack to support legacy worklows that use `<nixpkgs>` etc.
+      # Support legacy workflows that use `<nixpkgs>` etc.
       nix.nixPath.nixpkgs = "${inputs.nixpkgs-unstable}";
 
       # `home-manager` config

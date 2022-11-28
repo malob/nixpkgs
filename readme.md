@@ -19,25 +19,25 @@ In no particular order:
 * [Flakes](./flake.nix)!
   * All external dependencies managed through flakes for easy updating.
   * Outputs for [`nix-darwin`](https://github.com/LnL7/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module) and a [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
-  * `darwinModules` output for `nix-darwin` modules that are pending upstream:
-    * [`security-pam`](./modules/darwin/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
-    * [`programs-nix-index`](./modules/darwin/programs/nix-index.nix) that augments `nix-darwins`'s `programs.nix-index` module with a command not found handler for Fish. (Pending upstream PR [#272](https://github.com/LnL7/nix-darwin/pull/272).)
-  * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration:
-    * [`colors`](./modules/home/colors) which is a work in progress module used to define colorschemes. See [`home/colors.nix`](./home/colors.nix), for an example of how to define a colorscheme.
-    * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `termBufferAutoChangeDir`, and `nvrAliases` options.
+  * A function to simplify making `nix-darwin` system configurations (with `home-manager` integration), [`lib.mkDarwinSystem`](./lib/mkDarwinSystem.nix).
+  * `darwinModules` output for `nix-darwin` modules with additional functionality and prepackaged configuration, including:
+    * [`users-primaryUser`](./modules/darwin/users.nix) that provides `users.primaryUsers.{username,fullName,email,nixConfigDirectory}` options, which allows specifying this information one time by setting these options and then referencing their values when setting other options.
+  * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration, including:
+    * [`home-user-info`], that provides the same options as the my `nix-darwin` module `users-primaryUsers` above under `home.user-info`. See examples of it in use in [`home/git.nix`](./home/git.nix), [`home/neovim.nix`](./home/neovim.nix).
+    * [`colors`](./modules/home/colors) which is a WIP module used to define colorschemes. See [`home/colors.nix`](./home/colors.nix), for an example of how to define a colorscheme.
+    * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `programs.neovim.extras.{defaultEditor,nvrAliases,termBufferAutoChangeDir}` options.
     * [`programs-kitty-extras`](./modules/home/programs/kitty/extras.nix) that provides a,
-      * `colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them; and
-      * `useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
+      * `programs.kitty.extras.colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them; and a
+      * `programs.kitty.extras.useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
     * [`malo-git-aliases`](./home/git-aliases.nix)
     * [`malo-gh-aliases`](./home/gh-aliases.nix)
     * [`malo-startship-symbols`](./home/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
   * Support for non-flake compatible versions of Nix and legacy workflows through [`flake-compat`](https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix):
     * [`default.nix`](./default.nix), allows traditional Nix commands like `nix-build` to operate on the flake inputs/outputs.
-    * [`nixpkgs.nix`](./nixpkgs.nix), functions as a wrapper for the `nixpkgs` input of the flake. This can be used for things like setting `<nixpkgs>` by, e.g., setting `nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };` in `nix-darwin`.
-* Support for Macs with Apple Silicon including ability to easily overlay in x86 version of packages, when they don't build on arm. Search `pkgs-x86` in [`flake.nix`](./flake.nix) and see `nix.extraOptions` in [`darwin/bootstrap.nix`](./darwin/bootstrap.nix) for details.
-* A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the changes.
-* [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta),
-* A slick Neovim 0.6 [config](./configs/nvim) in Lua (some bugs probably exist due to recent update to 0.6). See also: [`neovim.nix`](./home/neovim.nix).
+* Support for Macs with Apple Silicon including ability to easily overlay in x86 version of packages, when they don't build on ARM. Search `pkgs-x86` in [`flake.nix`](./flake.nix) and see `nix.settings.extra-platforms` in [`darwin/bootstrap.nix`](./darwin/bootstrap.nix) for details.
+* A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the updated `flake.lock` file.
+* [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta).
+* A slick Neovim [config](./configs/nvim) in Lua. See also [`neovim.nix`](./home/neovim.nix).
 * Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Kitty terminal](https://sw.kovidgoyal.net/kitty), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
   * using the `colors` module mentioned above;
   * using my `programs-kitty-extras` `home-manager` module (see above);
