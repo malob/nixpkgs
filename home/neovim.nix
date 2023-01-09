@@ -92,7 +92,7 @@ in
   # configuration don't require rebuilding the `home-manager` environment to take effect.
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/lua";
   xdg.configFile."nvim/colors".source =
-    mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
+  mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
 
   # Load the `init` module from the above configs
   programs.neovim.extraConfig = "lua require('init')";
@@ -100,7 +100,7 @@ in
   # Add NodeJs since it's required by some plugins I use.
   programs.neovim.withNodeJs = true;
   # Add `penlight` Lua module package since I used in the above configs
-  programs.neovim.extraLuaPackages = [ pkgs.lua51Packages.penlight ];
+  programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
 
   # Add plugins using my `packer` function.
   programs.neovim.plugins = with pkgs.vimPlugins; map packer [

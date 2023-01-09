@@ -79,7 +79,7 @@
     inherit (pkgs)
       cachix # adding/managing alternative binary caches hosted by Cachix
       comma # run software from without installing it
-      niv # easy dependency management for nix projects
+      # niv # easy dependency management for nix projects
       nix-output-monitor # get additional information while building packages
       nix-tree # interactively browse dependency graphs of Nix derivations
       nix-update # swiss-knife for updating nix packages
