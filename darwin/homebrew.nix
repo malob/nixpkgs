@@ -86,7 +86,7 @@ in
     "notion"
     "nvidia-geforce-now"
     "obsbot-me-tool"
-    "obsbot-tinycam"
+    "obsbot-webcam"
     "parallels"
     "postman"
     "protonvpn"
