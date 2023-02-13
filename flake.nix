@@ -19,7 +19,9 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     # Agda mode for Neovim
-    cornelis.url = "github:isovector/cornelis";
+    # TODO: Use `github:isovector/cornelis` once this PR is merged:
+    # https://github.com/isovector/cornelis/pull/115
+    cornelis.url = "github:malob/cornelis/fix-build-and-bump";
     cornelis.inputs.nixpkgs.follows = "nixpkgs-unstable";
     cornelis.inputs.flake-compat.follows = "flake-compat";
     cornelis.inputs.flake-utils.follows = "flake-utils";
