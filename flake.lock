@@ -59,16 +59,16 @@
         "nvim-hs-source": "nvim-hs-source"
       },
       "locked": {
-        "lastModified": 1676320245,
-        "narHash": "sha256-KdEDrrWzkEj6dlNh3cjelSPKcZAyfOyIzE0E+4ufmxE=",
+        "lastModified": 1677443928,
+        "narHash": "sha256-JIfEcnt0UvzSAaepWFMHtlT3dR3TrN8rjTlcE1+Btx4=",
         "owner": "malob",
         "repo": "cornelis",
-        "rev": "9b8b1e1de39004a8ba5098d341017afe3c849265",
+        "rev": "a2dba6a1d69802bc0840f2f21b997ecea17d0678",
         "type": "github"
       },
       "original": {
         "owner": "malob",
-        "ref": "fix-build-and-bump",
+        "ref": "update-to-ghc926",
         "repo": "cornelis",
         "type": "github"
       }
@@ -105,11 +105,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1667210711,
-        "narHash": "sha256-IoErjXZAkzYWHEpQqwu/DeRNJGFdR7X2OGbkhMqMrpw=",
+        "lastModified": 1677439153,
+        "narHash": "sha256-MB+q1TN3KKwYBm0hrPHtWo3iy6jg6AQi7u9mMiUDtrs=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "96a9dd12b8a447840cc246e17a47b81a4268bba7",
+        "rev": "ace1138005c355c84806bbc66f3b7e6a31ecde52",
         "type": "github"
       },
       "original": {
@@ -299,11 +299,11 @@
         "plist-source": "plist-source"
       },
       "locked": {
-        "lastModified": 1669673446,
-        "narHash": "sha256-Q9lNEoenpZG4E26hxQp+jdDHlzSLF+PKku7lomiWGX8=",
+        "lastModified": 1677442921,
+        "narHash": "sha256-zyNvjjiAXzWcwp/+XRJELa9NKV3iE+mAjASm5OHTjQo=",
         "owner": "malob",
         "repo": "prefmanager",
-        "rev": "dc4d7401a82a769f1ac8bc3a5ae80d9e2bca44b7",
+        "rev": "4ffba591f2f21005e2a455f4450f52e9c1af5a53",
         "type": "github"
       },
       "original": {
