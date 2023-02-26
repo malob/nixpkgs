@@ -44,6 +44,16 @@ local servers_config = {
   hls = {},
   jsonls = {},
 
+  lua_ls = {
+    settings = {
+      Lua = {
+        telemetry = {
+          enable = false,
+        },
+      },
+    },
+  },
+
   nil_ls = {
     settings ={
       ['nil'] = {
@@ -56,17 +66,6 @@ local servers_config = {
 
   pyright = {},
   sourcekit = {},
-
-  sumneko_lua = {
-    settings = {
-      Lua = {
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  },
-
   tsserver = {},
 
   vimls = {
