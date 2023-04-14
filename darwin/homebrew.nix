@@ -82,6 +82,7 @@ in
     "gpg-suite"
     "hammerspoon"
     "keybase"
+    "ledger-live"
     "loopback"
     "multiviewer-for-f1"
     "notion"
