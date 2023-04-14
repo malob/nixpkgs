@@ -1,9 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf elem;
   caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
   brewEnabled = config.homebrew.enable;
+  homePackages = config.home-manager.users.${config.users.primaryUser.username}.home.packages;
 in
 
 {
@@ -109,15 +110,23 @@ in
   ];
 
   # Configuration related to casks
-  home-manager.users.${config.users.primaryUser.username}.programs.ssh =
+  home-manager.users.${config.users.primaryUser.username} =
     mkIf (caskPresent "1password-cli" && config ? home-manager) {
-      enable = true;
-      extraConfig = ''
+      programs.ssh.enable = true;
+      programs.ssh.extraConfig = ''
         # Only set `IdentityAgent` not connected remotely via SSH.
         # This allows using agent forwarding when connecting remotely.
         Match host * exec "test -z $SSH_TTY"
           IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
       '';
+      home.shellAliases = {
+        cahix = mkIf (elem pkgs.cachix homePackages) "op plugin run -- cachix";
+        gh = mkIf (elem pkgs.gh homePackages) "op plugin run -- gh";
+        nixpkgs-review = mkIf (elem pkgs.nixpkgs-review homePackages) "op run -- nixpkgs-review";
+      };
+      home.sessionVariables = {
+        GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
+      };
     };
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
