@@ -59,16 +59,15 @@
         "nvim-hs-source": "nvim-hs-source"
       },
       "locked": {
-        "lastModified": 1677443928,
-        "narHash": "sha256-JIfEcnt0UvzSAaepWFMHtlT3dR3TrN8rjTlcE1+Btx4=",
-        "owner": "malob",
+        "lastModified": 1681772647,
+        "narHash": "sha256-5pWfrUeuB5YCnlGH0hnO0EXgoLVwRGfDuY6R2NrSVOA=",
+        "owner": "isovector",
         "repo": "cornelis",
-        "rev": "a2dba6a1d69802bc0840f2f21b997ecea17d0678",
+        "rev": "07c4eebeb3147ff1f8d7fa47c8f98ac570b1824e",
         "type": "github"
       },
       "original": {
-        "owner": "malob",
-        "ref": "update-to-ghc926",
+        "owner": "isovector",
         "repo": "cornelis",
         "type": "github"
       }
