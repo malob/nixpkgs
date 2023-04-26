@@ -34,6 +34,7 @@ end
 -- Other handy stuff -------------------------------------------------------------------------------
 
 M.symbols = {
+  close = '',
   error = '',
   errorShape = '',
   gitBranch = '',

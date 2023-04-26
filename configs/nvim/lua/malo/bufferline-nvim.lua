@@ -10,6 +10,8 @@ require 'bufferline'.setup {
     themable = true,
     -- view = 'multiwindow',
     separator_style = 'slant',
+    buffer_close_icon = s.close,
+    close_icon = s.close,
     diagnostics = 'nvim_lsp',
     diagnostics_indicator = function(_, level)
       return ' ' .. (

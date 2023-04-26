@@ -21,7 +21,7 @@ return require'lush'(function()
     BufferLineTabSelected          { BufferLineBufferSelected, gui = 'bold,underline' },
     BufferLineTabClose             { BufferLineTab },
     BufferLineTabSeparator         { BufferLineSeparator },
-    BufferLineTabSeparatorSelected { BufferLineSeparatorSelected, gui = 'reverse' },
+    BufferLineTabSeparatorSelected { BufferLineSeparatorSelected },
 
     BufferLineCloseButton         { BufferLineBuffer },
     BufferLineCloseButtonVisible  { BufferLineBufferVisible },
