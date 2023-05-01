@@ -11,7 +11,10 @@ in
   programs.fish.enable = true;
 
   # Add Fish plugins
-  home.packages = [ pkgs.fishPlugins.done ];
+  home.packages = [
+    pkgs.fishPlugins.done
+    pkgs.fishPlugins.github-copilot-cli-fish
+  ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{
 

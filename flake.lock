@@ -201,13 +201,29 @@
         "type": "github"
       }
     },
+    "nixpkgs-malob-pr": {
+      "locked": {
+        "lastModified": 1682962694,
+        "narHash": "sha256-vVeUp5hCkdujB+guPbefJ4oZ/J/+DBrfZVos9x+objM=",
+        "owner": "malob",
+        "repo": "nixpkgs-1",
+        "rev": "906025e445ee67878cd69896c4e0275dc92af2ed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "malob",
+        "ref": "add-github-copilot-cli-fish",
+        "repo": "nixpkgs-1",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1682814037,
-        "narHash": "sha256-sL0XF32FtQsPkJ/hRTZ8riUp5C0eIeWYFf59cErO8lA=",
+        "lastModified": 1682960002,
+        "narHash": "sha256-5Zjh4pT3lAjFGN1gVrjqj1LLJHKCAlGdLD8raU7oEMc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "39da9b3c34b30826131370d7db3061465dd69ca1",
+        "rev": "8670e496ffd093b60e74e7fa53526aa5920d09eb",
         "type": "github"
       },
       "original": {
@@ -319,6 +335,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixos-stable": "nixos-stable",
+        "nixpkgs-malob-pr": "nixpkgs-malob-pr",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
