@@ -6,8 +6,6 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixpkgs-malob-pr.url = "github:malob/nixpkgs-1/add-github-copilot-cli-fish";
 
     # Environment/system management
     darwin.url = "github:LnL7/nix-darwin";
@@ -121,11 +119,8 @@
             );
           };
 
-        # Overlay with misc tweaks
-        # TODO: Remove when packages make it into `nixpkgs-unstable`.
-        tweaks = final: _: {
-          inherit (final.pkgs-master) github-copilot-cli;
-          inherit (inputs.nixpkgs-malob-pr.legacyPackages.${final.system}) fishPlugins;
+        tweaks = _: _: {
+          # Add stuff here
         };
       };
       # }}}
