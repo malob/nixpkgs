@@ -12,6 +12,7 @@
       };
     };
     nix.enable = true;
+    recommend-stack-upgrade = false;
   };
 
   # Stop `parallel` from displaying citation warning
