@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 
 let
+  inherit (lib) generators concatStringsSep mkIf mkOption optionalAttrs types;
 
   cfg = config.programs.kitty.extras;
 
   # Create a Kitty config string from a Nix set
-  setToKittyConfig = with generators; toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
+  setToKittyConfig = with generators; toKeyValue { mkKeyValue = mkKeyValueDefault { } " "; };
 
   # Write a Nix set representing a kitty config into the Nix store
   writeKittyConfig = fileName: config: pkgs.writeTextDir "${fileName}" (setToKittyConfig config);
@@ -38,7 +38,8 @@ let
 
   socket = "unix:/tmp/mykitty";
 
-in {
+in
+{
 
   options.programs.kitty.extras = {
     colors = {
@@ -59,7 +60,7 @@ in {
 
       dark = mkOption {
         type = with types; attrsOf str;
-        default = {};
+        default = { };
         description = ''
           Kitty color settings for dark background colorscheme.
         '';
@@ -67,7 +68,7 @@ in {
 
       light = mkOption {
         type = with types; attrsOf str;
-        default = {};
+        default = { };
         description = ''
           Kitty color settings for light background colorscheme.
         '';
@@ -75,7 +76,7 @@ in {
 
       common = mkOption {
         type = with types; attrsOf str;
-        default = {};
+        default = { };
         description = ''
           Kitty color settings that the light and dark background colorschemes share.
         '';
@@ -114,18 +115,55 @@ in {
       term-background
     ];
 
-    programs.kitty.settings = optionalAttrs cfg.colors.enable (
-
-      cfg.colors.common // cfg.colors.${cfg.colors.default} // {
-        allow_remote_control = "yes";
-        listen_on = socket;
-      }
-
-    ) // optionalAttrs (cfg.useSymbolsFromNerdFont != "") {
+    programs.kitty.settings = optionalAttrs cfg.colors.enable
+      (
+        cfg.colors.common // cfg.colors.${cfg.colors.default} // {
+          allow_remote_control = "yes";
+          listen_on = socket;
+        }
+      ) // optionalAttrs (cfg.useSymbolsFromNerdFont != "") {
 
       # https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points
-      symbol_map = "U+E5FA-U+E62B,U+E700-U+E7C5,U+F000-U+F2E0,U+E200-U+E2A9,U+F500-U+FD46,U+E300-U+E3EB,U+F400-U+F4A8,U+2665,U+26a1,U+F27C,U+E0A3,U+E0B4-U+E0C8,U+E0CA,U+E0CC-U+E0D2,U+E0D4,U+23FB-U+23FE,U+2B58,U+F300-U+F313,U+E000-U+E00D ${cfg.useSymbolsFromNerdFont}";
-
+      symbol_map = concatStringsSep "," [
+        # Seti-UI + Custom
+        "U+E5FA-U+E6AC"
+        # Devicons
+        "U+E700-U+E7C5"
+        # Font Awesome
+        "U+F000-U+F2E0"
+        # Font Awesome Extension
+        "U+E200-U+E2A9"
+        # Material Design Icons
+        "U+F0001-U+F1AF0"
+        # Weather
+        "U+E300-U+E3E3"
+        # Octicons
+        "U+F400-U+F532"
+        "U+2665"
+        "U+26A1"
+        # Powerline Symbols
+        "U+E0A0-U+E0A2"
+        "U+E0B0-U+E0B3"
+        # Powerline Extra Symbols
+        "U+E0A3"
+        "U+E0B4-U+E0C8"
+        "U+E0CA"
+        "U+E0CC-U+E0D2"
+        "U+E0D4"
+        # IEC Power Symbols
+        "U+23FB-U+23FE"
+        "U+2B58"
+        # Font Logos
+        "U+F300-U+F32F"
+        # Pomicons
+        "U+E000-U+E00A"
+        # Codicons
+        "U+EA60-U+EBEB"
+        # Heavy Angle Brackets
+        "U+E276C-U+2771"
+        # Box Drawing
+        "U+2500-U+259F"
+      ] + " ${cfg.useSymbolsFromNerdFont}";
     };
 
     programs.kitty.darwinLaunchOptions = mkIf pkgs.stdenv.isDarwin [
