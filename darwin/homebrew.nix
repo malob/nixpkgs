@@ -85,6 +85,7 @@ in
     "keybase"
     "ledger-live"
     "loopback"
+    "mimestream"
     "multiviewer-for-f1"
     "notion"
     "nvidia-geforce-now"
