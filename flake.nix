@@ -4,7 +4,7 @@
   inputs = {
     # Package sets
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management
@@ -33,7 +33,7 @@
     let
       inherit (self.lib) attrValues makeOverridable optionalAttrs singleton;
 
-      homeStateVersion = "23.05";
+      homeStateVersion = "23.11";
 
       nixpkgsDefaults = {
         config = {
