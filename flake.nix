@@ -31,7 +31,7 @@
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
     let
-      inherit (self.lib) attrValues makeOverridable optionalAttrs singleton;
+      inherit (self.lib) attrValues makeOverridable mkForce optionalAttrs singleton;
 
       homeStateVersion = "23.11";
 
@@ -196,14 +196,14 @@
           system = "x86_64-darwin";
           username = "runner";
           nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
-          extraModules = singleton { homebrew.enable = self.lib.mkForce false; };
+          extraModules = singleton { homebrew.enable = mkForce false; };
         };
       };
 
       # Config I use with non-NixOS Linux systems (e.g., cloud VMs etc.)
       # Build and activate on new system with:
       # `nix build .#homeConfigurations.malo.activationPackage && ./result/activate`
-      homeConfigurations.malo = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.malo = makeOverridable home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs-unstable (nixpkgsDefaults // { system = "x86_64-linux"; });
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ... }: {
           home.username = config.home.user-info.username;
@@ -214,6 +214,15 @@
           };
         });
       };
+
+      # Config with small modifications needed/desired for CI with GitHub workflow
+      homeConfigurations.runner = self.homeConfigurations.malo.override (old: {
+        modules = old.modules ++ singleton {
+          home.username = mkForce "runner";
+          home.homeDirectory = mkForce "/home/runner";
+          home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
+        };
+      });
       # }}}
 
     } // flake-utils.lib.eachDefaultSystem (system: {
