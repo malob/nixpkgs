@@ -48,6 +48,7 @@ in
     "Dark Mode for Safari" = 1397180934;
     Deliveries = 290986013;
     Fantastical = 975937182;
+    Flighty = 1358823008;
     Keynote = 409183694;
     "Notion Web Clipper" = 1559269364;
     Numbers = 409203825;
