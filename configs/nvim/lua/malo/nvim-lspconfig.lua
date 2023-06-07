@@ -60,6 +60,12 @@ local servers_config = {
         formatting = {
           command = { 'nixpkgs-fmt' },
         },
+        nix = {
+          flake = {
+            autoArchive = true,
+            autoEvalInputs = true,
+          },
+        },
       },
     },
   },
