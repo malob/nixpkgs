@@ -215,10 +215,11 @@ in
     #Other
     (agda.withPackages (p: [ p.standard-library ]))
     cornelis
-    nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
     proselint
     sumneko-lua-language-server
+    # TODO: Re-add when https://github.com/NixOS/nixpkgs/pull/238814 is merged.
+    # vscode-langservers-extracted
   ];
   # }}}
 }
