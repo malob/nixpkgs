@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  # TODO: Remove when manual builds successfully again
-  documentation.enable = false;
-
   # Networking
   networking.dns = [
     "1.1.1.1"
