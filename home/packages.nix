@@ -1,6 +1,9 @@
 { lib, pkgs, ... }:
 
 {
+  # TODO: Reenable when documentation builds without errors again
+  manual.manpages.enable = false;
+
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable

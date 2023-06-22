@@ -3,9 +3,6 @@
 {
   # Nix configuration ------------------------------------------------------------------------------
 
-  # TODO: Remove when manual builds successfully again
-  documentation.enable = false;
-
   nix.settings = {
     substituters = [
       "https://cache.nixos.org/"
