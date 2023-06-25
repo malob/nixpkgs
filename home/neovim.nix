@@ -218,8 +218,7 @@ in
     nodePackages.yaml-language-server
     proselint
     sumneko-lua-language-server
-    # TODO: Re-add when https://github.com/NixOS/nixpkgs/pull/238814 is merged.
-    # vscode-langservers-extracted
+    vscode-langservers-extracted
   ];
   # }}}
 }
