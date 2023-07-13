@@ -97,8 +97,6 @@ in
   # Load the `init` module from the above configs
   programs.neovim.extraConfig = "lua require('init')";
 
-  # Add NodeJs since it's required by some plugins I use.
-  programs.neovim.withNodeJs = true;
   # Add `penlight` Lua module package since I used in the above configs
   programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
 
@@ -143,7 +141,11 @@ in
     }
     { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
     { use = null-ls-nvim; config = requireConf null-ls-nvim; }
-    { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
+    {
+      use = nvim-lspconfig;
+      deps = [ haskell-tools-nvim neodev-nvim telescope-nvim ];
+      config = requireConf nvim-lspconfig;
+    }
 
     # Language support/utilities
     {

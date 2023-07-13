@@ -20,6 +20,9 @@ require 'neodev'.setup {
 }
 
 local lspconf = require 'lspconfig'
+local coq = require 'coq'
+local ht = require 'haskell-tools'
+require('telescope').load_extension('ht')
 
 local function on_attach(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
@@ -38,10 +41,28 @@ local function on_attach(client, bufnr)
   end
 end
 
+ht.setup {
+  hls = coq.lsp_ensure_capabilities {
+    on_attach = on_attach,
+    settings = {
+      haskell = {
+        checkProject = true,
+        formattingProvider = 'ormolu',
+        plugin = {
+          rename = {
+            config = {
+              crossModule = true,
+            },
+          },
+        },
+      },
+    },
+  },
+}
+
 local servers_config = {
   bashls = {},
   ccls = {},
-  hls = {},
   jsonls = {},
 
   lua_ls = {
@@ -106,8 +127,6 @@ local servers_config = {
     },
   },
 }
-
-local coq = require 'coq'
 
 foreach(servers_config, function(v, k)
   lspconf[k].setup(coq.lsp_ensure_capabilities(
