@@ -188,7 +188,8 @@
             ];
             nix.registry.my.flake = inputs.self;
           };
-          extraModules = singleton { nix.linux-builder.enable = true; };
+          # TODO: Re-enable when https://github.com/NixOS/nixpkgs/issues/243685 is resolved.
+          # extraModules = singleton { nix.linux-builder.enable = true; };
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
         });
