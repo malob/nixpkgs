@@ -199,7 +199,11 @@
           system = "x86_64-darwin";
           username = "runner";
           nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
-          extraModules = singleton { homebrew.enable = mkForce false; };
+          extraModules = singleton {
+            environment.etc.shells.enable = mkForce false;
+            environment.etc."nix/nix.conf".enable = mkForce false;
+            homebrew.enable = mkForce false;
+          };
         };
       };
 

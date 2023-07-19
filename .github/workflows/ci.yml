@@ -47,11 +47,9 @@ jobs:
         /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -t &>/dev/null || true
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
-        # Build and switch to bootstrap config
-        nix build .#darwinConfigurations.bootstrap-x86.system
-        ./result/sw/bin/darwin-rebuild switch --flake .#bootstrap-x86
-        # Build and switch to full config
-        /run/current-system/sw/bin/fish -c 'darwin-rebuild switch --flake .#githubCI'
+        # Build and switch to config
+        nix build .#darwinConfigurations.githubCI.system
+        ./result/sw/bin/darwin-rebuild switch --flake .#githubCI
 
     - name: If scheduled, push commit with updated inputs
       if: ${{ github.event_name == 'schedule' && success() }}
