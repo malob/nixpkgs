@@ -120,8 +120,10 @@
             );
           };
 
-        tweaks = _: _: {
-          # Add stuff here
+        tweaks = _: prev: {
+          # Remove when fixed version hits `nixpkgs-unstable`.
+          inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system})
+            sumneko-lua-language-server;
         };
       };
       # }}}
