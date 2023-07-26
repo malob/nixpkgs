@@ -120,10 +120,8 @@
             );
           };
 
-        tweaks = _: prev: {
-          # Remove when fixed version hits `nixpkgs-unstable`.
-          inherit (inputs.nixpkgs-master.legacyPackages.${prev.stdenv.system})
-            sumneko-lua-language-server;
+        tweaks = _: _: {
+          # Add temporary overrides here
         };
       };
       # }}}
@@ -190,8 +188,7 @@
             ];
             nix.registry.my.flake = inputs.self;
           };
-          # TODO: Re-enable when https://github.com/NixOS/nixpkgs/issues/243685 is resolved.
-          # extraModules = singleton { nix.linux-builder.enable = true; };
+          extraModules = singleton { nix.linux-builder.enable = true; };
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
         });
