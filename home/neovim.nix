@@ -141,7 +141,6 @@ in
         vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
     }
     { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
-    { use = null-ls-nvim; config = requireConf null-ls-nvim; }
     {
       use = nvim-lspconfig;
       deps = [ haskell-tools-nvim neodev-nvim telescope-nvim ];
@@ -197,18 +196,14 @@ in
 
     # Language servers, linters, etc.
     # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
-    # `../configs/nvim/lua/malo/null-ls-nvim.lua` for configuration.
 
     # Bash
     nodePackages.bash-language-server
-    shellcheck
 
     # Javascript/Typescript
     nodePackages.typescript-language-server
 
     # Nix
-    deadnix
-    statix
     nil
     nixpkgs-fmt
 
@@ -219,7 +214,6 @@ in
     (agda.withPackages (p: [ p.standard-library ]))
     cornelis
     nodePackages.yaml-language-server
-    proselint
     sumneko-lua-language-server
     vscode-langservers-extracted
   ];
