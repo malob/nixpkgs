@@ -145,6 +145,7 @@ gl.section.right = {
 gl.section.short_line_left = {
   {
     ShortStatusLine = {
+      condition = condition.buffer_not_empty,
       provider = { const('  '), 'FileIcon', const(' '), 'FileName' },
       highlight = 'StatusLineSortStatusLine',
     }

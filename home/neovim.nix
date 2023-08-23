@@ -113,6 +113,7 @@ in
     { use = goyo-vim; }
     { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
     { use = lush-nvim; vscode = true; }
+    { use = no-neck-pain-nvim; config = requireConf no-neck-pain-nvim; }
     {
       use = telescope-nvim;
       config = requireConf telescope-nvim;
