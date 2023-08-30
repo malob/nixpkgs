@@ -75,6 +75,7 @@ in
     "anki"
     "arq"
     "balenaetcher"
+    "clay"
     "cleanmymac"
     "element"
     "etrecheckpro"
@@ -108,6 +109,7 @@ in
     "transmit"
     "visual-studio-code"
     "vlc"
+    "whisky"
     "yubico-yubikey-manager"
     "yubico-yubikey-personalization-gui"
   ];
