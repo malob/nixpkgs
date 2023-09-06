@@ -47,9 +47,12 @@
           final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             # Sub in x86 version of packages that don't build on Apple Silicon.
             inherit (final.pkgs-x86)
-              agda
+              #agda
               idris2
               ;
+
+            # TODO: Remove when `emacs` builds on `nixpkgs-unstable`.
+            inherit (inputs.nixpkgs-master.legacyPackages.x86_64-darwin) agda;
           }) // {
             # Add other overlays here if needed.
           }
