@@ -58,11 +58,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1694023512,
-        "narHash": "sha256-2/TyAeOISmbbzvYNiESORks1ftDsTdBKpIl1QeHxuvg=",
+        "lastModified": 1694063202,
+        "narHash": "sha256-S4kPVNef7UjyTlA+yJMu37J1qeWGclwV7aGvTzLgh8E=",
         "owner": "isovector",
         "repo": "cornelis",
-        "rev": "59cfd2b6686ab0745d3af16b43a82ccf402f9e50",
+        "rev": "6e8dd2950d978133169fcc2e83e4be3f6f2d9c7c",
         "type": "github"
       },
       "original": {
@@ -154,11 +154,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693972774,
-        "narHash": "sha256-Dt9UZs0/DaIex598quYRYFuGabUbvFdNrHuvGc6HjBc=",
+        "lastModified": 1694134858,
+        "narHash": "sha256-fG/ESauOGmiojKlpJG8gB62dJa5Wd+ZIuiDMKK/HD3g=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b22d7bab30076bbb73744867d6c5bf7d6380570c",
+        "rev": "19c6a4081b14443420358262f8416149bd79561a",
         "type": "github"
       },
       "original": {
@@ -169,11 +169,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1694026411,
-        "narHash": "sha256-HvuNxfL36teuAU0kwvyMWqRTl1D0MWe7HUW9xfSUP8c=",
+        "lastModified": 1694302839,
+        "narHash": "sha256-/cS4CqW6K6w25mewgoSHOSnlN79sZqXzi/Ap9AE6fuA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1d6e2dbb308325686a15055924f8a7da87470d2a",
+        "rev": "2b1eb11946cd47f4d7a5e248a091852b0fbb5fda",
         "type": "github"
       },
       "original": {
@@ -185,11 +185,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1693953029,
-        "narHash": "sha256-1+28KQl4YC4IBzKo/epvEyK5KH4MlgoYueJ8YwLGbOc=",
+        "lastModified": 1694285939,
+        "narHash": "sha256-qbyrbj+3iR6NHp4UQuk3bVpESG4Ffj+zWAg0gUa0314=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4077a0e4ac3356222bc1f0a070af7939c3098535",
+        "rev": "2f9806c9aa9dd9fee681965aabdab0d28923e63a",
         "type": "github"
       },
       "original": {
