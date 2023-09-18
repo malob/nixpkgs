@@ -62,8 +62,7 @@ in
     "Things 3" = 904280696;
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
-    # Re-enable when Xcode updates to version 15 in AppStore.
-    # Xcode = 497799835;
+    Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
   };
 
