@@ -188,7 +188,16 @@
             ];
             nix.registry.my.flake = inputs.self;
           };
-          extraModules = singleton { nix.linux-builder.enable = true; };
+          extraModules = singleton {
+            nix.linux-builder.enable = true;
+            nix.linux-builder.maxJobs = 8;
+            nix.linux-builder.modules = [
+              ({
+                virtualisation.darwin-builder.memorySize = 16 * 1024;
+                virtualisation.cores = 8;
+              })
+            ];
+          };
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
         });
