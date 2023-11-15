@@ -94,6 +94,7 @@ in
     "obsbot-me-tool"
     "obsbot-webcam"
     "parallels"
+    "pdf-expert"
     "postman"
     "protonvpn"
     "raindropio"
