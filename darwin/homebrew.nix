@@ -43,21 +43,22 @@ in
   # Prefer installing application from the Mac App Store
   homebrew.masApps = {
     "1Password for Safari" = 1569813296;
-    "Accelerate for Safari" = 1459809092;
+    Cardhop = 1290358394;
     DaisyDisk = 411643860;
-    "Dark Mode for Safari" = 1397180934;
     Deliveries = 290986013;
     Fantastical = 975937182;
     Flighty = 1358823008;
+    "Kagi Search" = 1622835804;
     Keynote = 409183694;
     "Notion Web Clipper" = 1559269364;
     Numbers = 409203825;
     Pages = 409201541;
     Patterns = 429449079;
     "Pixelmator Pro" = 1289583905;
-    "Save to Raindrop.io" = 1549370672;
+    "Playgrounds" = 1496833156;
+    "Prime Video" = 545519333;
+    SiteSucker = 442168834;
     Slack = 803453959;
-    "Swift Playgrounds" = 1496833156;
     "Tailscale" = 1475387142;
     "Things 3" = 904280696;
     Vimari = 1480933944;
@@ -91,13 +92,11 @@ in
     "multiviewer-for-f1"
     "notion"
     "nvidia-geforce-now"
-    "obsbot-me-tool"
-    "obsbot-webcam"
+    "obsbot-center"
     "parallels"
     "pdf-expert"
     "postman"
     "protonvpn"
-    "raindropio"
     "raycast"
     "signal"
     "skype"
@@ -111,7 +110,6 @@ in
     "vlc"
     "whisky"
     "yubico-yubikey-manager"
-    "yubico-yubikey-personalization-gui"
   ];
 
   # Configuration related to casks
