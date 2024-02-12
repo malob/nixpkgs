@@ -110,6 +110,7 @@ in
     "vlc"
     "whisky"
     "yubico-yubikey-manager"
+    "zed"
   ];
 
   # Configuration related to casks
