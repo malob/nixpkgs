@@ -103,6 +103,7 @@ in
     "sloth"
     "steam"
     "superhuman"
+    "superlist"
     "tor-browser"
     "transmission"
     "transmit"
