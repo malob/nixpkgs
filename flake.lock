@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "_1password-shell-plugins": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1710945547,
+        "narHash": "sha256-m9+doZOQdXwgDPurqoSpDcIpgo4P0jxCgTWiEcOPQPk=",
+        "owner": "1Password",
+        "repo": "shell-plugins",
+        "rev": "f8bafa1d6dfa2763c621a30ea5e140672f4bafa9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "1Password",
+        "repo": "shell-plugins",
+        "type": "github"
+      }
+    },
     "cornelis": {
       "inputs": {
         "flake-compat": [
@@ -217,6 +240,7 @@
     },
     "root": {
       "inputs": {
+        "_1password-shell-plugins": "_1password-shell-plugins",
         "cornelis": "cornelis",
         "darwin": "darwin",
         "flake-compat": "flake-compat",

@@ -12,6 +12,9 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    _1password-shell-plugins.url = "github:1Password/shell-plugins";
+    _1password-shell-plugins.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    _1password-shell-plugins.inputs.flake-utils.follows = "flake-utils";
 
     # Flake utilities
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
@@ -161,6 +164,9 @@
           options.home.user-info =
             (self.darwinModules.users-primaryUser { inherit lib; }).options.users.primaryUser;
         };
+
+        # Other
+        _1password-shell-plugins = inputs._1password-shell-plugins.hmModules.default;
       };
       # }}}
 

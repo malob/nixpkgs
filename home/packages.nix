@@ -1,6 +1,26 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+
+let inherit (lib) mkIf elem; in
 
 {
+  # 1Password CLI plugin integration
+  # https://developer.1password.com/docs/cli/shell-plugins/nix
+  programs._1password-shell-plugins.enable = true;
+  programs._1password-shell-plugins.plugins = lib.attrValues ({
+    inherit (pkgs)
+      gh
+      cachix
+      ;
+  });
+  home.shellAliases = {
+    # Custom 1Password CLI plugin
+    nixpkgs-review = mkIf
+      (elem pkgs.nixpkgs-review config.home.packages) "op run -- nixpkgs-review";
+  };
+  home.sessionVariables = {
+    GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
+  };
+
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable
@@ -54,7 +74,7 @@
       upterm # secure terminal sharing
       wget
       xz # extract XZ archives
-    ;
+      ;
 
     # Dev stuff
     inherit (pkgs)
@@ -67,33 +87,32 @@
       s3cmd
       stack
       typescript
-    ;
+      ;
     inherit (pkgs.haskellPackages)
       cabal-install
       hoogle
       hpack
       implicit-hie
-    ;
+      ;
     agda = pkgs.agda.withPackages (ps: [ ps.standard-library ]);
 
     # Useful nix related tools
     inherit (pkgs)
       cachix # adding/managing alternative binary caches hosted by Cachix
       comma # run software from without installing it
-      # niv # easy dependency management for nix projects
       nix-output-monitor # get additional information while building packages
       nix-tree # interactively browse dependency graphs of Nix derivations
       nix-update # swiss-knife for updating nix packages
       nixpkgs-review # review pull-requests on nixpkgs
       node2nix # generate Nix expressions to build NPM packages
       statix # lints and suggestions for the Nix programming language
-    ;
+      ;
 
   } // lib.optionalAttrs pkgs.stdenv.isDarwin {
     inherit (pkgs)
       cocoapods
       m-cli # useful macOS CLI commands
       prefmanager # tool for working with macOS defaults
-    ;
+      ;
   });
 }
