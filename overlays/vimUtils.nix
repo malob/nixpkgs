@@ -2,7 +2,7 @@ final: prev:
 
 let
   buildVimPluginFromFlakeInput = inputs: name:
-    prev.vimUtils.buildVimPluginFrom2Nix {
+    prev.vimUtils.buildVimPlugin {
       pname = name;
       version = inputs.${name}.lastModifiedDate;
       src = inputs.${name};
