@@ -12,7 +12,6 @@ require'gitsigns'.setup {
     changedelete = { hl = 'ChangeDeleteText' , text = '≃' , numhl='' },
   },
   numhl = false,
-  keymaps = {},
   watch_gitdir = {
     interval = 1000
   },

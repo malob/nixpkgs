@@ -145,9 +145,10 @@ in
         require'lsp_lines'.setup()
         vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
     }
+    { use = haskell-tools-nvim; }
     {
       use = nvim-lspconfig;
-      deps = [ haskell-tools-nvim neodev-nvim telescope-nvim ];
+      deps = [ neodev-nvim telescope-nvim ];
       config = requireConf nvim-lspconfig;
     }
 
