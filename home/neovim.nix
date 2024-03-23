@@ -92,7 +92,7 @@ in
   # configuration don't require rebuilding the `home-manager` environment to take effect.
   xdg.configFile."nvim/lua".source = mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/lua";
   xdg.configFile."nvim/colors".source =
-  mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
+    mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
 
   # Load the `init` module from the above configs
   programs.neovim.extraConfig = "lua require('init')";
@@ -131,7 +131,12 @@ in
 
     # Completions
     { use = copilot-vim; }
-    { use = coq_nvim; opt = true; deps = [ coq-artifacts coq-thirdparty ]; config = requireConf coq_nvim; }
+    {
+      use = coq_nvim;
+      opt = true;
+      deps = [ coq-artifacts coq-thirdparty ];
+      config = requireConf coq_nvim;
+    }
 
     # Language servers, linters, etc.
     {
@@ -140,7 +145,6 @@ in
         require'lsp_lines'.setup()
         vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
     }
-    { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
     {
       use = nvim-lspconfig;
       deps = [ haskell-tools-nvim neodev-nvim telescope-nvim ];

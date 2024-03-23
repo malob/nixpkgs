@@ -4,8 +4,16 @@
 --
 -- Note that all languag e servers aside from `sumneko_lua` are installed via Nix. See:
 -- `../../../../home/neovim.nix`.
+local s = require'malo.utils'.symbols
 local foreach = require 'pl.tablex'.foreach
 local augroup = require 'malo.utils'.augroup
+
+-- Configure diagnostic icons
+local signs = { Error = s.error, Warn = s.warning, Hint = s.question, Info = s.info }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 -- Configures `sumneko_lua` properly for Neovim config editing when it makes sense.
 require 'neodev'.setup {

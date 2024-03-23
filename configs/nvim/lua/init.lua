@@ -215,13 +215,13 @@ wk.register ({
   -- Language server
   l = {
     name = '+LSP',
-    h = { '<Cmd>Lspsaga hover_doc<CR>'    , 'Hover'                   },
+    h = { vim.lsp.buf.hover               , 'Hover'                   },
     d = { vim.lsp.buf.definition          , 'Jump to definition'      },
     D = { vim.lsp.buf.declaration         , 'Jump to declaration'     },
-    ca = { '<Cmd>Lspsaga code_action<CR>' , 'Code action'             },
+    ca = { vim.lsp.buf.code_action        , 'Code action'             },
     cl = { vim.lsp.codelens.run           , 'Code lens'               },
     f = { vim.lsp.buf.format              , 'Format'                  },
-    r = { '<Cmd>Lspsaga rename<CR>'       , 'Rename'                  },
+    r = { vim.lsp.buf.rename              , 'Rename'                  },
     t = { vim.lsp.buf.type_definition     , 'Jump to type definition' },
     n = { function() vim.diagnostic.goto_next({float = false}) end, 'Jump to next diagnostic' },
     N = { function() vim.diagnostic.goto_prev({float = false}) end, 'Jump to next diagnostic' },
@@ -274,6 +274,6 @@ wk.register ({
 wk.register ({
   l = {
     name = '+LSP',
-    a = { ':<C-U>Lspsaga range_code_action<CR>' , 'Code action (range)' , mode = 'v' },
+    a = { vim.lsp.buf.range_code_action , 'Code action (range)' , mode = 'v' },
   },
 }, { prefix = ' ' })
