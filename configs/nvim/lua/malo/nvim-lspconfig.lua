@@ -28,7 +28,6 @@ require 'neodev'.setup {
 }
 
 local lspconf = require 'lspconfig'
-local coq = require 'coq'
 require('telescope').load_extension('ht')
 
 local function on_attach(client, bufnr)
@@ -49,7 +48,7 @@ local function on_attach(client, bufnr)
 end
 
 vim.g.haskell_tools = {
-  hls = coq.lsp_ensure_capabilities {
+  hls = require'cmp_nvim_lsp'.default_capabilities {
     on_attach = on_attach,
     settings = {
       haskell = {
@@ -136,7 +135,7 @@ local servers_config = {
 }
 
 foreach(servers_config, function(v, k)
-  lspconf[k].setup(coq.lsp_ensure_capabilities(
+  lspconf[k].setup(require'cmp_nvim_lsp'.default_capabilities(
    vim.tbl_extend('error', v, { on_attach = on_attach })
   ))
 end)

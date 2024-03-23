@@ -132,10 +132,14 @@ in
     # Completions
     { use = copilot-vim; }
     {
-      use = coq_nvim;
-      opt = true;
-      deps = [ coq-artifacts coq-thirdparty ];
-      config = requireConf coq_nvim;
+      use = nvim-cmp;
+      deps = [
+        cmp-async-path
+        cmp-buffer
+        cmp-nvim-lsp
+        cmp-nvim-lsp-signature-help
+      ];
+      config = requireConf nvim-cmp;
     }
 
     # Language servers, linters, etc.
