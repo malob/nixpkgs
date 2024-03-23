@@ -130,7 +130,15 @@ in
     { use = zoomwintab-vim; opt = true; }
 
     # Completions
-    { use = copilot-vim; }
+    {
+      use = copilot-lua;
+      config = ''
+        require'copilot'.setup {
+          suggestion = { enabled = false },
+          panel = { enabled = false },
+        }
+      '';
+    }
     {
       use = nvim-cmp;
       deps = [
@@ -138,6 +146,11 @@ in
         cmp-buffer
         cmp-nvim-lsp
         cmp-nvim-lsp-signature-help
+        copilot-cmp
+        lspkind-nvim
+
+        luasnip
+        cmp_luasnip
       ];
       config = requireConf nvim-cmp;
     }
