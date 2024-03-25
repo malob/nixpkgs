@@ -29,4 +29,9 @@
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
+
+  # Garbage collection
+  nix.gc.automatic = true;
+  nix.gc.interval.Hour = 24;
+  nix.gc.options = "--delete-older-than 15d";
 }
