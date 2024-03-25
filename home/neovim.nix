@@ -115,6 +115,11 @@ in
     { use = lush-nvim; vscode = true; }
     { use = no-neck-pain-nvim; config = requireConf no-neck-pain-nvim; }
     {
+      use = noice-nvim;
+      deps = [ nui-nvim nvim-notify ];
+      config = requireConf noice-nvim;
+    }
+    {
       use = telescope-nvim;
       config = requireConf telescope-nvim;
       deps = [
