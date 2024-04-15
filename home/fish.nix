@@ -124,6 +124,23 @@ in
     tb = "toggle-background";
   };
 
+  programs.fish.shellAbbrs = {
+    nixpkgs-review-pr = {
+      expansion = ''
+        echo -n x86_64-darwin aarch64-{darwin,linux} | \
+          parallel -u -d ' ' -q fish -i -c 'nixpkgs-review pr --post-result --system {} %'
+      '';
+      setCursor = true;
+    };
+    nix-build-all-systems = {
+      expansion = ''
+        echo -n x86_64-darwin aarch64-{darwin,linux} | \
+          parallel -u -d ' ' nix build -L -f . --system {} %
+      '';
+      setCursor = true;
+   };
+  };
+
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
   programs.fish.shellInit = ''
     set -U fish_term24bit 1

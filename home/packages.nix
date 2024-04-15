@@ -13,7 +13,7 @@ let inherit (lib) mkIf elem; in
       ;
   });
   home.shellAliases = {
-    # Custom 1Password CLI plugin
+    # Run `nixpkgs-review` in 1Password env to get `GITHUB_TOKEN` envvar.
     nixpkgs-review = mkIf
       (elem pkgs.nixpkgs-review config.home.packages) "op run -- nixpkgs-review";
   };
