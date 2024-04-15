@@ -75,6 +75,7 @@ in
     "balenaetcher"
     "clay"
     "cleanmymac"
+    "cursor"
     "element"
     "etrecheckpro"
     "discord"
