@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   # Networking
@@ -30,18 +30,10 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
-  # Garbage collection
+  # Store management
   nix.gc.automatic = true;
   nix.gc.interval.Hour = 3;
   nix.gc.options = "--delete-older-than 15d";
-
-  # Automate optimizing the store
-  # Not using `nix.settings.auto-optimise-store` since it causes issues
-  # https://github.com/NixOS/nix/issues/7273
-  launchd.daemons.nix-optimise-store = {
-    command = "${config.nix.package}/bin/nix store optimise";
-    environment.NIX_REMOTE = lib.optionalString config.nix.useDaemon "daemon";
-    serviceConfig.RunAtLoad = false;
-    serviceConfig.StartCalendarInterval = [ { Hour = 4; } ];
-  };
+  nix.optimise.automatic = true;
+  nix.optimise.interval.Hour = 4;
 }
