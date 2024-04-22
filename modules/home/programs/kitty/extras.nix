@@ -160,7 +160,7 @@ in
         # Codicons
         "U+EA60-U+EBEB"
         # Heavy Angle Brackets
-        "U+E276C-U+2771"
+        "U+276C-U+2771"
         # Box Drawing
         "U+2500-U+259F"
       ] + " ${cfg.useSymbolsFromNerdFont}";
