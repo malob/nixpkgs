@@ -21,16 +21,16 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup Cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v14
       with:
         name: malo
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
@@ -67,16 +67,16 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v22
+      uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup Cachix
-      uses: cachix/cachix-action@v12
+      uses: cachix/cachix-action@v14
       with:
         name: malo
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
