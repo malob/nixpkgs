@@ -80,6 +80,7 @@ jobs:
       with:
         name: malo
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+        useDaemon: false
 
     - name: Build and switch to home-manager env
       run: |
