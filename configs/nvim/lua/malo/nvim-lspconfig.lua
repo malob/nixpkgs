@@ -69,6 +69,13 @@ vim.g.haskell_tools = {
 local servers_config = {
   bashls = {},
   ccls = {},
+
+  denols = {
+    setup = {
+      root_dir = lspconf.util.root_pattern("deno.json", "deno.jsonc"),
+    },
+  },
+
   jsonls = {},
 
   lua_ls = {
@@ -99,7 +106,13 @@ local servers_config = {
 
   pyright = {},
   sourcekit = {},
-  tsserver = {},
+
+  tsserver = {
+    setup = {
+      root_dir = lspconf.util.root_pattern("package.json"),
+      single_file_support = false,
+    },
+  },
 
   vimls = {
     init_options = {
