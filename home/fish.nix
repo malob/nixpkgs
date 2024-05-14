@@ -139,10 +139,22 @@ in
       '';
       setCursor = true;
     };
-    sysx86d = "--system x86_64-darwin";
-    sysx86l = "--system x86_64-linux";
-    sysarmd = "--system aarch64-darwin";
-    sysarml = "--system aarch64-linux";
+    sysx86d = {
+      expansion = "--system x86_64-darwin";
+      position = "anywhere";
+    };
+    sysx86l = {
+      expansion = "--system x86_64-linux";
+      position = "anywhere";
+    };
+    sysarmd = {
+      expansion = "--system aarch64-darwin";
+      position = "anywhere";
+    };
+    sysarml = {
+      expansion = "--system aarch64-linux";
+      position = "anywhere";
+    };
   };
 
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
