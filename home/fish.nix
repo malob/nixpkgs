@@ -138,7 +138,11 @@ in
           parallel -u -d ' ' nix build -L -f . --system {} %
       '';
       setCursor = true;
-   };
+    };
+    sysx86d = "--system x86_64-darwin";
+    sysx86l = "--system x86_64-linux";
+    sysarmd = "--system aarch64-darwin";
+    sysarml = "--system aarch64-linux";
   };
 
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
