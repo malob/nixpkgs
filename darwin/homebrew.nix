@@ -73,6 +73,7 @@ in
     "anki"
     "arq"
     "balenaetcher"
+    "chatgpt"
     "clay"
     "cleanmymac"
     "cursor"
