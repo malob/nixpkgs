@@ -11,7 +11,8 @@ local function highlight(color)
 end
 
 ---@diagnostic disable: undefined-global
-return require'lush'(function()
+return require'lush'(function(injected_functions)
+  local sym = injected_functions.sym
   return {
     -- Building Blocks ------------------------------------------------------------------------- {{{
 
@@ -96,7 +97,7 @@ return require'lush'(function()
 
     -- Any constant
     Constant { CyanFg },
-    -- String    { }, -- a string constant: "this is a string"
+    String   { Constant }, -- a string constant: "this is a string"
     -- Character { }, -- a character constant: 'c', '\n'
     -- Number    { }, -- a number constant: 234, 0xff
     -- Boolean   { }, -- a boolean constant: TRUE, false
@@ -104,7 +105,8 @@ return require'lush'(function()
 
     -- Any variable name
     Identifier { BlueFg },
-    -- Function { }, -- function name (also: methods for classes)
+    Function   { Identifier }, -- function name (also: methods for classes)
+    sym"@variable" { Identifier },
 
     -- Any statement
     Statement { GreenFg, gui = 'bold,italic' },
@@ -132,7 +134,7 @@ return require'lush'(function()
     Special { RedFg },
     -- SpecialChar    { }, -- special character in a constant
     -- Tag            { }, -- you can use CTRL-] on this
-    -- Delimiter      { }, -- character that needs attention
+    Delimiter      { Special }, -- character that needs attention
     -- SpecialComment { }, -- special things inside a comment
     -- Debug          { }, -- debugging statements
 
