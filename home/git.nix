@@ -12,6 +12,7 @@
   };
 
   programs.git.ignores = [
+    "*~"
     ".DS_Store"
   ];
 
