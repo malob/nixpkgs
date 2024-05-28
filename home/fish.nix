@@ -139,6 +139,10 @@ in
       '';
       setCursor = true;
     };
+    nix-rm-results = ''
+      ${pkgs.fd}/bin/fd --hidden --no-ignore --type l '^result-?' --exclude 'Library/**' \
+        --exec rm '{}'
+    '';
     sysx86d = {
       expansion = "--system x86_64-darwin";
       position = "anywhere";
