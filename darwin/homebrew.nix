@@ -31,9 +31,6 @@ in
 
   homebrew.taps = [
     "homebrew/cask"
-    "homebrew/cask-drivers"
-    "homebrew/cask-fonts"
-    "homebrew/cask-versions"
     "homebrew/core"
     "homebrew/services"
     "nrlquaker/createzap"
@@ -62,7 +59,7 @@ in
     "Things 3" = 904280696;
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
-    Xcode = 497799835;
+    # Xcode = 497799835; disabled until macOS 15 officially launches
     "Yubico Authenticator" = 1497506650;
   };
 

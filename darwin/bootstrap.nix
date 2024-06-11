@@ -30,7 +30,8 @@
     keep-outputs = true;
   };
 
-  nix.configureBuildUsers = true;
+  # https://github.com/LnL7/nix-darwin/issues/970
+  # nix.configureBuildUsers = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

@@ -3,8 +3,8 @@
 {
   # Networking
   networking.dns = [
-    "1.1.1.1"
-    "8.8.8.8"
+    "1.1.1.1" # Cloudflare
+    "8.8.8.8" # Google
   ];
 
   # Apps
