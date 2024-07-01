@@ -23,22 +23,21 @@ let inherit (lib) mkIf elem; in
 
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable
+  # https://nix-community.github.io/home-manager/options.html#opt-programs.bat.enable
   programs.bat.enable = true;
   programs.bat.config = {
     style = "plain";
   };
 
+  # Btop, a fancy version of `top`.
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.btop.enable
+  programs.btop.enable = true;
+
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
+  # https://nix-community.github.io/home-manager/options.html#opt-programs.direnv.enable
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-
-  # Htop
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
-  programs.htop.enable = true;
-  programs.htop.settings.show_program_path = true;
 
   # SSH
   # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
@@ -48,7 +47,7 @@ let inherit (lib) mkIf elem; in
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
+  # https://nix-community.github.io/home-manager/options.html#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
 
   # Zsh
@@ -69,7 +68,6 @@ let inherit (lib) mkIf elem; in
       du-dust # fancy version of `du`
       eza # fancy version of `ls`
       fd # fancy version of `find`
-      htop # fancy version of `top`
       hyperfine # benchmarking tool
       mosh # wrapper for `ssh` that better and not dropping connections
       parallel # runs commands in parallel
