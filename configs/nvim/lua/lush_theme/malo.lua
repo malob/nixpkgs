@@ -519,6 +519,12 @@ return require'lush'(function(injected_functions)
     GitGutterDeleteLineNr       { DeleteText },
     GitGutterChangeDeleteLineNr { ChangeDeleteText },
 
+    -- gitsigns.nvim -------------------------------------------------------------------------------
+
+    GitSignAdd       { AddText },
+    GitSignChange    { ChangeText },
+    GitSignDelete    { DeleteText },
+    GitSignTopDelete { DeleteText },
 
     -- vim-which-key -------------------------------------------------------------------------------
     -- https://github.com/liuchengxu/vim-which-key

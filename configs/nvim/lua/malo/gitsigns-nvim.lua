@@ -5,11 +5,11 @@ vim.cmd 'packadd gitsigns.nvim'
 
 require'gitsigns'.setup {
   signs = {
-    add          = { hl = 'AddText'          , text = '┃' , numhl='' },
-    change       = { hl = 'ChangeText'       , text = '┃' , numhl='' },
-    delete       = { hl = 'DeleteText'       , text = '_' , numhl='' },
-    topdelete    = { hl = 'DeleteText'       , text = '‾' , numhl='' },
-    changedelete = { hl = 'ChangeDeleteText' , text = '≃' , numhl='' },
+    add          = { text = '┃' },
+    change       = { text = '┃' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '≃' },
   },
   numhl = false,
   watch_gitdir = {
