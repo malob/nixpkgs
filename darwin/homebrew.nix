@@ -82,7 +82,7 @@ in
     "google-drive"
     "gpg-suite"
     "hammerspoon"
-    "keybase"
+    # "keybase"
     "ledger-live"
     "loopback"
     "mimestream"
