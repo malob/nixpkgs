@@ -1,34 +1,49 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkIf mkOption optionalString types;
+  inherit (lib)
+    mkIf
+    mkOption
+    optionalString
+    types
+    ;
 
   cfg = config.programs.neovim.extras;
   nvr = "${pkgs.neovim-remote}/bin/nvr";
 
-  shellConfig = with cfg.nvrAliases; ''
-    # START programs.neovim.extras config ----------------------------------------------------------
+  shellConfig =
+    with cfg.nvrAliases;
+    ''
+      # START programs.neovim.extras config ----------------------------------------------------------
 
-  '' + optionalString cfg.termBufferAutoChangeDir ''
-    # If shell is running in a Neovim terminal buffer, set the PWD of the buffer to `$PWD`.
-    if test -n "$NVIM"; nvim-sync-term-buffer-pwd; end
+    ''
+    + optionalString cfg.termBufferAutoChangeDir ''
+      # If shell is running in a Neovim terminal buffer, set the PWD of the buffer to `$PWD`.
+      if test -n "$NVIM"; nvim-sync-term-buffer-pwd; end
 
-  '' + optionalString cfg.nvrAliases.enable ''
-    # Neovim Remote aliases
-    if test -n "$NVIM"
-      alias ${edit} "${nvr}"
-      alias ${split} "${nvr} -o"
-      alias ${vsplit} "${nvr} -O"
-      alias ${tabedit} "${nvr} --remote-tab"
-      alias ${nvim} "command nvim"
-      alias nvim "echo 'This shell is running in a Neovim termainal buffer. Use \'${nvim}\' to a nested instance of Neovim, otherwise use ${edit}, ${split}, ${vsplit}, or ${tabedit} to open files in the this Neovim instance.'"
-    else
-      alias ${edit} "nvim"
-    end
+    ''
+    + optionalString cfg.nvrAliases.enable ''
+      # Neovim Remote aliases
+      if test -n "$NVIM"
+        alias ${edit} "${nvr}"
+        alias ${split} "${nvr} -o"
+        alias ${vsplit} "${nvr} -O"
+        alias ${tabedit} "${nvr} --remote-tab"
+        alias ${nvim} "command nvim"
+        alias nvim "echo 'This shell is running in a Neovim termainal buffer. Use \'${nvim}\' to a nested instance of Neovim, otherwise use ${edit}, ${split}, ${vsplit}, or ${tabedit} to open files in the this Neovim instance.'"
+      else
+        alias ${edit} "nvim"
+      end
 
-  '' + ''
-    # END programs.neovim.extras config ------------------------------------------------------------
-  '';
+    ''
+    + ''
+      # END programs.neovim.extras config ------------------------------------------------------------
+    '';
 in
 {
   options.programs.neovim.extras = {
@@ -169,7 +184,8 @@ in
         augroup END
 
         " END programs.neovim.extras.termBufferAutoChangeDir config --------------------------------
-      '' + optionalString cfg.defaultEditor ''
+      ''
+      + optionalString cfg.defaultEditor ''
         " START programs.neovim.extras.defaultEditor config ----------------------------------------
 
         let $EDITOR = '${nvr} -cc split -c "set bufhidden=delete" --remote-wait'
@@ -179,7 +195,8 @@ in
       ''
     );
 
-    programs.fish.interactiveShellInit =
-    	mkIf (cfg.termBufferAutoChangeDir || cfg.nvrAliases.enable) shellConfig;
+    programs.fish.interactiveShellInit = mkIf (
+      cfg.termBufferAutoChangeDir || cfg.nvrAliases.enable
+    ) shellConfig;
   };
 }

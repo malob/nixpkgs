@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) elem optionalString;
@@ -44,55 +49,59 @@ in
 
     # Sets Fish Shell to light or dark colorscheme based on `$term_background`.
     set-shell-colors = {
-      body = ''
-        # Set LS_COLORS
-        set -xg LS_COLORS (${pkgs.vivid}/bin/vivid generate solarized-$term_background)
+      body =
+        ''
+          # Set LS_COLORS
+          set -xg LS_COLORS (${pkgs.vivid}/bin/vivid generate solarized-$term_background)
 
-        # Set color variables
-        if test "$term_background" = light
-          set emphasized_text  brgreen  # base01
-          set normal_text      bryellow # base00
-          set secondary_text   brcyan   # base1
-          set background_light white    # base2
-          set background       brwhite  # base3
-        else
-          set emphasized_text  brcyan   # base1
-          set normal_text      brblue   # base0
-          set secondary_text   brgreen  # base01
-          set background_light black    # base02
-          set background       brblack  # base03
-        end
+          # Set color variables
+          if test "$term_background" = light
+            set emphasized_text  brgreen  # base01
+            set normal_text      bryellow # base00
+            set secondary_text   brcyan   # base1
+            set background_light white    # base2
+            set background       brwhite  # base3
+          else
+            set emphasized_text  brcyan   # base1
+            set normal_text      brblue   # base0
+            set secondary_text   brgreen  # base01
+            set background_light black    # base02
+            set background       brblack  # base03
+          end
 
-        # Set Fish colors that change when background changes
-        set -g fish_color_command                    $emphasized_text --bold  # color of commands
-        set -g fish_color_param                      $normal_text             # color of regular command parameters
-        set -g fish_color_comment                    $secondary_text          # color of comments
-        set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
-        set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
-        set -g fish_pager_color_description          $selection_text          # color of the completion description
-        set -g fish_pager_color_selected_prefix      $background
-        set -g fish_pager_color_selected_completion  $background
-        set -g fish_pager_color_selected_description $background
-      '' + optionalString config.programs.bat.enable ''
+          # Set Fish colors that change when background changes
+          set -g fish_color_command                    $emphasized_text --bold  # color of commands
+          set -g fish_color_param                      $normal_text             # color of regular command parameters
+          set -g fish_color_comment                    $secondary_text          # color of comments
+          set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
+          set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
+          set -g fish_pager_color_description          $selection_text          # color of the completion description
+          set -g fish_pager_color_selected_prefix      $background
+          set -g fish_pager_color_selected_completion  $background
+          set -g fish_pager_color_selected_description $background
+        ''
+        + optionalString config.programs.bat.enable ''
 
-        # Use correct theme for `bat`.
-        set -xg BAT_THEME "Solarized ($term_background)"
-      '' + optionalString (elem pkgs.bottom config.home.packages) ''
+          # Use correct theme for `bat`.
+          set -xg BAT_THEME "Solarized ($term_background)"
+        ''
+        + optionalString (elem pkgs.bottom config.home.packages) ''
 
-        # Use correct theme for `btm`.
-        if test "$term_background" = light
-          alias btm "btm --color default-light"
-        else
-          alias btm "btm --color default"
-        end
-      '' + optionalString config.programs.neovim.enable ''
+          # Use correct theme for `btm`.
+          if test "$term_background" = light
+            alias btm "btm --color default-light"
+          else
+            alias btm "btm --color default"
+          end
+        ''
+        + optionalString config.programs.neovim.enable ''
 
-      # Set `background` of all running Neovim instances.
-      for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
-        ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
-          -c "set background=$term_background" &
-      end
-      '';
+          # Set `background` of all running Neovim instances.
+          for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
+            ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
+              -c "set background=$term_background" &
+          end
+        '';
       onVariable = "term_background";
     };
   };

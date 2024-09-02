@@ -98,7 +98,8 @@
         url_color
         active_tab_background
         active_tab_foreground
-        inactive_tab_background;
+        inactive_tab_background
+        ;
 
       tab_bar_background = "base02";
       inactive_tab_foreground = "base1";

@@ -24,7 +24,6 @@
   programs.git.difftastic.enable = true;
   programs.git.difftastic.display = "inline";
 
-
   # GitHub CLI
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
   # Aliases config in ./gh-aliases.nix

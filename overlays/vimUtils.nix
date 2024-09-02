@@ -1,7 +1,8 @@
 final: prev:
 
 let
-  buildVimPluginFromFlakeInput = inputs: name:
+  buildVimPluginFromFlakeInput =
+    inputs: name:
     prev.vimUtils.buildVimPlugin {
       pname = name;
       version = inputs.${name}.lastModifiedDate;
@@ -14,7 +15,7 @@ in
     inherit buildVimPluginFromFlakeInput;
 
     # Vim Plugin helpers
-    buildVimPluginsFromFlakeInputs = inputs: names:
-      prev.lib.genAttrs names (buildVimPluginFromFlakeInput inputs);
+    buildVimPluginsFromFlakeInputs =
+      inputs: names: prev.lib.genAttrs names (buildVimPluginFromFlakeInput inputs);
   };
 }

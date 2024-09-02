@@ -113,15 +113,16 @@ in
 
   # Configuration related to casks
   home-manager.users.${config.users.primaryUser.username} =
-    mkIf (caskPresent "1password" && config ? home-manager) {
-      programs.ssh.enable = true;
-      programs.ssh.extraConfig = ''
-        # Only set `IdentityAgent` not connected remotely via SSH.
-        # This allows using agent forwarding when connecting remotely.
-        Match host * exec "test -z $SSH_TTY"
-          IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-      '';
-    };
+    mkIf (caskPresent "1password" && config ? home-manager)
+      {
+        programs.ssh.enable = true;
+        programs.ssh.extraConfig = ''
+          # Only set `IdentityAgent` not connected remotely via SSH.
+          # This allows using agent forwarding when connecting remotely.
+          Match host * exec "test -z $SSH_TTY"
+            IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+        '';
+      };
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.

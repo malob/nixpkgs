@@ -1,7 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (config.xdg) cacheHome configHome dataHome stateHome;
+  inherit (config.xdg)
+    cacheHome
+    configHome
+    dataHome
+    stateHome
+    ;
 in
 
 {
@@ -42,7 +47,7 @@ in
 
   # Non-project-specific Stack config
   # https://docs.haskellstack.org/en/stable/yaml_configuration/#non-project-specific-config
-  xdg.configFile."stack/config.yaml".text = lib.generators.toYAML {} {
+  xdg.configFile."stack/config.yaml".text = lib.generators.toYAML { } {
     templates = {
       scm-init = "git";
       params = {
