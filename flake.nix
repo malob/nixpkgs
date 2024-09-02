@@ -20,12 +20,6 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
 
-    # Agda mode for Neovim
-    cornelis.url = "github:isovector/cornelis";
-    cornelis.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    cornelis.inputs.flake-compat.follows = "flake-compat";
-    cornelis.inputs.flake-utils.follows = "flake-utils";
-
     # Utility for watching macOS `defaults`.
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -44,7 +38,6 @@
           allowUnfree = true;
         };
         overlays = attrValues self.overlays ++ [
-          inputs.cornelis.overlays.cornelis
           inputs.prefmanager.overlays.prefmanager
         ] ++ singleton (
           final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
@@ -118,7 +111,6 @@
                 # Add flake input names here for a Vim plugin repos
               ] // {
                 # Other Vim plugins
-                inherit (inputs.cornelis.packages.${prev.stdenv.system}) cornelis-vim;
               }
             );
           };
