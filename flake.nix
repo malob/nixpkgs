@@ -255,9 +255,15 @@
       # e.g., `nix develop my#python`.
       devShells = let pkgs = self.legacyPackages.${system}; in
         {
+          default = pkgs.mkShell {
+            name = "default";
+            buildInputs = attrValues {
+              inherit (pkgs) nixd;
+            };
+          };
           python = pkgs.mkShell {
             name = "python310";
-            inputsFrom = attrValues {
+            buildInputs = attrValues {
               inherit (pkgs.pkgs-master.python310Packages) black isort;
               inherit (pkgs) poetry python310 pyright;
             };
