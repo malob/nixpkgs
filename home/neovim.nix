@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 # Let-In ----------------------------------------------------------------------------------------{{{
 let
-  inherit (lib) concatStringsSep optional;
+  inherit (lib) attrValues concatStringsSep optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
 
@@ -217,32 +217,33 @@ in
 
   # Required packages -------------------------------------------------------------------------- {{{
 
-  programs.neovim.extraPackages = with pkgs; [
-    neovim-remote
+  programs.neovim.extraPackages = attrValues {
+    inherit (pkgs)
+      neovim-remote
 
-    # Language servers, linters, etc.
-    # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
+      # Language servers, linters, etc.
+      # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
 
-    # Bash
-    nodePackages.bash-language-server
+      # Bash
+      bash-language-server
 
-    # Javascript/Typescript
-    nodePackages.typescript-language-server
+      # Javascript/Typescript
+      typescript-language-server
 
-    # Nix
-    nil
-    nixpkgs-fmt
+      # Nix
+      nil
+      nixpkgs-fmt
 
-    # Vim
-    nodePackages.vim-language-server
+      # Vim
+      vim-language-server
 
-    #Other
-    (agda.withPackages (p: [ p.standard-library ]))
-    cornelis
-    nodePackages.yaml-language-server
-    sumneko-lua-language-server
-    vscode-langservers-extracted
-  ];
+      #Other
+      cornelis
+      yaml-language-server
+      sumneko-lua-language-server
+      vscode-langservers-extracted
+      ;
+  };
   # }}}
 }
 # vim: foldmethod=marker
