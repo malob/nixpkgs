@@ -1,8 +1,5 @@
-pkgs/ruby-gems/vendor
-pkgs/ruby-gems/.bundle
-pkgs/python-packages/requirements_frozen.txt
-
-private.nix
-private.nix
-
 result
+result-*
+
+.direnv
+.envrc
