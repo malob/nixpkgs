@@ -70,6 +70,7 @@ in
     "anki"
     "arq"
     "balenaetcher"
+    "betterdisplay"
     "chatgpt"
     "clay"
     "cleanmymac"
