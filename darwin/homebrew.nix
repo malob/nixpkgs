@@ -41,7 +41,6 @@ in
     "1Password for Safari" = 1569813296;
     Cardhop = 1290358394;
     DaisyDisk = 411643860;
-    Deliveries = 290986013;
     Fantastical = 975937182;
     Flighty = 1358823008;
     "Kagi Search" = 1622835804;
@@ -49,6 +48,7 @@ in
     "Notion Web Clipper" = 1559269364;
     Numbers = 409203825;
     Pages = 409201541;
+    Parcel = 639968404;
     Patterns = 429449079;
     "Pixelmator Pro" = 1289583905;
     "Playgrounds" = 1496833156;
