@@ -7,6 +7,9 @@
 
 let
   inherit (lib) attrValues mkIf elem;
+
+  mkOpRunAliases = cmds:
+    lib.genAttrs cmds (cmd: mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${cmd}");
 in
 
 {
@@ -16,13 +19,14 @@ in
   programs._1password-shell-plugins.plugins = attrValues {
     inherit (pkgs) gh cachix;
   };
-  home.shellAliases = {
-    # Run `nixpkgs-review` in 1Password env to get `GITHUB_TOKEN` envvar.
-    nixpkgs-review = mkIf (elem pkgs.nixpkgs-review config.home.packages) "op run -- nixpkgs-review";
-  };
+  # Setup tools to work with 1Password
   home.sessionVariables = {
     GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
   };
+  home.shellAliases = mkOpRunAliases [
+    "nix-update"
+    "nixpkgs-review"
+  ];
 
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
