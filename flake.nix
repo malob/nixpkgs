@@ -55,7 +55,7 @@
         singleton
         ;
 
-      homeStateVersion = "24.05";
+      homeStateVersion = "24.11";
 
       nixpkgsDefaults = {
         config = {
@@ -239,8 +239,8 @@
                 ephemeral = true;
                 maxJobs = 8;
                 config.virtualisation = {
-                  darwin-builder.memorySize = 16 * 1024;
                   cores = 8;
+                  darwin-builder.memorySize = 16 * 1024;
                 };
               };
             };

@@ -36,13 +36,9 @@
     # Recommended when using `direnv` etc.
     keep-derivations = true;
     keep-outputs = true;
-
-    # TODO: https://github.com/LnL7/nix-darwin/issues/970
-    build-users-group = lib.mkForce "";
   };
 
-  # TODO: https://github.com/LnL7/nix-darwin/issues/970
-  # nix.configureBuildUsers = true;
+  nix.configureBuildUsers = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
