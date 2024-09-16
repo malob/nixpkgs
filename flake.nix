@@ -257,6 +257,8 @@
             environment.etc.shells.enable = mkForce false;
             environment.etc."nix/nix.conf".enable = mkForce false;
             homebrew.enable = mkForce false;
+            # TODO: Remove when VM on GitHub updates to Sonoma
+            ids.uids.nixbld = 300;
           };
         };
       };
