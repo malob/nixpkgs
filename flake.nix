@@ -148,11 +148,6 @@
 
         tweaks = final: _: {
           # Add temporary overrides here
-
-          # TODO: Remove this once `nixpkgs` has updated to a version that includes
-          inherit (inputs.nixpkgs-master.legacyPackages.${final.stdenv.system})
-            kitty
-            ;
         };
       };
       # }}}
