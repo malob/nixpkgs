@@ -59,7 +59,7 @@ in
     "Things 3" = 904280696;
     Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
-    # Xcode = 497799835; disabled until macOS 15 officially launches
+    Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
   };
 
