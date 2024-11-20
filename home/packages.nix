@@ -107,7 +107,7 @@ in
         hpack
         implicit-hie
         ;
-      agda = pkgs.agda.withPackages (ps: [ ps.standard-library ]);
+      # agda = pkgs.agda.withPackages (ps: [ ps.standard-library ]);
 
       # Useful nix related tools
       inherit (pkgs)
