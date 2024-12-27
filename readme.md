@@ -26,9 +26,6 @@ In no particular order:
     * [`home-user-info`], that provides the same options as the my `nix-darwin` module `users-primaryUsers` above under `home.user-info`. See examples of it in use in [`home/git.nix`](./home/git.nix), [`home/neovim.nix`](./home/neovim.nix).
     * [`colors`](./modules/home/colors) which is a WIP module used to define colorschemes. See [`home/colors.nix`](./home/colors.nix), for an example of how to define a colorscheme.
     * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `programs.neovim.extras.{defaultEditor,nvrAliases,termBufferAutoChangeDir}` options.
-    * [`programs-kitty-extras`](./modules/home/programs/kitty/extras.nix) that provides a,
-      * `programs.kitty.extras.colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them; and a
-      * `programs.kitty.extras.useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
     * [`malo-git-aliases`](./home/git-aliases.nix)
     * [`malo-gh-aliases`](./home/gh-aliases.nix)
     * [`malo-startship-symbols`](./home/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.

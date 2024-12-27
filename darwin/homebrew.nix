@@ -81,6 +81,7 @@ in
     "element"
     "etrecheckpro"
     "firefox"
+    "ghostty"
     "github-copilot-for-xcode"
     "google-chrome"
     "google-drive"

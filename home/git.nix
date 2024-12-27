@@ -9,6 +9,7 @@
   programs.git.extraConfig = {
     diff.colorMoved = "default";
     pull.rebase = true;
+    push.autoSetupRemote = true;
   };
 
   programs.git.ignores = [

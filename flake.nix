@@ -173,7 +173,6 @@
         malo-git = import ./home/git.nix;
         malo-git-aliases = import ./home/git-aliases.nix;
         malo-gh-aliases = import ./home/gh-aliases.nix;
-        malo-kitty = import ./home/kitty.nix;
         malo-neovim = import ./home/neovim.nix;
         malo-packages = import ./home/packages.nix;
         malo-starship = import ./home/starship.nix;
@@ -182,7 +181,6 @@
         # Modules I've created
         colors = import ./modules/home/colors;
         programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
-        programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
         home-user-info =
           { lib, ... }:
           {
