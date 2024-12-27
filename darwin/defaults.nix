@@ -1,6 +1,7 @@
 {
   system.defaults.NSGlobalDomain = {
     "com.apple.trackpad.scaling" = 3.0;
+    AppleICUForce24HourTime = true;
     AppleInterfaceStyleSwitchesAutomatically = true;
     AppleMeasurementUnits = "Centimeters";
     AppleMetricUnits = 1;
@@ -11,6 +12,7 @@
     NSAutomaticCapitalizationEnabled = false;
     NSAutomaticDashSubstitutionEnabled = false;
     NSAutomaticPeriodSubstitutionEnabled = false;
+    NSAutomaticQuoteSubstitutionEnabled = true;
     _HIHideMenuBar = false;
   };
 
@@ -53,5 +55,7 @@
   # Finder
   system.defaults.finder = {
     FXEnableExtensionChangeWarning = true;
+    NewWindowTarget = "Home";
+    ShowPathbar = true;
   };
 }

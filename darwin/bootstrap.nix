@@ -39,6 +39,9 @@
 
   nix.configureBuildUsers = true;
 
+  # Don't need channels since I use flakes
+  nix.channel.enable = false;
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
