@@ -8,8 +8,8 @@
 let
   inherit (lib) attrValues mkIf elem;
 
-  mkOpRunAliases = cmds:
-    lib.genAttrs cmds (cmd: mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${cmd}");
+  mkOpRunAliases =
+    cmds: lib.genAttrs cmds (cmd: mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${cmd}");
 in
 
 {

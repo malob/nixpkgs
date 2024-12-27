@@ -18,7 +18,6 @@ in
   # Add Fish plugins
   home.packages = [
     pkgs.fishPlugins.done
-    pkgs.fishPlugins.github-copilot-cli-fish
   ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{
@@ -110,7 +109,7 @@ in
   # Fish configuration ------------------------------------------------------------------------- {{{
 
   # Aliases
-  programs.fish.shellAliases = with pkgs; {
+  home.shellAliases = with pkgs; {
     # Nix related
     drb = "darwin-rebuild build --flake ${nixConfigDirectory}";
     drs = "darwin-rebuild switch --flake ${nixConfigDirectory}";

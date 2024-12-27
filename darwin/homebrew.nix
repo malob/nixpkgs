@@ -4,16 +4,16 @@ let
   inherit (lib) mkIf;
   caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
   brewEnabled = config.homebrew.enable;
+  brewShellInit = mkIf brewEnabled ''
+    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+  '';
 in
 
 {
-  environment.shellInit = mkIf brewEnabled ''
-    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
-  '';
+  environment.shellInit = brewShellInit;
+  programs.zsh.shellInit = brewShellInit; # `zsh` doesn't inherit `environment.shellInit`
 
   # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
-  # For some reason if the Fish completions are added at the end of `fish_complete_path` they don't
-  # seem to work, but they do work if added at the start.
   programs.fish.interactiveShellInit = mkIf brewEnabled ''
     if test -d (brew --prefix)"/share/fish/completions"
       set -p fish_complete_path (brew --prefix)/share/fish/completions
