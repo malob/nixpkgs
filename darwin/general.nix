@@ -13,7 +13,6 @@
   environment.systemPackages = with pkgs; [
     terminal-notifier
   ];
-  programs.nix-index.enable = true;
 
   # Fonts
   fonts.packages = with pkgs; [

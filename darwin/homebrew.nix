@@ -129,10 +129,8 @@ in
         '';
       };
 
-  # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
-  # installed in `../home/default.nix` whenever possible.
+  # For cli packages that aren't currently available for macOS in `nixpkgs`. Packages should be
+  # installed in `../home/packages.nix` whenever possible.
   homebrew.brews = [
-    "swift-format"
-    "swiftlint"
   ];
 }
