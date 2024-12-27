@@ -70,7 +70,6 @@ in
         abduco # lightweight session management
         bandwhich # display current network utilization by process
         bottom # fancy version of `top` with ASCII graphs
-        browsh # in terminal browser
         coreutils
         curl
         du-dust # fancy version of `du`
@@ -92,9 +91,7 @@ in
       inherit (pkgs)
         cloc # source code line counter
         deno
-        github-copilot-cli
         google-cloud-sdk
-        # idris2
         jq
         nodejs
         s3cmd
@@ -107,7 +104,6 @@ in
         hpack
         implicit-hie
         ;
-      # agda = pkgs.agda.withPackages (ps: [ ps.standard-library ]);
 
       # Useful nix related tools
       inherit (pkgs)

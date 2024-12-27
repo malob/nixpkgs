@@ -68,7 +68,7 @@
             final: prev:
             (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
               # Sub in x86 version of packages that don't build on Apple Silicon.
-              inherit (final.pkgs-x86) agda idris2;
+              # inherit (final.pkgs-x86) [...];
             })
             // {
               # Add other overlays here if needed.

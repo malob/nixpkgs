@@ -232,13 +232,6 @@ in
 
       # Language support/utilities
       {
-        use = cornelis;
-        setup = ''
-          vim.g.cornelis_use_global_binary = 1
-          vim.g.cornelis_agda_prefix = '\\'
-        '';
-      }
-      {
         use = nvim-treesitter.withAllGrammars;
         config = requireConf nvim-treesitter;
       }
@@ -321,7 +314,6 @@ in
       vim-language-server
 
       #Other
-      cornelis
       yaml-language-server
       sumneko-lua-language-server
       vscode-langservers-extracted

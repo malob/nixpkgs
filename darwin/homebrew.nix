@@ -57,7 +57,6 @@ in
     Slack = 803453959;
     "Tailscale" = 1475387142;
     "Things 3" = 904280696;
-    Vimari = 1480933944;
     "WiFi Explorer" = 494803304;
     Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
@@ -86,14 +85,11 @@ in
     "google-chrome"
     "google-drive"
     "gpg-suite"
-    "hammerspoon"
     # "keybase"
     "ledger-live"
     "loopback"
-    "mimestream"
     "multiviewer-for-f1"
     "notion"
-    "nvidia-geforce-now"
     "obsbot-center"
     "parallels"
     "pdf-expert"
@@ -101,7 +97,6 @@ in
     "protonvpn"
     "raycast"
     "signal"
-    "skype"
     "sloth"
     "steam"
     "superhuman"
@@ -111,7 +106,6 @@ in
     "transmit"
     "visual-studio-code"
     "vlc"
-    "whisky"
     "yubico-yubikey-manager"
     "zed"
   ];

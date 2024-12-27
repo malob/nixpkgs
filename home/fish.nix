@@ -89,9 +89,9 @@ in
 
           # Use correct theme for `btm`.
           if test "$term_background" = light
-            alias btm "btm --color default-light"
+            alias btm "btm --theme default-light"
           else
-            alias btm "btm --color default"
+            alias btm "btm --theme default"
           end
         ''
         + optionalString config.programs.neovim.enable ''
