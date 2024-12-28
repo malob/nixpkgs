@@ -46,6 +46,16 @@ in
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  # Eza, a modern, maintained replacement for ls, written in rust
+  # https://eza.rocks
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enable
+  programs.eza.enable = true;
+  programs.eza.git = true;
+  programs.eza.icons = "auto";
+  programs.eza.extraOptions = [ "--group-directories-first" ];
+  home.sessionVariables.EZA_COLORS = "xx=0"; # https://github.com/eza-community/eza/issues/994
+  home.sessionVariables.EZA_ICON_SPACING = 2;
+
   # SSH
   # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
   # Some options also set in `../darwin/homebrew.nix`.

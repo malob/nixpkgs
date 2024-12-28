@@ -50,9 +50,6 @@ in
     set-shell-colors = {
       body =
         ''
-          # Set LS_COLORS
-          set -xg LS_COLORS (${pkgs.vivid}/bin/vivid generate solarized-$term_background)
-
           # Set color variables
           if test "$term_background" = light
             set emphasized_text  brgreen  # base01
@@ -127,8 +124,6 @@ in
     du = "${du-dust}/bin/dust";
     g = "${gitAndTools.git}/bin/git";
     la = "ll -a";
-    ll = "ls -l --time-style long-iso --icons";
-    ls = "${eza}/bin/eza";
     tb = "toggle-background";
   };
 
