@@ -123,6 +123,10 @@ in
         '';
       };
 
+  # Hack: https://github.com/ghostty-org/ghostty/discussions/2832
+  environment.variables.XDG_DATA_DIRS =
+    mkIf (caskPresent "ghostty") ["$GHOSTTY_SHELL_INTEGRATION_XDG_DIR"];
+
   # For cli packages that aren't currently available for macOS in `nixpkgs`. Packages should be
   # installed in `../home/packages.nix` whenever possible.
   homebrew.brews = [
