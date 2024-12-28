@@ -7,7 +7,7 @@ local c = require'malo.theme'.colors
 -- Function to set/update colors that are dependant on `vim.o.background`
 local function choose(dark, light) return vim.o.background == 'dark' and dark or light end
 local function highlight(color)
-  return vim.o.background == 'dark' and color.lightness(20) or color.lightness(80)
+  return vim.o.background == 'dark' and color.darken(50) or color.lighten(50)
 end
 
 ---@diagnostic disable: undefined-global

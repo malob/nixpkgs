@@ -1,4 +1,4 @@
-# Colors from: https://ethanschoonover.com/solarized
+# Colors from: https://ethanschoonover.com/solarized ----------------------------------------------
 
 # SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
 # --------- ------- ---- -------  ----------- ---------- ----------- -----------
@@ -19,29 +19,30 @@
 # cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
 # green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
 
+# Colors from: https://meat.io/oksolar ------------------------------------------------------------
+
+# Name     OK Lightness   Chrome  Hue    Hex
+# base03   27.4%          0.05    219.6  #002d38
+# base02   32.1%          0.053   219.6  #093946
+# base01   53.5%          0.029   219.6  #5b7279
+# base00   54.4%          0.017   219.6  #657377
+# base0    71.8%          0.017   198    #98a8a8
+# base1    71.8%          0.03    198    #8faaab
+# base2    93.4%          0.031   90     #f1e9d2
+# base3    97.7%          0.012   90     #fbf7ef
+# yellow   63.1%          0.129   86.4   #ac8300
+# orange   63.1%          0.166   50.4   #d56500
+# red      63.1%          0.221   21.6   #f23749
+# magenta  63.1%          0.205   349.2  #dd459d
+# violet   63.1%          0.121   280.8  #7d80d1
+# blue     63.1%          0.141   244.8  #2b90d8
+# cyan     63.1%          0.102   187.2  #259d94
+# green    63.1%          0.148   118.8  #819500
+
 { config, ... }:
 
-{
-  colors.solarized-light = {
-    colors = {
-      color0 = "#073642";
-      color1 = "#dc322f";
-      color2 = "#859900";
-      color3 = "#b58900";
-      color4 = "#268bd2";
-      color5 = "#d33682";
-      color6 = "#2aa198";
-      color7 = "#eee8d5";
-      color8 = "#002b36";
-      color9 = "#cb4b16";
-      color10 = "#586e75";
-      color11 = "#657b83";
-      color12 = "#839496";
-      color13 = "#6c71c4";
-      color14 = "#93a1a1";
-      color15 = "#fdf6e3";
-    };
-
+let
+  commonLight = {
     namedColors = {
       # Solarized names
       base03 = "color8";
@@ -81,8 +82,8 @@
     };
   };
 
-  colors.solarized-dark = {
-    inherit (config.colors.solarized-light) colors namedColors;
+  commonDark = {
+    inherit (commonLight) namedColors;
 
     terminal = {
       bg = "base03";
@@ -94,7 +95,7 @@
     };
 
     pkgThemes.kitty = {
-      inherit (config.colors.solarized-light.pkgThemes.kitty)
+      inherit (commonLight.pkgThemes.kitty)
         url_color
         active_tab_background
         active_tab_foreground
@@ -104,5 +105,94 @@
       tab_bar_background = "base02";
       inactive_tab_foreground = "base1";
     };
+  };
+in
+
+{
+  colors.solarized-light = {
+    colors = {
+      color0 = "#073642";
+      color1 = "#dc322f";
+      color2 = "#859900";
+      color3 = "#b58900";
+      color4 = "#268bd2";
+      color5 = "#d33682";
+      color6 = "#2aa198";
+      color7 = "#eee8d5";
+      color8 = "#002b36";
+      color9 = "#cb4b16";
+      color10 = "#586e75";
+      color11 = "#657b83";
+      color12 = "#839496";
+      color13 = "#6c71c4";
+      color14 = "#93a1a1";
+      color15 = "#fdf6e3";
+    };
+
+    inherit (commonLight) namedColors terminal pkgThemes;
+  };
+
+  colors.solarized-dark = {
+    inherit (config.colors.solarized-light) colors;
+
+    inherit (commonDark) namedColors terminal pkgThemes;
+  };
+
+  colors.ok-solar-light = {
+    colors = {
+      color0 = "#093946";
+      color1 = "#f23749";
+      color2 = "#819500";
+      color3 = "#ac8300";
+      color4 = "#2b90d8";
+      color5 = "#dd459d";
+      color6 = "#259d94";
+      color7 = "#f1e9d2";
+      color8 = "#002d38";
+      color9 = "#d56500";
+      color10 = "#5b7279";
+      color11 = "#657377";
+      color12 = "#98a8a8";
+      color13 = "#7d80d1";
+      color14 = "#8faaab";
+      color15 = "#fbf7ef";
+    };
+
+    inherit (commonLight) namedColors terminal pkgThemes;
+  };
+
+  colors.ok-solar-dark = {
+    inherit (config.colors.ok-solar-light) colors;
+
+    inherit (commonDark) namedColors terminal pkgThemes;
+  };
+
+  colors.malo-ok-solar-light = {
+    colors = {
+      color0 = "#093946";
+      color1 = "#f23749";
+      color2 = "#819500";
+      color3 = "#ac8300";
+      color4 = "#2b90d8";
+      color5 = "#dd459d";
+      color6 = "#259d94";
+      color7 = "#ece9e0"; # changed chroma to 0.012 to match base3
+      color8 = "#002d38";
+      color9 = "#d56500";
+      color10 = "#5b7279";
+      color11 = "#657377";
+      color12 = "#98a8a8";
+      color13 = "#7d80d1";
+      color14 = "#8faaab";
+      color15 = "#fbf7ef";
+    };
+
+    inherit (commonLight) namedColors terminal pkgThemes;
+  };
+
+  colors.malo-ok-solar-dark = {
+    inherit (config.colors.malo-ok-solar-light) colors;
+
+    inherit (commonDark) namedColors terminal pkgThemes;
   };
 }

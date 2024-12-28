@@ -6,7 +6,13 @@
 }:
 # Let-In ----------------------------------------------------------------------------------------{{{
 let
-  inherit (lib) attrValues concatStringsSep optional;
+  inherit (lib)
+    attrValues
+    concatStringsSep
+    mapAttrsToList
+    optional
+    removePrefix
+    ;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
 
@@ -103,6 +109,9 @@ let
             ++ optional (autoload && configFinal != "") configFinal
           ));
     };
+
+  mkVimColorVariable = k: v: ''let g:theme_${k} = "${v}"'';
+  colorSetToVimscript = colors: concatStringsSep "\n" (mapAttrsToList mkVimColorVariable colors);
 in
 # }}}
 {
@@ -119,7 +128,12 @@ in
     mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
 
   # Load the `init` module from the above configs
-  programs.neovim.extraConfig = "lua require('init')";
+  programs.neovim.extraConfig = ''
+    ${colorSetToVimscript config.colors.malo-ok-solar-light.colors}
+    ${colorSetToVimscript config.colors.malo-ok-solar-light.namedColors}
+
+    lua require('init')
+  '';
 
   # Add `penlight` Lua module package since I used in the above configs
   programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
