@@ -173,6 +173,7 @@
         malo-git = import ./home/git.nix;
         malo-git-aliases = import ./home/git-aliases.nix;
         malo-gh-aliases = import ./home/gh-aliases.nix;
+        malo-ghostty = import ./home/ghostty.nix;
         malo-neovim = import ./home/neovim.nix;
         malo-packages = import ./home/packages.nix;
         malo-starship = import ./home/starship.nix;

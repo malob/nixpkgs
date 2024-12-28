@@ -9,19 +9,23 @@ let
   inherit (lib)
     attrNames
     attrValues
+    generators
     hasPrefix
     listToAttrs
     literalExpression
     mapAttrs
+    mapAttrsToList
     mkOption
     range
     types
     ;
 
+  hexColorType = types.strMatching "#[0-9a-fA-F]{6}";
+
   baseColorOptions = listToAttrs (
     map (i: {
       name = "color${toString i}";
-      value = mkOption { type = types.str; };
+      value = mkOption { type = hexColorType; };
     }) (range 0 15)
   );
 
@@ -30,16 +34,23 @@ let
     mkOption (
       args
       // {
-        type = types.enum (
-          attrNames config.colors ++ attrValues config.colors ++ attrNames config.namedColors
+        type = types.either hexColorType (
+          types.enum (attrNames config.colors ++ attrNames config.namedColors)
         );
         apply = v: config.colors.${v} or config.namedColors.${v} or v;
       }
     );
 
-  kittyBaseColorOptions = listToAttrs (
+  mkKittyBaseColorOptions = listToAttrs (
     map (i: {
       name = "color${toString i}";
+      value = mkColorOption { default = "color${toString i}"; };
+    }) (range 0 15)
+  );
+
+  mkGhosttyPaletteColorOptions = listToAttrs (
+    map (i: {
+      name = "${toString i}";
       value = mkColorOption { default = "color${toString i}"; };
     }) (range 0 15)
   );
@@ -81,7 +92,7 @@ in
 
     pkgThemes.kitty = mkOption {
       type = types.submodule {
-        options = kittyBaseColorOptions // {
+        options = mkKittyBaseColorOptions // {
           # Get defaults from `config.terminal`
           background = mkColorOption { default = config.terminal.bg; };
           foreground = mkColorOption { default = config.terminal.fg; };
@@ -96,6 +107,25 @@ in
           active_tab_foreground = mkColorOption { };
           inactive_tab_foreground = mkColorOption { };
           inactive_tab_background = mkColorOption { };
+        };
+      };
+    };
+
+    pkgThemes.ghostty = mkOption {
+      default = { };
+      type = types.submodule {
+        options = {
+          palette = mkOption {
+            default = { };
+            type = types.submodule { options = mkGhosttyPaletteColorOptions; };
+            apply = mapAttrsToList (generators.mkKeyValueDefault { } "=");
+          };
+          background = mkColorOption { default = config.terminal.bg; };
+          foreground = mkColorOption { default = config.terminal.fg; };
+          cursor-color = mkColorOption { default = config.terminal.cursorBg; };
+          cursor-text = mkColorOption { default = config.terminal.cursorFg; };
+          selection-background = mkColorOption { default = config.terminal.selectionBg; };
+          selection-foreground = mkColorOption { default = config.terminal.selectionFg; };
         };
       };
     };
