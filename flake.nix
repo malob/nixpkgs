@@ -142,6 +142,9 @@
               ]
               // {
                 # Other Vim plugins
+                # TODO: Remove when https://github.com/NixOS/nixpkgs/pull/381831 is merged
+                inherit (inputs.nixpkgs-stable.legacyPackages.${final.stdenv.system}.vimPlugins)
+                  lush-nvim;
               }
             );
           };
