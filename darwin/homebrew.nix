@@ -43,6 +43,7 @@ in
     DaisyDisk = 411643860;
     Fantastical = 975937182;
     Flighty = 1358823008;
+    Hyperspace = 6739505345;
     "Kagi Search" = 1622835804;
     Keynote = 409183694;
     "Notion Web Clipper" = 1559269364;
