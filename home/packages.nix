@@ -108,6 +108,7 @@ in
         stack
         typescript
         ;
+      inherit (pkgs.pkgs-master) claude-code;
       inherit (pkgs.haskellPackages)
         cabal-install
         hoogle
