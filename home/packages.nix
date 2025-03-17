@@ -90,7 +90,7 @@ in
         parallel # runs commands in parallel
         ripgrep # better version of `grep`
         tealdeer # rust implementation of `tldr`
-        thefuck
+        # thefuck
         unrar # extract RAR archives
         upterm # secure terminal sharing
         wget
