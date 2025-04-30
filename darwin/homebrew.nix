@@ -117,6 +117,7 @@ in
   home-manager.users.${config.users.primaryUser.username} =
     mkIf (caskPresent "1password" && config ? home-manager)
       {
+        # https://developer.1password.com/docs/ssh/get-started
         programs.ssh.enable = true;
         programs.ssh.extraConfig = ''
           # Only set `IdentityAgent` not connected remotely via SSH.
@@ -124,6 +125,13 @@ in
           Match host * exec "test -z $SSH_TTY"
             IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
         '';
+        # https://developer.1password.com/docs/ssh/git-commit-signing/
+        programs.git.signing = {
+          format = "ssh";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINbqtlGxXm76xZOQ7KTWL7AySaJbD67WYu7CbB4YwWJn";
+          signer = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+          signByDefault = true;
+        };
       };
 
   # Hack: https://github.com/ghostty-org/ghostty/discussions/2832
