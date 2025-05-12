@@ -105,7 +105,7 @@ in
         jq
         nodejs
         s3cmd
-        stack
+        # stack TODO: reenable when `stack is blilding again
         typescript
         ;
       inherit (pkgs.pkgs-master) claude-code;
