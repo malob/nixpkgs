@@ -17,12 +17,23 @@ in
 
   # Add Fish plugins
   home.packages = [
-    pkgs.fishPlugins.done
   ];
 
   # Fish functions ----------------------------------------------------------------------------- {{{
 
   programs.fish.functions = {
+    # TODO: Replace with Ghostty's native command completion notifications when available
+    # Custom notification function using escape sequences - avoids done plugin conflicts
+    notify-done = {
+      body = ''
+        if test $CMD_DURATION -gt 10000
+          set -l cmd_time (math $CMD_DURATION / 1000)
+          printf '\e]777;notify;Ghostty;Command finished - Took %ss\e\\' $cmd_time
+        end
+      '';
+      onEvent = "fish_postexec";
+    };
+
     # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
     # variable changes. We use a universal variable so that all instances of Fish have the same
     # value for the variable.
@@ -177,6 +188,9 @@ in
     # Run function to set colors that are dependant on `$term_background` and to register them so
     # they are triggerd when the relevent event happens or variable changes.
     set-shell-colors
+
+    # Activate notification event handler
+    functions notify-done > /dev/null
 
     # Set Fish colors that aren't dependant the `$term_background`.
     set -g fish_color_quote        cyan      # color of commands
