@@ -57,7 +57,7 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         git aa
-        git cm "Update inputs"
+        git -c commit.gpgSign=false commit -m "Update inputs"
         git push
 
   build-linux-env:
