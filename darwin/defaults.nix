@@ -16,14 +16,6 @@
     _HIHideMenuBar = false;
   };
 
-  # Firewall
-  system.defaults.alf = {
-    globalstate = 1;
-    allowsignedenabled = 1;
-    allowdownloadsignedenabled = 1;
-    stealthenabled = 1;
-  };
-
   # Dock and Mission Control
   system.defaults.dock = {
     autohide = true;
