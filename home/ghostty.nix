@@ -36,5 +36,8 @@ in
     window-padding-y = 10;
 
     auto-update = "download";
-  };
+  } + ''
+    # Fix sending shift+enter for Claude Code
+    keybind = shift+enter=text:\x1b\r
+  '';
 }
