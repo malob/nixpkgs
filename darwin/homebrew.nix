@@ -93,7 +93,6 @@ in
     "loopback"
     "multiviewer-for-f1"
     "notion"
-    "obsbot-center"
     "parallels"
     "pdf-expert"
     "postman"
