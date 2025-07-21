@@ -80,7 +80,7 @@ in
     "cleanmymac"
     "cursor"
     "discord"
-    "docker"
+    "docker-desktop"
     "element"
     "etrecheckpro"
     "firefox"
