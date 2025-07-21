@@ -32,7 +32,6 @@ in
   homebrew.taps = [
     "homebrew/cask"
     "homebrew/core"
-    "homebrew/services"
     "nrlquaker/createzap"
   ];
 
@@ -59,7 +58,7 @@ in
     "Tailscale" = 1475387142;
     "Things 3" = 904280696;
     "WiFi Explorer" = 494803304;
-    Xcode = 497799835;
+    # Xcode = 497799835; # TODO: re-enable when Tahoe is officially released
     "Yubico Authenticator" = 1497506650;
   };
 
