@@ -72,6 +72,7 @@ in
     "autodesk-fusion"
     "balenaetcher"
     "bambu-studio"
+    "beeper"
     "betterdisplay"
     "chatgpt"
     "claude"
