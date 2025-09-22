@@ -48,7 +48,7 @@ in
     "Notion Web Clipper" = 1559269364;
     Numbers = 409203825;
     Pages = 409201541;
-    Parcel = 639968404;
+    Parcel = 375589283;
     Patterns = 429449079;
     "Pixelmator Pro" = 1289583905;
     "Playgrounds" = 1496833156;
@@ -58,7 +58,7 @@ in
     "Tailscale" = 1475387142;
     "Things 3" = 904280696;
     "WiFi Explorer" = 494803304;
-    # Xcode = 497799835; # TODO: re-enable when Tahoe is officially released
+    Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
   };
 
