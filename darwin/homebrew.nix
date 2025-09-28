@@ -101,6 +101,7 @@ in
     "postman"
     "protonvpn"
     "raycast"
+    "shortwave"
     "signal"
     "sloth"
     "steam"
