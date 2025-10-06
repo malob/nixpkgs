@@ -23,7 +23,7 @@
   # Enhanced diffs
   # programs.git.delta.enable = true;
   programs.git.difftastic.enable = true;
-  programs.git.difftastic.display = "inline";
+  programs.git.difftastic.options.display = "inline";
 
   # GitHub CLI
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
