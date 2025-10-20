@@ -1,5 +1,5 @@
 {
-  programs.git.aliases = {
+  programs.git.settings.alias = {
     # Basic commands
     a = "add";
     aa = "add --all";

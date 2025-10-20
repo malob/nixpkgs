@@ -51,8 +51,8 @@ in
     templates = {
       scm-init = "git";
       params = {
-        author-name = config.programs.git.userName;
-        author-email = config.programs.git.userEmail;
+        author-name = config.programs.git.settings.user.name;
+        author-email = config.programs.git.settings.user.email;
         github-username = "malob";
       };
     };
