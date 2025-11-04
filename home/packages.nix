@@ -83,7 +83,7 @@ in
         bottom # fancy version of `top` with ASCII graphs
         coreutils
         curl
-        du-dust # fancy version of `du`
+        dust # fancy version of `du`
         eza # fancy version of `ls`
         fd # fancy version of `find`
         hyperfine # benchmarking tool

@@ -330,7 +330,7 @@ in
 
       #Other
       yaml-language-server
-      sumneko-lua-language-server
+      lua-language-server
       vscode-langservers-extracted
       ;
   };
