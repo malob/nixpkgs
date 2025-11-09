@@ -65,7 +65,7 @@
           ++ [ inputs.prefmanager.overlays.prefmanager ]
           ++ singleton (
             final: prev:
-            (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+            (optionalAttrs (prev.stdenv.hostPlatform.system == "aarch64-darwin") {
               # Sub in x86 version of packages that don't build on Apple Silicon.
               # inherit (final.pkgs-x86) [...];
             })
@@ -97,25 +97,25 @@
         # Overlays to add different versions `nixpkgs` into package set
         pkgs-master = _: prev: {
           pkgs-master = import inputs.nixpkgs-master {
-            inherit (prev.stdenv) system;
+            inherit (prev.stdenv.hostPlatform) system;
             inherit (nixpkgsDefaults) config;
           };
         };
         pkgs-stable = _: prev: {
           pkgs-stable = import inputs.nixpkgs-stable {
-            inherit (prev.stdenv) system;
+            inherit (prev.stdenv.hostPlatform) system;
             inherit (nixpkgsDefaults) config;
           };
         };
         pkgs-unstable = _: prev: {
           pkgs-unstable = import inputs.nixpkgs-unstable {
-            inherit (prev.stdenv) system;
+            inherit (prev.stdenv.hostPlatform) system;
             inherit (nixpkgsDefaults) config;
           };
         };
         apple-silicon =
           _: prev:
-          optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          optionalAttrs (prev.stdenv.hostPlatform.system == "aarch64-darwin") {
             # Add access to x86 packages system is running Apple Silicon
             pkgs-x86 = import inputs.nixpkgs-unstable {
               system = "x86_64-darwin";
