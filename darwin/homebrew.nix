@@ -91,7 +91,7 @@ in
     "google-drive"
     "gpg-suite"
     # "keybase"
-    "ledger-live"
+    "ledger-wallet"
     "lm-studio"
     "loopback"
     "multiviewer-for-f1"
