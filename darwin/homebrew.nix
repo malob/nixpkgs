@@ -94,7 +94,7 @@ in
     "ledger-wallet"
     "lm-studio"
     "loopback"
-    "multiviewer-for-f1"
+    "multiviewer"
     "notion"
     "parallels"
     "pdf-expert"
