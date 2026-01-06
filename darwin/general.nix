@@ -1,4 +1,4 @@
-{pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Networking
@@ -11,7 +11,6 @@
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-    terminal-notifier
   ];
 
   # Fonts
@@ -24,8 +23,14 @@
   system.keyboard.enableKeyMapping = true;
   # Swap Caps Lock and Escape
   system.keyboard.userKeyMapping = [
-    { HIDKeyboardModifierMappingSrc = 30064771129; HIDKeyboardModifierMappingDst = 30064771113; }
-    { HIDKeyboardModifierMappingSrc = 30064771113; HIDKeyboardModifierMappingDst = 30064771129; }
+    {
+      HIDKeyboardModifierMappingSrc = 30064771129;
+      HIDKeyboardModifierMappingDst = 30064771113;
+    }
+    {
+      HIDKeyboardModifierMappingSrc = 30064771113;
+      HIDKeyboardModifierMappingDst = 30064771129;
+    }
   ];
 
   # Add ability to used TouchID for sudo authentication

@@ -63,6 +63,19 @@ in
   programs.ssh.enableDefaultConfig = false;
   programs.ssh.matchBlocks."*".controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
 
+  # nh, a Nix CLI helper with nice output
+  # https://github.com/nix-community/nh
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nh.enable
+  programs.nh.enable = true;
+  programs.nh.flake = config.home.user-info.nixConfigDirectory;
+
+  # nix-index, a file database for nixpkgs (with pre-built database from nix-index-database)
+  # https://github.com/nix-community/nix-index-database
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nix-index.enable
+  programs.nix-index.enable = true;
+  programs.nix-index.enableFishIntegration = true;
+  programs.nix-index-database.comma.enable = true;
+
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
   # https://nix-community.github.io/home-manager/options.html#opt-programs.zoxide.enable
@@ -120,7 +133,6 @@ in
       # Useful nix related tools
       inherit (pkgs)
         cachix # adding/managing alternative binary caches hosted by Cachix
-        comma # run software from without installing it
         nix-output-monitor # get additional information while building packages
         nix-tree # interactively browse dependency graphs of Nix derivations
         nix-update # swiss-knife for updating nix packages

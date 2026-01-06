@@ -20,6 +20,10 @@
       url = "github:1Password/shell-plugins";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # Flake utilities
     flake-compat = {
@@ -192,6 +196,7 @@
 
         # Other
         _1password-shell-plugins = inputs._1password-shell-plugins.hmModules.default;
+        nix-index-database = inputs.nix-index-database.hmModules.nix-index;
       };
       # }}}
 
