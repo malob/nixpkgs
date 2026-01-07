@@ -43,8 +43,8 @@ inputs.darwin.lib.darwinSystem {
 
           system.primaryUser = username;
 
-          # Note: nix.nixPath disabled since nix.enable = false (Determinate Nix)
-          # Legacy `<nixpkgs>` lookups won't work; use flake references instead.
+          # Workaround for nix.nixPath not working with nix.enable = false
+          environment.variables.NIX_PATH = "nixpkgs=${inputs.nixpkgs-unstable}";
 
           # `home-manager` config
           users.users.${username}.home = "/Users/${username}";
