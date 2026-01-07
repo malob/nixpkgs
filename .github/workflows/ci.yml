@@ -41,6 +41,9 @@ jobs:
       run: |
         # Prevent conflict between Cachix installed by workflow and the one installed in the config
         nix-env --set-flag priority 1 cachix
+        # Rename files that conflict with nix-darwin activation
+        sudo mv /etc/nix/nix.custom.conf /etc/nix/nix.custom.conf.before-nix-darwin || true
+        sudo mv /etc/zshenv /etc/zshenv.before-nix-darwin || true
         # Build and switch to config
         nix build .#darwinConfigurations.githubCI.system
         sudo ./result/sw/bin/darwin-rebuild switch --flake .#githubCI
