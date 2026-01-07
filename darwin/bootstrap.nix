@@ -7,38 +7,21 @@
 {
   # Nix configuration -----------------------------------------------------------------------------
 
-  nix.settings = {
-    substituters = [
-      "https://cache.nixos.org/"
-      "https://malo.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo="
-    ];
+  # Let Determinate Nix manage the Nix installation
+  nix.enable = false;
 
-    trusted-users = [ "@admin" ];
-
-    # https://github.com/NixOS/nix/issues/7273
-    auto-optimise-store = false;
-
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-
-    extra-platforms = lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-
+  # Nix settings for Determinate Nix
+  # Note: experimental-features not needed (Determinate has flakes by default)
+  determinate-nix.customSettings = {
+    extra-substituters = "https://malo.cachix.org";
+    extra-trusted-public-keys = "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo=";
+    trusted-users = "@admin";
+    extra-platforms = lib.optionalString (pkgs.stdenv.hostPlatform.system == "aarch64-darwin")
+      "x86_64-darwin aarch64-darwin";
     # Recommended when using `direnv` etc.
-    keep-derivations = true;
-    keep-outputs = true;
+    keep-derivations = "true";
+    keep-outputs = "true";
   };
-
-  # Don't need channels since I use flakes
-  nix.channel.enable = false;
 
   # Shells ----------------------------------------------------------------------------------------
 

@@ -24,6 +24,9 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    };
 
     # Flake utilities
     flake-compat = {
@@ -166,6 +169,9 @@
 
         # Modules I've created
         users-primaryUser = import ./modules/darwin/users.nix;
+
+        # Other
+        determinate = inputs.determinate.darwinModules.default;
       };
 
       homeManagerModules = {
@@ -196,7 +202,7 @@
 
         # Other
         _1password-shell-plugins = inputs._1password-shell-plugins.hmModules.default;
-        nix-index-database = inputs.nix-index-database.hmModules.nix-index;
+        nix-index-database = inputs.nix-index-database.homeModules.nix-index;
       };
       # }}}
 
@@ -229,19 +235,29 @@
                   "Wi-Fi"
                   "USB 10/100/1000 LAN"
                 ];
-                nix.registry.my.flake = inputs.self;
-              };
-            extraModules = singleton {
-              nix.linux-builder = {
-                enable = true;
-                ephemeral = true;
-                maxJobs = 8;
-                config.virtualisation = {
-                  cores = 8;
-                  darwin-builder.memorySize = 16 * 1024;
+                # Workaround for nix.registry not working with nix.enable = false
+                environment.etc."nix/registry.json".text = builtins.toJSON {
+                  version = 2;
+                  flakes = [
+                    {
+                      from = { type = "indirect"; id = "my"; };
+                      to = { type = "path"; path = primaryUserDefaults.nixConfigDirectory; };
+                    }
+                  ];
                 };
               };
-            };
+            # TODO: Re-enable linux-builder once compatible with Determinate Nix
+            # extraModules = singleton {
+            #   nix.linux-builder = {
+            #     enable = true;
+            #     ephemeral = true;
+            #     maxJobs = 8;
+            #     config.virtualisation = {
+            #       cores = 8;
+            #       darwin-builder.memorySize = 16 * 1024;
+            #     };
+            #   };
+            # };
             inherit homeStateVersion;
             homeModules = attrValues self.homeManagerModules;
           }

@@ -43,8 +43,8 @@ inputs.darwin.lib.darwinSystem {
 
           system.primaryUser = username;
 
-          # Support legacy workflows that use `<nixpkgs>` etc.
-          nix.nixPath.nixpkgs = "${inputs.nixpkgs-unstable}";
+          # Note: nix.nixPath disabled since nix.enable = false (Determinate Nix)
+          # Legacy `<nixpkgs>` lookups won't work; use flake references instead.
 
           # `home-manager` config
           users.users.${username}.home = "/Users/${username}";
