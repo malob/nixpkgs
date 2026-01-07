@@ -112,6 +112,7 @@ in
     "transmit"
     "visual-studio-code"
     "vlc"
+    "wispr-flow"
     "yubico-yubikey-manager"
     "zed"
   ];

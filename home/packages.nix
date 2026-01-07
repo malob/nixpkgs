@@ -114,13 +114,14 @@ in
       # Dev stuff
       inherit (pkgs)
         cloc # source code line counter
-        deno
         google-cloud-sdk
         jq
         nodejs
+        pnpm
         s3cmd
         stack
         typescript
+        uv
         ;
       inherit (pkgs.pkgs-master) claude-code;
       inherit (pkgs.haskellPackages)
@@ -146,6 +147,7 @@ in
       inherit (pkgs)
         cocoapods
         m-cli # useful macOS CLI commands
+        mas # macOS App Store CLI
         prefmanager # tool for working with macOS defaults
         swift-format
         swiftlint
