@@ -152,8 +152,16 @@
             );
           };
 
-        tweaks = final: _: {
+        tweaks = final: prev: {
           # Add temporary overrides here
+          pkgs-master = prev.pkgs-master // {
+            claude-code = prev.pkgs-master.claude-code.overrideAttrs (oldAttrs: {
+              postPatch = (oldAttrs.postPatch or "") + ''
+                substituteInPlace cli.js \
+                  --replace-warn '#!/bin/bash' '#!/usr/bin/env bash'
+              '';
+            });
+          };
         };
       };
       # }}}
