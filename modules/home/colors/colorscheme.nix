@@ -6,14 +6,17 @@
 }:
 
 let
-  inherit (lib)
+  inherit (builtins)
     attrNames
     attrValues
+    listToAttrs
+    mapAttrs
+    ;
+
+  inherit (lib)
     generators
     hasPrefix
-    listToAttrs
     literalExpression
-    mapAttrs
     mapAttrsToList
     mkOption
     range

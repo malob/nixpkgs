@@ -6,7 +6,8 @@
 }:
 
 let
-  inherit (lib) attrValues mkIf elem;
+  inherit (builtins) attrValues elem;
+  inherit (lib) mkIf;
 
   mkOpRunAliases =
     cmds: lib.genAttrs cmds (cmd: mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${cmd}");

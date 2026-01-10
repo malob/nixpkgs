@@ -26,8 +26,6 @@
       # background-blur-radius = 20;
       window-padding-x = 10;
       window-padding-y = 10;
-
-      auto-update = "download";
     };
 
     themes = {

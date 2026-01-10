@@ -6,13 +6,8 @@
 }:
 # Let-In ----------------------------------------------------------------------------------------{{{
 let
-  inherit (lib)
-    attrValues
-    concatStringsSep
-    mapAttrsToList
-    optional
-    removePrefix
-    ;
+  inherit (builtins) attrValues concatStringsSep;
+  inherit (lib) mapAttrsToList optional;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
 

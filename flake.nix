@@ -6,6 +6,7 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    determinate-nix.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
 
     # Environment/system management
     darwin = {
@@ -23,9 +24,6 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     };
 
     # Flake utilities
@@ -179,7 +177,7 @@
         users-primaryUser = import ./modules/darwin/users.nix;
 
         # Other
-        determinate = inputs.determinate.darwinModules.default;
+        determinate-nix = inputs.determinate-nix.darwinModules.default;
       };
 
       homeManagerModules = {
@@ -248,8 +246,14 @@
                   version = 2;
                   flakes = [
                     {
-                      from = { type = "indirect"; id = "my"; };
-                      to = { type = "path"; path = primaryUserDefaults.nixConfigDirectory; };
+                      from = {
+                        type = "indirect";
+                        id = "my";
+                      };
+                      to = {
+                        type = "path";
+                        path = primaryUserDefaults.nixConfigDirectory;
+                      };
                     }
                   ];
                 };

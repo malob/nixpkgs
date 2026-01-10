@@ -41,7 +41,7 @@
         "type": "github"
       }
     },
-    "determinate": {
+    "determinate-nix": {
       "inputs": {
         "determinate-nixd-aarch64-darwin": "determinate-nixd-aarch64-darwin",
         "determinate-nixd-aarch64-linux": "determinate-nixd-aarch64-linux",
@@ -155,7 +155,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "determinate",
+          "determinate-nix",
           "nix",
           "nixpkgs"
         ]
@@ -213,11 +213,11 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "gitignore": [
-          "determinate",
+          "determinate-nix",
           "nix"
         ],
         "nixpkgs": [
-          "determinate",
+          "determinate-nix",
           "nix",
           "nixpkgs"
         ]
@@ -453,7 +453,7 @@
       "inputs": {
         "_1password-shell-plugins": "_1password-shell-plugins",
         "darwin": "darwin",
-        "determinate": "determinate",
+        "determinate-nix": "determinate-nix",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",

@@ -1,8 +1,8 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
+
+let
+  inherit (builtins) attrValues;
+in
 
 {
   # Nix configuration -----------------------------------------------------------------------------
@@ -16,8 +16,9 @@
     extra-substituters = "https://malo.cachix.org";
     extra-trusted-public-keys = "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo=";
     trusted-users = "@admin";
-    extra-platforms = lib.optionalString (pkgs.stdenv.hostPlatform.system == "aarch64-darwin")
-      "x86_64-darwin aarch64-darwin";
+    extra-platforms = lib.optionalString (
+      pkgs.stdenv.hostPlatform.system == "aarch64-darwin"
+    ) "x86_64-darwin aarch64-darwin";
     # Recommended when using `direnv` etc.
     keep-derivations = "true";
     keep-outputs = "true";
@@ -26,11 +27,13 @@
   # Shells ----------------------------------------------------------------------------------------
 
   # Add shells installed by nix to /etc/shells file
-  environment.shells = with pkgs; [
-    bashInteractive
-    fish
-    zsh
-  ];
+  environment.shells = attrValues {
+    inherit (pkgs)
+      bashInteractive
+      fish
+      zsh
+      ;
+  };
 
   # Make Fish the default shell
   programs.fish.enable = true;

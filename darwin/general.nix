@@ -1,5 +1,9 @@
 { pkgs, ... }:
 
+let
+  inherit (builtins) attrValues;
+in
+
 {
   # Networking
   networking.dns = [
@@ -10,14 +14,22 @@
   # Apps
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
-  environment.systemPackages = with pkgs; [
-  ];
+  environment.systemPackages = attrValues {
+    inherit (pkgs)
+      # packages
+      ;
+  };
 
   # Fonts
-  fonts.packages = with pkgs; [
-    recursive
-    nerd-fonts.jetbrains-mono
-  ];
+  fonts.packages = attrValues {
+    inherit (pkgs)
+      recursive
+      ;
+
+    inherit (pkgs.nerd-fonts)
+      jetbrains-mono
+      ;
+  };
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;
