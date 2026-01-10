@@ -51,8 +51,8 @@
       ...
     }@inputs:
     let
+      inherit (builtins) attrValues;
       inherit (self.lib)
-        attrValues
         makeOverridable
         mkForce
         optionalAttrs

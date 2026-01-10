@@ -20,10 +20,8 @@
   ];
 
   # Enhanced diffs
-  # programs.git.delta.enable = true;
-  programs.difftastic.enable = true;
-  programs.difftastic.git.enable = true;
-  programs.difftastic.options.display = "inline";
+  programs.delta.enable = true;
+  programs.delta.enableGitIntegration = true;
 
   # GitHub CLI
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
