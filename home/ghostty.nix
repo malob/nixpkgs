@@ -1,9 +1,14 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.ghostty = {
     enable = true;
-    package = null; # Installed via Homebrew
+    package = lib.mkIf pkgs.stdenv.isDarwin null; # Installed via Homebrew
 
     enableFishIntegration = true;
     enableZshIntegration = true;
