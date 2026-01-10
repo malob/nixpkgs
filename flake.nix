@@ -338,13 +338,6 @@
             name = "default";
             buildInputs = attrValues { inherit (pkgs) nixd nixfmt-rfc-style; };
           };
-          python = pkgs.mkShell {
-            name = "python310";
-            buildInputs = attrValues {
-              inherit (pkgs.pkgs-master.python310Packages) black isort;
-              inherit (pkgs) poetry python310 pyright;
-            };
-          };
         };
       # }}}
     });

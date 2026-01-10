@@ -1,6 +1,6 @@
 -- nvim-lspconfig
 -- Configure available LSPs
--- https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 --
 -- Note that all languag e servers aside from `sumneko_lua` are installed via Nix. See:
 -- `../../../../home/neovim.nix`.

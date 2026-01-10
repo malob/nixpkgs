@@ -111,7 +111,7 @@ in
 # }}}
 {
   # Neovim
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.enable
   programs.neovim.enable = true;
 
   # Config and plugins ------------------------------------------------------------------------- {{{

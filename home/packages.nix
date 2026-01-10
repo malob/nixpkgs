@@ -14,6 +14,10 @@ let
 in
 
 {
+  # Link apps to ~/Applications/Home Manager Apps
+  # Unlike Spotlight, Raycast can find symlinked apps so copying isn't needed
+  targets.darwin.copyApps.enable = false;
+  targets.darwin.linkApps.enable = true;
   # 1Password CLI plugin integration
   # https://developer.1password.com/docs/cli/shell-plugins/nix
   programs._1password-shell-plugins.enable = true;
@@ -31,7 +35,7 @@ in
 
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
-  # https://nix-community.github.io/home-manager/options.html#opt-programs.bat.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
   programs.bat.enable = true;
   programs.bat.config = {
     style = "plain";
@@ -43,7 +47,7 @@ in
 
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
-  # https://nix-community.github.io/home-manager/options.html#opt-programs.direnv.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.enable
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
@@ -58,7 +62,7 @@ in
   home.sessionVariables.EZA_ICON_SPACING = 2;
 
   # SSH
-  # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enable
   # Some options also set in `../darwin/homebrew.nix`.
   programs.ssh.enable = true;
   programs.ssh.enableDefaultConfig = false;
@@ -79,7 +83,7 @@ in
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
-  # https://nix-community.github.io/home-manager/options.html#opt-programs.zoxide.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
 
   # Zsh

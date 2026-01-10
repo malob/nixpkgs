@@ -13,7 +13,7 @@ in
 
 {
   # Fish Shell
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.fish.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.enable
   programs.fish.enable = true;
 
   # Add Fish plugins
@@ -126,8 +126,8 @@ in
   # Aliases
   home.shellAliases = {
     # Nix related
-    drb = "darwin-rebuild build --flake ${nixConfigDirectory}";
-    drs = "sudo darwin-rebuild switch --flake ${nixConfigDirectory}";
+    drb = "${pkgs.nh}/bin/nh darwin build ${nixConfigDirectory}";
+    drs = "${pkgs.nh}/bin/nh darwin switch ${nixConfigDirectory}";
     flakeup = "nix flake update ${nixConfigDirectory}";
     nb = "nix build";
     nd = "nix develop";

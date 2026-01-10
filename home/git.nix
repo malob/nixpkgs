@@ -2,7 +2,7 @@
 
 {
   # Git
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.git.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.enable
   # Aliases config in ./configs/git-aliases.nix
   programs.git.enable = true;
 
@@ -24,7 +24,7 @@
   programs.delta.enableGitIntegration = true;
 
   # GitHub CLI
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.enable
   # Aliases config in ./gh-aliases.nix
   programs.gh.enable = true;
   programs.gh.settings.version = 1;

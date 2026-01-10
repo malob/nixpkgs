@@ -11,15 +11,6 @@ in
     "8.8.8.8" # Google
   ];
 
-  # Apps
-  # `home-manager` currently has issues adding them to `~/Applications`
-  # Issue: https://github.com/nix-community/home-manager/issues/1341
-  environment.systemPackages = attrValues {
-    inherit (pkgs)
-      # packages
-      ;
-  };
-
   # Fonts
   fonts.packages = attrValues {
     inherit (pkgs)
