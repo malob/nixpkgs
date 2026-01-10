@@ -18,17 +18,17 @@ In no particular order:
 
 * [Flakes](./flake.nix)!
   * All external dependencies managed through flakes for easy updating.
-  * Outputs for [`nix-darwin`](https://github.com/LnL7/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module) and a [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
+  * Outputs for [`nix-darwin`](https://github.com/nix-darwin/nix-darwin) macOS system configurations (using `home-manager` as a `nix-darwin` module) and a [`home-manager`](https://github.com/nix-community/home-manager) user configuration for Linux.
   * A function to simplify making `nix-darwin` system configurations (with `home-manager` integration), [`lib.mkDarwinSystem`](./lib/mkDarwinSystem.nix).
   * `darwinModules` output for `nix-darwin` modules with additional functionality and prepackaged configuration, including:
     * [`users-primaryUser`](./modules/darwin/users.nix) that provides `users.primaryUsers.{username,fullName,email,nixConfigDirectory}` options, which allows specifying this information one time by setting these options and then referencing their values when setting other options.
   * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration, including:
-    * [`home-user-info`], that provides the same options as the my `nix-darwin` module `users-primaryUsers` above under `home.user-info`. See examples of it in use in [`home/git.nix`](./home/git.nix), [`home/neovim.nix`](./home/neovim.nix).
+    * `home-user-info`, that provides the same options as the my `nix-darwin` module `users-primaryUsers` above under `home.user-info`. See examples of it in use in [`home/git.nix`](./home/git.nix), [`home/neovim.nix`](./home/neovim.nix).
     * [`colors`](./modules/home/colors) which is a WIP module used to define colorschemes. See [`home/colors.nix`](./home/colors.nix), for an example of how to define a colorscheme.
     * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `programs.neovim.extras.{defaultEditor,nvrAliases,termBufferAutoChangeDir}` options.
     * [`malo-git-aliases`](./home/git-aliases.nix)
     * [`malo-gh-aliases`](./home/gh-aliases.nix)
-    * [`malo-startship-symbols`](./home/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
+    * [`malo-starship-symbols`](./home/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
   * Support for non-flake compatible versions of Nix and legacy workflows through [`flake-compat`](https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix):
     * [`default.nix`](./default.nix), allows traditional Nix commands like `nix-build` to operate on the flake inputs/outputs.
 * Support for Macs with Apple Silicon including ability to easily overlay in x86 version of packages, when they don't build on ARM. Search `pkgs-x86` in [`flake.nix`](./flake.nix) and see `nix.settings.extra-platforms` in [`darwin/bootstrap.nix`](./darwin/bootstrap.nix) for details.
