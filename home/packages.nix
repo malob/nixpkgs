@@ -6,11 +6,24 @@
 }:
 
 let
-  inherit (builtins) attrValues elem;
+  inherit (builtins) attrValues elem map;
   inherit (lib) mkIf;
 
   mkOpRunAliases =
-    cmds: lib.genAttrs cmds (cmd: mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${cmd}");
+    cmds:
+    lib.listToAttrs (
+      map (
+        cmd:
+        let
+          mainProgram = pkgs.${cmd}.meta.mainProgram or cmd;
+        in
+        {
+          name = mainProgram;
+          # --no-masking is a workaround for https://github.com/anthropics/claude-code/issues/7432
+          value = mkIf (elem pkgs.${cmd} config.home.packages) "op run --no-masking -- ${mainProgram}";
+        }
+      ) cmds
+    );
 in
 
 {
@@ -29,6 +42,7 @@ in
     GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
   };
   home.shellAliases = mkOpRunAliases [
+    "claude-code"
     "nix-update"
     "nixpkgs-review"
   ];
@@ -118,6 +132,7 @@ in
 
       # Dev stuff
       inherit (pkgs)
+        claude-code
         cloc # source code line counter
         google-cloud-sdk
         jq
@@ -128,7 +143,6 @@ in
         typescript
         uv
         ;
-      inherit (pkgs.pkgs-master) claude-code;
       inherit (pkgs.haskellPackages)
         cabal-install
         hoogle
