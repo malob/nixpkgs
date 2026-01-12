@@ -335,7 +335,7 @@
         {
           default = pkgs.mkShellNoCC {
             name = "default";
-            packages = attrValues { inherit (pkgs) nixd nixfmt-rfc-style; };
+            packages = attrValues { inherit (pkgs) nixd nixfmt; };
           };
         };
       # }}}
