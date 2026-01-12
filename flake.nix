@@ -334,9 +334,9 @@
           pkgs = self.legacyPackages.${system};
         in
         {
-          default = pkgs.mkShell {
+          default = pkgs.mkShellNoCC {
             name = "default";
-            buildInputs = attrValues { inherit (pkgs) nixd nixfmt-rfc-style; };
+            packages = attrValues { inherit (pkgs) nixd nixfmt-rfc-style; };
           };
         };
       # }}}
