@@ -150,17 +150,16 @@
             );
           };
 
-        tweaks = final: prev: {
-          # Add temporary overrides here
-          pkgs-master = prev.pkgs-master // {
-            claude-code = prev.pkgs-master.claude-code.overrideAttrs (oldAttrs: {
-              postPatch = (oldAttrs.postPatch or "") + ''
-                substituteInPlace cli.js \
-                  --replace-warn '#!/bin/bash' '#!/usr/bin/env bash'
-              '';
-            });
+        tweaks =
+          final: prev:
+          let
+            determinateNix = inputs.determinate-nix.inputs.nix.packages.${prev.stdenv.system}.default;
+          in
+          {
+            # Override nix-update and nixpkgs-review to use Determinate Nix
+            nix-update = prev.nix-update.override { nix = determinateNix; };
+            nixpkgs-review = prev.nixpkgs-review.override { nix = determinateNix; };
           };
-        };
       };
       # }}}
 
