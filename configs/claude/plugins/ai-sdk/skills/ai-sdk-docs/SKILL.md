@@ -1,7 +1,6 @@
 ---
 name: AI SDK Documentation
 description: This skill should be used when working with Vercel AI SDK, AI Gateway, streamText, generateText, generateObject, streamObject, tool calling, or AI SDK providers. Also relevant for "ai-sdk", "@ai-sdk/*" packages, or questions about AI SDK patterns, configuration, and best practices.
-version: 0.1.0
 ---
 
 # AI SDK Documentation Skill
