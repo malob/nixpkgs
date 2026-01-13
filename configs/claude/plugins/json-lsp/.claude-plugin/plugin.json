@@ -1,0 +1,8 @@
+{
+  "name": "json-lsp",
+  "version": "0.1.0",
+  "description": "JSON language server integration for schema validation and diagnostics",
+  "author": {
+    "name": "Malo Bourgon"
+  }
+}

@@ -135,12 +135,16 @@ in
         cloc # source code line counter
         google-cloud-sdk
         jq
+        nixd # Nix language server
         nodejs
         pnpm
         s3cmd
         stack
         typescript
         uv
+        ;
+      inherit (pkgs.nodePackages)
+        vscode-json-languageserver # JSON language server
         ;
       inherit (pkgs.haskellPackages)
         cabal-install
