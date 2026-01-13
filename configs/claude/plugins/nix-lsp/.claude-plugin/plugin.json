@@ -1,0 +1,8 @@
+{
+  "name": "nix-lsp",
+  "version": "0.1.0",
+  "description": "Nix language server integration using nixd",
+  "author": {
+    "name": "Malo Bourgon"
+  }
+}

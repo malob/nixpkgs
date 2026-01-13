@@ -1,0 +1,19 @@
+{
+  "name": "malos-plugins",
+  "description": "Malo's personal Claude Code plugins",
+  "owner": {
+    "name": "Malo Bourgon"
+  },
+  "plugins": [
+    {
+      "name": "ai-sdk",
+      "description": "Tools for working with Vercel AI SDK - documentation lookup, model queries, and AI Gateway integration",
+      "source": "./ai-sdk"
+    },
+    {
+      "name": "nix-lsp",
+      "description": "Nix language server integration using nixd",
+      "source": "./nix-lsp"
+    }
+  ]
+}

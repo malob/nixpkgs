@@ -3,12 +3,21 @@
   "additionalDirectories": [
     "~/.config/nixpkgs"
   ],
+  "extraKnownMarketplaces": {
+    "malos-plugins": {
+      "source": {
+        "source": "directory",
+        "path": "~/.config/nixpkgs/configs/claude/plugins"
+      }
+    }
+  },
   "enabledPlugins": {
     "plugin-dev@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true
+    "pr-review-toolkit@claude-plugins-official": true,
+    "nix-lsp@malos-plugins": true
   },
   "permissions": {
     "allow": [
