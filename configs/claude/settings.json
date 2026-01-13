@@ -1,5 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "additionalDirectories": [
+    "~/.config/nixpkgs"
+  ],
   "enabledPlugins": {
     "plugin-dev@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
