@@ -183,6 +183,7 @@
 
       homeManagerModules = {
         # My configurations
+        malo-claude = import ./home/claude.nix;
         malo-colors = import ./home/colors.nix;
         malo-config-files = import ./home/config-files.nix;
         malo-fish = import ./home/fish.nix;

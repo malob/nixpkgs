@@ -19,8 +19,7 @@ let
         in
         {
           name = mainProgram;
-          # --no-masking is a workaround for https://github.com/anthropics/claude-code/issues/7432
-          value = mkIf (elem pkgs.${cmd} config.home.packages) "op run --no-masking -- ${mainProgram}";
+          value = mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${mainProgram}";
         }
       ) cmds
     );
@@ -41,8 +40,8 @@ in
   home.sessionVariables = {
     GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
   };
+  # claude-code alias is handled in claude.nix
   home.shellAliases = mkOpRunAliases [
-    "claude-code"
     "nix-update"
     "nixpkgs-review"
   ];
@@ -131,8 +130,8 @@ in
         ;
 
       # Dev stuff
+      # claude-code is handled in claude.nix with custom wrapper
       inherit (pkgs)
-        claude-code
         cloc # source code line counter
         google-cloud-sdk
         jq
