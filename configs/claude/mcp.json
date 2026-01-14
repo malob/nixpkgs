@@ -5,6 +5,15 @@
       "command": "nix",
       "args": ["run", "github:utensils/mcp-nixos", "--"],
       "env": {}
+    },
+    "exa": {
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp?exaApiKey=${EXA_API_KEY}",
+      "headers": {}
+    },
+    "firecrawl": {
+      "type": "http",
+      "url": "https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp"
     }
   }
 }

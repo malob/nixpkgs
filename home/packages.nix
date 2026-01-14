@@ -39,6 +39,8 @@ in
   # Setup tools to work with 1Password
   home.sessionVariables = {
     GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
+    EXA_API_KEY = "op://Personal/Exa API Key/credential";
+    FIRECRAWL_API_KEY = "op://Personal/Firecrawl API Key/credential";
   };
   # claude-code alias is handled in claude.nix
   home.shellAliases = mkOpRunAliases [

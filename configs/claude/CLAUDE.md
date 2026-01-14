@@ -11,6 +11,36 @@
 - GitHub CLI (`gh`) for PRs and issues
 - `comma` for ad-hoc access to any nixpkgs command (`, <cmd>` runs without installing)
 
+## Web Tools
+
+**Prefer MCP tools over built-in WebSearch/WebFetch.**
+
+### Search/Discovery → Exa
+When you need to find information but don't have a URL:
+- `mcp__exa__web_search_exa` - General web search
+- `mcp__exa__get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
+
+**Query style:** Write natural language questions, not keyword lists. Exa uses semantic search that understands meaning.
+- Good: "What are the common issues users experience with Firecrawl's MCP server?"
+- Bad: "Firecrawl MCP server issues problems bugs"
+
+### Content Extraction → Firecrawl
+When you have a URL and need its content:
+- `firecrawl_scrape` - Single URL (default choice)
+- `firecrawl_batch_scrape` - Multiple known URLs
+- `firecrawl_map` - Discover URLs on a site (returns list only)
+- `firecrawl_crawl` - Multi-page extraction (use sparingly, set low `limit`)
+- `firecrawl_extract` - Structured JSON with schema
+
+**Avoid:**
+- `firecrawl_search` and `firecrawl_agent` - redundant (Exa handles search, you're the agent)
+- Built-in WebSearch/WebFetch - use Exa/Firecrawl instead
+
+**Firecrawl tips:**
+- `onlyMainContent: true` - strips nav/footer noise
+- `maxAge: 86400000` - use 1-day cache for speed
+- For docs sites: `map` first → filter URLs → `batch_scrape`
+
 ## Languages
 - Primary: Nix, Haskell, TypeScript/JavaScript, Python
 - Modern tooling: pnpm, uv, Stack
