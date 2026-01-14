@@ -3,4 +3,4 @@ result-*
 
 .direnv
 .envrc
-.claude
+.claude/settings.local.json
