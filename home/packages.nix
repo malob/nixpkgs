@@ -28,8 +28,8 @@ in
 {
   # Link apps to ~/Applications/Home Manager Apps
   # Unlike Spotlight, Raycast can find symlinked apps so copying isn't needed
-  targets.darwin.copyApps.enable = false;
-  targets.darwin.linkApps.enable = true;
+  targets.darwin.copyApps.enable = mkIf pkgs.stdenv.isDarwin false;
+  targets.darwin.linkApps.enable = mkIf pkgs.stdenv.isDarwin true;
   # 1Password CLI plugin integration
   # https://developer.1password.com/docs/cli/shell-plugins/nix
   programs._1password-shell-plugins.enable = true;
