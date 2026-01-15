@@ -86,8 +86,9 @@ Response to convert:
 
 # Call claude CLI for summarization
 # --print for non-interactive single-response mode
+# Run from /tmp so session history doesn't pollute project conversations
 # TTS_SUBPROCESS=1 prevents the Stop hook from triggering recursively
-SUMMARY=$(echo "$PROMPT" | TTS_SUBPROCESS=1 claude --print --model haiku 2>/dev/null) || true
+SUMMARY=$(cd "${TMPDIR:-/tmp}" && echo "$PROMPT" | TTS_SUBPROCESS=1 claude --print --model haiku 2>/dev/null) || true
 
 # Check if summarization failed
 if [[ -z "$SUMMARY" ]]; then
