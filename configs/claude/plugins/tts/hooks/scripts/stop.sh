@@ -40,6 +40,9 @@ if [[ "$STOP_HOOK_ACTIVE" == "false" ]]; then
     exit 0
   fi
 
+  # Create marker so PreToolUse hook knows this is an auto-invocation (needs confirmation)
+  touch "${TMPDIR:-/tmp}/tts-auto-pending-${SESSION_ID}"
+
   # Block and instruct Claude to run TTS
   cat << 'EOF'
 {

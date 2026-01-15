@@ -26,16 +26,33 @@ if [[ "$TOOL_NAME" == "Bash" ]] && [[ "$COMMAND" == "$SPEAK_SCRIPT"* ]]; then
     NEW_CMD="$SPEAK_SCRIPT $SESSION_ID"
   fi
 
-  jq -n --arg cmd "$NEW_CMD" '{
-    hookSpecificOutput: {
-      hookEventName: "PreToolUse",
-      permissionDecision: "ask",
-      permissionDecisionReason: "Play audio summary of last response?",
-      updatedInput: {
-        command: $cmd
+  # Check if this is an auto-invocation (marker file exists)
+  AUTO_MARKER="${TMPDIR:-/tmp}/tts-auto-pending-${SESSION_ID}"
+  if [[ -f "$AUTO_MARKER" ]]; then
+    # Auto-invocation: show confirmation, delete marker
+    rm -f "$AUTO_MARKER"
+    jq -n --arg cmd "$NEW_CMD" '{
+      hookSpecificOutput: {
+        hookEventName: "PreToolUse",
+        permissionDecision: "ask",
+        permissionDecisionReason: "Play audio summary of last response?",
+        updatedInput: {
+          command: $cmd
+        }
       }
-    }
-  }'
+    }'
+  else
+    # Manual invocation: allow through without confirmation
+    jq -n --arg cmd "$NEW_CMD" '{
+      hookSpecificOutput: {
+        hookEventName: "PreToolUse",
+        permissionDecision: "allow",
+        updatedInput: {
+          command: $cmd
+        }
+      }
+    }'
+  fi
   exit 0
 fi
 

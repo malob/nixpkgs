@@ -29,6 +29,9 @@ fi
 SESSION_ID="${1:-}"
 RATE="${2:-300}"  # Words per minute (default: 300)
 
+# Clean up auto-pending marker if it exists (belt-and-suspenders with PreToolUse hook)
+rm -f "${TMPDIR:-/tmp}/tts-auto-pending-${SESSION_ID}"
+
 if [[ -z "$SESSION_ID" ]]; then
   SESSION_ID=$(find ~/.claude -name "*.jsonl" -mmin -5 2>/dev/null | head -1 | xargs basename 2>/dev/null | sed 's/.jsonl//')
   if [[ -z "$SESSION_ID" ]]; then
