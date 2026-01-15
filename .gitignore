@@ -4,3 +4,7 @@ result-*
 .direnv
 .envrc
 .claude/settings.local.json
+
+# Private Claude context (not committed)
+configs/claude/rules/bio.md
+configs/claude/PRIVATE.md

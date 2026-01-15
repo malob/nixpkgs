@@ -1,5 +1,10 @@
 # Malo's Global Claude Context
 
+## Personal Context
+Biographical info (job, preferences, interests) is auto-loaded from `~/.claude/rules/bio.md`.
+
+For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` when needed for tasks like filling forms or making reservations.
+
 ## Environment
 - macOS with nix-darwin and Home Manager
 - Nix config at `~/.config/nixpkgs`
