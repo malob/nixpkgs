@@ -19,6 +19,11 @@
       "name": "json-lsp",
       "description": "JSON language server integration for schema validation and diagnostics",
       "source": "./json-lsp"
+    },
+    {
+      "name": "tts",
+      "description": "Text-to-speech for Claude responses using macOS say command",
+      "source": "./tts"
     }
   ]
 }

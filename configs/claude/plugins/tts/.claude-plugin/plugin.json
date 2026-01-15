@@ -1,0 +1,8 @@
+{
+  "name": "tts",
+  "description": "Text-to-speech for Claude responses. Offers to read responses aloud using macOS say command.",
+  "author": {
+    "name": "Malo"
+  },
+  "keywords": ["tts", "text-to-speech", "audio", "accessibility"]
+}

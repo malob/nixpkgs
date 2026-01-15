@@ -39,7 +39,7 @@ let
   settings = {
     "$schema" = "https://json.schemastore.org/claude-code-settings.json";
     permissions.allow = [
-      # Tier 1: Read-only git and file inspection
+      # Read-only git and file inspection
       "Bash(git status:*)"
       "Bash(git diff:*)"
       "Bash(git log:*)"
@@ -49,19 +49,21 @@ let
       "Bash(cat:*)"
       "Bash(head:*)"
       "Bash(tail:*)"
-      # Tier 2: Nix commands
+      # Nix commands
       "Bash(nix build:*)"
       "Bash(nix flake:*)"
       "Bash(nix eval:*)"
       "Bash(nix develop:*)"
-      # Tier 3: GitHub CLI read operations
+      # GitHub CLI read operations
       "Bash(gh pr view:*)"
       "Bash(gh pr list:*)"
       "Bash(gh pr diff:*)"
       "Bash(gh pr checks:*)"
       "Bash(gh issue view:*)"
       "Bash(gh issue list:*)"
-      # Tier 4: MCP web tools (read-only operations)
+      # TTS plugin skills
+      "Skill(tts:*)"
+      # MCP web tools
       "mcp__exa__web_search_exa"
       "mcp__exa__get_code_context_exa"
       "mcp__firecrawl__firecrawl_scrape"
@@ -79,6 +81,7 @@ let
       "pr-review-toolkit@claude-plugins-official" = true;
       "nix-lsp@malos-plugins" = true;
       "json-lsp@malos-plugins" = true;
+      "tts@malos-plugins" = true;
     };
     extraKnownMarketplaces.malos-plugins.source = {
       source = "directory";
