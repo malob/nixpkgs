@@ -100,6 +100,16 @@ let
           ];
         }
       ];
+      Notification = [
+        {
+          hooks = [
+            {
+              type = "command";
+              command = "${claudeDir}/hooks/notify-ghostty.sh";
+            }
+          ];
+        }
+      ];
     };
   };
 in
