@@ -14,6 +14,10 @@
     "firecrawl": {
       "type": "http",
       "url": "https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp"
+    },
+    "beeper": {
+      "type": "http",
+      "url": "http://localhost:23373/v0/mcp"
     }
   }
 }
