@@ -3,5 +3,6 @@
   "description": "Tools for working with Vercel AI SDK - documentation lookup, model queries, and AI Gateway integration",
   "author": {
     "name": "Malo Bourgon"
-  }
+  },
+  "keywords": ["ai-sdk", "vercel", "llm", "ai-gateway", "documentation"]
 }

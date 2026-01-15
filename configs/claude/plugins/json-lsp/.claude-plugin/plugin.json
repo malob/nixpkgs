@@ -3,5 +3,6 @@
   "description": "JSON language server integration for schema validation and diagnostics",
   "author": {
     "name": "Malo Bourgon"
-  }
+  },
+  "keywords": ["json", "lsp", "language-server", "schema", "validation"]
 }

@@ -3,5 +3,6 @@
   "description": "Nix language server integration using nixd",
   "author": {
     "name": "Malo Bourgon"
-  }
+  },
+  "keywords": ["nix", "lsp", "language-server", "nixd"]
 }
