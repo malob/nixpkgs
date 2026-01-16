@@ -111,6 +111,11 @@ let
         }
       ];
     };
+    statusLine = {
+      type = "command";
+      command = "${claudeDir}/statusline.sh";
+      padding = 0;
+    };
   };
 in
 {
