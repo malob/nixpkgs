@@ -84,7 +84,7 @@
         username = "malo";
         fullName = "Malo Bourgon";
         email = "mbourgon@gmail.com";
-        nixConfigDirectory = "/Users/malo/.config/nixpkgs";
+        nixConfigDirectory = "/Users/malo/.config/nix-config";
       };
     in
     {
@@ -280,7 +280,7 @@
         # Config with small modifications needed/desired for CI with GitHub workflow
         githubCI = self.darwinConfigurations.MaloBookPro.override {
           username = "runner";
-          nixConfigDirectory = "/Users/runner/work/nixpkgs/nixpkgs";
+          nixConfigDirectory = "/Users/runner/work/nix-config/nix-config";
           extraModules = singleton {
             environment.etc.shells.enable = mkForce false;
             homebrew.enable = mkForce false;
@@ -302,7 +302,7 @@
               home.homeDirectory = "/home/${config.home.username}";
               home.stateVersion = homeStateVersion;
               home.user-info = primaryUserDefaults // {
-                nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
+                nixConfigDirectory = "${config.home.homeDirectory}/.config/nix-config";
               };
             }
           );
@@ -315,7 +315,7 @@
           ++ singleton {
             home.username = mkForce "runner";
             home.homeDirectory = mkForce "/home/runner";
-            home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nixpkgs/nixpkgs";
+            home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nix-config/nix-config";
           };
       });
       # }}}

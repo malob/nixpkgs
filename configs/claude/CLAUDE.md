@@ -7,7 +7,7 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 
 ## Environment
 - macOS with nix-darwin and Home Manager
-- Nix config at `~/.config/nixpkgs`
+- Nix config at `~/.config/nix-config`
 - Fish shell with Starship prompt
 - 1Password for secrets management
 

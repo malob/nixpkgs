@@ -18,7 +18,7 @@ end
 -- Configures `sumneko_lua` properly for Neovim config editing when it makes sense.
 require 'neodev'.setup {
   override = function(root_dir, library)
-    if require 'neodev.util'.has_file(root_dir, "~/.config/nixpkgs/configs/nvim") then
+    if require 'neodev.util'.has_file(root_dir, "~/.config/nix-config/configs/nvim") then
       library.enabled = true
       library.runtime = true
       library.types = true

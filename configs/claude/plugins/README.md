@@ -16,7 +16,7 @@ See each plugin's README for details.
 ## Installation
 
 ```
-/plugin marketplace add https://raw.githubusercontent.com/malob/nixpkgs/master/configs/claude/plugins/.claude-plugin/marketplace.json
+/plugin marketplace add https://raw.githubusercontent.com/malob/nix-config/master/configs/claude/plugins/.claude-plugin/marketplace.json
 ```
 
 Then enable individual plugins via `/plugin`.
