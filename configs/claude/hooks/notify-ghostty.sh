@@ -34,4 +34,5 @@ if [[ -n "$project" ]]; then
 fi
 
 # Write directly to the terminal (not stdout which goes to Claude Code)
+# shellcheck disable=SC1003 # \e\\ is ESC+backslash (ST), not a quote escape
 printf '\e]777;notify;%s;%s\e\\' "$title" "$message" > /dev/tty 2>/dev/null || true

@@ -99,6 +99,15 @@ let
             }
           ];
         }
+        {
+          matcher = "Edit|Write";
+          hooks = [
+            {
+              type = "command";
+              command = "${claudeDir}/hooks/shellcheck-lint.sh";
+            }
+          ];
+        }
       ];
       Notification = [
         {

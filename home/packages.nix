@@ -141,6 +141,7 @@ in
         nodejs
         pnpm
         s3cmd
+        shellcheck
         stack
         typescript
         uv
