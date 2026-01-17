@@ -41,6 +41,9 @@ in
     GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
     EXA_API_KEY = "op://Personal/Exa API Key/credential";
     FIRECRAWL_API_KEY = "op://Personal/Firecrawl API Key/credential";
+    # Fix Nerd Font icons in less/bat (PUA characters not displayed by default in less 632+)
+    # https://github.com/ryanoasis/nerd-fonts/wiki/FAQ-and-Troubleshooting#less-settings
+    LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
   };
   # claude-code alias is handled in claude.nix
   home.shellAliases = mkOpRunAliases [
