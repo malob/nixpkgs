@@ -200,6 +200,7 @@
         # Modules I've created
         colors = import ./modules/home/colors;
         programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
+        programs-starship-extras = import ./modules/home/programs/starship/extras.nix;
         home-user-info =
           { lib, ... }:
           {
