@@ -82,6 +82,7 @@ let
       "nix-lsp@malos-plugins" = true;
       "json-lsp@malos-plugins" = true;
       "tts@malos-plugins" = true;
+      "pua-unicode@malos-plugins" = true;
     };
     extraKnownMarketplaces.malos-plugins.source = {
       source = "directory";

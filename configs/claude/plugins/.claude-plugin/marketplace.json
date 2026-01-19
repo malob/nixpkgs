@@ -24,6 +24,11 @@
       "name": "tts",
       "description": "Text-to-speech for Claude responses using macOS say command",
       "source": "./tts"
+    },
+    {
+      "name": "pua-unicode",
+      "description": "Workaround for BMP PUA Unicode filtering with placeholder syntax and automatic conversion (primarily for Nerd Font icons)",
+      "source": "./pua-unicode"
     }
   ]
 }

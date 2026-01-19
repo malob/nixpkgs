@@ -1,0 +1,9 @@
+{
+  "name": "pua-unicode",
+  "description": "Workaround for Claude Code filtering BMP Private Use Area Unicode characters (U+E000-U+F8FF). Provides placeholder syntax for icons (primarily Nerd Fonts) and automatic conversion.",
+  "author": {
+    "name": "Malo Bourgon"
+  },
+  "keywords": ["unicode", "pua", "icons", "nerd-fonts", "terminal"],
+  "hooks": "./hooks/hooks.json"
+}
