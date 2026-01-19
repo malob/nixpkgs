@@ -6,10 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Build and switch to the macOS nix-darwin configuration
-nh darwin switch
+nh darwin switch --no-nom
 
 # Build without switching (for testing)
-nh darwin build
+nh darwin build --no-nom
 
 # Update all flake inputs
 nix flake update
@@ -85,6 +85,12 @@ pkgs.pkgs-x86.some-package       # x86 version (Apple Silicon only)
 3. The module is automatically included via `attrValues self.homeManagerModules`
 
 **Add a darwin module:** Same pattern in `darwin/` directory and `darwinModules` in flake.nix.
+
+**Iterate on Claude Code plugins:** Plugins in `configs/claude/plugins/` are symlinked but cached by Claude. After making changes, nuke the cache and restart:
+```bash
+rm -rf ~/.claude/plugins/cache/malos-plugins/<plugin-name>
+# Then restart Claude Code
+```
 
 ## Conventions
 

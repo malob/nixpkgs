@@ -61,6 +61,8 @@ When you have a URL and need its content:
 - Nix: follow nixpkgs conventions
 - Small, focused functions
 - Avoid over-engineering
+- Markdown tables: align columns with spaces so they render correctly in the user's editor
+- Curly quotes/apostrophes: Claude Code normalizes these to straight quotes (known bug). Use Unicode escapes (`\u2018`, `\u2019`, `\u201C`, `\u201D`) when they must be preserved
 
 ## Evolving Configuration
 Proactively suggest improvements to Claude Code configuration based on our conversations:
