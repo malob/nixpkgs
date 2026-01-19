@@ -7,44 +7,17 @@
 
 let
   inherit (lib)
-    mkEnableOption
+    mkOption
     mkIf
     mapAttrsRecursiveCond
     mkDefault
-    mkMerge
+    types
     ;
 
   cfg = config.programs.starship.extras;
 
-  presetNames = [
-    "bracketed-segments"
-    "catppuccin-powerline"
-    "gruvbox-rainbow"
-    "jetpack"
-    "nerd-font-symbols"
-    "no-empty-icons"
-    "no-nerd-font"
-    "no-runtime-versions"
-    "pastel-powerline"
-    "plain-text-symbols"
-    "pure-preset"
-    "tokyo-night"
-  ];
-
-  # Convert preset name to valid Nix identifier (replace hyphens with underscores)
-  toIdentifier = name: builtins.replaceStrings [ "-" ] [ "_" ] name;
-
-  # Generate TOML for a preset and parse it
-  getPresetSettings =
-    name:
-    let
-      tomlFile = pkgs.runCommand "starship-preset-${name}.toml" { } ''
-        ${pkgs.starship}/bin/starship preset ${name} > $out
-      '';
-      parsed = builtins.fromTOML (builtins.readFile tomlFile);
-    in
-    # Remove $schema key if present
-    builtins.removeAttrs parsed [ "$schema" ];
+  # Convert Nix identifier back to preset name (underscores to hyphens)
+  fromIdentifier = name: builtins.replaceStrings [ "_" ] [ "-" ] name;
 
   # Recursively apply mkDefault to all leaf values
   applyMkDefault =
@@ -53,28 +26,45 @@ let
       (_path: value: mkDefault value)
       attrs;
 
-  # Generate preset options
-  presetOptions = builtins.listToAttrs (
-    map (name: {
-      name = toIdentifier name;
-      value = mkEnableOption "the ${name} starship preset";
-    }) presetNames
-  );
-
-  # Generate config for each enabled preset
-  presetConfigs = map (
-    name:
-    let
-      id = toIdentifier name;
-    in
-    mkIf cfg.presets.${id} {
-      programs.starship.settings = applyMkDefault (getPresetSettings name);
-    }
-  ) presetNames;
-
 in
 {
-  options.programs.starship.extras.presets = presetOptions;
+  options.programs.starship.extras.presets = mkOption {
+    type = types.attrsOf types.bool;
+    default = { };
+    example = {
+      nerd_font_symbols = true;
+    };
+    description = ''
+      Starship presets to enable. Use underscores instead of hyphens in preset names.
+      Available presets are discovered automatically from the starship package.
+      See https://starship.rs/presets/ for available presets.
+    '';
+  };
 
-  config = mkIf config.programs.starship.enable (mkMerge presetConfigs);
+  config = mkIf config.programs.starship.enable (
+    let
+      presetsDir = "${pkgs.starship}/share/starship/presets";
+
+      # Read and parse a preset TOML file
+      getPresetSettings =
+        name:
+        let
+          parsed = builtins.fromTOML (builtins.readFile "${presetsDir}/${name}.toml");
+        in
+        builtins.removeAttrs parsed [ "$schema" ];
+
+      # Get enabled presets and apply their settings
+      enabledPresets = lib.filterAttrs (_: enabled: enabled) cfg.presets;
+      presetSettings = lib.mapAttrsToList (
+        id: _:
+        let
+          name = fromIdentifier id;
+        in
+        applyMkDefault (getPresetSettings name)
+      ) enabledPresets;
+    in
+    {
+      programs.starship.settings = lib.mkMerge presetSettings;
+    }
+  );
 }
