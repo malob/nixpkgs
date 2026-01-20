@@ -37,7 +37,8 @@ let
   #
   # Each server can specify:
   # - stdio: { command, args?, env? } - Native stdio server
-  # - http: { url, headers? } - HTTP/SSE endpoint (CLI only; Desktop uses mcp-remote bridge)
+  # - sse: { url } - SSE endpoint (Desktop uses mcp-remote bridge)
+  # - http: { url, headers? } - HTTP endpoint (Desktop uses mcp-remote bridge)
   # - desktopOnly / cliOnly: bool - Limit to one target
   #
   # Env vars containing "op://" are automatically expanded via `op run`.
@@ -73,6 +74,12 @@ let
     beeper = {
       http.url = "http://localhost:23373/v0/mcp";
       cliOnly = true; # Desktop managed via extension
+    };
+
+    # https://developers.asana.com/docs/using-asanas-mcp-server
+    asana = {
+      sse.url = "https://mcp.asana.com/sse";
+      cliOnly = true; # Desktop/web have native Asana integration
     };
 
     # https://workspacemcp.com/docs
@@ -138,7 +145,12 @@ let
     let
       env = server.stdio.env or { };
     in
-    if server ? http then
+    if server ? sse then
+      {
+        type = "sse";
+        url = server.sse.url;
+      }
+    else if server ? http then
       {
         type = "http";
         url = server.http.url;
@@ -158,18 +170,27 @@ let
         inherit env;
       }
     else
-      throw "MCP server '${name}' must define either 'http' or 'stdio'";
+      throw "MCP server '${name}' must define 'sse', 'http', or 'stdio'";
 
   # Generate Desktop MCP config entry
-  # Desktop requires stdio, so HTTP servers are bridged via mcp-remote
+  # Desktop requires stdio, so HTTP/SSE servers are bridged via mcp-remote
   mkDesktopServer =
     name: server:
     let
       env = server.stdio.env or { };
 
-      # Get base command/args (bridge HTTP via mcp-remote)
+      # Get base command/args (bridge HTTP/SSE via mcp-remote)
       base =
-        if server ? http then
+        if server ? sse then
+          {
+            command = "npx";
+            args = [
+              "-y"
+              "mcp-remote"
+              server.sse.url
+            ];
+          }
+        else if server ? http then
           {
             command = "npx";
             args = [
@@ -184,7 +205,7 @@ let
             args = server.stdio.args or [ ];
           }
         else
-          throw "MCP server '${name}' must define either 'http' or 'stdio'";
+          throw "MCP server '${name}' must define 'sse', 'http', or 'stdio'";
 
       wrapped = wrapWithOp (base // { inherit env; });
     in
