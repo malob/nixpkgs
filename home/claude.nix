@@ -27,10 +27,9 @@ let
 
   # GUI apps don't inherit shell PATH, so we build it from nix-darwin config
   # Expand $HOME and $USER since JSON doesn't support shell variables
-  desktopPath = builtins.replaceStrings
-    [ "$HOME" "$USER" ]
-    [ config.home.homeDirectory config.home.username ]
-    osConfig.environment.systemPath;
+  desktopPath =
+    builtins.replaceStrings [ "$HOME" "$USER" ] [ config.home.homeDirectory config.home.username ]
+      osConfig.environment.systemPath;
 
   # ============================================================================
   # MCP Server Definitions
@@ -46,24 +45,57 @@ let
   mcpServers = {
     nixos.stdio = {
       command = "nix";
-      args = [ "run" "github:utensils/mcp-nixos" "--" ];
+      args = [
+        "run"
+        "github:utensils/mcp-nixos"
+        "--"
+      ];
     };
 
     exa.stdio = {
       command = "npx";
-      args = [ "-y" "exa-mcp-server" ];
+      args = [
+        "-y"
+        "exa-mcp-server"
+      ];
       env.EXA_API_KEY = "op://Personal/Exa API Key/credential";
     };
 
     firecrawl.stdio = {
       command = "npx";
-      args = [ "-y" "firecrawl-mcp" ];
+      args = [
+        "-y"
+        "firecrawl-mcp"
+      ];
       env.FIRECRAWL_API_KEY = "op://Personal/Firecrawl API Key/credential";
     };
 
     beeper = {
       http.url = "http://localhost:23373/v0/mcp";
       cliOnly = true; # Desktop managed via extension
+    };
+
+    # https://workspacemcp.com/docs
+    google-workspace.stdio = {
+      command = "uvx";
+      args = [
+        "workspace-mcp"
+        "--tools"
+        "gmail"
+        "drive"
+        "docs"
+        "sheets"
+        "calendar"
+        "--tool-tier"
+        "extended"
+        "--single-user"
+      ];
+      env = {
+        GOOGLE_OAUTH_CLIENT_ID = "op://Personal/Google Workspace MCP/client_id";
+        GOOGLE_OAUTH_CLIENT_SECRET = "op://Personal/Google Workspace MCP/client_secret";
+        GOOGLE_MCP_CREDENTIALS_DIR = "${config.xdg.dataHome}/google-workspace-mcp";
+        USER_GOOGLE_EMAIL = "malo@intelligence.org";
+      };
     };
   };
 
@@ -81,20 +113,36 @@ let
   hasOpSecrets = env: lib.any (v: lib.hasPrefix "op://" v) (lib.attrValues env);
 
   # Wrap a command with `op run` if env contains op:// references
-  wrapWithOp = { command, args, env }:
-    if hasOpSecrets env then {
-      command = "op";
-      args = [ "run" "--" command ] ++ args;
-    }
-    else { inherit command args; };
+  wrapWithOp =
+    {
+      command,
+      args,
+      env,
+    }:
+    if hasOpSecrets env then
+      {
+        command = "op";
+        args = [
+          "run"
+          "--"
+          command
+        ]
+        ++ args;
+      }
+    else
+      { inherit command args; };
 
   # Generate CLI MCP config entry
-  mkCliServer = name: server:
+  mkCliServer =
+    name: server:
     let
       env = server.stdio.env or { };
     in
     if server ? http then
-      { type = "http"; url = server.http.url; }
+      {
+        type = "http";
+        url = server.http.url;
+      }
       // lib.optionalAttrs (server.http ? headers) { headers = server.http.headers; }
     else if server ? stdio then
       let
@@ -114,20 +162,27 @@ let
 
   # Generate Desktop MCP config entry
   # Desktop requires stdio, so HTTP servers are bridged via mcp-remote
-  mkDesktopServer = name: server:
+  mkDesktopServer =
+    name: server:
     let
       env = server.stdio.env or { };
 
       # Get base command/args (bridge HTTP via mcp-remote)
       base =
-        if server ? http then {
-          command = "npx";
-          args = [ "-y" "mcp-remote" server.http.url ];
-        }
-        else if server ? stdio then {
-          inherit (server.stdio) command;
-          args = server.stdio.args or [ ];
-        }
+        if server ? http then
+          {
+            command = "npx";
+            args = [
+              "-y"
+              "mcp-remote"
+              server.http.url
+            ];
+          }
+        else if server ? stdio then
+          {
+            inherit (server.stdio) command;
+            args = server.stdio.args or [ ];
+          }
         else
           throw "MCP server '${name}' must define either 'http' or 'stdio'";
 
@@ -135,7 +190,9 @@ let
     in
     {
       inherit (wrapped) command args;
-      env = env // { PATH = desktopPath; };
+      env = env // {
+        PATH = desktopPath;
+      };
     };
 
   # Filter and transform servers for each target
@@ -268,13 +325,17 @@ let
   };
 
   # Helper for human-readable JSON files
-  toFormattedJSON = data: pkgs.runCommand "formatted.json" {
-    nativeBuildInputs = [ pkgs.jq ];
-    passAsFile = [ "json" ];
-    json = builtins.toJSON data;
-  } ''
-    jq . "$jsonPath" > $out
-  '';
+  toFormattedJSON =
+    data:
+    pkgs.runCommand "formatted.json"
+      {
+        nativeBuildInputs = [ pkgs.jq ];
+        passAsFile = [ "json" ];
+        json = builtins.toJSON data;
+      }
+      ''
+        jq . "$jsonPath" > $out
+      '';
 
 in
 {
