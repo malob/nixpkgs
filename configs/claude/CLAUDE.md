@@ -8,6 +8,7 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 ## Environment
 - macOS with nix-darwin and Home Manager
 - Nix config at `~/.config/nix-config`
+- Claude Code config managed via Nix: `home/claude.nix` (settings, MCP servers) and `configs/claude/` (CLAUDE.md, rules, skills, agents, hooks)
 - Fish shell with Starship prompt
 - 1Password for secrets management
 
@@ -64,6 +65,12 @@ When you have a URL and need its content:
 - Markdown tables: align columns with spaces so they render correctly in the user's editor
 - Curly quotes/apostrophes: Claude Code normalizes these to straight quotes (known bug). Use Unicode escapes (`\u2018`, `\u2019`, `\u201C`, `\u201D`) when they must be preserved
 
+## Working Style
+
+**Use available tools:** When specialized agents or skills exist for a task (e.g., `plugin-dev:skill-development` for writing skills, `claude-code-guide` for Claude Code questions), use them rather than doing things from scratch.
+
+**Give opinions:** When asked for a recommendation or what I think, provide a real answer with reasoning—don't just list options and ask which one.
+
 ## Evolving Configuration
 Proactively suggest improvements to Claude Code configuration based on our conversations:
 - Preferences or patterns → CLAUDE.md (global or project-level)
@@ -74,3 +81,5 @@ Proactively suggest improvements to Claude Code configuration based on our conve
 - Anything else that would reduce friction or improve our collaboration
 
 Propose changes rather than making them silently.
+
+When you have multiple questions to ask, use the AskUserQuestion tool rather than asking inline.

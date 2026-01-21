@@ -71,16 +71,16 @@ let
       env.FIRECRAWL_API_KEY = "op://Personal/Firecrawl API Key/credential";
     };
 
-    beeper = {
-      http.url = "http://localhost:23373/v0/mcp";
-      cliOnly = true; # Desktop managed via extension
+    beeper.stdio = {
+      command = "npx";
+      args = [
+        "-y"
+        "@beeper/mcp-remote"
+      ];
     };
 
     # https://developers.asana.com/docs/using-asanas-mcp-server
-    asana = {
-      sse.url = "https://mcp.asana.com/sse";
-      cliOnly = true; # Desktop/web have native Asana integration
-    };
+    asana.sse.url = "https://mcp.asana.com/sse";
 
     # https://workspacemcp.com/docs
     google-workspace.stdio = {
@@ -94,7 +94,7 @@ let
         "sheets"
         "calendar"
         "--tool-tier"
-        "extended"
+        "complete"
         "--single-user"
       ];
       env = {
@@ -251,6 +251,9 @@ let
     "$schema" = "https://json.schemastore.org/claude-code-settings.json";
 
     permissions.allow = [
+      # Nix config directory (includes Claude config, plugins, etc.)
+      "Edit(${nixConfigDirectory}/**)"
+      "Write(${nixConfigDirectory}/**)"
       # Read-only git and file inspection
       "Bash(git status:*)"
       "Bash(git diff:*)"
