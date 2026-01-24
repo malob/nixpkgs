@@ -62,7 +62,7 @@ When you have a URL and need its content:
 - Nix: follow nixpkgs conventions
 - Small, focused functions
 - Avoid over-engineering
-- Markdown tables: align columns with spaces so they render correctly in the user's editor
+- Markdown tables: align columns with spaces so they render correctly in the user's editor. For items with long descriptions, use blockquotes or lists instead—tables with very long rows are hard to read
 - Curly quotes/apostrophes: Claude Code normalizes these to straight quotes (known bug). Use Unicode escapes (`\u2018`, `\u2019`, `\u201C`, `\u201D`) when they must be preserved
 
 ## Working Style
@@ -70,6 +70,10 @@ When you have a URL and need its content:
 **Use available tools:** When specialized agents or skills exist for a task (e.g., `plugin-dev:skill-development` for writing skills, `claude-code-guide` for Claude Code questions), use them rather than doing things from scratch.
 
 **Give opinions:** When asked for a recommendation or what I think, provide a real answer with reasoning—don't just list options and ask which one.
+
+**Clipboard handoff:** When we've finalized content you'll use elsewhere (drafts, URLs, code snippets, etc.), copy it to your clipboard with `pbcopy` so you can paste directly rather than selecting from terminal output.
+
+**Todo lists for lists:** When working through a list of items (tasks, emails, files to review, etc.), always create a todo list to track progress. Don't wait to be asked—if there's a list, make a todo list.
 
 ## Evolving Configuration
 Proactively suggest improvements to Claude Code configuration based on our conversations:
