@@ -98,7 +98,7 @@ let
         "--single-user"
       ];
       env = {
-        GOOGLE_OAUTH_CLIENT_ID = "op://Personal/Google Workspace MCP/client_id";
+        GOOGLE_OAUTH_CLIENT_ID = "159058921887-9dude49fdtl0chaq8dklq4pv7tmf00ji.apps.googleusercontent.com";
         GOOGLE_OAUTH_CLIENT_SECRET = "op://Personal/Google Workspace MCP/client_secret";
         GOOGLE_MCP_CREDENTIALS_DIR = "${config.xdg.dataHome}/google-workspace-mcp";
         USER_GOOGLE_EMAIL = "malo@intelligence.org";
