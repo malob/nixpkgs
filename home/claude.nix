@@ -309,6 +309,17 @@ let
     additionalDirectories = [ nixConfigDirectory ];
 
     hooks = {
+      PreToolUse = [
+        {
+          matcher = "Bash";
+          hooks = [
+            {
+              type = "command";
+              command = "${claudeDir}/hooks/op-plugin-wrap.sh";
+            }
+          ];
+        }
+      ];
       PostToolUse = [
         {
           matcher = "WebSearch|WebFetch";
