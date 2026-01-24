@@ -4,6 +4,5 @@
   "author": {
     "name": "Malo Bourgon"
   },
-  "keywords": ["unicode", "pua", "icons", "nerd-fonts", "terminal"],
-  "hooks": "./hooks/hooks.json"
+  "keywords": ["unicode", "pua", "icons", "nerd-fonts", "terminal"]
 }
