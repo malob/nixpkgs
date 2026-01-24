@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Run automated cask checks (audit, style, livecheck)
+# Usage: test-cask <cask-name>
+
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "Usage: test-cask <cask-name>" >&2
+  exit 1
+fi
+
+cask="$1"
+
+# Set environment for local cask testing
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_FROM_API=1
+
+echo "==> Running audit..."
+brew audit --new --cask "$cask"
+
+echo "==> Running style --fix..."
+brew style --fix "$cask"
+
+echo "==> Running livecheck..."
+brew livecheck --cask "$cask"
+
+echo "==> All checks passed!"
