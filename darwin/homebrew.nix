@@ -94,6 +94,7 @@ in
     "ledger-wallet"
     "lm-studio"
     "loopback"
+    "monologue"
     "multiviewer"
     "notion"
     "parallels"
