@@ -16,6 +16,7 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 - Ghostty terminal
 - GitHub CLI (`gh`) for PRs and issues
 - `comma` for ad-hoc access to any nixpkgs command (`, <cmd>` runs without installing)
+- Opening URLs: use `open "URL"` in Bash (opens in Safari), not Chrome browser automation tools
 
 ## Web Tools
 
@@ -69,6 +70,10 @@ When you have a URL and need its content:
 
 **Use available tools:** When specialized agents or skills exist for a task (e.g., `plugin-dev:skill-development` for writing skills, `claude-code-guide` for Claude Code questions), use them rather than doing things from scratch.
 
+**ToolSearch before MCP tools:** Before using an MCP tool for the first time in a session, look it up with ToolSearch to see the correct parameter schema. Avoids wasted calls from guessing parameter formats.
+
+**Project-local config first:** When looking for project-specific configuration (hooks, agents, skills, settings), check the project-local `.claude/` directory before `~/.claude/` (global).
+
 **Give opinions:** When asked for a recommendation or what I think, provide a real answer with reasoning—don't just list options and ask which one.
 
 **Clipboard handoff:** When we've finalized content you'll use elsewhere (drafts, URLs, code snippets, etc.), copy it to your clipboard with `pbcopy` so you can paste directly rather than selecting from terminal output.
@@ -85,5 +90,7 @@ Proactively suggest improvements to Claude Code configuration based on our conve
 - Anything else that would reduce friction or improve our collaboration
 
 Propose changes rather than making them silently.
+
+**Skills vs agents:** Use skills with `context: fork` for repeatable, parameterized tasks where the workflow is fixed but inputs vary (`/fix-issue 123`). Use agents when you need a custom system prompt and the task varies each time. Skills bake the task into the file; agents separate "how" (system prompt) from "what" (delegation message), allowing per-invocation flexibility.
 
 When you have multiple questions to ask, use the AskUserQuestion tool rather than asking inline.
