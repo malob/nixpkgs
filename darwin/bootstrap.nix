@@ -12,10 +12,10 @@ in
 
   # Nix settings for Determinate Nix
   # Note: experimental-features not needed (Determinate has flakes by default)
-  determinate-nix.customSettings = {
+  determinateNix.customSettings = {
     extra-substituters = "https://malo.cachix.org";
     extra-trusted-public-keys = "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo=";
-    trusted-users = "@admin";
+    trusted-users = [ "@admin" ];
     extra-platforms = lib.optionalString (
       pkgs.stdenv.hostPlatform.system == "aarch64-darwin"
     ) "x86_64-darwin aarch64-darwin";

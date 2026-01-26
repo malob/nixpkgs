@@ -175,7 +175,7 @@ in
         m-cli # useful macOS CLI commands
         mas # macOS App Store CLI
         prefmanager # tool for working with macOS defaults
-        swift-format
+        # swift-format
         swiftlint
         ;
     }
