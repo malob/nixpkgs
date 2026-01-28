@@ -94,7 +94,7 @@ Response to transform:
 # --print for non-interactive single-response mode
 # Run from /tmp so session history doesn't pollute project conversations
 # TTS_SUBPROCESS=1 prevents the Stop hook from triggering recursively
-SPOKEN_TEXT=$(cd "${TMPDIR:-/tmp}" && echo "$PROMPT" | TTS_SUBPROCESS=1 claude --print --model haiku 2>/dev/null) || true
+SPOKEN_TEXT=$(cd "${TMPDIR:-/tmp}" && echo "$PROMPT" | TTS_SUBPROCESS=1 command claude --print --model haiku 2>/dev/null) || true
 
 # Check if transformation failed
 if [[ -z "$SPOKEN_TEXT" ]]; then
