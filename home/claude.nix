@@ -83,9 +83,12 @@ let
     asana.sse.url = "https://mcp.asana.com/sse";
 
     # https://workspacemcp.com/docs
+    # Pinned to 1.7.1 due to YAML bug in 1.8.0: https://github.com/taylorwilsdon/google_workspace_mcp/issues/398
     google-workspace.stdio = {
       command = "uvx";
       args = [
+        "--from"
+        "workspace-mcp==1.7.1"
         "workspace-mcp"
         "--tools"
         "gmail"
