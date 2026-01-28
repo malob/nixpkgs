@@ -133,9 +133,10 @@ in
         ;
 
       # Dev stuff
-      # claude-code is handled in claude.nix with custom wrapper
       inherit (pkgs)
         cloc # source code line counter
+        colima # container runtime (Docker alternative)
+        docker-client # Docker CLI
         google-cloud-sdk
         jq
         nixd # Nix language server

@@ -82,7 +82,6 @@ in
     "crossover"
     "cursor"
     "discord"
-    "docker-desktop"
     "element"
     "etrecheckpro"
     "firefox"
