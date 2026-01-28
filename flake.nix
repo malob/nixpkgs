@@ -151,13 +151,11 @@
           };
 
         tweaks =
-          final: prev:
+          _: prev:
           let
             determinateNix = inputs.determinate-nix.inputs.nix.packages.${prev.stdenv.system}.default;
           in
           {
-            # Use claude-code from nixpkgs-master
-            inherit (final.pkgs-master) claude-code;
             # Override packages that use nix to use Determinate Nix
             nix-update = prev.nix-update.override { nix = determinateNix; };
             nixpkgs-review = prev.nixpkgs-review.override { nix = determinateNix; };

@@ -76,6 +76,7 @@ in
     "cap"
     "chatgpt"
     "claude"
+    "claude-code"
     "clay"
     "cleanmymac"
     "crossover"
